@@ -3,11 +3,11 @@ import './assets/css/meyerReset.css';
 import './assets/css/App.css';
 import HomePage from './pages/HomePage/HomePage';
 import ShopPage from './pages/Shop/ShopPage.jsx';
+import ItemPage from './pages/ItemPage/ItemPage.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 import CartIcon from './components/svgComponents/CartIcon';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import productsArr from './data/products.js';
 import { useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -20,7 +20,13 @@ function App() {
     }, 
     {
       path: "/shop",
-      element: <ShopPage />
+      element: <ShopPage />,
+      children: [
+        {
+          path: "/shop/:itemId",
+          element: <ItemPage />
+        }
+      ]
     }
   ]);
 
