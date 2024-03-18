@@ -9,10 +9,10 @@ import CartIcon from './components/svgComponents/CartIcon';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { useState } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "/", 
       element: <HomePage />, 
