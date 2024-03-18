@@ -1,0 +1,288 @@
+main {
+  /*Positioning stuff*/
+  position: relative;
+}
+
+.newProducts {
+  /*Positioning stuff*/
+  position: relative;
+  /*Box model stuff*/
+  width: 100%;
+  height: 388px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.36)),
+    url("../../assets/img/HomePage_banner_gaussian_blur-3px.png");
+  background-position: 0% 78%;
+  background-size: cover;
+}
+
+.newProducts_content {
+  /*Display stuff*/
+  display: inline-block;
+  /*Positioning stuff*/
+  position: relative;
+  left: 7.29%;
+  top: 28.35%;
+  /*Box model stuff*/
+  width: 397px;
+  height: 168px;
+}
+
+.newProducts_title {
+  /*Display stuff*/
+  display: inline-block;
+  /*Box model stuff*/
+  margin-bottom: 4.16%;
+  /*Typography stuff*/
+  font-family: "Raleway", sans-serif;
+  font-size: 38px;
+  font-style: normal;
+  font-weight: 700;
+  text-align: left;
+  color: #ffffff;
+  /*Miscellaneous*/
+  line-height: 45px;
+  letter-spacing: 0em;
+}
+
+.newProducts_description {
+  /*Positioning stuff*/
+  position: relative;
+  /*Typography stuff*/
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: left;
+  color: #ffffff;
+  /*Miscellaneous*/
+  line-height: 21px;
+  letter-spacing: 0em;
+}
+
+.newProducts_button {
+  /*Positioning stuff*/
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  /*Box model stuff*/
+  width: 53.14%;
+  height: 27.97%;
+  border-radius: 50px;
+  border: none;
+  background-color: #ffffff;
+  /*Typography stuff*/
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  text-transform: uppercase;
+  color: #111111;
+  /*Miscellaneous*/
+  line-height: 24px;
+  letter-spacing: 0em;
+}
+
+.news {
+  width: 100%;
+  height: 623px;
+  position: relative;
+  margin-bottom: 68px;
+}
+
+.news__title {
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 54px;
+  text-transform: uppercase;
+  color: #111111;
+  margin-left: 7.638%;
+  display: inline-block;
+}
+
+/*Breakpoints:
+
+@media screen and (min-width: 1025px) and  (max-width: 1280px) {
+    
+}
+
+@media screen and (max-width: 1024px) {
+    
+}
+
+@media screen and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 480px) {
+    
+}
+*/
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .newProducts_content {
+    /*Box model stuff*/
+    width: 336.33px;
+    height: 142.32px;
+  }
+
+  .newProducts_title {
+    /*Box model stuff*/
+    margin-bottom: 6px;
+    /*Typography stuff*/
+    font-size: 32.2px;
+    font-weight: 600;
+    text-align: left;
+    /*Miscellaneous*/
+    line-height: 38.12px;
+  }
+
+  .newProducts_description {
+    /*Typography stuff*/
+    font-size: 15.24px;
+    font-weight: 400;
+    text-align: left;
+    /*Miscellaneous*/
+    line-height: 17.79px;
+  }
+
+  .newProducts_button {
+    /*Typography stuff*/
+    font-size: 16.94px;
+    font-weight: 400;
+    /*Miscellaneous*/
+    line-height: 20.33px;
+  }
+
+  .news__title {
+    font-weight: 600;
+    font-size: 40.88px;
+    line-height: 48px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .newProducts_content {
+    /*Box model stuff*/
+    width: 282.3px;
+    height: 119.44px;
+  }
+
+  .newProducts_title {
+    /*Box model stuff*/
+    margin-bottom: 5px;
+    /*Typography stuff*/
+    font-size: 27.02px;
+    font-weight: 500;
+    text-align: left;
+    /*Miscellaneous*/
+    line-height: 32px;
+  }
+
+  .newProducts_description {
+    /*Typography stuff*/
+    font-size: 12.8px;
+    font-weight: 300;
+    text-align: left;
+    /*Miscellaneous*/
+    line-height: 14.93px;
+  }
+
+  .newProducts_button {
+    /*Typography stuff*/
+    font-size: 14.22px;
+    font-weight: 400;
+    /*Miscellaneous*/
+    line-height: 17.06px;
+  }
+
+  .news__title {
+    font-weight: 600;
+    font-size: 32.71px;
+    line-height: 38.4px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .newProducts_content {
+    /*Box model stuff*/
+    width: 282.3px;
+    height: 119.44px;
+  }
+
+  .newProducts_title {
+    /*Box model stuff*/
+    margin-bottom: 5px;
+    /*Typography stuff*/
+    font-size: 27.02px;
+    font-weight: 500;
+    text-align: left;
+    /*Miscellaneous*/
+    line-height: 32px;
+  }
+
+  .newProducts_description {
+    /*Typography stuff*/
+    font-size: 12.8px;
+    font-weight: 300;
+    text-align: left;
+    /*Miscellaneous*/
+    line-height: 14.93px;
+  }
+
+  .newProducts_button {
+    /*Typography stuff*/
+    font-size: 14.22px;
+    font-weight: 400;
+    /*Miscellaneous*/
+    line-height: 17.06px;
+  }
+
+  .news__title {
+    font-weight: 500;
+    font-size: 24.53px;
+    line-height: 28.8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .newProducts_content {
+    /*Box model stuff*/
+    width: 211.6px;
+    height: 89.54px;
+  }
+
+  .newProducts_title {
+    /*Box model stuff*/
+    margin-bottom: 4px;
+    /*Typography stuff*/
+    font-size: 21px;
+    font-weight: 500;
+    text-align: left;
+    /*Miscellaneous*/
+    line-height: 24px;
+  }
+
+  .newProducts_description {
+    /*Typography stuff*/
+    font-size: 10px;
+    font-weight: 300;
+    text-align: left;
+    /*Miscellaneous*/
+    line-height: 12px;
+  }
+
+  .newProducts_button {
+    /*Typography stuff*/
+    font-size: 11px;
+    font-weight: 400;
+    /*Miscellaneous*/
+    line-height: 13px;
+  }
+
+  .news__title {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
