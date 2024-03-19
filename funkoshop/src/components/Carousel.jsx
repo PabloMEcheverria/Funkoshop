@@ -3,9 +3,36 @@ import Card from "./Card";
 import "../assets/css/Carousel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Carousel() {
+    useEffect(() => {
+        window.addEventListener("resize", modifyCardDisplay);
+    })
+    function modifyCardDisplay() {
+        console.log(cardsToDisplay, cardsToDisplay.length);
+        console.log(getCardCount());
+        let newCardsToDisplay;
+        if (cardsToDisplay.length === 3 && getCardCount() === 2) {
+            newCardsToDisplay = cardsToDisplay.slice(0, 2);
+            setCardsToDisplay(newCardsToDisplay);
+        }
+        if (cardsToDisplay.length === 3 && getCardCount() === 1) {
+            newCardsToDisplay = cardsToDisplay.slice(0, 1);
+            setCardsToDisplay(newCardsToDisplay);
+        }
+        if (cardsToDisplay.length === 2 && getCardCount() === 1) {
+            newCardsToDisplay = cardsToDisplay.slice(0, 1);
+            setCardsToDisplay(newCardsToDisplay);
+        }
+        if (cardsToDisplay.length < 3 && getCardCount() > cardsToDisplay.length) {
+            let firstProductIndex = uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id );
+            let newProductArr = uniqueProductsArr.slice(firstProductIndex, firstProductIndex + getCardCount());
+            newCardsToDisplay = productToCardDisplay(newProductArr);
+            setCardsToDisplay(newCardsToDisplay);
+        }
+    }
+    
     const cardCount = getCardCount();
     function getCardCount() {
         let viewportWidth = window.innerWidth;
