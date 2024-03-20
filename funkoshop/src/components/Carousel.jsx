@@ -10,18 +10,12 @@ export default function Carousel() {
         window.addEventListener("resize", modifyCardDisplay);
     })
     function modifyCardDisplay() {
-        console.log(cardsToDisplay, cardsToDisplay.length);
-        console.log(getCardCount());
         let newCardsToDisplay;
         if (cardsToDisplay.length === 3 && getCardCount() === 2) {
             newCardsToDisplay = cardsToDisplay.slice(0, 2);
             setCardsToDisplay(newCardsToDisplay);
         }
-        if (cardsToDisplay.length === 3 && getCardCount() === 1) {
-            newCardsToDisplay = cardsToDisplay.slice(0, 1);
-            setCardsToDisplay(newCardsToDisplay);
-        }
-        if (cardsToDisplay.length === 2 && getCardCount() === 1) {
+        if ((cardsToDisplay.length === 3 || cardsToDisplay.length === 2) && getCardCount() === 1) {
             newCardsToDisplay = cardsToDisplay.slice(0, 1);
             setCardsToDisplay(newCardsToDisplay);
         }
