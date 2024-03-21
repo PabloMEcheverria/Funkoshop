@@ -1,5 +1,6 @@
 import { uniqueProductsArr } from "../../data/products";
 import { Link, Outlet } from "react-router-dom";
+import { useState } from "react";
 import "./ShopPage.css";
 
 export default function ShopPage() {
@@ -14,15 +15,36 @@ export default function ShopPage() {
             <Outlet />
         </>
     )*/
+
+    const [filterData, setFilterData] = useState(
+        {   
+            nameOrCategory:"",
+            sortBy: "",
+            price: {bothFieldsAreEmpty: true, min: 0, max: 0},
+            filterByNew: false,
+            filterByOffer: false,
+            filterBySpecialEdition: false,
+            filterByFavorites: false
+        }
+    );
+
+    function handleInputChange(e) {
+        const { name, value } = e.target;
+        setFilterData(previousState => {return {...previousState, [name]: value}});
+    }
+
     return (
         <>
             <main></main>
             <aside>
                 <form action="">
-                    <label htmlFor="">buscar
-                        <input type="text" />
+                    <label>buscar
+                        <input type="text" placeholder="ítem o categoría" onChange={(e) => {
+                            filterData.nameOrCategory = e.target.value;
+                            setFilterData(filterData);
+                        }}/>
                     </label>
-                    <label htmlFor="">ordenar por
+                    <label>ordenar por
                         <select name="" id="">
                             <option value="">
                                 Alfabéticamente
@@ -37,6 +59,7 @@ export default function ShopPage() {
                     </label>
                     <fieldset>
                         <legend>precio</legend>
+
                         <label htmlFor="">min
                             <input type="number" name="" id="" />
                         </label>
