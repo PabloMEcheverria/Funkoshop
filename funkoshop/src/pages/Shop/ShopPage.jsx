@@ -20,7 +20,7 @@ export default function ShopPage() {
         {   
             nameOrCategory:"",
             sortBy: "",
-            price: {bothFieldsAreEmpty: true, min: 0, max: 0},
+            price: {bothFieldsAreEmpty: true, min: undefined, max: undefined},
             filterByNew: false,
             filterByOffer: false,
             filterBySpecialEdition: false,
@@ -29,8 +29,47 @@ export default function ShopPage() {
     );
 
     function handleInputChange(e) {
-        const { name, value } = e.target;
-        setFilterData(previousState => {return {...previousState, [name]: value}});
+        const { name, value, id } = e.target;
+        let newFilterData;
+        if (name === "nameOrCategory" || name === "sortBy") {
+            newFilterData = {...filterData, [name]: value};
+        }
+
+        if (name === "price") {
+            if (id === "min") {
+                newFilterData = {...filterData, [name]: {...filterData.price, min: value}};
+            } else if (id === "max") {
+                newFilterData = {...filterData, [name]: {...filterData.price, max: value}};
+            }
+        }
+        
+        if (name === "filterByNew") {
+            newFilterData = {...filterData, [name]: !filterData.filterByNew};
+        }
+
+        if (name === "filterByOffer") {
+            newFilterData = {...filterData, [name]: !filterData.filterByOffer};
+        }
+
+        if (name === "filterBySpecialEdition") {
+            newFilterData = {...filterData, [name]: !filterData.filterBySpecialEdition};
+        }
+
+        if (name === "filterByFavorites") {
+            newFilterData = {...filterData, [name]: !filterData.filterByFavorites};
+        }
+
+        console.log(newFilterData);
+        console.log("nameOrCategory: " + newFilterData.nameOrCategory);
+        console.log("sortBy: " + newFilterData.sortBy);
+        console.log("price (bothFieldsAreEmpty): " + newFilterData.price.bothFieldsAreEmpty);
+        console.log("price (min): " + newFilterData.price.min);
+        console.log("price (max): " + newFilterData.price.max);
+        console.log("filterByNew: " + newFilterData.filterByNew);
+        console.log("filterByOffer: " + newFilterData.filterByOffer);
+        console.log("filterBySpecialEdition: " + newFilterData.filterBySpecialEdition);
+        console.log("filterByFavorites: " + newFilterData.filterByFavorites);
+        setFilterData(newFilterData);
     }
 
     return (
@@ -39,48 +78,75 @@ export default function ShopPage() {
             <aside>
                 <form action="">
                     <label>buscar
-                        <input type="text" placeholder="ítem o categoría" onChange={(e) => {
-                            filterData.nameOrCategory = e.target.value;
-                            setFilterData(filterData);
-                        }}/>
+                        <input type="text" placeholder="ítem o categoría" name="nameOrCategory" onChange={handleInputChange}/>
                     </label>
+
                     <label>ordenar por
-                        <select name="" id="">
-                            <option value="">
+                        <select name="sortBy" onChange={handleInputChange}>
+                            <option value="alphabet">
                                 Alfabéticamente
                             </option>
-                            <option value="">
+                            <option value="largestFirst">
                                 Mayor a menor
                             </option>
-                            <option value="">
+                            <option value="smallestFirst">
                                 Menor a mayor
                             </option>
                         </select>
                     </label>
+
                     <fieldset>
                         <legend>precio</legend>
 
-                        <label htmlFor="">min
-                            <input type="number" name="" id="" />
+                        <label>min
+                            <input type="number" name="price" id="min" onChange={handleInputChange}/>
                         </label>
-                        <label htmlFor="">max
-                            <input type="number" name="" id="" />
+
+                        <p>-</p>
+
+                        <label>max
+                            <input type="number" name="price" id="max" onChange={handleInputChange} />
                         </label>
                     </fieldset>
+
                     <fieldset>
                         <legend>filtrar</legend>
 
-                        <input type="checkbox" id="" name="" value=""/>
-                        <label htmlFor="">nuevos</label>
+                        <input 
+                            type="checkbox" 
+                            id="filterByNew" 
+                            name="filterByNew" 
+                            value="isNew"
+                            checked={filterData.filterByNew}
+                            onChange={handleInputChange} />
+                        <label htmlFor="filterByNew">nuevos</label>
 
-                        <input type="checkbox" id="" name="" value=""/>
-                        <label htmlFor="">ofertas</label>
+                        <input 
+                            type="checkbox" 
+                            id="filterByOffer" 
+                            name="filterByOffer" 
+                            value="isOffer"
+                            checked={filterData.filterByOffer}
+                            onChange={handleInputChange} />
+                        <label htmlFor="filterByOffer">ofertas</label>
 
-                        <input type="checkbox" id="" name="" value=""/>
-                        <label htmlFor="">edición especial</label>
+                        <input 
+                            type="checkbox" 
+                            id="filterBySpecialEdition" 
+                            name="filterBySpecialEdition" 
+                            value="isSpecialEdition"
+                            checked={filterData.filterBySpecialEdition}
+                            onChange={handleInputChange} />
+                        <label htmlFor="filterBySpecialEdition">edición especial</label>
 
-                        <input type="checkbox" id="" name="" value=""/>
-                        <label htmlFor="">favoritos</label>
+                        <input 
+                            type="checkbox" 
+                            id="filterByFavorites" 
+                            name="filterByFavorites" 
+                            value="isFavorite"
+                            checked={filterData.filterByFavorites}
+                            onChange={handleInputChange} />
+                        <label htmlFor="filterByFavorites">favoritos</label>
                     </fieldset>
                 </form>
             </aside>
