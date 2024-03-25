@@ -20,13 +20,17 @@ export default function ShopPage() {
         {   
             nameOrCategory:"",
             sortBy: "",
-            price: {bothFieldsAreEmpty: true, min: undefined, max: undefined},
+            price: {min: undefined, max: undefined},
             filterByNew: false,
             filterByOffer: false,
             filterBySpecialEdition: false,
             filterByFavorites: false
         }
     );
+    
+    function filterEngine(filterDataObj) {
+        
+    }
 
     function handleInputChange(e) {
         const { name, value, id } = e.target;
@@ -58,17 +62,7 @@ export default function ShopPage() {
         if (name === "filterByFavorites") {
             newFilterData = {...filterData, [name]: !filterData.filterByFavorites};
         }
-
-        console.log(newFilterData);
-        console.log("nameOrCategory: " + newFilterData.nameOrCategory);
-        console.log("sortBy: " + newFilterData.sortBy);
-        console.log("price (bothFieldsAreEmpty): " + newFilterData.price.bothFieldsAreEmpty);
-        console.log("price (min): " + newFilterData.price.min);
-        console.log("price (max): " + newFilterData.price.max);
-        console.log("filterByNew: " + newFilterData.filterByNew);
-        console.log("filterByOffer: " + newFilterData.filterByOffer);
-        console.log("filterBySpecialEdition: " + newFilterData.filterBySpecialEdition);
-        console.log("filterByFavorites: " + newFilterData.filterByFavorites);
+        
         setFilterData(newFilterData);
     }
 
