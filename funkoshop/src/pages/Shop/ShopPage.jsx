@@ -29,8 +29,24 @@ export default function ShopPage() {
     );
     
     function filterEngine(filterDataObj) {
-        
+        let newUniqueProductArr;
+        if (filterDataObj.nameOrCategory.lenght !== 0) {
+            let nameOrCategory = filterDataObj.nameOrCategory.trim();
+            nameOrCategory = nameOrCategory.toLowerCase();
+            newUniqueProductArr = uniqueProductsArr.filter( product => {
+                let nameProduct = product.nameProduct.toLowerCase();
+                let license = product.license.toLowerCase();
+                if (nameProduct.includes(nameOrCategory) || license.includes(nameOrCategory)) {
+                    return true
+                } else {
+                    return false
+                }
+            })
+            console.log(newUniqueProductArr);
+        }
     }
+
+    filterEngine(filterData);
 
     function handleInputChange(e) {
         const { name, value, id } = e.target;
