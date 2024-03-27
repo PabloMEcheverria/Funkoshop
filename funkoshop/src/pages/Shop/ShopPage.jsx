@@ -29,7 +29,17 @@ export default function ShopPage() {
     );
     
     function filterEngine(filterDataObj) {
+        let {nameOrCategory, 
+             sortBy, 
+             price,
+             filterByNew, 
+             filterByOffer, 
+             filterBySpecialEdition, 
+             filterByFavorites} = filterDataObj;
+        let min = Number(price.min);
+        let max = Number(price.max);
         let newUniqueProductArr;
+        /*----------Filter by name or category----------*/
         if (filterDataObj.nameOrCategory.lenght !== 0) {
             let nameOrCategory = filterDataObj.nameOrCategory.trim();
             nameOrCategory = nameOrCategory.toLowerCase();
@@ -42,8 +52,17 @@ export default function ShopPage() {
                     return false
                 }
             })
-            console.log(newUniqueProductArr);
         }
+        /*---------------------------------------------*/
+        /*----------Filter by min and max price----------*/
+        if (!isNaN(min) && min >= 0 && min <= max) {
+            newUniqueProductArr = newUniqueProductArr.filter( product => product.price >= min);
+        }
+        if (!isNaN(max) && max >= 0 && min >= max) {
+            newUniqueProductArr = newUniqueProductArr.filter( product => product.price <= max);
+        }
+        /*-----------------------------------------------*/
+        console.log(newUniqueProductArr);
     }
 
     filterEngine(filterData);
