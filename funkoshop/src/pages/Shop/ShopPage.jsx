@@ -56,13 +56,13 @@ export default function ShopPage() {
         /*---------------------------------------------*/
         /*----------Filter by min and max price----------*/
         if (!isNaN(min) && min >= 0 && min <= max) {
-            newUniqueProductArr = newUniqueProductArr.filter( product => product.price >= min);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.price >= min);
         }
-        if (!isNaN(max) && max >= 0 && min >= max) {
-            newUniqueProductArr = newUniqueProductArr.filter( product => product.price <= max);
+        if (!isNaN(max) && max >= 0 && min <= max) {
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.price <= max);
         }
         /*-----------------------------------------------*/
-        console.log(newUniqueProductArr);
+        
     }
 
     filterEngine(filterData);
