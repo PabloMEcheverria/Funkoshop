@@ -56,12 +56,32 @@ export default function ShopPage() {
         /*---------------------------------------------*/
         /*----------Filter by min and max price----------*/
         if (!isNaN(min) && min >= 0 && min <= max) {
-            newUniqueProductArr = newUniqueProductArr.filter( product => product.price >= min);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.price >= min);
         }
         if (!isNaN(max) && max >= 0 && min >= max) {
-            newUniqueProductArr = newUniqueProductArr.filter( product => product.price <= max);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.price <= max);
         }
         /*-----------------------------------------------*/
+        /*----------Filter by new----------*/
+        if (filterByNew) {
+            newUniqueProductArr = newUniqueProductArr.filter( product => product.isNew);
+        }
+        /*---------------------------------*/
+        /*----------Filter by offer----------*/
+        if (filterByOffer) {
+            newUniqueProductArr = newUniqueProductArr.filter( product => product.discounts);
+        }
+        /*-----------------------------------*/
+        /*----------Filter by special edition----------*/
+        if (filterBySpecialEdition) {
+            newUniqueProductArr = newUniqueProductArr.filter( product => product.isSpecialEdition);
+        }
+        /*---------------------------------------------*/
+        /*----------Filter by favorites----------*/
+        if (filterByFavorites) {
+            newUniqueProductArr = newUniqueProductArr.filter( product => product.isFavorite);
+        }
+        /*---------------------------------------*/
         console.log(newUniqueProductArr);
     }
 
