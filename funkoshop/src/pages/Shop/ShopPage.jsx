@@ -82,6 +82,19 @@ export default function ShopPage() {
             newUniqueProductArr = newUniqueProductArr.filter( product => product.isFavorite);
         }
         /*---------------------------------------*/
+        /*----------Sort----------*/
+        if (sortBy === "alphabet") {
+            newUniqueProductArr.sort((a, b) => {
+                let nameA = a.nameProduct.toUpperCase();
+                let nameB = b.nameProduct.toUpperCase();
+                return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+            })
+        } else if (sortBy === "largestFirst") {
+            newUniqueProductArr.sort((a, b) => b.price - a.price);
+        } else if (sortBy === "smallestFirst") {
+            newUniqueProductArr.sort((a, b) => a.price - b.price);
+        }
+        /*------------------------*/
         console.log(newUniqueProductArr);
     }
 
@@ -131,7 +144,10 @@ export default function ShopPage() {
                     </label>
 
                     <label>ordenar por
-                        <select name="sortBy" onChange={handleInputChange}>
+                        <select name="sortBy" defaultValue={""} onChange={handleInputChange}>
+                            <option value="" disabled>
+                                Seleccione una opción
+                            </option>
                             <option value="alphabet">
                                 Alfabéticamente
                             </option>
