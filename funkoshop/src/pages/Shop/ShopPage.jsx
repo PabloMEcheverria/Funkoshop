@@ -1,5 +1,5 @@
 import { uniqueProductsArr } from "../../data/products";
-import { Link, Outlet } from "react-router-dom";
+//import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
 import "./ShopPage.css";
 
@@ -15,7 +15,7 @@ export default function ShopPage() {
             <Outlet />
         </>
     )*/
-
+    const [displayProductArr, setDisplayProductArr] = useState(uniqueProductsArr);
     const [filterData, setFilterData] = useState(
         {   
             nameOrCategory:"",
@@ -28,8 +28,43 @@ export default function ShopPage() {
         }
     );
     
+    function handleInputChange(e) {
+        const { name, value, id } = e.target;
+        let newFilterData;
+        if (name === "nameOrCategory" || name === "sortBy") {
+            newFilterData = {...filterData, [name]: value};
+        }
+
+        if (name === "price") {
+            if (id === "min") {
+                newFilterData = {...filterData, [name]: {...filterData.price, min: value}};
+            } else if (id === "max") {
+                newFilterData = {...filterData, [name]: {...filterData.price, max: value}};
+            }
+        }
+        
+        if (name === "filterByNew") {
+            newFilterData = {...filterData, [name]: !filterData.filterByNew};
+        }
+
+        if (name === "filterByOffer") {
+            newFilterData = {...filterData, [name]: !filterData.filterByOffer};
+        }
+
+        if (name === "filterBySpecialEdition") {
+            newFilterData = {...filterData, [name]: !filterData.filterBySpecialEdition};
+        }
+
+        if (name === "filterByFavorites") {
+            newFilterData = {...filterData, [name]: !filterData.filterByFavorites};
+        }
+        
+        setFilterData(newFilterData);
+        filterEngine(filterData);
+    }
+
     function filterEngine(filterDataObj) {
-        let {nameOrCategory, 
+        let {//nameOrCategory, 
              sortBy, 
              price,
              filterByNew, 
@@ -96,49 +131,13 @@ export default function ShopPage() {
         }
         /*------------------------*/
         console.log(newUniqueProductArr);
-    }
-
-    filterEngine(filterData);
-
-    function handleInputChange(e) {
-        const { name, value, id } = e.target;
-        let newFilterData;
-        if (name === "nameOrCategory" || name === "sortBy") {
-            newFilterData = {...filterData, [name]: value};
-        }
-
-        if (name === "price") {
-            if (id === "min") {
-                newFilterData = {...filterData, [name]: {...filterData.price, min: value}};
-            } else if (id === "max") {
-                newFilterData = {...filterData, [name]: {...filterData.price, max: value}};
-            }
-        }
-        
-        if (name === "filterByNew") {
-            newFilterData = {...filterData, [name]: !filterData.filterByNew};
-        }
-
-        if (name === "filterByOffer") {
-            newFilterData = {...filterData, [name]: !filterData.filterByOffer};
-        }
-
-        if (name === "filterBySpecialEdition") {
-            newFilterData = {...filterData, [name]: !filterData.filterBySpecialEdition};
-        }
-
-        if (name === "filterByFavorites") {
-            newFilterData = {...filterData, [name]: !filterData.filterByFavorites};
-        }
-        
-        setFilterData(newFilterData);
+        setDisplayProductArr(newUniqueProductArr);
     }
 
     return (
         <>
-            <main></main>
             <aside>
-                <form action="">
+                <form>
                     <label>buscar
                         <input type="text" placeholder="ítem o categoría" name="nameOrCategory" onChange={handleInputChange}/>
                     </label>
@@ -164,13 +163,13 @@ export default function ShopPage() {
                         <legend>precio</legend>
 
                         <label>min
-                            <input type="number" name="price" id="min" onChange={handleInputChange}/>
+                            <input type="number" name="price" id="min" placeholder="0" onChange={handleInputChange}/>
                         </label>
 
                         <p>-</p>
 
                         <label>max
-                            <input type="number" name="price" id="max" onChange={handleInputChange} />
+                            <input type="number" name="price" id="max" placeholder="0" onChange={handleInputChange} />
                         </label>
                     </fieldset>
 
@@ -215,6 +214,7 @@ export default function ShopPage() {
                     </fieldset>
                 </form>
             </aside>
+            <main></main>
         </>
     )
 }
