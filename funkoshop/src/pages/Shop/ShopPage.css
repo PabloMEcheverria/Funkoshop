@@ -1,9 +1,9 @@
 form {
+  background-color: burlywood;
   width: 243.04px;
   height: 493.93px;
-  position: relative;
-  top: 68px;
-  left: 110px;
+  margin-top: 68px;
+  margin-left: 110px;
 }
 
 form > label,
@@ -25,7 +25,7 @@ form > label {
   margin-bottom: 5.66%;
 }
 
-label:first-child > input,
+form > label:first-child > input,
 label:nth-child(2) > select {
   width: 243.03px;
   height: 44.28px;
@@ -39,12 +39,61 @@ label:nth-child(2) > select {
   padding-top: 5px;
 }
 
-label:first-child > input::placeholder {
+form > label:first-child > input::placeholder, 
+label:nth-child(2) > select > option {
   font-family: "Inter", sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 24.2px;
   text-align: left;
-  color: #b9b9b9;
   padding-left: 10.95px;
+}
+
+label:first-child > input::placeholder, 
+label:nth-child(2) > select > option:disabled {
+  color: #b9b9b9;
+}
+
+fieldset:nth-of-type(1) {
+  width: 96.39%;
+}
+
+fieldset > legend {
+  margin-bottom: 16px;
+}
+
+fieldset > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 23.9px;
+}
+
+fieldset > div label, fieldset > div p, fieldset label {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  text-align: left;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+
+
+fieldset:nth-of-type(1) > div label, fieldset > div p {
+  font-size: 16px;
+  line-height: 19.36px;
+}
+
+fieldset:nth-of-type(1) > div > input {
+  width: 59.14px;
+  height: 27.52px;
+  opacity: 0px;
+  border: 2px solid #30343F;
+  border-radius: 6px;
+}
+
+fieldset:nth-of-type(2) label {
+  font-size: 18px;
+  line-height: 21.78px;
+  display: block;
 }

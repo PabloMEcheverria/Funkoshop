@@ -2,6 +2,7 @@ import { uniqueProductsArr } from "../../data/products";
 //import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
 import "./ShopPage.css";
+import SelectArrowDown from '../../components/svgComponents/SelectArrowDown.jsx';
 
 export default function ShopPage() {
     /*const linkProductArr = uniqueProductsArr.map((product) => (
@@ -144,7 +145,7 @@ export default function ShopPage() {
 
                     <label>ordenar por
                         <select name="sortBy" defaultValue={""} onChange={handleInputChange}>
-                            <option value="" disabled>
+                            <option value="" disabled className="asd">
                                 Seleccione una opción
                             </option>
                             <option value="alphabet">
@@ -161,56 +162,61 @@ export default function ShopPage() {
 
                     <fieldset>
                         <legend>precio</legend>
-
-                        <label>min
+                        <div>
+                            <label for="min">min</label>
                             <input type="number" name="price" id="min" placeholder="0" onChange={handleInputChange}/>
-                        </label>
-
-                        <p>-</p>
-
-                        <label>max
+                            <p>-</p>
+                            <label for="max">max</label>
                             <input type="number" name="price" id="max" placeholder="0" onChange={handleInputChange} />
-                        </label>
+                        </div>
                     </fieldset>
 
                     <fieldset>
                         <legend>filtrar</legend>
 
-                        <input 
-                            type="checkbox" 
-                            id="filterByNew" 
-                            name="filterByNew" 
-                            value="isNew"
-                            checked={filterData.filterByNew}
-                            onChange={handleInputChange} />
-                        <label htmlFor="filterByNew">nuevos</label>
+                        <label htmlFor="filterByNew">
+                            <input 
+                                type="checkbox" 
+                                id="filterByNew" 
+                                name="filterByNew" 
+                                value="isNew"
+                                checked={filterData.filterByNew}
+                                onChange={handleInputChange} />
+                            nuevos
+                        </label>
 
-                        <input 
-                            type="checkbox" 
-                            id="filterByOffer" 
-                            name="filterByOffer" 
-                            value="isOffer"
-                            checked={filterData.filterByOffer}
-                            onChange={handleInputChange} />
-                        <label htmlFor="filterByOffer">ofertas</label>
+                        <label htmlFor="filterByOffer">
+                            <input 
+                                type="checkbox" 
+                                id="filterByOffer" 
+                                name="filterByOffer" 
+                                value="isOffer"
+                                checked={filterData.filterByOffer}
+                                onChange={handleInputChange} />
+                            ofertas
+                        </label>
 
-                        <input 
-                            type="checkbox" 
-                            id="filterBySpecialEdition" 
-                            name="filterBySpecialEdition" 
-                            value="isSpecialEdition"
-                            checked={filterData.filterBySpecialEdition}
-                            onChange={handleInputChange} />
-                        <label htmlFor="filterBySpecialEdition">edición especial</label>
+                        <label htmlFor="filterBySpecialEdition">
+                            <input 
+                                type="checkbox" 
+                                id="filterBySpecialEdition" 
+                                name="filterBySpecialEdition" 
+                                value="isSpecialEdition"
+                                checked={filterData.filterBySpecialEdition}
+                                onChange={handleInputChange} />
+                            edición especial
+                        </label>
 
-                        <input 
+                        <label htmlFor="filterByFavorites">
+                            <input 
                             type="checkbox" 
                             id="filterByFavorites" 
                             name="filterByFavorites" 
                             value="isFavorite"
                             checked={filterData.filterByFavorites}
                             onChange={handleInputChange} />
-                        <label htmlFor="filterByFavorites">favoritos</label>
+                            favoritos
+                        </label>
                     </fieldset>
                 </form>
             </aside>
