@@ -31,6 +31,7 @@ export default function ShopPage() {
     
     function handleInputChange(e) {
         const { name, value, id } = e.target;
+        console.log(value);
         let newFilterData;
         if (name === "nameOrCategory" || name === "sortBy") {
             newFilterData = {...filterData, [name]: value};
@@ -59,7 +60,6 @@ export default function ShopPage() {
         if (name === "filterByFavorites") {
             newFilterData = {...filterData, [name]: !filterData.filterByFavorites};
         }
-        
         setFilterData(newFilterData);
         filterEngine(filterData);
     }
@@ -209,7 +209,6 @@ export default function ShopPage() {
                             </label>
 
                             <label htmlFor="filterByFavorites">
-                                <FontAwesomeIcon icon={faCheck} />
                                 <input 
                                 type="checkbox" 
                                 id="filterByFavorites" 
