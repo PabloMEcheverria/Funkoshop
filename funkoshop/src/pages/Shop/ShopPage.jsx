@@ -31,7 +31,6 @@ export default function ShopPage() {
     
     function handleInputChange(e) {
         const { name, value, id } = e.target;
-        console.log(value);
         let newFilterData;
         if (name === "nameOrCategory" || name === "sortBy") {
             newFilterData = {...filterData, [name]: value};
@@ -61,10 +60,11 @@ export default function ShopPage() {
             newFilterData = {...filterData, [name]: !filterData.filterByFavorites};
         }
         setFilterData(newFilterData);
-        filterEngine(filterData);
+        filterEngine(newFilterData);
     }
 
     function filterEngine(filterDataObj) {
+        console.log(filterDataObj);
         let {//nameOrCategory, 
              sortBy, 
              price,
@@ -100,22 +100,22 @@ export default function ShopPage() {
         /*-----------------------------------------------*/
         /*----------Filter by new----------*/
         if (filterByNew) {
-            newUniqueProductArr = newUniqueProductArr.filter( product => product.isNew);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.isNew);
         }
         /*---------------------------------*/
         /*----------Filter by offer----------*/
         if (filterByOffer) {
-            newUniqueProductArr = newUniqueProductArr.filter( product => product.discounts);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.discounts > 0);
         }
         /*-----------------------------------*/
         /*----------Filter by special edition----------*/
         if (filterBySpecialEdition) {
-            newUniqueProductArr = newUniqueProductArr.filter( product => product.isSpecialEdition);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.isSpecialEdition);
         }
         /*---------------------------------------------*/
         /*----------Filter by favorites----------*/
         if (filterByFavorites) {
-            newUniqueProductArr = newUniqueProductArr.filter( product => product.isFavorite);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.isFavorite);
         }
         /*---------------------------------------*/
         /*----------Sort----------*/
@@ -140,13 +140,13 @@ export default function ShopPage() {
             <aside>
                 <form>
                     <label>buscar
-                        <input type="text" placeholder="ítem o categoría" name="nameOrCategory" onChange={handleInputChange}/>
+                        <input type="text" placeholder="Item o categoría" name="nameOrCategory" onChange={handleInputChange}/>
                     </label>
 
                     <label>ordenar por
-                        <select name="sortBy" defaultValue={""} onChange={handleInputChange}>
-                            <option value="" disabled className="asd">
-                                Seleccione una opción
+                        <select name="sortBy" defaultValue="defaultValue" onChange={handleInputChange}>
+                            <option value="defaultValue" disabled>
+                                Elija una opción
                             </option>
                             <option value="alphabet">
                                 Alfabéticamente
