@@ -173,7 +173,6 @@ export default function ShopPage() {
 
                     <fieldset>
                         <legend>filtrar</legend>
-                        
                         <div>
                             <label htmlFor="filterByNew">
                                 <input 
