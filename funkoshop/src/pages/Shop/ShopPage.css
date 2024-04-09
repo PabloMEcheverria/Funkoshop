@@ -110,7 +110,6 @@ fieldset > div p {
 fieldset:nth-of-type(1) > div > input {
   width: 59.14px;
   height: 27.52px;
-  opacity: 0px;
   border: 2px solid #30343f;
   border-radius: 6px;
   box-sizing: border-box;
