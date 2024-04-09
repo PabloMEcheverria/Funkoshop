@@ -38,7 +38,7 @@ label:nth-child(2) > select {
   height: 53.2%;
   border-radius: 6px;
   border: 2px solid #30343f;
-  padding: 2% 0 0;
+  padding: 0;
   box-sizing: border-box;
   bottom: 0;
   left: 0;
