@@ -1,21 +1,9 @@
 import { uniqueProductsArr } from "../../data/products";
-//import { Link, Outlet } from "react-router-dom";
+import Card from "../../components/Card.jsx";
+import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
 import "./ShopPage.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 export default function ShopPage() {
-    /*const linkProductArr = uniqueProductsArr.map((product) => (
-        <Link key={product.id} to={`/shop/${product.id}`} style={{display: "block", marginBottom: "5px", marginLeft: "5px"}}>
-            Product: {product.id}
-        </Link>
-    ));
-    return (
-        <>
-            {linkProductArr}
-            <Outlet />
-        </>
-    )*/
     const [displayProductArr, setDisplayProductArr] = useState(uniqueProductsArr);
     const [filterData, setFilterData] = useState(
         {   
@@ -135,45 +123,65 @@ export default function ShopPage() {
         setDisplayProductArr(newUniqueProductArr);
     }
 
+    /*const linkProductArr = uniqueProductsArr.map((product) => (
+        <Link key={product.id} to={`/shop/${product.id}`} style={{display: "block", marginBottom: "5px", marginLeft: "5px"}}>
+            Product: {product.id}
+        </Link>
+    ));
     return (
         <>
-            <aside>
-                <form>
-                    <label>buscar
-                        <input type="text" placeholder="Item o categoría" name="nameOrCategory" onChange={handleInputChange}/>
-                    </label>
+            {linkProductArr}
+            <Outlet />
+        </>
+    )*/
 
-                    <label>ordenar por
-                        <select name="sortBy" defaultValue="defaultValue" onChange={handleInputChange}>
-                            <option value="defaultValue" disabled>
-                                Elija una opción
-                            </option>
-                            <option value="alphabet">
-                                Alfabéticamente
-                            </option>
-                            <option value="largestFirst">
-                                Mayor a menor
-                            </option>
-                            <option value="smallestFirst">
-                                Menor a mayor
-                            </option>
-                        </select>
-                    </label>
+    const linkProductArr = displayProductArr.map(product => (
+        <Link key={product.id} to={`/shop/${product.id}`} className="product-grid__item">
+            <Card key={product.id} product={product} className="card" />
+        </Link>
+    ));
+    console.log(linkProductArr);
 
-                    <fieldset>
-                        <legend>precio</legend>
-                        <div>
+    return (
+        <>
+            <main>
+                <aside>
+                    <form>
+                        <label>buscar
+                            <input type="text" placeholder="Item o categoría" name="nameOrCategory" onChange={handleInputChange}/>
+                        </label>
+
+                        <label>ordenar por
+                            <select name="sortBy" defaultValue="defaultValue" onChange={handleInputChange}>
+                                <option value="defaultValue" disabled>
+                                    Elija una opción
+                                </option>
+                                <option value="alphabet">
+                                    Alfabéticamente
+                                </option>
+                                <option value="largestFirst">
+                                    Mayor a menor
+                                </option>
+                                <option value="smallestFirst">
+                                    Menor a mayor
+                                </option>
+                            </select>
+                        </label>
+
+                        <fieldset>
+                            <legend>precio</legend>
+                            <div>
                             <label htmlFor="min">min</label>
                             <input type="number" name="price" id="min" placeholder="0" onChange={handleInputChange}/>
                             <p>-</p>
                             <label htmlFor="max">max</label>
                             <input type="number" name="price" id="max" placeholder="0" onChange={handleInputChange} />
-                        </div>
-                    </fieldset>
+                            </div>
+                        </fieldset>
 
-                    <fieldset>
-                        <legend>filtrar</legend>
-                        <div>
+                        <fieldset>
+                            <legend>filtrar</legend>
+                            <div>
                             <label htmlFor="filterByNew">
                                 <input 
                                     type="checkbox" 
@@ -217,11 +225,17 @@ export default function ShopPage() {
                                 onChange={handleInputChange} />
                                 favoritos
                             </label>
-                        </div>
-                    </fieldset>
-                </form>
-            </aside>
-            <main></main>
+                            </div>
+                        </fieldset>
+                    </form>
+                </aside>
+                <section className="product-grid">
+                    {linkProductArr}
+                    <Outlet />
+                </section>
+                <section className="pagination-bar">
+                </section>
+            </main>
         </>
     )
 }

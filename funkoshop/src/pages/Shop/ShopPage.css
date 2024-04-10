@@ -1,3 +1,7 @@
+main {
+  display: flex;
+}
+
 aside {
   width: 24.5166%;
   height: 100%;
@@ -173,6 +177,22 @@ fieldset:nth-of-type(2) > div > label > input[type="checkbox"]:checked {
     
 }
 */
+
+.product-grid {
+  background-color: burlywood;
+  width: calc((2/3)*100%);
+  margin: calc(68/1440*100%) calc(112/1440*100%) calc(68/1440*100%) calc(14.96/1440*100%);
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-between;
+  row-gap: 1%;
+}
+
+.product-grid__item, .card {
+  background-color: cadetblue;
+  width: 304.01px;
+  height: 512px;
+}
 
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
   form {
