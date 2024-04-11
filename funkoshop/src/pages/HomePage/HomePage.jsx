@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function HomePage() {
     return (
-        <main>
+        <main className='home'>
             <section className='newProducts'>
                 <div className='newProducts_content'>
                     <h4 className='newProducts_title'>Nuevos Ingresos</h4>

@@ -20,13 +20,17 @@ function App() {
     }, 
     {
       path: "/shop",
-      element: <ShopPage />,
+      element: <ShopPage />/*,
       children: [
         {
           path: "/shop/:itemId",
           element: <ItemPage />
         }
-      ]
+      ]*/
+    }, 
+    {
+      path: "/shop/:itemId",
+      element: <ItemPage />
     }
   ]);
 

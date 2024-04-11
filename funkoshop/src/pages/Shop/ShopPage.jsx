@@ -1,6 +1,6 @@
 import { uniqueProductsArr } from "../../data/products";
 import Card from "../../components/Card.jsx";
-import { Link, Outlet } from "react-router-dom";
+import { Link/*, Outlet*/ } from "react-router-dom";
 import { useState } from "react";
 import "./ShopPage.css";
 export default function ShopPage() {
@@ -137,15 +137,14 @@ export default function ShopPage() {
 
     const linkProductArr = displayProductArr.map(product => (
         <Link key={product.id} to={`/shop/${product.id}`} className="product-grid__item">
-            <Card key={product.id} product={product} className="card" />
+            <Card key={product.id} product={product} customClassName="product-grid__card" />
         </Link>
     ));
     console.log(linkProductArr);
 
     return (
-        <>
-            <main>
-                <aside>
+        <main className="shop">
+            <aside>
                     <form>
                         <label>buscar
                             <input type="text" placeholder="Item o categoría" name="nameOrCategory" onChange={handleInputChange}/>
@@ -228,14 +227,12 @@ export default function ShopPage() {
                             </div>
                         </fieldset>
                     </form>
-                </aside>
-                <section className="product-grid">
-                    {linkProductArr}
-                    <Outlet />
-                </section>
-                <section className="pagination-bar">
-                </section>
-            </main>
-        </>
+            </aside>
+            <section className="product-grid">
+                {linkProductArr}
+            </section>
+            <section className="pagination-bar">
+            </section>
+        </main>
     )
 }

@@ -1,8 +1,8 @@
 import '../assets/css/Card.css';
 
-export default function Card({ product }) {
+export default function Card({ product, customClassName }) {
     return (
-        <div className='card'>
+        <div className={`card ${customClassName ? customClassName: ""}`}>
             {product.isNew && <div className='card__isNew'><p className='card__isNewText'>Nuevo</p></div>}
             <img className='card__img' src={product.frontImg} alt={"Imagen de funko pop de " + product.nameProduct} />
             <p className='card__license'>{product.license}</p>
