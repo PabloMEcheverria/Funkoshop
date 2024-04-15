@@ -49,6 +49,7 @@ export default function ShopPage() {
         }
         setFilterData(newFilterData);
         filterEngine(newFilterData);
+        pagination(displayProductArr);
     }
 
     function filterEngine(filterDataObj) {
@@ -123,6 +124,20 @@ export default function ShopPage() {
         setDisplayProductArr(newUniqueProductArr);
     }
 
+    function pagination(productArr) {
+        let newProductArr = [];
+        if (productArr.length > 9) {
+            console.log(productArr.length);
+            for (let i = 0; i < productArr.length; i++) {
+                newProductArr.push(productArr.slice(i, i + 9));
+                i += 9;
+            }
+        } else {
+            newProductArr = productArr;
+        }
+        console.log(newProductArr);
+    }
+
     /*const linkProductArr = uniqueProductsArr.map((product) => (
         <Link key={product.id} to={`/shop/${product.id}`} style={{display: "block", marginBottom: "5px", marginLeft: "5px"}}>
             Product: {product.id}
@@ -140,6 +155,7 @@ export default function ShopPage() {
             <Card key={product.id} product={product} customClassName="product-grid__card" />
         </Link>
     ));
+    pagination(displayProductArr);
     console.log(linkProductArr);
 
     return (
