@@ -128,14 +128,27 @@ export default function ShopPage() {
         let newProductArr = [];
         if (productArr.length > 9) {
             console.log(productArr.length);
-            for (let i = 0; i < productArr.length; i++) {
-                newProductArr.push(productArr.slice(i, i + 9));
-                i += 9;
+            for (let i = 0; i < productArr.length; i += 9) {
+                if (productArr.length - i > 9) {
+                    newProductArr.push(productArr.slice(i, i + 9));
+                } else {
+                    newProductArr.push(productArr.slice(i));
+                }
             }
         } else {
             newProductArr = productArr;
         }
         console.log(newProductArr);
+        let positionInPagination = 1;
+        let paginationLinkArr = newProductArr.map((productArr, i) => (
+            <button>{i + 1}</button>
+        ));
+        /*Condiciones:
+        1. Son <= 4.
+        2. Son > 4.
+        3. Es el antepenúltimo*/
+        paginationLinkArr.unshift(<button>previous</button>);
+        paginationLinkArr.push(<button>next</button>);
     }
 
     /*const linkProductArr = uniqueProductsArr.map((product) => (
