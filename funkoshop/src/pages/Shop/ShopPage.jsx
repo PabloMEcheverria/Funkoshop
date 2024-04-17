@@ -140,13 +140,22 @@ export default function ShopPage() {
         }
         console.log(newProductArr);
         let positionInPagination = 1;
-        let paginationLinkArr = newProductArr.map((productArr, i) => (
-            <button>{i + 1}</button>
-        ));
-        /*Condiciones:
-        1. Son <= 4.
-        2. Son > 4.
-        3. Es el antepenúltimo*/
+        let paginationLinkArr = newProductArr.map((productArr, i, arr) => {
+            if (arr <= 7) {
+                return (
+                    <li>
+                        <button>
+                            {i + 1}
+                        </button>
+                    </li>
+                )
+            } else if (arr > 7) {
+                if (positionInPagination <= 2) {}
+                if (positionInPagination === 3) {}
+                if (positionInPagination > 3 && positionInPagination <= arr.length - 2) {}
+                if (positionInPagination >= arr.length - 1) {}
+            }
+        });
         paginationLinkArr.unshift(<button>previous</button>);
         paginationLinkArr.push(<button>next</button>);
     }
