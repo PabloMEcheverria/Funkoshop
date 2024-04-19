@@ -2,7 +2,7 @@ import { uniqueProductsArr } from "../../data/products";
 import productsArr from "../../data/products";
 import Card from "../../components/Card.jsx";
 import { Link/*, Outlet*/ } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./ShopPage.css";
 export default function ShopPage() {
     const [displayProductArr, setDisplayProductArr] = useState(uniqueProductsArr);
@@ -24,7 +24,6 @@ export default function ShopPage() {
             positionInPagination: 1
         }
     );
-    
     function handleInputChange(e) {
         const { name, value, id } = e.target;
         let newFilterData;
@@ -57,7 +56,7 @@ export default function ShopPage() {
         }
         setFilterData(newFilterData);
         filterEngine(newFilterData);
-        pagination(displayProductArr);
+        //pagination(displayProductArr);
     }
 
     function filterEngine(filterDataObj) {
@@ -259,6 +258,10 @@ export default function ShopPage() {
         paginationLinkArr.unshift(<li><button>prev</button></li>);
         paginationLinkArr.push(<li><button>next</button></li>);
         console.log(paginationData.positionInPagination, paginationLinkArr.map(element => element.props.children.props.children));
+        let newPaginationData = {...paginationData};
+        newPaginationData.paginationList = <ul>{paginationLinkArr.map((link, i) => <li key={i}>{link.props.children}</li>)}</ul>;
+        console.log(newPaginationData);
+        return newPaginationData;
     }
 
     /*const linkProductArr = uniqueProductsArr.map((product) => (
@@ -278,7 +281,7 @@ export default function ShopPage() {
             <Card key={product.id} product={product} customClassName="product-grid__card" />
         </Link>
     ));
-    pagination(displayProductArr);
+    //setPaginationData(pagination(displayProductArr));
 
     return (
         <main className="shop">
@@ -370,6 +373,7 @@ export default function ShopPage() {
                 {linkProductArr}
             </section>
             <section className="pagination-bar">
+                {paginationData.paginationList}
             </section>
         </main>
     )
