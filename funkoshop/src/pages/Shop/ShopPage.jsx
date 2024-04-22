@@ -1,9 +1,9 @@
 import { uniqueProductsArr } from "../../data/products";
-import Card from "../../components/Card.jsx";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./ShopPage.css";
 import FilterShop from "../../components/FilterShop.jsx";
+import CatalogueShop from "../../components/CatalogueShop.jsx";
+import Pagination from "../../components/Pagination.jsx";
 
 export default function ShopPage() {
     const [displayProductArr, setDisplayProductArr] = useState(uniqueProductsArr);
@@ -156,37 +156,20 @@ export default function ShopPage() {
         newPaginationData.paginationList = <ul>{paginationLinkArr.map((link, i) => <li key={i}>{link.props.children}</li>)}</ul>;
         console.log(newPaginationData);
         return newPaginationData;
-    }
-
-    /*const linkProductArr = uniqueProductsArr.map((product) => (
-        <Link key={product.id} to={`/shop/${product.id}`} style={{display: "block", marginBottom: "5px", marginLeft: "5px"}}>
-            Product: {product.id}
-        </Link>
-    ));
-    return (
-        <>
-            {linkProductArr}
-            <Outlet />
-        </>
-    )*/
-
-    const linkProductArr = displayProductArr.map(product => (
-        <Link key={product.id} to={`/shop/${product.id}`} className="product-grid__item">
-            <Card key={product.id} product={product} customClassName="product-grid__card" />
-        </Link>
-    ));
-
+    };
     return (
         <>
         <main className="shop">
             <FilterShop 
                 filterData={filterData} 
                 setFilterData={setFilterData} 
-                displayProductArr={displayProductArr}
                 setDisplayProductArr={setDisplayProductArr} />
-            <section className="product-grid">
-                {linkProductArr}
-            </section>
+            <CatalogueShop displayProductArr={displayProductArr} />
+            <Pagination 
+                displayProductArr={displayProductArr} 
+                setDisplayProductArr={setDisplayProductArr} 
+                paginationData={paginationData} 
+                setPaginationData={setPaginationData} />
         </main>
         </>
     )

@@ -1,7 +1,7 @@
 import "../assets/css/FilterShop.css";
 import { uniqueProductsArr } from "../data/products";
 
-export default function FilterShop({ filterData, setFilterData, displayProductArr, setDisplayProductArr }) {
+export default function FilterShop({ filterData, setFilterData, setDisplayProductArr }) {
     function handleInputChange(e) {
         const { name, value, id } = e.target;
         let newFilterData;
