@@ -3,6 +3,7 @@ import "../assets/css/Pagination.css";
 
 export default function Pagination({ displayProductArr, setProductArr, paginationData, setPaginationData }) {
     useEffect(() => {
+        console.log(pagination(displayProductArr));
         setPaginationData(pagination(displayProductArr));
     }, [displayProductArr, setPaginationData]);
 
@@ -17,7 +18,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                 }
             }
         } else {
-            newProductArr = productArr;
+            newProductArr.push(productArr);
         }
         let paginationLinkArr = newProductArr.map((productArr, i, arr) => {
             let positionInPagination = paginationData.positionInPagination;
@@ -145,7 +146,6 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
 
         
     };
-    console.log(paginationData);
     return (
         <section className="pagination">
             {paginationData.paginationList}
