@@ -1,8 +1,12 @@
-.pagination {
-    background-color:goldenrod;
+.paginationSection {
+    background-color:darksalmon;
     position: relative;
     width: 356px;
     height: 44px;
     left: 46.55%;
     margin-bottom: 68px;
+}
+
+.pagination__button {
+    padding: 10px;
 }

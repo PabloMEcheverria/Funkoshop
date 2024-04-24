@@ -163,7 +163,9 @@ export default function ShopPage() {
             <FilterShop 
                 filterData={filterData} 
                 setFilterData={setFilterData} 
-                setDisplayProductArr={setDisplayProductArr} />
+                setDisplayProductArr={setDisplayProductArr} 
+                paginationData={paginationData} 
+                setPaginationData={setPaginationData} />
             <CatalogueShop displayProductArr={displayProductArr} />
             <Pagination 
                 displayProductArr={displayProductArr} 

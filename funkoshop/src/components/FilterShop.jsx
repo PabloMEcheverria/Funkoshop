@@ -1,7 +1,7 @@
 import "../assets/css/FilterShop.css";
 import { uniqueProductsArr } from "../data/products";
 
-export default function FilterShop({ filterData, setFilterData, setDisplayProductArr }) {
+export default function FilterShop({ filterData, setFilterData, setDisplayProductArr, paginationData, setPaginationData }) {
     function handleInputChange(e) {
         const { name, value, id } = e.target;
         let newFilterData;
@@ -106,6 +106,8 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
         /*------------------------*/
         console.log(newUniqueProductArr);
         setDisplayProductArr(newUniqueProductArr);
+        let newPaginationData = {...paginationData, positionInPagination: 1};
+        setPaginationData(newPaginationData);
     }
 
     return (

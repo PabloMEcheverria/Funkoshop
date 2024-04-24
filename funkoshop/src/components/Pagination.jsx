@@ -7,6 +7,10 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
         setPaginationData(pagination(displayProductArr));
     }, [displayProductArr, setPaginationData]);
 
+    function moveTo(e) {
+        console.log(e.target);
+    }
+
     function pagination(productArr) {
         let newProductArr = [];
         if (productArr.length > 9) {
@@ -25,7 +29,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
             if (arr.length <= 7) {
                 return (
                     <li>
-                        <button>
+                        <button className="pagination__button" onClick={moveTo}>
                             {i + 1}
                         </button>
                     </li>
@@ -35,7 +39,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     if (i + 1 <= 3 || i + 1 === arr.length) {
                         return (
                             <li>
-                                <button>
+                                <button className="pagination__button" onClick={moveTo}>
                                     {i + 1}
                                 </button>
                             </li>
@@ -43,7 +47,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     } else if (i + 1 === 4) {
                         return (
                             <li>
-                                <button isEllipsis={true}>
+                                <button className="pagination__button" onClick={moveTo} isEllipsis={true}>
                                     ...
                                 </button>
                             </li>
@@ -54,7 +58,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     if (i + 1 <= 4 || i + 1 === arr.length) {
                         return (
                             <li>
-                                <button>
+                                <button className="pagination__button" onClick={moveTo}>
                                     {i + 1}
                                 </button>
                             </li>
@@ -62,7 +66,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     } else if (i + 1 === 5) {
                         return (
                             <li>
-                                <button isEllipsis={true}>
+                                <button className="pagination__button" isEllipsis={true} onClick={moveTo}>
                                     ...
                                 </button>
                             </li>
@@ -76,7 +80,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     )) {
                         return (
                             <li>
-                                <button>
+                                <button className="pagination__button" onClick={moveTo}>
                                     {i + 1}
                                 </button>
                             </li>
@@ -84,7 +88,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     } else if (i + 1 === 2 || i + 1 === arr.length - 1) {
                         return (
                             <li>
-                                <button isEllipsis={true}>
+                                <button className="pagination__button" onClick={moveTo} isEllipsis={true}>
                                     ...
                                 </button>
                             </li>
@@ -95,14 +99,14 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     if (i + 1 === 1 || i + 1 >= arr.legend - 3) {
                         return (
                             <li>
-                                <button>
+                                <button className="pagination__button" onClick={moveTo}>
                                     {i + 1}
                                 </button>
                             </li>
                         )
                     } else if (i + 1 === 2) {
                         <li>
-                            <button isEllipsis={true}>
+                            <button className="pagination__button" onClick={moveTo} isEllipsis={true}>
                                 ...
                             </button>
                         </li>
@@ -112,7 +116,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     if (i + 1 === 1 || i + 1 >= arr.length - 2) {
                         return (
                             <li>
-                                <button>
+                                <button className="pagination__button" onClick={moveTo}>
                                     {i + 1}
                                 </button>
                             </li>
@@ -120,7 +124,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     } else if (i + 1 === 2) {
                         return (
                             <li>
-                                <button isEllipsis={true}>
+                                <button className="pagination__button" onClick={moveTo} isEllipsis={true}>
                                     ...
                                 </button>
                             </li>
@@ -130,16 +134,16 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
             }
         });
         paginationLinkArr = paginationLinkArr.filter(element => element !== undefined);
-        paginationLinkArr.unshift(<li><button>prev</button></li>);
-        paginationLinkArr.push(<li><button>next</button></li>);
+        paginationLinkArr.unshift(<li><button className="pagination__button" onClick={moveTo}>prev</button></li>);
+        paginationLinkArr.push(<li><button className="pagination__button" onClick={moveTo}>next</button></li>);
         let newPaginationData = {...paginationData};
         newPaginationData.paginationList = <ul>{paginationLinkArr.map((link, i, arr) => {
             if (i === 0) {
-                return (<li key={"prev"}>{link.props.children}</li>)
+                return (<li key={"prev"} id={"prev"} className="pagination__item">{link.props.children}</li>)
             } else if (i === arr.length - 1) {
-                return (<li key={"next"}>{link.props.children}</li>)
+                return (<li key={"next"} id={"next"} className="pagination__item">{link.props.children}</li>)
             } else {
-                return (<li key={i}>{link.props.children}</li>)       
+                return (<li key={i} id={i} className="pagination__item">{link.props.children}</li>)       
             }
         })}</ul>;
         return newPaginationData;
@@ -147,7 +151,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
         
     };
     return (
-        <section className="pagination">
+        <section className="paginationSection">
             {paginationData.paginationList}
         </section>
     )
