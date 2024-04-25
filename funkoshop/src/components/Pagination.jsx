@@ -12,6 +12,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
     }
 
     function pagination(productArr) {
+        let newPaginationData = {...paginationData};
         let newProductArr = [];
         if (productArr.length > 9) {
             for (let i = 0; i < productArr.length; i += 9) {
@@ -24,6 +25,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
         } else {
             newProductArr.push(productArr);
         }
+        newPaginationData.segmentedProductArr = newProductArr;
         let paginationLinkArr = newProductArr.map((productArr, i, arr) => {
             let positionInPagination = paginationData.positionInPagination;
             if (arr.length <= 7) {
@@ -136,7 +138,6 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
         paginationLinkArr = paginationLinkArr.filter(element => element !== undefined);
         paginationLinkArr.unshift(<li><button className="pagination__button" onClick={moveTo}>prev</button></li>);
         paginationLinkArr.push(<li><button className="pagination__button" onClick={moveTo}>next</button></li>);
-        let newPaginationData = {...paginationData};
         newPaginationData.paginationList = <ul>{paginationLinkArr.map((link, i, arr) => {
             if (i === 0) {
                 return (<li key={"prev"} id={"prev"} className="pagination__item">{link.props.children}</li>)
@@ -146,9 +147,12 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                 return (<li key={i} id={i} className="pagination__item">{link.props.children}</li>)       
             }
         })}</ul>;
+        //disable ellipsis button.
+        //select "selected" number's button.
+        //disable prev when "1" button is selected.
+        //disable next when last number button is selected.
+        //disable prev and next when there is just one numbered button.
         return newPaginationData;
-
-        
     };
     return (
         <section className="paginationSection">
