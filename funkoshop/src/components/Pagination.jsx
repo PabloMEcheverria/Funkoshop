@@ -1,7 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../assets/css/Pagination.css";
+import PaginationButton from "./PaginationButton";
 
 export default function Pagination({ displayProductArr, setProductArr, paginationData, setPaginationData }) {
+    const [buttonData, setButtonData] = useState({
+        prevDisabled: false, 
+        nextDisabled: false, 
+        moveTo: function moveTo(e) {
+            console.log(e.target);
+        }
+    });
     useEffect(() => {
         console.log(pagination(displayProductArr));
         setPaginationData(pagination(displayProductArr));
