@@ -21,7 +21,7 @@ export default function ShopPage() {
     const [paginationData, setPaginationData] = useState(
         {
             paginationList: <ul></ul>,
-            positionInPagination: 1, 
+            positionInPagination: 3, 
             segmentedProductArr: []
         }
     );

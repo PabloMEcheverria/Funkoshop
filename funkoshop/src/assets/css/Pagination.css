@@ -1,12 +1,13 @@
 .paginationSection {
-    background-color:darksalmon;
-    position: relative;
-    width: 356px;
-    height: 44px;
-    left: 46.55%;
-    margin-bottom: 68px;
+  background-color: darksalmon;
+  position: relative;
+  width: 356px;
+  height: 44px;
+  left: 46.55%;
+  margin-bottom: 68px;
 }
 
-.pagination__button {
-    padding: 10px;
+.pagination__button,
+.pagination__button--disabled {
+  padding: 10px;
 }

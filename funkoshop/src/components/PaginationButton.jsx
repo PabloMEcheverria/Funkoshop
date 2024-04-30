@@ -14,7 +14,9 @@ export default function PaginationButton(
         content = index;
     }
     return (
-        <button className={isEllipsis ? "pagination__button--ellipsis": "pagination__button"} 
+        <button className={ isEllipsis ? "pagination__button--ellipsis" : 
+                            disabledValue ? "pagination__button--disabled" : 
+                            "pagination__button"} 
                 onClick={moveTo} 
                 disabled={isEllipsis ? true : disabledValue} >
             {content}

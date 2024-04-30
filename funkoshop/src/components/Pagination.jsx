@@ -75,16 +75,31 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                 }
             }
         });
-        paginationLinkArr = paginationLinkArr.filter(element => element !== undefined);
-        paginationLinkArr.unshift(<PaginationButton buttonData={buttonData} isPrev={true} />);
-        paginationLinkArr.push(<PaginationButton buttonData={buttonData} isNext={true} />);
+        paginationLinkArr = paginationLinkArr.filter(element => element !== undefined); 
+        if (paginationData.positionInPagination === 1) {
+            paginationLinkArr.unshift(<PaginationButton buttonData={buttonData} isPrev={true} disabledValue={true} />);
+        } else {
+            paginationLinkArr.unshift(<PaginationButton buttonData={buttonData} isPrev={true} />);
+        }
+        if (paginationLinkArr[paginationLinkArr.length - 1].props.index === paginationData.positionInPagination) {
+            paginationLinkArr.push(<PaginationButton buttonData={buttonData} isNext={true} disabledValue={true} />);
+        } else {
+            paginationLinkArr.push(<PaginationButton buttonData={buttonData} isNext={true} />);
+        }
         newPaginationData.paginationList = <ul>{paginationLinkArr.map((link, i, arr) => {
             if (i === 0) {
-                return (<li key={"prev"} id={"prev"} className="pagination__item">{link}</li>)
+                if (paginationData.positionInPagination === 1) {
+                    return (<li key={"prev"} id={"prev"} className="pagination__item--disabled">{link}</li>)
+                } else {
+                    return (<li key={"prev"} id={"prev"} className="pagination__item">{link}</li>)
+                }
             } else if (i === arr.length - 1) {
-                return (<li key={"next"} id={"next"} className="pagination__item">{link}</li>)
+                if (arr[i - 1].props.index === paginationData.positionInPagination) {
+                    return (<li key={"next"} id={"next"} className="pagination__item--disabled">{link}</li>)
+                } else {
+                    return (<li key={"next"} id={"next"} className="pagination__item">{link}</li>)
+                }
             } else {
-                console.log(link.props.index);
                 if (link.props.index === paginationData.positionInPagination) {
                     return (<li key={i} id={i} className="pagination__item--selected">{link}</li>)
                 } else {
@@ -95,9 +110,9 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
         console.log(newPaginationData.paginationList.props.children);
         //disable ellipsis button. CHECKED.
         //select "selected" number's button. CHECKED.
-        //disable prev when "1" button is selected.
-        //disable next when last number button is selected.
-        //disable prev and next when there is just one numbered button.
+        //disable prev when "1" button is selected. CHECKED.
+        //disable next when last number button is selected. CHECKED.
+        //disable prev and next when there is just one numbered button. CHECKED.
         return newPaginationData;
     };
     return (
