@@ -1,4 +1,5 @@
 import { uniqueProductsArr } from "../../data/products";
+import productsArr from "../../data/products";
 import { useState } from "react";
 import "./ShopPage.css";
 import FilterShop from "../../components/FilterShop.jsx";
@@ -21,7 +22,7 @@ export default function ShopPage() {
     const [paginationData, setPaginationData] = useState(
         {
             paginationList: <ul></ul>,
-            positionInPagination: 3, 
+            positionInPagination: 1, 
             segmentedProductArr: []
         }
     );
