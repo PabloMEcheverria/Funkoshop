@@ -3,11 +3,12 @@ import "../assets/css/Pagination.css";
 import PaginationButton from "./PaginationButton";
 
 export default function Pagination({ displayProductArr, setProductArr, paginationData, setPaginationData }) {
-    const [buttonData, setButtonData] = useState({
+    console.log(paginationData);
+    /*const [buttonData, setButtonData] = useState({
         prevDisabled: false, 
         nextDisabled: false, 
         moveTo: function moveTo(e) {
-            console.log(e.target);
+            console.log(parseInt(e.target.id));
         }
     });
     useEffect(() => {
@@ -110,7 +111,6 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
         } else {
             paginationLinkArr.push(<PaginationButton buttonData={buttonData} isNext={true} />);
         }
-        console.log(paginationLinkArr);
         newPaginationData.paginationList = <ul>{paginationLinkArr.map((link, i, arr) => {
             if (i === 0) {
                 if (paginationData.positionInPagination === 1) {
@@ -125,15 +125,15 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
                     return (<li key={"next"} id={"next"} className="pagination__item">{link}</li>)
                 }
             } else {
-                console.log(link.props.index);
-                if (link.props.index === paginationData.positionInPagination) {
+                if (link.props.isEllipsis === true) {
+                    return (<li key={"...-" + i} id={link.props.index} className="pagination__item">{link}</li>)
+                } else if (link.props.index === paginationData.positionInPagination) {
                     return (<li key={link.props.index} id={link.props.index} className="pagination__item--selected">{link}</li>)
                 } else {
                     return (<li key={link.props.index} id={link.props.index} className="pagination__item">{link}</li>)
                 }
             }
         })}</ul>;
-        console.log(newPaginationData.paginationList.props.children);
         //disable ellipsis button. CHECKED.
         //select "selected" number's button. CHECKED.
         //disable prev when "1" button is selected. CHECKED.
@@ -141,7 +141,7 @@ export default function Pagination({ displayProductArr, setProductArr, paginatio
         //disable prev and next when there is just one numbered button. CHECKED.
         //disabled number botton when its selected. CHECKED.
         return newPaginationData;
-    };
+    };*/
     return (
         <section className="paginationSection">
             {paginationData.paginationList}

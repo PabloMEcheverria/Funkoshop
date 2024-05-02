@@ -1,8 +1,8 @@
 import "../assets/css/PaginationButton.css";
 
 export default function PaginationButton(
-    { buttonData, index = "...", isPrev = false, isNext = false, isEllipsis = false, disabledValue = false }) {
-    const {moveTo} = buttonData;
+    { paginationData, index = "...", isPrev = false, isNext = false, isEllipsis = false, disabledValue = false }) {
+    const { moveTo } = paginationData;
     let content;
     if (isPrev) {
         content = "prev";
@@ -14,7 +14,11 @@ export default function PaginationButton(
         content = index;
     }
     return (
-        <button className={ isEllipsis ? "pagination__button--ellipsis" : 
+        <button id={isPrev ? "prev" : 
+                    isNext ? "next" : 
+                    isEllipsis || index === "..." ? "..." : 
+                    index}
+                className={ isEllipsis ? "pagination__button--ellipsis" : 
                             disabledValue ? "pagination__button--disabled" : 
                             "pagination__button"} 
                 onClick={moveTo} 
