@@ -1,3 +1,11 @@
-.pagination__button, .pagination__button--ellipsis {
+.pagination__button > button, 
+.pagination__button--disabled > button,
+.pagination__button--ellipsis > button {
   padding: 10px;
+}
+
+.pagination__button, 
+.pagination__button--disabled,
+.pagination__button--ellipsis {
+  padding: 0;
 }

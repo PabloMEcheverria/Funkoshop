@@ -1,29 +1,24 @@
 import "../assets/css/PaginationButton.css";
 
 export default function PaginationButton(
-    { paginationData, index = "...", isPrev = false, isNext = false, isEllipsis = false, disabledValue = false }) {
-    const { moveTo } = paginationData;
-    let content;
-    if (isPrev) {
-        content = "prev";
-    } else if (isNext) {
-        content = "next";
-    } else if (isEllipsis) {
-        content = "..."
-    } else {
-        content = index;
-    }
+    { paginationData, index = "...", isPrev = false, isNext = false, isEllipsis = false }) {
+    const { positionInPagination, segmentedProductArr, moveTo } = paginationData;
+    const content = isPrev ? "prev" : isNext ? "next" : isEllipsis || index === "..." ? "..." : index;
+    const idValue = content;
+    const disabledValue = positionInPagination === index ? true : 
+                    isPrev && positionInPagination === 1 ? true :
+                    isNext && positionInPagination === segmentedProductArr.length ? true :
+                    isEllipsis ? true :
+                    false;
+    const classValue =  disabledValue ? "pagination__button--disabled" : 
+                        "pagination__button";
     return (
-        <button id={isPrev ? "prev" : 
-                    isNext ? "next" : 
-                    isEllipsis || index === "..." ? "..." : 
-                    index}
-                className={ isEllipsis ? "pagination__button--ellipsis" : 
-                            disabledValue ? "pagination__button--disabled" : 
-                            "pagination__button"} 
-                onClick={moveTo} 
-                disabled={isEllipsis ? true : disabledValue} >
-            {content}
-        </button>
+        <li id={idValue + "_li"} className={classValue} >
+            <button id={idValue + "_button"} 
+                    onClick={moveTo} 
+                    disabled={disabledValue} >
+                {content}
+            </button>
+        </li>
     )
 }

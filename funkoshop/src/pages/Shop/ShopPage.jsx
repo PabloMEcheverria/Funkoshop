@@ -58,110 +58,51 @@ export default function ShopPage() {
             newProductArr.push(productArr);
         }
         newPaginationData.segmentedProductArr = newProductArr;
-        let paginationLinkArr = newProductArr.map((productArr, i, arr) => {
-            let positionInPagination = paginationData.positionInPagination;
+        let liPaginationArr = newPaginationData.segmentedProductArr.map((productArr, i, arr) => {
+            let pos = paginationData.positionInPagination;
             if (arr.length <= 7) {
-                if (i + 1 === positionInPagination) {
-                    return (<PaginationButton paginationData={paginationData} index={i + 1} disabledValue={true} />)
-                } else {
-                    return (<PaginationButton paginationData={paginationData} index={i + 1} />)
-                }
-            } else if (arr.length > 7) {
-                if (positionInPagination <= 2) {
-                    if (i + 1 <= 3 || i + 1 === arr.length) {
-                        if (i + 1 === positionInPagination) {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} disabledValue={true} />)
-                        } else {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} />)
-                        }
-                    } else if (i + 1 === 4) {
-                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
-                    }
-                }
-                if (positionInPagination === 3) {
-                    if (i + 1 <= 4 || i + 1 === arr.length) {
-                        if (i + 1 === positionInPagination) {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} disabledValue={true} />)
-                        } else {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} />)
-                        }
-                    } else if (i + 1 === 5) {
-                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
-                    }
-                }
-                if (positionInPagination > 3 && positionInPagination <= arr.length - 2) {
-                    if (i + 1 === 1 || 
-                        i + 1 === arr.length || (
-                        i + 1 >= positionInPagination - 1 && i + 1 <= positionInPagination + 1
-                    )) {
-                        if (i + 1 === positionInPagination) {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} disabledValue={true} />)
-                        } else {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} />)
-                        }
-                    } else if (i + 1 === 2 || i + 1 === arr.length - 1) {
-                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
-                    }
-                }
-                if (positionInPagination === arr.length - 2) {
-                    if (i + 1 === 1 || i + 1 >= arr.legend - 3) {
-                        if (i + 1 === positionInPagination) {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} disabledValue={true} />)
-                        } else {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} />)
-                        }
-                    } else if (i + 1 === 2) {
-                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
-                    }
-                }
-                if (positionInPagination >= arr.length - 1) {
-                    if (i + 1 === 1 || i + 1 >= arr.length - 2) {
-                        if (i + 1 === positionInPagination) {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} disabledValue={true} />)
-                        } else {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} />)
-                        }
-                    } else if (i + 1 === 2) {
-                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
-                    }
-                }
-            }
-        });
-        paginationLinkArr = paginationLinkArr.filter(element => element !== undefined);
-        if (paginationData.positionInPagination === 1) {
-            paginationLinkArr.unshift(<PaginationButton paginationData={paginationData} isPrev={true} disabledValue={true} />);
-        } else {
-            paginationLinkArr.unshift(<PaginationButton paginationData={paginationData} isPrev={true} />);
-        }
-        if (paginationLinkArr[paginationLinkArr.length - 1].props.index === paginationData.positionInPagination) {
-            paginationLinkArr.push(<PaginationButton paginationData={paginationData} isNext={true} disabledValue={true} />);
-        } else {
-            paginationLinkArr.push(<PaginationButton paginationData={paginationData} isNext={true} />);
-        }
-        newPaginationData.paginationList = <ul>{paginationLinkArr.map((link, i, arr) => {
-            if (i === 0) {
-                if (paginationData.positionInPagination === 1) {
-                    return (<li key={"prev"} id={"prev"} className="pagination__item--disabled">{link}</li>)
-                } else {
-                    return (<li key={"prev"} id={"prev"} className="pagination__item">{link}</li>)
-                }
-            } else if (i === arr.length - 1) {
-                if (arr[i - 1].props.index === paginationData.positionInPagination) {
-                    return (<li key={"next"} id={"next"} className="pagination__item--disabled">{link}</li>)
-                } else {
-                    return (<li key={"next"} id={"next"} className="pagination__item">{link}</li>)
-                }
+                return (<PaginationButton paginationData={paginationData} index={i + 1} />)
             } else {
-                if (link.props.isEllipsis === true) {
-                    return (<li key={"...-" + i} id={link.props.index} className="pagination__item">{link}</li>)
-                } else if (link.props.index === paginationData.positionInPagination) {
-                    return (<li key={link.props.index} id={link.props.index} className="pagination__item--selected">{link}</li>)
-                } else {
-                    return (<li key={link.props.index} id={link.props.index} className="pagination__item">{link}</li>)
+                if(pos <= 2) {
+                    if (i + 1 <= 3 || i + 1 === arr.length) {
+                        return (<PaginationButton paginationData={paginationData} index={i + 1} />)
+                    } else {
+                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
+                    }
+                } else if (pos === 3) {
+                    if (i + 1 <= 4 || i + 1 === arr.length) {
+                        return (<PaginationButton paginationData={paginationData} index={i + 1} />)
+                    } else {
+                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
+                    }
+                } else if (pos <= 4 && pos <= arr.length - 3) {
+                    if (i + 1 === 1 || 
+                        (i + 1 >= pos - 1 && i + 1 <= pos + 1) ||  
+                        i + 1 === arr.length ) {
+                            return (<PaginationButton paginationData={paginationData} index={i + 1} />)
+                        } else {
+                            return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
+                        }
+                } else if (pos === arr.length - 2) {
+                    if (i + 1 === 1 || i + 1 >= pos - 1) {
+                        return (<PaginationButton paginationData={paginationData} index={i + 1} />)
+                    } else {
+                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
+                    }
+                } else if (pos >= arr.length - 1) {
+                    if (i + 1 === 1 || i + 1 >= pos - 1) {
+                        return (<PaginationButton paginationData={paginationData} index={i + 1} />)
+                    } else {
+                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
+                    }
                 }
             }
-        })}</ul>;
-        return newPaginationData;
+        })
+        liPaginationArr.unshift(<PaginationButton paginationData={paginationData} isPrev={true} />);
+        liPaginationArr.push(<PaginationButton paginationData={paginationData} isNext={true} />);
+        newPaginationData.paginationList = <ul>{liPaginationArr.map((value, i, arr) => value)}</ul>;
+        console.log(newPaginationData.paginationList);
+        return newPaginationData
     }
     return (
         <>
