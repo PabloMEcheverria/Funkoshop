@@ -25,14 +25,24 @@ export default function ShopPage() {
     const [paginationData, setPaginationData] = useState(
         {
             paginationList: <ul></ul>,
-            positionInPagination: 1, 
+            positionInPagination: 1 , 
             segmentedProductArr: [], 
             moveTo: function moveTo(e) {
+
                 if (!isNaN(parseInt(e.target.id))) {
                     setPaginationData((prevPaginationData) => ({
                         ...prevPaginationData, 
                         positionInPagination: parseInt(e.target.id)
                     }));
+                    setPaginationData(prevPaginationData => {
+                        let newPaginationList = setPaginationList(prevPaginationData.segmentedProductArr, prevPaginationData);
+                        let newPaginationData = {
+                            ...prevPaginationData, 
+                            paginationList: <ul>{newPaginationList}</ul>
+                        }
+                        console.log(newPaginationData);
+                        return (newPaginationData)
+                    })
                 }
             }
         }
@@ -43,8 +53,8 @@ export default function ShopPage() {
         setPaginationData(pagination(displayProductArr));
     }, [displayProductArr, setPaginationData]);
 
-    function pagination(productArr) {
-        let newPaginationData = {...paginationData};
+
+    function setSegmentedProductArr(productArr) {
         let newProductArr = [];
         if (productArr.length > 9) {
             for (let i = 0; i < productArr.length; i += 9) {
@@ -57,53 +67,61 @@ export default function ShopPage() {
         } else {
             newProductArr.push(productArr);
         }
-        newPaginationData.segmentedProductArr = newProductArr;
-        let liPaginationArr = newPaginationData.segmentedProductArr.map((productArr, i, arr) => {
-            let pos = paginationData.positionInPagination;
+        return newProductArr
+    }
+    function setPaginationList(segmentedProductArr, paginationDataObj = paginationData) {
+        let liPaginationArr = segmentedProductArr.map((productArr, i, arr) => {
+            let pos = paginationDataObj.positionInPagination;
             if (arr.length <= 7) {
-                return (<PaginationButton paginationData={paginationData} index={i + 1} key={i + 1} />)
+                return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
             } else {
                 if(pos <= 2) {
                     if (i + 1 <= 3 || i + 1 === arr.length) {
-                        return (<PaginationButton paginationData={paginationData} index={i + 1} key={i + 1} />)
+                        return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
                     } else if (i + 1 === 4) {
-                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
+                        return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
                     }
                 } else if (pos === 3) {
                     if (i + 1 <= 4 || i + 1 === arr.length) {
-                        return (<PaginationButton paginationData={paginationData} index={i + 1} key={i + 1} />)
+                        return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
                     } else if (i + 1 === 5) {
-                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
+                        return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
                     }
                 } else if (pos >= 4 && pos <= arr.length - 3) {
                     if (i + 1 === 1 || 
                         (i + 1 >= pos - 1 && i + 1 <= pos + 1) ||  
                         i + 1 === arr.length ) {
-                            return (<PaginationButton paginationData={paginationData} index={i + 1} key={i + 1} />)
+                            return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
                         } else if (i + 1 === 2 || i + 1 === pos + 2) {
-                            return (<PaginationButton paginationData={paginationData} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
+                            return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
                         }
                 } else if (pos === arr.length - 2) {
                     if (i + 1 === 1 || i + 1 >= pos - 1) {
-                        return (<PaginationButton paginationData={paginationData} index={i + 1} key={i + 1} />)
+                        return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
                     } else if (i + 1 === 2) {
-                       return (<PaginationButton paginationData={paginationData} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
+                       return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
                     }
                 } else if (pos >= arr.length - 1) {
                     if (i + 1 === 1 || i + 1 >= arr.length - 2) {
-                        return (<PaginationButton paginationData={paginationData} index={i + 1} key={i + 1} />)
+                        return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
                     } else if (i + 1 === 2) {
-                        return (<PaginationButton paginationData={paginationData} isEllipsis={true} />)
+                        return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
                     }
                 }
             }
         })
-        let newLiPaginationArr = liPaginationArr.filter(value => value !== undefined && true);
-        liPaginationArr = newLiPaginationArr;
-        liPaginationArr.unshift(<PaginationButton paginationData={paginationData} isPrev={true} key={"prev"} />);
-        liPaginationArr.push(<PaginationButton paginationData={paginationData} isNext={true} key={"next"} />);
-        newPaginationData.paginationList = <ul>{liPaginationArr.map((value, i, arr) => value)}</ul>;
-        console.log(newPaginationData.paginationList);
+        liPaginationArr = liPaginationArr.filter(value => value !== undefined && true);
+        liPaginationArr.unshift(<PaginationButton paginationData={paginationDataObj} isPrev={true} key={"prev"} />);
+        liPaginationArr.push(<PaginationButton paginationData={paginationDataObj} isNext={true} key={"next"} />);
+        return liPaginationArr
+    }
+    
+    function pagination(productArr) {
+        let newPaginationData = {...paginationData};
+        newPaginationData.segmentedProductArr = setSegmentedProductArr(productArr);
+        let newPaginationList = setPaginationList(newPaginationData.segmentedProductArr);
+        newPaginationData.paginationList = <ul>{newPaginationList}</ul>;
+        console.log(newPaginationData);
         return newPaginationData
     }
     return (

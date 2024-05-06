@@ -6,7 +6,6 @@ import Card from "./Card";
 export default function CatalogueShop({ displayProductArr, paginationData, setPaginationData }) {
     let { positionInPagination, segmentedProductArr } = paginationData;
     let arrToDisplay = segmentedProductArr[positionInPagination - 1];
-    console.log(arrToDisplay);
     let linkProductArr;
     if (arrToDisplay !== undefined) {
         linkProductArr = arrToDisplay.map(product => (
