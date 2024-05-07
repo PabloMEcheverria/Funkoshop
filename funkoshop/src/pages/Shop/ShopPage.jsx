@@ -28,7 +28,6 @@ export default function ShopPage() {
             positionInPagination: 1 , 
             segmentedProductArr: [], 
             moveTo: function moveTo(e) {
-
                 if (!isNaN(parseInt(e.target.id))) {
                     setPaginationData((prevPaginationData) => ({
                         ...prevPaginationData, 
@@ -43,6 +42,11 @@ export default function ShopPage() {
                         console.log(newPaginationData);
                         return (newPaginationData)
                     })
+                } else if (e.target.id === "prev_button") {
+                    console.log("prev click");
+                    
+                } else if (e.target.id === "next_button") {
+                    console.log("next click");
                 }
             }
         }
