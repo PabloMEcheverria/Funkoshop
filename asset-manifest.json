@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Funkoshop/static/css/main.b98b5753.css",
-    "main.js": "/Funkoshop/static/js/main.07f347f7.js",
+    "main.css": "/Funkoshop/static/css/main.3c8b3e68.css",
+    "main.js": "/Funkoshop/static/js/main.d8c6c1c6.js",
     "static/js/787.b6a5a490.chunk.js": "/Funkoshop/static/js/787.b6a5a490.chunk.js",
     "static/media/Naruto_Naruto_Shippuden_box.jpg": "/Funkoshop/static/media/Naruto_Naruto_Shippuden_box.9a8f29006434ef5ae4d4.jpg",
     "static/media/HomePage_banner_gaussian_blur-3px.png": "/Funkoshop/static/media/HomePage_banner_gaussian_blur-3px.7e5f23645483e1b8ee8e.png",
@@ -10,13 +10,13 @@
     "static/media/Naruto_Jiraiya_box.png": "/Funkoshop/static/media/Naruto_Jiraiya_box.4aebcd152cb674bc54e4.png",
     "static/media/Naruto_Sakura_box.png": "/Funkoshop/static/media/Naruto_Sakura_box.f8f9869dacedd5c2c778.png",
     "static/media/StarWars_Ahsoka_box.png": "/Funkoshop/static/media/StarWars_Ahsoka_box.e569e2d9a74ca1b17604.png",
+    "static/media/Naruto_Kakashi_Hatake.png": "/Funkoshop/static/media/Naruto_Kakashi_Hatake.db853c31f6f1faf50089.png",
     "static/media/StarWars_R2D2_box.png": "/Funkoshop/static/media/StarWars_R2D2_box.e3aa31fd6af295a8787f.png",
     "static/media/HarryPotter_Harry_Potter_box.png": "/Funkoshop/static/media/HarryPotter_Harry_Potter_box.141d4aea17ff1fbdc72e.png",
     "static/media/Pokemon_Mew_box.png": "/Funkoshop/static/media/Pokemon_Mew_box.1a54d5294adcf7114c82.png",
     "static/media/HarryPotter_Ron_Weasley_box.png": "/Funkoshop/static/media/HarryPotter_Ron_Weasley_box.89e3c3e8269bf56f6057.png",
     "static/media/Naruto_Naruto_Shippuden.jpg": "/Funkoshop/static/media/Naruto_Naruto_Shippuden.76f9d122478f62f0dc42.jpg",
     "static/media/HarryPotter_Hermione_Granger_box.png": "/Funkoshop/static/media/HarryPotter_Hermione_Granger_box.1dac6a5086559a25b1f2.png",
-    "static/media/Naruto_Kakashi_Hatake.png": "/Funkoshop/static/media/Naruto_Kakashi_Hatake.460782d370a8e8939d10.png",
     "static/media/Naruto_Sasuke_Uchiha_First_Susano.png": "/Funkoshop/static/media/Naruto_Sasuke_Uchiha_First_Susano.906cfefa7e54e957d4cb.png",
     "static/media/HarryPotter_Hermione_Granger.png": "/Funkoshop/static/media/HarryPotter_Hermione_Granger.226f3edb3532ef4367a6.png",
     "static/media/StarWars_R2D2.png": "/Funkoshop/static/media/StarWars_R2D2.56010613ef7599b1d6a0.png",
@@ -37,23 +37,23 @@
     "static/media/StarWars_Baby_Yoda.png": "/Funkoshop/static/media/StarWars_Baby_Yoda.d62c887156e0fb190971.png",
     "static/media/Pokemon_Pikachu.jpg": "/Funkoshop/static/media/Pokemon_Pikachu.8fd669e6d0a06365ccbf.jpg",
     "static/media/Pokemon_Vulpix.png": "/Funkoshop/static/media/Pokemon_Vulpix.ad534e5ab8a957537817.png",
+    "static/media/StarWars_Chewbacca.jpg": "/Funkoshop/static/media/StarWars_Chewbacca.d8eef5fea2eba9a76342.jpg",
     "static/media/HarryPotter_Luna_Lionmask_box.png": "/Funkoshop/static/media/HarryPotter_Luna_Lionmask_box.1293a07326a6f40eaed1.png",
     "static/media/Pokemon_Pidgeotto_box.png": "/Funkoshop/static/media/Pokemon_Pidgeotto_box.7c4860f4d1cc2c28a4c7.png",
     "static/media/StarWars_Chewbacca_box.jpg": "/Funkoshop/static/media/StarWars_Chewbacca_box.bcad27b894af8953414e.jpg",
     "static/media/HarryPotter_Luna_Lionmask.png": "/Funkoshop/static/media/HarryPotter_Luna_Lionmask.98ffa4fd3ba604ad89ca.png",
     "static/media/StarWars_Stormtrooper_box.png": "/Funkoshop/static/media/StarWars_Stormtrooper_box.b4aa9c6f1a87eaf8371a.png",
     "static/media/Pokemon_Vulpix_box.jpg": "/Funkoshop/static/media/Pokemon_Vulpix_box.6e0561859c0a2090f1c8.jpg",
-    "static/media/StarWars_Chewbacca.jpg": "/Funkoshop/static/media/StarWars_Chewbacca.e4c534f77419716e8634.jpg",
     "static/media/StarWars_Stormtrooper.png": "/Funkoshop/static/media/StarWars_Stormtrooper.fbfa7c27b75e9ce6bf0e.png",
     "static/media/HarryPotter_Snape_Patronus_box.png": "/Funkoshop/static/media/HarryPotter_Snape_Patronus_box.adae0703e892e3d88437.png",
     "static/media/Naruto_Kakashi_Hatake_box.png": "/Funkoshop/static/media/Naruto_Kakashi_Hatake_box.288919404fb15e3922bb.png",
     "index.html": "/Funkoshop/index.html",
-    "main.b98b5753.css.map": "/Funkoshop/static/css/main.b98b5753.css.map",
-    "main.07f347f7.js.map": "/Funkoshop/static/js/main.07f347f7.js.map",
+    "main.3c8b3e68.css.map": "/Funkoshop/static/css/main.3c8b3e68.css.map",
+    "main.d8c6c1c6.js.map": "/Funkoshop/static/js/main.d8c6c1c6.js.map",
     "787.b6a5a490.chunk.js.map": "/Funkoshop/static/js/787.b6a5a490.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b98b5753.css",
-    "static/js/main.07f347f7.js"
+    "static/css/main.3c8b3e68.css",
+    "static/js/main.d8c6c1c6.js"
   ]
 }
