@@ -5,12 +5,10 @@ import "./ShopPage.css";
 import FilterShop from "../../components/FilterShop.jsx";
 import CatalogueShop from "../../components/CatalogueShop.jsx";
 import Pagination from "../../components/Pagination.jsx";
-/**/
 import PaginationButton from "../../components/PaginationButton.jsx";
-/**/
 
 export default function ShopPage() {
-    const [displayProductArr, setDisplayProductArr] = useState(productsArr);
+    const [displayProductArr, setDisplayProductArr] = useState(uniqueProductsArr);
     const [filterData, setFilterData] = useState(
         {   
             nameOrCategory:"",
@@ -29,31 +27,49 @@ export default function ShopPage() {
             segmentedProductArr: [], 
             moveTo: function moveTo(e) {
                 if (!isNaN(parseInt(e.target.id))) {
-                    setPaginationData((prevPaginationData) => ({
-                        ...prevPaginationData, 
-                        positionInPagination: parseInt(e.target.id)
-                    }));
                     setPaginationData(prevPaginationData => {
-                        let newPaginationList = setPaginationList(prevPaginationData.segmentedProductArr, prevPaginationData);
                         let newPaginationData = {
                             ...prevPaginationData, 
-                            paginationList: <ul>{newPaginationList}</ul>
+                            positionInPagination: parseInt(e.target.id)
                         }
-                        console.log(newPaginationData);
-                        return (newPaginationData)
+                        newPaginationData = {
+                            ...newPaginationData, 
+                            paginationList: <ul>{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                        }
+                        return newPaginationData
                     })
                 } else if (e.target.id === "prev_button") {
                     console.log("prev click");
-                    
+                    setPaginationData(prevPaginationData => {
+                        let newPaginationData = {
+                            ...prevPaginationData, 
+                            positionInPagination: prevPaginationData.positionInPagination - 1
+                        }
+                        newPaginationData = {
+                            ...newPaginationData, 
+                            paginationList: <ul>{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                        }
+                        return newPaginationData
+                    })
                 } else if (e.target.id === "next_button") {
                     console.log("next click");
+                    setPaginationData(prevPaginationData => {
+                        let newPaginationData = {
+                            ...prevPaginationData, 
+                            positionInPagination: prevPaginationData.positionInPagination + 1
+                        }
+                        newPaginationData = {
+                            ...newPaginationData, 
+                            paginationList: <ul>{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                        }
+                        return newPaginationData
+                    })
                 }
             }
         }
     );
     
     useEffect(() => {
-        console.log(pagination(displayProductArr));
         setPaginationData(pagination(displayProductArr));
     }, [displayProductArr, setPaginationData]);
 

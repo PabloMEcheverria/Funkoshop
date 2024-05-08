@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
 import "../assets/css/Pagination.css";
-import PaginationButton from "./PaginationButton";
 
-export default function Pagination({ displayProductArr, setProductArr, paginationData, setPaginationData }) {
+export default function Pagination({ paginationData }) {
     return (
         <section className="paginationSection">
             {paginationData.paginationList}

@@ -1,9 +1,8 @@
 import "../assets/css/CatalogueShop.css";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import Card from "./Card";
 
-export default function CatalogueShop({ displayProductArr, paginationData, setPaginationData }) {
+export default function CatalogueShop({ paginationData }) {
     let { positionInPagination, segmentedProductArr } = paginationData;
     let arrToDisplay = segmentedProductArr[positionInPagination - 1];
     let linkProductArr;
