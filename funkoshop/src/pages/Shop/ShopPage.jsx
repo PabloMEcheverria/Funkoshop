@@ -22,7 +22,7 @@ export default function ShopPage() {
     );
     const [paginationData, setPaginationData] = useState(
         {
-            paginationList: <ul></ul>,
+            paginationList: <ul className="pagination__list"></ul>,
             positionInPagination: 1 , 
             segmentedProductArr: [], 
             moveTo: function moveTo(e) {
@@ -34,7 +34,7 @@ export default function ShopPage() {
                         }
                         newPaginationData = {
                             ...newPaginationData, 
-                            paginationList: <ul>{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                            paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
                         }
                         return newPaginationData
                     })
@@ -47,7 +47,7 @@ export default function ShopPage() {
                         }
                         newPaginationData = {
                             ...newPaginationData, 
-                            paginationList: <ul>{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                            paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
                         }
                         return newPaginationData
                     })
@@ -60,7 +60,7 @@ export default function ShopPage() {
                         }
                         newPaginationData = {
                             ...newPaginationData, 
-                            paginationList: <ul>{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                            paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
                         }
                         return newPaginationData
                     })
@@ -140,7 +140,7 @@ export default function ShopPage() {
         let newPaginationData = {...paginationData};
         newPaginationData.segmentedProductArr = setSegmentedProductArr(productArr);
         let newPaginationList = setPaginationList(newPaginationData.segmentedProductArr);
-        newPaginationData.paginationList = <ul>{newPaginationList}</ul>;
+        newPaginationData.paginationList = <ul className="pagination__list">{newPaginationList}</ul>;
         console.log(newPaginationData);
         return newPaginationData
     }

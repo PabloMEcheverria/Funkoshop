@@ -18,10 +18,14 @@ export default function PaginationButton(
                     isEllipsis ? true :
                     false;
 
-    const classValue =  disabledValue ? "pagination__button--disabled" : "pagination__button";
+    const classValueItem =  disabledValue ? "pagination__item--disabled" : "pagination__item";
+
+    const classValueButton =  disabledValue ? "pagination__button--disabled" : "pagination__button";
+
     return (
-        <li id={idValue + "_li"} className={classValue} >
+        <li id={idValue + "_li"} className={classValueItem} >
             <button id={idValue + "_button"} 
+                    className={classValueButton}
                     onClick={moveTo} 
                     disabled={disabledValue} >
                 {content}
