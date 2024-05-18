@@ -2,7 +2,8 @@ import * as React from "react"
 export default function PaginationNext(props) {
     return (
         <svg
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="http://www.w3.org/2000/svg" 
+          className="pagination__svg" 
           width={11}
           height={18}
           fill="none"

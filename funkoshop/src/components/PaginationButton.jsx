@@ -12,19 +12,22 @@ export default function PaginationButton(
 
     const idValue = isPrev ? "prev" : isNext ? "next" : content;
 
-    const disabledValue = positionInPagination === index ? true : 
-                    isPrev && positionInPagination === 1 ? true :
-                    isNext && positionInPagination === segmentedProductArr.length ? true :
-                    isEllipsis ? true :
-                    false;
+    const disabledValue = isPrev && positionInPagination === 1 ? true :
+                          isNext && positionInPagination === segmentedProductArr.length ? true :
+                          isEllipsis ? true :
+                          false;
 
-    const classValueItem =  disabledValue ? "pagination__item--disabled" : "pagination__item";
+    const classValueItem =  disabledValue ? "pagination__item--disabled" : 
+                            positionInPagination === index ? "pagination__item--active" : 
+                            "pagination__item";
 
-    const classValueButton =  disabledValue ? "pagination__button--disabled" : "pagination__button";
+    const classValueButton =  disabledValue ? "pagination__button--disabled" : 
+                              positionInPagination === index ? "pagination__button--active" : 
+                              "pagination__button";
 
     return (
         <li id={idValue + "_li"} className={classValueItem} >
-            <button id={idValue + "_button"} 
+            <button id={idValue} 
                     className={classValueButton}
                     onClick={moveTo} 
                     disabled={disabledValue} >

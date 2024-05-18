@@ -8,7 +8,7 @@ import Pagination from "../../components/Pagination.jsx";
 import PaginationButton from "../../components/PaginationButton.jsx";
 
 export default function ShopPage() {
-    const [displayProductArr, setDisplayProductArr] = useState(uniqueProductsArr);
+    const [displayProductArr, setDisplayProductArr] = useState(productsArr);
     const [filterData, setFilterData] = useState(
         {   
             nameOrCategory:"",
@@ -23,7 +23,7 @@ export default function ShopPage() {
     const [paginationData, setPaginationData] = useState(
         {
             paginationList: <ul className="pagination__list"></ul>,
-            positionInPagination: 1 , 
+            positionInPagination: 1, 
             segmentedProductArr: [], 
             moveTo: function moveTo(e) {
                 if (!isNaN(parseInt(e.target.id))) {
@@ -38,8 +38,7 @@ export default function ShopPage() {
                         }
                         return newPaginationData
                     })
-                } else if (e.target.id === "prev_button") {
-                    console.log("prev click");
+                } else if (e.target.id === "prev") {
                     setPaginationData(prevPaginationData => {
                         let newPaginationData = {
                             ...prevPaginationData, 
@@ -51,8 +50,7 @@ export default function ShopPage() {
                         }
                         return newPaginationData
                     })
-                } else if (e.target.id === "next_button") {
-                    console.log("next click");
+                } else if (e.target.id === "next") {
                     setPaginationData(prevPaginationData => {
                         let newPaginationData = {
                             ...prevPaginationData, 
@@ -141,7 +139,6 @@ export default function ShopPage() {
         newPaginationData.segmentedProductArr = setSegmentedProductArr(productArr);
         let newPaginationList = setPaginationList(newPaginationData.segmentedProductArr);
         newPaginationData.paginationList = <ul className="pagination__list">{newPaginationList}</ul>;
-        console.log(newPaginationData);
         return newPaginationData
     }
     return (
