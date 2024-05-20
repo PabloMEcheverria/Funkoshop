@@ -6,11 +6,11 @@ export default function PaginationNext(props) {
           className="pagination__svg" 
           width={11}
           height={18}
-          fill="none"
+          fill="#C4CDD5"
           {...props}
         >
           <path
-            fill={props.fill !== undefined ? props.fill : "#C4CDD5"}
+            fill={props.fill}
             d="M.608 2.689 6.906 9 .608 15.311l1.939 1.939L10.797 9 2.547.75.608 2.689Z"
           />
         </svg>
