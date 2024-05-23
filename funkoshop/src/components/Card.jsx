@@ -1,10 +1,18 @@
 import '../assets/css/Card.css';
+import { useState } from 'react';
 
 export default function Card({ product, customClassName }) {
+    const [cardImg, setCardImg] = useState(product.frontImg);
+    const handleOnMouseEnter = () => setCardImg(product.backImg);
+    const handleOnMouseLeave = () => setCardImg(product.frontImg);
     return (
-        <div className={`card ${customClassName ? customClassName: ""}`}>
+        <div className={`card ${customClassName ? customClassName: ""}`}
+             onMouseEnter={handleOnMouseEnter} 
+             onMouseLeave={handleOnMouseLeave}>
             {product.isNew && <div className='card__isNew'><p className='card__isNewText'>Nuevo</p></div>}
-            <img className='card__img' src={product.frontImg} alt={"Imagen de funko pop de " + product.nameProduct} />
+            <img className='card__img' 
+                 src={cardImg} 
+                 alt={"Imagen de funko pop de " + product.nameProduct} />
             <p className='card__license'>{product.license}</p>
             <h5 className='card__nameProduct'>{product.nameProduct}</h5>
             <p className='card__price'>{"$ " + product.price}</p>
