@@ -14,8 +14,10 @@ export default function CatalogueShop({ paginationData }) {
         ));
     }
     return (
-        <section className="product-grid">
-            {linkProductArr}
-        </section>
+        <div className="product-grid-wrapper">
+            <section className="product-grid">
+                {linkProductArr}
+            </section>
+        </div>
     )
 }

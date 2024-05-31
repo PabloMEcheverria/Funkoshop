@@ -1,9 +1,14 @@
-.product-grid {
+.product-grid-wrapper {
+  display: inline-block;
   width: calc((2 / 3) * 100%);
-  margin: calc(68 / 1440 * 100%) 
-          calc(112 / 1440 * 100%) 
-          calc(68 / 1440 * 100%) 
-          calc(14.96 / 1440 * 100%);
+  position: relative;
+  left: 125px;
+  top: 32px;
+  margin-top: 0px;
+}
+
+.product-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, 304px);
   justify-content: space-between;

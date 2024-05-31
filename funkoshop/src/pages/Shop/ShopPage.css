@@ -1,8 +1,10 @@
 .shop {
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
-
 /*Breakpoints:
 
 @media screen and (min-width: 1025px) and  (max-width: 1280px) {
