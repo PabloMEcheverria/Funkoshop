@@ -144,21 +144,25 @@ export default function ShopPage() {
     return (
         <>
         <main className="shop">
-            <FilterShop 
-                filterData={filterData} 
-                setFilterData={setFilterData} 
-                setDisplayProductArr={setDisplayProductArr} 
-                paginationData={paginationData} 
-                setPaginationData={setPaginationData} />
-            <CatalogueShop 
-                displayProductArr={displayProductArr} 
-                paginationData={paginationData} 
-                setPaginationData={setPaginationData} />
-            <Pagination 
-                displayProductArr={displayProductArr} 
-                setDisplayProductArr={setDisplayProductArr} 
-                paginationData={paginationData} 
-                setPaginationData={setPaginationData} />
+            <div className="flex-wrapper">
+                <FilterShop 
+                    filterData={filterData} 
+                    setFilterData={setFilterData} 
+                    setDisplayProductArr={setDisplayProductArr} 
+                    paginationData={paginationData} 
+                    setPaginationData={setPaginationData} />
+                <div className="catalogue-wrapper">
+                    <CatalogueShop 
+                        displayProductArr={displayProductArr} 
+                        paginationData={paginationData} 
+                        setPaginationData={setPaginationData} />
+                    <Pagination 
+                        displayProductArr={displayProductArr} 
+                        setDisplayProductArr={setDisplayProductArr} 
+                        paginationData={paginationData} 
+                        setPaginationData={setPaginationData} />
+                </div>
+            </div>
         </main>
         </>
     )

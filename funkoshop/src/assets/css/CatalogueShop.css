@@ -1,14 +1,12 @@
-.product-grid-wrapper {
-  display: inline-block;
+/*.product-grid-wrapper {
+  width: calc(14.96px + 960.03px + 111.97px);
   width: calc((2 / 3) * 100%);
-  position: relative;
-  left: 125px;
-  top: 32px;
-  margin-top: 0px;
-}
+}*/
 
 .product-grid {
-  width: 100%;
+  width: 960.03px; /**/
+  margin: 68px 0 0 14.96px;
+  /*width: 100%;*/
   display: grid;
   grid-template-columns: repeat(auto-fit, 304px);
   justify-content: space-between;

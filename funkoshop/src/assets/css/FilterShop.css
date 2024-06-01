@@ -1,18 +1,16 @@
 aside {
-  width: calc(243.04 / 1440 * 100%);
+  width: 353.04px; /**/
+  /*width: calc(243.04 / 1440 * 100%);*/
   height: 561.93px;
-  display: inline-block;
-  position: relative;
-  left: 110px;
-  top: 0px;
-  margin-top: 0px;
 }
 
 form {
-  width: 100%;
+  width: 243.04px; /**/
+  /*width: calc(243.04 / 353.04 * 100%);*/
   height: 493.93px;
   position: relative;
   top: 68px;
+  left: 110px; /**/
 }
 
 form > label,

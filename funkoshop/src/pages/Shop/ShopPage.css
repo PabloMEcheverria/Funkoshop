@@ -1,9 +1,12 @@
-.shop {
-  display: block;
+.flex-wrapper {
+  height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
-  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.catalogue-wrapper {
+  
 }
 /*Breakpoints:
 
