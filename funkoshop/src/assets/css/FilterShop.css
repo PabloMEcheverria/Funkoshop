@@ -232,7 +232,13 @@ fieldset:nth-of-type(2) > div > label > input[type="checkbox"]:checked {
 
 @media screen and (max-width: 1024px) {
   aside {
-    width: 254px;
+    width: 243.04px;
+    margin: auto;
+  }
+
+  form {
+    width: 100%;
+    left: 0;
   }
 
   form > label,
