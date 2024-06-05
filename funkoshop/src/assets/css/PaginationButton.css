@@ -1,9 +1,3 @@
-.pagination__list {
-/*Box model stuff*/
-  width: 100%;
-  height: 100%;
-}
-
 .pagination__item,
 .pagination__item--active,
 .pagination__item--disabled {

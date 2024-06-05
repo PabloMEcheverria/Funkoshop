@@ -2,10 +2,18 @@
 /*Positioning stuff*/
   position: relative;
 /*Box model stuff*/
-  width: 356px;
+  width: 408px;
   height: 44px;
   position: relative;
-  margin: 68px 0 68px calc(302.33 / 1086.96 * 100%);
+  margin: 68px 0 68px calc(263.975 / 1086.96 * 100%);
+}
+
+.pagination__list {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /*Breakpoints:

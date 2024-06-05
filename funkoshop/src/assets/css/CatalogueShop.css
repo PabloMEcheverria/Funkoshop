@@ -1,9 +1,9 @@
 .product-grid {
   width: calc(960.03 / 1086.96 * 100%);
-  margin: calc(68 / 960.03 * 100%) 
+  margin: calc(68 / 1086.96 * 100%) 
           0 
           0 
-          calc(14.96 / 960.03 * 100%);
+          calc(14.96 / 1086.96 * 100%);
   display: grid;
   grid-template-columns: repeat(auto-fit, 304px);
   justify-content: space-between;
