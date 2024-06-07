@@ -364,8 +364,11 @@ fieldset:nth-of-type(2) > div > label > input[type="checkbox"]:checked {
 
 @media screen and (max-width: 480px) {
   aside {
-    width: 100%;
-    justify-content: center;
+    width: 254px;
+  }
+
+  form {
+    top: 34px;
   }
 
   form > label,

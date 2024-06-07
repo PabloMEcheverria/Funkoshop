@@ -44,3 +44,9 @@
       margin: 68px auto;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .pagination, .pagination__list {
+      height: 44px;
+    }
+}
