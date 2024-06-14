@@ -1,0 +1,29 @@
+.product-details {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.product-details__image {
+  width: 550px;
+  height: 550px;
+  position: relative;
+  margin-top: 68px;
+  margin-left: 7.7604%;
+  margin-right: calc(65 / 1440 * 100%);
+  display: inline-block;
+}
+
+.product-details__info {
+  background-color: burlywood;
+  width: calc(576.84 / 1440 * 100%);
+  height: 320.73px;
+  display: inline-block;
+  position: relative;
+  height: 326.63px;
+}
+
+.product-details__license {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.36px;
+}
