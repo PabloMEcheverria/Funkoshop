@@ -1,24 +1,26 @@
 .product-details {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-between;
+  width: calc(1191.84 / 1440 * 100%);
+  height: 550px;
+  position: relative;
+  left: calc(111.75 / 1440 * 100%);
+  margin-top: 68px;
+  margin-bottom: 68px;
 }
+
 .product-details__image {
   width: 550px;
   height: 550px;
-  position: relative;
-  margin-top: 68px;
-  margin-left: 7.7604%;
-  margin-right: calc(65 / 1440 * 100%);
   display: inline-block;
 }
 
 .product-details__info {
-  background-color: burlywood;
-  width: calc(576.84 / 1440 * 100%);
+  width: calc(576.84 / 1191.84 * 100%);
   height: 320.73px;
-  display: inline-block;
   position: relative;
-  height: 326.63px;
+  top: 114.63px;
 }
 
 .product-details__license {
@@ -26,4 +28,35 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 19.36px;
+  margin-bottom: 11px;
+}
+
+.product-details__name {
+  font-family: "Inter", sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 45.99px;
+  text-align: left;
+  color: #111111;
+  margin-bottom: 15.81px;
+}
+
+.product-details__description {
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29.05px;
+  text-align: left;
+  color: #333333;
+  margin-bottom: 15.81px;
+}
+
+.product-details__price {
+  font-family: "Inter", sans-serif;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 45.99px;
+  text-align: left;
+  color: #333333;
+  margin-bottom: 27.32px;
 }

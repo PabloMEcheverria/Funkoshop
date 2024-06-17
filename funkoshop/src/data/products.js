@@ -59,11 +59,11 @@ class Product {
   }
 
 const productsArr = [
-  new Product(1, "STW001001", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura Funko coleccionable de Baby Yoda de la saga Star Wars sosteniendo la Shifter Knob.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
-  new Product(2, "STW001002", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura Funko coleccionable de Baby Yoda de la saga Star Wars sosteniendo la Shifter Knob.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
-  new Product(3, "STW001003", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura Funko coleccionable de Baby Yoda de la saga Star Wars sosteniendo la Shifter Knob.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
-  new Product(4, "STW001004", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura Funko coleccionable de Baby Yoda de la saga Star Wars sosteniendo la Shifter Knob.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
-  new Product(5, "STW001005", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura Funko coleccionable de Baby Yoda de la saga Star Wars sosteniendo la Shifter Knob.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
+  new Product(1, "STW001001", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
+  new Product(2, "STW001002", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
+  new Product(3, "STW001003", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
+  new Product(4, "STW001004", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
+  new Product(5, "STW001005", "Baby Yoda Blueball", "Figuras", "Star Wars", "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.", 49.99, [1, 3, 6, 12], 0, babyYoda, babyYodaBack, true, true, true), 
 
   new Product( 6, "STW002001", "Chewbacca", "Figuras", "Star Wars", "Figura Funko coleccionable de Chewbacca de la saga Star Wars sosteniendo una ballesta." , 39.99, [1, 3, 6], 5, chewbacca, chewbaccaBack, true, true, false), 
   new Product( 7, "STW002002", "Chewbacca", "Figuras", "Star Wars", "Figura Funko coleccionable de Chewbacca de la saga Star Wars sosteniendo una ballesta." , 39.99, [1, 3, 6], 5, chewbacca, chewbaccaBack, true, true, false), 

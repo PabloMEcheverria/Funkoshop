@@ -25,7 +25,8 @@ export default function ItemPage() {
             <div className="product-details__info">
                 <p className="product-details__license">{product.license}</p>
                 <h2 className="product-details__name">{product.nameProduct}</h2>
-                <p className="product-details__price">{product.price}</p>
+                <p className="product-details__description">{product.description}</p>
+                <p className="product-details__price">{"$ " + product.price}</p>
                 <input className="product-details__input" type="number" />
                 <button className="product-details__button product-details__button--increment">+</button>
                 <button className="product-details__button product-details__button--decrement">-</button>
