@@ -27,10 +27,14 @@ export default function ItemPage() {
                 <h2 className="product-details__name">{product.nameProduct}</h2>
                 <p className="product-details__description">{product.description}</p>
                 <p className="product-details__price">{"$ " + product.price}</p>
-                <input className="product-details__input" type="number" />
-                <button className="product-details__button product-details__button--increment">+</button>
-                <button className="product-details__button product-details__button--decrement">-</button>
-                <button className="product-details__button product-details__button--add-to-cart">Agregar al Carrito</button>
+                <div className="product-details__input-wrapper">
+                    <input className="product-details__input" type="number" />
+                    <div className="product-details__button-wrapper">
+                        <button className="product-details__button product-details__button--increment">+</button>
+                        <button className="product-details__button product-details__button--decrement">-</button>
+                    </div> 
+                    <button className="product-details__button product-details__button--add-to-cart">Agregar al Carrito</button>
+                </div>
                 <div className="product-details__payment-info">
                     <a className="product-details__payment-link" href="/#">Ver métodos de pago</a>
                     <p className="product-details__current-payment-method">

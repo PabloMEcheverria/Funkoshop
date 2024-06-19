@@ -60,3 +60,40 @@
   color: #333333;
   margin-bottom: 27.32px;
 }
+
+.product-details__input-wrapper {
+  width: calc(342.58 / 576.84 * 100%);
+  height: 37.91px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.product-details__input {
+  display: inline-block;
+  width: calc(105.47 / 342.58 * 100%);
+  height: 35.24px;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  top: 0.44px;
+  margin-right: calc(8.79 / 342.58 * 100%);
+}
+
+.product-details__button-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 18px;
+  height: 40px;
+  position: relative;
+  margin-right: calc(29.33 / 342.58 * 100%);
+  top: -0.44px;
+}
+
+.product-details__button--increment,
+.product-details__button--decrement {
+  width: 18px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background-color: #4f4f4f;
+}
