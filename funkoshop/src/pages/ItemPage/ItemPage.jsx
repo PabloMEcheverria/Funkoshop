@@ -1,4 +1,6 @@
 import "./ItemPage.css";
+import ItemShopPlus from "../../components/svgComponents/ItemShopPlus.jsx";
+import ItemShopMinus from "../../components/svgComponents/ItemShopMinus.jsx";
 import { useParams } from "react-router-dom";
 import productsArr from "../../data/products";
 import { useState } from "react";
@@ -30,8 +32,8 @@ export default function ItemPage() {
                 <div className="product-details__input-wrapper">
                     <input className="product-details__input" type="number" />
                     <div className="product-details__button-wrapper">
-                        <button className="product-details__button product-details__button--increment">+</button>
-                        <button className="product-details__button product-details__button--decrement">-</button>
+                        <button className="product-details__button product-details__button--increment">{<ItemShopPlus />}</button>
+                        <button className="product-details__button product-details__button--decrement">{<ItemShopMinus />}</button>
                     </div> 
                     <button className="product-details__button product-details__button--add-to-cart">Agregar al Carrito</button>
                 </div>

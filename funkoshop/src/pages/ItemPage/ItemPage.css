@@ -66,6 +66,7 @@
   height: 37.91px;
   display: flex;
   flex-flow: row nowrap;
+  margin-bottom: 26.88px;
 }
 
 .product-details__input {
@@ -77,13 +78,21 @@
   position: relative;
   top: 0.44px;
   margin-right: calc(8.79 / 342.58 * 100%);
+  font-family: "Inter", sans-serif;
+  font-size: 19.45px;
+  font-weight: 400;
+  line-height: 45.99px;
+  text-align: center;
+  color: #747474;
+  border: 0.5px solid #c9c9c9;
 }
 
 .product-details__button-wrapper {
   display: flex;
   flex-flow: column nowrap;
+  justify-content: space-between;
   width: 18px;
-  height: 40px;
+  height: 36px;
   position: relative;
   margin-right: calc(29.33 / 342.58 * 100%);
   top: -0.44px;
@@ -91,9 +100,46 @@
 
 .product-details__button--increment,
 .product-details__button--decrement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 18px;
   height: 16px;
   padding: 0;
   border: none;
   background-color: #4f4f4f;
+}
+
+.product-details__button--add-to-cart {
+  height: 100%;
+  width: calc(181 / 342.58 * 100%);
+  box-sizing: border-box;
+  padding: 7.95px 15px 7.96px;
+  border: none;
+  background-color: #ff3333;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.78px;
+  text-align: left;
+  color: #ffffff;
+}
+
+.product-details__payment-info {
+  display: inline-block;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  height: 17px;
+}
+
+.product-details__payment-link,
+.product-details__current-payment-method {
+  display: inline-block;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.94px;
+  text-align: left;
+  color: #1d84b5;
 }
