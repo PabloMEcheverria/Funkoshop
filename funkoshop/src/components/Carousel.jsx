@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
-export default function Carousel() {
+export default function Carousel({ location = "HomePage" }) {
     useEffect(() => {
         window.addEventListener("resize", modifyCardDisplay);
     })
@@ -91,7 +91,7 @@ export default function Carousel() {
     }
 
     return (
-        <div className={"carousel" + (cardCount > 1 ? " flex_justify_spaceBetween" : " flex_justify_center")}>
+        <div className={location + "-carousel" + (cardCount > 1 ? " flex_justify_spaceBetween" : " flex_justify_center")}>
             <button className="previousButton" onClick={handlePreviousClick} disabled={disableButtons.beforeButton} >
                 <FontAwesomeIcon icon={faAngleLeft} className="previousButton__icon" />
             </button>

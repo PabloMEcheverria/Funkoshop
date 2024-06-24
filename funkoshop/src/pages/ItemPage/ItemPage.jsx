@@ -4,6 +4,7 @@ import ItemShopMinus from "../../components/svgComponents/ItemShopMinus.jsx";
 import { useParams } from "react-router-dom";
 import productsArr from "../../data/products";
 import { useState } from "react";
+import Carousel from "../../components/Carousel.jsx";
 
 export default function ItemPage() {
     const params = useParams();
@@ -26,11 +27,11 @@ export default function ItemPage() {
             <img className="product-details__image" src={product.frontImg} alt={`Imagen de funko pop de ${product.nameProduct}`} />
             <div className="product-details__info">
                 <p className="product-details__license">{product.license}</p>
-                <h2 className="product-details__name">{product.nameProduct}</h2>
+                <h3 className="product-details__name">{product.nameProduct}</h3>
                 <p className="product-details__description">{product.description}</p>
                 <p className="product-details__price">{"$ " + product.price}</p>
                 <div className="product-details__input-wrapper">
-                    <input className="product-details__input" type="number" />
+                    <input className="product-details__input" type="number"  placeholder="0"/>
                     <div className="product-details__button-wrapper">
                         <button className="product-details__button product-details__button--increment">{<ItemShopPlus />}</button>
                         <button className="product-details__button product-details__button--decrement">{<ItemShopMinus />}</button>
@@ -56,6 +57,10 @@ export default function ItemPage() {
                     ))}
                 </ul>
             </div>
+        </section>
+        <section className="ItemPage-news">
+            <h2 className="ItemPage-news__title">productos relacionados</h2>
+            <Carousel location="ItemPage" />
         </section>
     </>
    )

@@ -1,10 +1,24 @@
-.carousel {
+.HomePage-carousel {
   /*Display stuff*/
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   /*Positioning stuff*/
   position: absolute;
+  left: 7.638%;
+  bottom: 0;
+  /*Box model stuff*/
+  width: 84.72%;
+  height: 82.19%;
+}
+
+.ItemPage-carousel {
+  /*Display stuff*/
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  /*Positioning stuff*/
+  position: relative;
   left: 7.638%;
   bottom: 0;
   /*Box model stuff*/

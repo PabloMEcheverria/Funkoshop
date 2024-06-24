@@ -1,8 +1,9 @@
 import '../assets/css/Card.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Card({ product, customClassName }) {
     const [cardImg, setCardImg] = useState(product.frontImg);
+    useEffect(() => {setCardImg(product.frontImg)}, [product]);
     const handleOnMouseEnter = () => setCardImg(product.backImg);
     const handleOnMouseLeave = () => setCardImg(product.frontImg);
     return (
