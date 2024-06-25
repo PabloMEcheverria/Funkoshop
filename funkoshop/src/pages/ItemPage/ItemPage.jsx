@@ -14,13 +14,14 @@ export default function ItemPage() {
                                           "Efectivo o débito automático" : 
                                           `${prod.paymentMethods[prod.paymentMethods.length - 1]} CUOTAS SIN INTERÉS`}
     const [product, setProduct] = useState(prod);
+    const [visible, setVisible] = useState(false);
     function handleClick(e) {
-        console.log(e.target.id);
-        setProduct({...product, currentPaymentMethod: parseInt(e.target.id) === 1 ? 
-                                                      "Efectivo o débito automático" : 
-                                                      `${e.target.id} CUOTAS SIN INTERÉS`})
+        setProduct({...product, currentPaymentMethod: parseInt(e.target.id)});
     }
-    console.log(product);
+    function toggleVisibility(e) {
+        console.log("asd");
+        setVisible(!visible);
+    }
    return (
     <>
         <section className="product-details">
@@ -39,12 +40,16 @@ export default function ItemPage() {
                     <button className="product-details__button product-details__button--add-to-cart">Agregar al Carrito</button>
                 </div>
                 <div className="product-details__payment-info">
-                    <a className="product-details__payment-link" href="/#">Ver métodos de pago</a>
+                    <button className="product-details__payment-link" onClick={toggleVisibility}>Ver métodos de pago</button>
                     <p className="product-details__current-payment-method">
-                        - {product.currentPaymentMethod}
+                        - { product.currentPaymentMethod === 1 ? 
+                            "Efectivo o débito automático" : 
+                            `${product.currentPaymentMethod} CUOTAS SIN INTERÉS`}
                     </p>
                 </div>
-                <ul className="product-details__payment-methods">
+                <ul className={ visible ? 
+                                "product-details__payment-methods": 
+                                "product-details__payment-methods hidden"}>
                     {product.paymentMethods.map(value => (
                         <li className="product-details__payment-method-item" 
                             id={value} 

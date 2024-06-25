@@ -55,6 +55,7 @@ class Product {
       this.isNew = isNew;
       this.isSpecialEdition = isSpecialEdition;
       this.isFavorite = isFavorite;
+      this.currentPaymentMethod = paymentMethods[paymentMethods.length - 1];
     }
   }
 
