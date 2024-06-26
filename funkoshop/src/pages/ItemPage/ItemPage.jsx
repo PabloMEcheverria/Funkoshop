@@ -3,10 +3,10 @@ import ItemShopPlus from "../../components/svgComponents/ItemShopPlus.jsx";
 import ItemShopMinus from "../../components/svgComponents/ItemShopMinus.jsx";
 import { useParams } from "react-router-dom";
 import productsArr from "../../data/products";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Carousel from "../../components/Carousel.jsx";
 
-export default function ItemPage() {
+export default function ItemPage({ itemsInCart, setItemsInChart }) {
     const params = useParams();
     const itemId = params.itemId;
     let prod = productsArr.filter(product => parseInt(itemId) === product.id)[0];
@@ -15,6 +15,7 @@ export default function ItemPage() {
                                           `${prod.paymentMethods[prod.paymentMethods.length - 1]} CUOTAS SIN INTERÉS`}
     const [product, setProduct] = useState(prod);
     const [visible, setVisible] = useState(false);
+    const [quantityToBuy, setQuantityToBuy] = useState(0);
     function handleClick(e) {
         setProduct({...product, currentPaymentMethod: parseInt(e.target.id)});
     }
@@ -22,6 +23,8 @@ export default function ItemPage() {
         console.log("asd");
         setVisible(!visible);
     }
+    const increment = () => setQuantityToBuy(quantityToBuy + 1);
+    const decrement = () => quantityToBuy > 0? setQuantityToBuy(quantityToBuy - 1) : 0;
    return (
     <>
         <section className="product-details">
@@ -32,10 +35,17 @@ export default function ItemPage() {
                 <p className="product-details__description">{product.description}</p>
                 <p className="product-details__price">{"$ " + product.price}</p>
                 <div className="product-details__input-wrapper">
-                    <input className="product-details__input" type="number"  placeholder="0"/>
+                    <input  className="product-details__input" 
+                            type="number" 
+                            value={quantityToBuy}
+                            onChange={(e) => setQuantityToBuy(parseInt(e.target.value) || 0)} />
                     <div className="product-details__button-wrapper">
-                        <button className="product-details__button product-details__button--increment">{<ItemShopPlus />}</button>
-                        <button className="product-details__button product-details__button--decrement">{<ItemShopMinus />}</button>
+                        <button 
+                            className="product-details__button product-details__button--increment"
+                            onClick={increment}>{<ItemShopPlus />}</button>
+                        <button 
+                            className="product-details__button product-details__button--decrement"
+                            onClick={decrement}>{<ItemShopMinus />}</button>
                     </div> 
                     <button className="product-details__button product-details__button--add-to-cart">Agregar al Carrito</button>
                 </div>

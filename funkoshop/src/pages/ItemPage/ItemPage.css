@@ -91,6 +91,18 @@
   color: #747474;
 }
 
+/* Chrome, Safari, Edge, Opera */
+.product-details__input::-webkit-outer-spin-button,
+.product-details__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.product-details__input {
+  -moz-appearance: textfield;
+}
+
 .product-details__button-wrapper {
   display: flex;
   flex-flow: column nowrap;
@@ -118,7 +130,7 @@
   height: 100%;
   width: calc(181 / 342.58 * 100%);
   box-sizing: border-box;
-  padding: 7.95px 0 7.96px;
+  padding: 7.95px 15px 7.96px;
   border: none;
   background-color: #ff3333;
   font-family: "Inter", sans-serif;

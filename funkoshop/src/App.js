@@ -12,6 +12,14 @@ import { useState } from 'react';
 import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
+  //let isAdminPanel = false;
+  //let isLogged = false;
+  const [itemsInCart, setItemsInChart] = useState([]);
+  const headerMenu = ["shop", "contacto", "login", <CartIcon />];
+  //const headerMenu = ["ver tienda", "admin", "salir"];
+  const footerMenu = ["shop", "ingresar", "contacto"];
+  //const footerMenu = ["shop", "registrarse", "ingresar", "contacto"];
+  
   const router = createHashRouter([
     {
       path: "/", 
@@ -20,7 +28,7 @@ function App() {
     }, 
     {
       path: "/shop",
-      element: <ShopPage />/*,
+      element: <ShopPage itemsInCart={itemsInCart} setItemsInChart={setItemsInChart} />/*,
       children: [
         {
           path: "/shop/:itemId",
@@ -34,14 +42,6 @@ function App() {
     }
   ]);
 
-  //let isAdminPanel = false;
-  //let isLogged = false;
-  const [itemsInCart, setItemsInChart] = useState([]);
-  const headerMenu = ["shop", "contacto", "login", <CartIcon />];
-  //const headerMenu = ["ver tienda", "admin", "salir"];
-
-  const footerMenu = ["shop", "ingresar", "contacto"];
-  //const footerMenu = ["shop", "registrarse", "ingresar", "contacto"];
   return (
     <>
       <Header headerMenu={headerMenu} itemsInCart={itemsInCart}/>
