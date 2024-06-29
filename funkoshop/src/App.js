@@ -14,7 +14,7 @@ import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-rou
 function App() {
   //let isAdminPanel = false;
   //let isLogged = false;
-  const [itemsInCart, setItemsInChart] = useState([]);
+  const [itemsInCart, setItemsInCart] = useState([]);
   const headerMenu = ["shop", "contacto", "login", <CartIcon />];
   //const headerMenu = ["ver tienda", "admin", "salir"];
   const footerMenu = ["shop", "ingresar", "contacto"];
@@ -28,7 +28,7 @@ function App() {
     }, 
     {
       path: "/shop",
-      element: <ShopPage itemsInCart={itemsInCart} setItemsInChart={setItemsInChart} />/*,
+      element: <ShopPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} />/*,
       children: [
         {
           path: "/shop/:itemId",
@@ -38,7 +38,7 @@ function App() {
     }, 
     {
       path: "/shop/:itemId",
-      element: <ItemPage />
+      element: <ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} />
     }
   ]);
 

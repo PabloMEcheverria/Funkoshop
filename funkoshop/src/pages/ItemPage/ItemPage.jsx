@@ -6,25 +6,26 @@ import productsArr from "../../data/products";
 import { useEffect, useState } from "react";
 import Carousel from "../../components/Carousel.jsx";
 
-export default function ItemPage({ itemsInCart, setItemsInChart }) {
+export default function ItemPage({ itemsInCart, setItemsInCart }) {
     const params = useParams();
     const itemId = params.itemId;
     let prod = productsArr.filter(product => parseInt(itemId) === product.id)[0];
-    prod = {...prod, currentPaymentMethod: prod.paymentMethods.length === 1 ? 
-                                          "Efectivo o débito automático" : 
-                                          `${prod.paymentMethods[prod.paymentMethods.length - 1]} CUOTAS SIN INTERÉS`}
     const [product, setProduct] = useState(prod);
     const [visible, setVisible] = useState(false);
     const [quantityToBuy, setQuantityToBuy] = useState(0);
-    function handleClick(e) {
-        setProduct({...product, currentPaymentMethod: parseInt(e.target.id)});
-    }
-    function toggleVisibility(e) {
-        console.log("asd");
-        setVisible(!visible);
-    }
+    useEffect(() => {}, [itemsInCart]);
+
+    const handleClick =(e) => setProduct({...product, currentPaymentMethod: parseInt(e.target.id)});
+    const toggleVisibility = () => setVisible(!visible);
     const increment = () => setQuantityToBuy(quantityToBuy + 1);
     const decrement = () => quantityToBuy > 0? setQuantityToBuy(quantityToBuy - 1) : 0;
+    const addToCart = () => {
+        let avaibleProductArr = productsArr.filter(obj => product.nameProduct === obj.nameProduct);
+        if (quantityToBuy <= avaibleProductArr.length) {
+            setItemsInCart(avaibleProductArr.slice(0, quantityToBuy));
+            /*delete items in cart from productsArr here.*/
+        }
+    }
    return (
     <>
         <section className="product-details">
@@ -47,7 +48,8 @@ export default function ItemPage({ itemsInCart, setItemsInChart }) {
                             className="product-details__button product-details__button--decrement"
                             onClick={decrement}>{<ItemShopMinus />}</button>
                     </div> 
-                    <button className="product-details__button product-details__button--add-to-cart">Agregar al Carrito</button>
+                    <button className="product-details__button product-details__button--add-to-cart"
+                            onClick={addToCart}>Agregar al Carrito</button>
                 </div>
                 <div className="product-details__payment-info">
                     <button className="product-details__payment-link" onClick={toggleVisibility}>Ver métodos de pago</button>
