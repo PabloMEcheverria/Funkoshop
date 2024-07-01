@@ -20,10 +20,22 @@ export default function ItemPage({ itemsInCart, setItemsInCart }) {
     const increment = () => setQuantityToBuy(quantityToBuy + 1);
     const decrement = () => quantityToBuy > 0? setQuantityToBuy(quantityToBuy - 1) : 0;
     const addToCart = () => {
-        let avaibleProductArr = productsArr.filter(obj => product.nameProduct === obj.nameProduct);
-        if (quantityToBuy <= avaibleProductArr.length) {
-            setItemsInCart(avaibleProductArr.slice(0, quantityToBuy));
-            /*delete items in cart from productsArr here.*/
+        if (quantityToBuy > 0) {
+            let avaibleProductArr = productsArr.filter(obj => product.nameProduct === obj.nameProduct);
+            if (quantityToBuy <= avaibleProductArr.length) {
+                avaibleProductArr = avaibleProductArr.slice(0, quantityToBuy);
+                let newProductArr = productsArr;
+                avaibleProductArr.map(avaible => {
+                    newProductArr = newProductArr.filter(product => product.id !== avaible.id);
+                    return newProductArr
+                });
+                setItemsInCart([...itemsInCart, avaibleProductArr].flat(Infinity));
+                //Delete the items inserted in the cart from the productArr here.
+            } else {
+                alert("No hay tantas unidades disponibles. Intente agregar menos unidades de ese producto a su carrito.");
+            }
+        } else {
+            alert("Agregue al menos una unidad del producto a su carrito.")
         }
     }
    return (
