@@ -8,13 +8,16 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 import CartIcon from './components/svgComponents/CartIcon';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import productsArr from './data/products.js';
+import { uniqueProductsArr } from './data/products.js';
 import { useState } from 'react';
-import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
   //let isAdminPanel = false;
   //let isLogged = false;
   const [itemsInCart, setItemsInCart] = useState([]);
+  const [productsStock, setProductsStock] = useState({productsArr: productsArr, uniqueProductsArr: uniqueProductsArr});
   const headerMenu = ["shop", "contacto", "login", <CartIcon />];
   //const headerMenu = ["ver tienda", "admin", "salir"];
   const footerMenu = ["shop", "ingresar", "contacto"];
@@ -38,13 +41,16 @@ function App() {
     }, 
     {
       path: "/shop/:itemId",
-      element: <ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} />
+      element: <ItemPage  itemsInCart={itemsInCart} 
+                          setItemsInCart={setItemsInCart} 
+                          productsStock={productsStock}
+                          setProductsStock={setProductsStock} />
     }
   ]);
 
   return (
     <>
-      <Header headerMenu={headerMenu} itemsInCart={itemsInCart}/>
+      <Header headerMenu={headerMenu} itemsInCart={itemsInCart} productsStock={productsStock} />
         <RouterProvider router={router} />
       <Footer footerMenu={footerMenu} />
     </>

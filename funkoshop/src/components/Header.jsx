@@ -5,16 +5,16 @@ import CartIcon from "./svgComponents/CartIcon";
 import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
 
-export default function Header({headerMenu, itemsInCart}) {
+export default function Header({headerMenu, itemsInCart, productsStock}) {
     let menuList = headerMenu.map(option => {
         let keyValue = headerMenu.indexOf(option);
         if (typeof option === "object") {
             if (itemsInCart.length === 0) {
                 return  <li key={keyValue}>
-                        <button className="cartIconWrapper">
-                            <CartIcon className="cartIcon" />
-                        </button>
-                    </li>
+                            <button className="cartIconWrapper">
+                                <CartIcon className="cartIcon" />
+                            </button>
+                        </li>
             } else {
                 return  <li key={keyValue}>
                         <button className="cartIconWrapper">

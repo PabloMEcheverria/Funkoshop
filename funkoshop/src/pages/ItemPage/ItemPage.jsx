@@ -6,10 +6,10 @@ import productsArr from "../../data/products";
 import { useEffect, useState } from "react";
 import Carousel from "../../components/Carousel.jsx";
 
-export default function ItemPage({ itemsInCart, setItemsInCart }) {
+export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock }) {
     const params = useParams();
     const itemId = params.itemId;
-    let prod = productsArr.filter(product => parseInt(itemId) === product.id)[0];
+    let prod = productsStock.productsArr.filter(product => parseInt(itemId) === product.id)[0];
     const [product, setProduct] = useState(prod);
     const [visible, setVisible] = useState(false);
     const [quantityToBuy, setQuantityToBuy] = useState(0);
@@ -18,19 +18,20 @@ export default function ItemPage({ itemsInCart, setItemsInCart }) {
     const handleClick =(e) => setProduct({...product, currentPaymentMethod: parseInt(e.target.id)});
     const toggleVisibility = () => setVisible(!visible);
     const increment = () => setQuantityToBuy(quantityToBuy + 1);
-    const decrement = () => quantityToBuy > 0? setQuantityToBuy(quantityToBuy - 1) : 0;
+    const decrement = () => quantityToBuy > 0 ? setQuantityToBuy(quantityToBuy - 1) : 0;
     const addToCart = () => {
         if (quantityToBuy > 0) {
-            let avaibleProductArr = productsArr.filter(obj => product.nameProduct === obj.nameProduct);
+            let avaibleProductArr = productsStock.productsArr.filter(obj => product.nameProduct === obj.nameProduct);
             if (quantityToBuy <= avaibleProductArr.length) {
                 avaibleProductArr = avaibleProductArr.slice(0, quantityToBuy);
-                let newProductArr = productsArr;
+                let newProductArr = productsStock.productsArr;
                 avaibleProductArr.map(avaible => {
                     newProductArr = newProductArr.filter(product => product.id !== avaible.id);
                     return newProductArr
                 });
                 setItemsInCart([...itemsInCart, avaibleProductArr].flat(Infinity));
-                //Delete the items inserted in the cart from the productArr here.
+                setProductsStock({...productsStock, productsArr: newProductArr});
+                setQuantityToBuy(0);
             } else {
                 alert("No hay tantas unidades disponibles. Intente agregar menos unidades de ese producto a su carrito.");
             }
