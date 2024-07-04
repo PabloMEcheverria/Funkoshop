@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Funkoshop/static/css/main.60f5eb6b.css",
-    "main.js": "/Funkoshop/static/js/main.7abbbd4b.js",
+    "main.js": "/Funkoshop/static/js/main.2b92c99e.js",
     "static/js/787.b6a5a490.chunk.js": "/Funkoshop/static/js/787.b6a5a490.chunk.js",
     "static/media/Naruto_Naruto_Shippuden_box.jpg": "/Funkoshop/static/media/Naruto_Naruto_Shippuden_box.9a8f29006434ef5ae4d4.jpg",
     "static/media/HomePage_banner_gaussian_blur-3px.png": "/Funkoshop/static/media/HomePage_banner_gaussian_blur-3px.7e5f23645483e1b8ee8e.png",
@@ -49,11 +49,11 @@
     "static/media/Naruto_Kakashi_Hatake_box.png": "/Funkoshop/static/media/Naruto_Kakashi_Hatake_box.288919404fb15e3922bb.png",
     "index.html": "/Funkoshop/index.html",
     "main.60f5eb6b.css.map": "/Funkoshop/static/css/main.60f5eb6b.css.map",
-    "main.7abbbd4b.js.map": "/Funkoshop/static/js/main.7abbbd4b.js.map",
+    "main.2b92c99e.js.map": "/Funkoshop/static/js/main.2b92c99e.js.map",
     "787.b6a5a490.chunk.js.map": "/Funkoshop/static/js/787.b6a5a490.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.60f5eb6b.css",
-    "static/js/main.7abbbd4b.js"
+    "static/js/main.2b92c99e.js"
   ]
 }
