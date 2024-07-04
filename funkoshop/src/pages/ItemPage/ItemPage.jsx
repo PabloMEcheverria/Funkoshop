@@ -2,7 +2,6 @@ import "./ItemPage.css";
 import ItemShopPlus from "../../components/svgComponents/ItemShopPlus.jsx";
 import ItemShopMinus from "../../components/svgComponents/ItemShopMinus.jsx";
 import { useParams } from "react-router-dom";
-import productsArr from "../../data/products";
 import { useEffect, useState } from "react";
 import Carousel from "../../components/Carousel.jsx";
 
@@ -90,7 +89,7 @@ export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, s
         </section>
         <section className="ItemPage-news">
             <h2 className="ItemPage-news__title">productos relacionados</h2>
-            <Carousel location="ItemPage" />
+            <Carousel location="ItemPage" productsStock={productsStock} setProductsStock={setProductsStock} />
         </section>
     </>
    )

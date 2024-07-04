@@ -4,7 +4,7 @@ import LicensePresentation from '../../components/LicensePresentation.jsx';
 import Carousel from '../../components/Carousel.jsx';
 import { Link } from 'react-router-dom';
 
-export default function HomePage() {
+export default function HomePage({ productsStock, setProductsStock }) {
     return (
         <main className='home'>
             <section className='newProducts'>
@@ -25,7 +25,7 @@ export default function HomePage() {
             }
             <section className='news'>
                 <h2 className='news__title'>últimos lazamientos</h2>
-                <Carousel />
+                <Carousel productsStock={productsStock} setProductsStock={setProductsStock} />
             </section>
         </main>
     )

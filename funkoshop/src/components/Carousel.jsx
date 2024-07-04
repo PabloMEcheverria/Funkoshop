@@ -1,11 +1,10 @@
-import { uniqueProductsArr } from "../data/products";
 import Card from "./Card";
 import "../assets/css/Carousel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
-export default function Carousel({ location = "HomePage" }) {
+export default function Carousel({ productsStock, setProductsStock, location = "HomePage" }) {
     useEffect(() => {
         window.addEventListener("resize", modifyCardDisplay);
     })
@@ -20,8 +19,8 @@ export default function Carousel({ location = "HomePage" }) {
             setCardsToDisplay(newCardsToDisplay);
         }
         if (cardsToDisplay.length < 3 && getCardCount() > cardsToDisplay.length) {
-            let firstProductIndex = uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id );
-            let newProductArr = uniqueProductsArr.slice(firstProductIndex, firstProductIndex + getCardCount());
+            let firstProductIndex = productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id );
+            let newProductArr = productsStock.uniqueProductsArr.slice(firstProductIndex, firstProductIndex + getCardCount());
             newCardsToDisplay = productToCardDisplay(newProductArr);
             setCardsToDisplay(newCardsToDisplay);
         }
@@ -40,7 +39,7 @@ export default function Carousel({ location = "HomePage" }) {
         }
         return cardCount
     }
-    const initialProductDisplay = uniqueProductsArr.slice(0, cardCount);
+    const initialProductDisplay = productsStock.uniqueProductsArr.slice(0, cardCount);
     
     function productToCardDisplay(productArr) {
         let cardsDisplay = productArr.map(( product, i, arr )  => {
@@ -57,14 +56,14 @@ export default function Carousel({ location = "HomePage" }) {
     const [disableButtons, setDisableButtons] = useState({beforeButton: true, nextButton: false});
     
     function handlePreviousClick(e) {
-        if (cardsToDisplay[0].props.product.id === uniqueProductsArr[0].id) {
+        if (cardsToDisplay[0].props.product.id === productsStock.uniqueProductsArr[0].id) {
             setDisableButtons({beforeButton: true, nextButton: false});
         } else {
-            let productPreviousIndex = uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id ) - 1;
-            let newProductToDisplay = uniqueProductsArr.slice(productPreviousIndex, productPreviousIndex + cardCount);
+            let productPreviousIndex = productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id ) - 1;
+            let newProductToDisplay = productsStock.uniqueProductsArr.slice(productPreviousIndex, productPreviousIndex + cardCount);
             let newCardDisplay = productToCardDisplay(newProductToDisplay);
             setCardsToDisplay(newCardDisplay);
-            if (cardsToDisplay[0].props.product.id === uniqueProductsArr[1].id) { //use useEffect here instead of uniqueProductsArr[1].id
+            if (cardsToDisplay[0].props.product.id === productsStock.uniqueProductsArr[1].id) { //use useEffect here instead of uniqueProductsArr[1].id
                 setDisableButtons({beforeButton: true, nextButton: false});
             } else {
                 setDisableButtons({beforeButton: false, nextButton: false});
@@ -73,15 +72,15 @@ export default function Carousel({ location = "HomePage" }) {
     }
 
     function handleNextClick(e) {
-        if (cardsToDisplay[cardsToDisplay.length - 1].props.product.id === uniqueProductsArr[uniqueProductsArr.length - 1].id) {
+        if (cardsToDisplay[cardsToDisplay.length - 1].props.product.id === productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.length - 1].id) {
             setDisableButtons({beforeButton: false, nextButton: true});
         } else {
-            let productNextIndex = uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id) + 1;
-            let newProductToDisplay = uniqueProductsArr.slice(productNextIndex, productNextIndex + cardsToDisplay.length);
+            let productNextIndex = productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id) + 1;
+            let newProductToDisplay = productsStock.uniqueProductsArr.slice(productNextIndex, productNextIndex + cardsToDisplay.length);
             let newCardDisplay = productToCardDisplay(newProductToDisplay);
             setCardsToDisplay(newCardDisplay);
-            let lastProductToDisplay = uniqueProductsArr[uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[cardsToDisplay.length - 1].props.product.id) + 1];
-            if (lastProductToDisplay.id === uniqueProductsArr[uniqueProductsArr.length - 1].id) {
+            let lastProductToDisplay = productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[cardsToDisplay.length - 1].props.product.id) + 1];
+            if (lastProductToDisplay.id === productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.length - 1].id) {
                 setDisableButtons({beforeButton: false, nextButton: true});
             } else {
                 setDisableButtons({beforeButton: false, nextButton: false});

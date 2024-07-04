@@ -1,5 +1,3 @@
-import { uniqueProductsArr } from "../../data/products";
-import productsArr from "../../data/products";
 import { useState, useEffect } from "react";
 import "./ShopPage.css";
 import FilterShop from "../../components/FilterShop.jsx";
@@ -7,8 +5,8 @@ import CatalogueShop from "../../components/CatalogueShop.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import PaginationButton from "../../components/PaginationButton.jsx";
 
-export default function ShopPage() {
-    const [displayProductArr, setDisplayProductArr] = useState(productsArr);
+export default function ShopPage({ productsStock, setProductsStock, itemsInCart, setItemsInCart }) {
+    const [displayProductArr, setDisplayProductArr] = useState(productsStock.productsArr);
     const [filterData, setFilterData] = useState(
         {   
             nameOrCategory:"",
