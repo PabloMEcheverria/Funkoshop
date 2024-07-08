@@ -37,7 +37,6 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
     }
 
     function filterEngine(filterDataObj) {
-        console.log(filterDataObj);
         let {//nameOrCategory, 
              sortBy, 
              price,
@@ -104,7 +103,6 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
             newUniqueProductArr.sort((a, b) => a.price - b.price);
         }
         /*------------------------*/
-        console.log(newUniqueProductArr);
         setDisplayProductArr(newUniqueProductArr);
         let newPaginationData = {...paginationData, positionInPagination: 1};
         setPaginationData(newPaginationData);

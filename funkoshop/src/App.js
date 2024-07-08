@@ -35,7 +35,9 @@ function App() {
     }
   });
   const [itemsInCart, setItemsInCart] = useState([]);
-  const [productsStock, setProductsStock] = useState({productsArr: productsArr, uniqueProductsArr: uniqueProductsArr});
+  const [productsStock, setProductsStock] = useState({
+    productsArr: productsArr, 
+    uniqueProductsArr: uniqueProductsArr});
   const router = createHashRouter([
     {
       path: "/", 
@@ -44,10 +46,7 @@ function App() {
     }, 
     {
       path: "/shop",
-      element: <ShopPage  productsStock={productsStock} 
-                          setProductsStock={setProductsStock} 
-                          itemsInCart={itemsInCart} 
-                          setItemsInCart={setItemsInCart} />
+      element: <ShopPage productsStock={productsStock} />
     }, 
     {
       path: "/shop/:itemId",

@@ -5,7 +5,7 @@ import CatalogueShop from "../../components/CatalogueShop.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import PaginationButton from "../../components/PaginationButton.jsx";
 
-export default function ShopPage({ productsStock, setProductsStock, itemsInCart, setItemsInCart }) {
+export default function ShopPage({ productsStock }) {
     const [displayProductArr, setDisplayProductArr] = useState(productsStock.productsArr);
     const [filterData, setFilterData] = useState(
         {   
@@ -86,7 +86,7 @@ export default function ShopPage({ productsStock, setProductsStock, itemsInCart,
         return newProductArr
     }
     function setPaginationList(segmentedProductArr, paginationDataObj = paginationData) {
-        let liPaginationArr = segmentedProductArr.map((productArr, i, arr) => {
+        let liPaginationArr = segmentedProductArr.map((product, i, arr) => {
             let pos = paginationDataObj.positionInPagination;
             if (arr.length <= 7) {
                 return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
@@ -150,15 +150,8 @@ export default function ShopPage({ productsStock, setProductsStock, itemsInCart,
                     paginationData={paginationData} 
                     setPaginationData={setPaginationData} />
                 <div className="catalogue-wrapper">
-                    <CatalogueShop 
-                        displayProductArr={displayProductArr} 
-                        paginationData={paginationData} 
-                        setPaginationData={setPaginationData} />
-                    <Pagination 
-                        displayProductArr={displayProductArr} 
-                        setDisplayProductArr={setDisplayProductArr} 
-                        paginationData={paginationData} 
-                        setPaginationData={setPaginationData} />
+                    <CatalogueShop paginationData={paginationData} />
+                    <Pagination paginationData={paginationData} />
                 </div>
             </div>
         </main>

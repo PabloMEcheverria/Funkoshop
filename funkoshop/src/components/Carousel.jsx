@@ -3,8 +3,9 @@ import "../assets/css/Carousel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-export default function Carousel({ productsStock, setProductsStock, location = "HomePage" }) {
+export default function Carousel({ productsStock, location = "HomePage" }) {
     useEffect(() => {
         window.addEventListener("resize", modifyCardDisplay);
     })
@@ -42,13 +43,26 @@ export default function Carousel({ productsStock, setProductsStock, location = "
     const initialProductDisplay = productsStock.uniqueProductsArr.slice(0, cardCount);
     
     function productToCardDisplay(productArr) {
-        let cardsDisplay = productArr.map(( product, i, arr )  => {
-            if (arr.length > 1) {
-                return <Card key={i} product={product} className="flex_justify_spaceBetween" />
-            } else {
-                return <Card key={i} product={product} className="flex_justify_center" />
-            }
-        });
+        //let cardsDisplay = productArr.map(( product, i, arr )  => {
+        //    if (arr.length > 1) {
+        //        return  (
+        //            <Link key={product.id} to={`/shop/${product.id}`} >
+        //                    <Card key={i} product={product} className="flex_justify_spaceBetween" />
+        //            </Link>
+        //        )
+        //    } else {
+        //        return (
+        //            <Link key={product.id} to={`/shop/${product.id}`} >
+        //                    <Card key={i} product={product} className="flex_justify_center" />
+        //            </Link>
+        //        )
+        //    }
+        let cardsDisplay = productArr.map(( product, i, arr )  => (
+            <Link key={product.id} to={`/shop/${product.id}`} >
+                <Card key={i} product={product} className={arr.length > 1 ? "flex_justify_spaceBetween" : "flex_justify_center"} />
+            </Link>
+        ));
+        console.log(cardsDisplay);
         return cardsDisplay
     }
 
@@ -56,14 +70,14 @@ export default function Carousel({ productsStock, setProductsStock, location = "
     const [disableButtons, setDisableButtons] = useState({beforeButton: true, nextButton: false});
     
     function handlePreviousClick(e) {
-        if (cardsToDisplay[0].props.product.id === productsStock.uniqueProductsArr[0].id) {
+        if (cardsToDisplay[0].props.children.props.product.id === productsStock.uniqueProductsArr[0].id) {
             setDisableButtons({beforeButton: true, nextButton: false});
         } else {
-            let productPreviousIndex = productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id ) - 1;
+            let productPreviousIndex = productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.children.props.product.id ) - 1;
             let newProductToDisplay = productsStock.uniqueProductsArr.slice(productPreviousIndex, productPreviousIndex + cardCount);
             let newCardDisplay = productToCardDisplay(newProductToDisplay);
             setCardsToDisplay(newCardDisplay);
-            if (cardsToDisplay[0].props.product.id === productsStock.uniqueProductsArr[1].id) { //use useEffect here instead of uniqueProductsArr[1].id
+            if (cardsToDisplay[0].props.children.props.product.id === productsStock.uniqueProductsArr[1].id) { //use useEffect here instead of uniqueProductsArr[1].id
                 setDisableButtons({beforeButton: true, nextButton: false});
             } else {
                 setDisableButtons({beforeButton: false, nextButton: false});
@@ -72,14 +86,15 @@ export default function Carousel({ productsStock, setProductsStock, location = "
     }
 
     function handleNextClick(e) {
-        if (cardsToDisplay[cardsToDisplay.length - 1].props.product.id === productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.length - 1].id) {
+        console.log(productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.length - 1].id);
+        if (cardsToDisplay[cardsToDisplay.length - 1].props.children.props.product.id === productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.length - 1].id) {
             setDisableButtons({beforeButton: false, nextButton: true});
         } else {
-            let productNextIndex = productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id) + 1;
+            let productNextIndex = productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.children.props.product.id) + 1;
             let newProductToDisplay = productsStock.uniqueProductsArr.slice(productNextIndex, productNextIndex + cardsToDisplay.length);
             let newCardDisplay = productToCardDisplay(newProductToDisplay);
             setCardsToDisplay(newCardDisplay);
-            let lastProductToDisplay = productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[cardsToDisplay.length - 1].props.product.id) + 1];
+            let lastProductToDisplay = productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[cardsToDisplay.length - 1].props.children.props.product.id) + 1];
             if (lastProductToDisplay.id === productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.length - 1].id) {
                 setDisableButtons({beforeButton: false, nextButton: true});
             } else {

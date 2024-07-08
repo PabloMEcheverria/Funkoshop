@@ -12,6 +12,7 @@ export default function CatalogueShop({ paginationData }) {
                 <Card key={product.id} product={product} customClassName="product-grid__card" />
             </Link>
         ));
+        console.log(linkProductArr);
     }
     return (
         <section className="product-grid">
