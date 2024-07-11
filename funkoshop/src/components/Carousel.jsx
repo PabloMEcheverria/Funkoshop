@@ -11,52 +11,27 @@ export default function Carousel({ productsStock, location = "HomePage" }) {
     })
     function modifyCardDisplay() {
         let newCardsToDisplay;
-        if (cardsToDisplay.length === 3 && getCardCount() === 2) {
-            newCardsToDisplay = cardsToDisplay.slice(0, 2);
-            setCardsToDisplay(newCardsToDisplay);
-        }
-        if ((cardsToDisplay.length === 3 || cardsToDisplay.length === 2) && getCardCount() === 1) {
+        if (window.innerWidth < 768) {
             newCardsToDisplay = cardsToDisplay.slice(0, 1);
-            setCardsToDisplay(newCardsToDisplay);
+        } else if (window.innerWidth >= 768 && window.innerWidth <= 1280) {
+            newCardsToDisplay = cardsToDisplay.slice(0, 2);
+        } else if (window.innerWidth > 1280) {
+            newCardsToDisplay = cardsToDisplay;
         }
-        if (cardsToDisplay.length < 3 && getCardCount() > cardsToDisplay.length) {
-            let firstProductIndex = productsStock.uniqueProductsArr.findIndex( product => product.id === cardsToDisplay[0].props.product.id );
-            let newProductArr = productsStock.uniqueProductsArr.slice(firstProductIndex, firstProductIndex + getCardCount());
-            newCardsToDisplay = productToCardDisplay(newProductArr);
-            setCardsToDisplay(newCardsToDisplay);
-        }
+        setCardsToDisplay(newCardsToDisplay);
     }
     
-    const cardCount = getCardCount();
-    function getCardCount() {
-        let viewportWidth = window.innerWidth;
-        let cardCount;
-        if (viewportWidth < 768) {
-            cardCount = 1;
-        } else if (viewportWidth >= 768 && viewportWidth <= 1279) {
-            cardCount = 2;
-        } else {
-            cardCount = 3;
-        }
-        return cardCount
+    let cardCount;
+    if (window.innerWidth < 768) {
+        cardCount = 1;
+    } else if (window.innerWidth >= 768 && window.innerWidth <= 1280) {
+        cardCount = 2;
+    } else if (window.innerWidth > 1280) {
+        cardCount = 3;
     }
     const initialProductDisplay = productsStock.uniqueProductsArr.slice(0, cardCount);
     
     function productToCardDisplay(productArr) {
-        //let cardsDisplay = productArr.map(( product, i, arr )  => {
-        //    if (arr.length > 1) {
-        //        return  (
-        //            <Link key={product.id} to={`/shop/${product.id}`} >
-        //                    <Card key={i} product={product} className="flex_justify_spaceBetween" />
-        //            </Link>
-        //        )
-        //    } else {
-        //        return (
-        //            <Link key={product.id} to={`/shop/${product.id}`} >
-        //                    <Card key={i} product={product} className="flex_justify_center" />
-        //            </Link>
-        //        )
-        //    }
         let cardsDisplay = productArr.map(( product, i, arr )  => (
             <Link key={product.id} to={`/shop/${product.id}`} >
                 <Card key={i} product={product} className={arr.length > 1 ? "flex_justify_spaceBetween" : "flex_justify_center"} />
@@ -86,7 +61,6 @@ export default function Carousel({ productsStock, location = "HomePage" }) {
     }
 
     function handleNextClick(e) {
-        console.log(productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.length - 1].id);
         if (cardsToDisplay[cardsToDisplay.length - 1].props.children.props.product.id === productsStock.uniqueProductsArr[productsStock.uniqueProductsArr.length - 1].id) {
             setDisableButtons({beforeButton: false, nextButton: true});
         } else {
