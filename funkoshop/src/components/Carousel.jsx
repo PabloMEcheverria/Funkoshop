@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card';
 import '../assets/css/Carousel.css';
-import useWindowWidth from '../hooks/useWindowWidth';
+import useWindowWidth from '../hooks/useWindowWidth';   
 
 export default function Carousel({ productsStock, location = 'HomePage' }) {
     const windowWidth = useWindowWidth();
@@ -17,21 +17,20 @@ export default function Carousel({ productsStock, location = 'HomePage' }) {
 
     const productToCardDisplay = (productArr) => {
         return productArr.map((product, i, arr) => (
-            <Link key={product.id} to={`/shop/${product.id}`}>
-                <Card key={i} product={product} className={arr.length > 1 ? 'flex_justify_spaceBetween' : 'flex_justify_center'} />
+            <Link key={product.id} to={`/shop/${product.id}`} onClick={() => {window.location.href = `/shop/${product.id}`}}>
+                <Card product={product} className={arr.length > 1 ? 'flex_justify_spaceBetween' : 'flex_justify_center'} />
             </Link>
         ));
     };
-
+    
     const [cardsToDisplay, setCardsToDisplay] = useState(productToCardDisplay(productsStock.uniqueProductsArr.slice(0, getCardCount())));
     const [disableButtons, setDisableButtons] = useState({ beforeButton: true, nextButton: false });
 
     useEffect(() => {
-        const cardCount = getCardCount();
-        setCardsToDisplay(productToCardDisplay(productsStock.uniqueProductsArr.slice(0, cardCount)));
+        setCardsToDisplay(productToCardDisplay(productsStock.uniqueProductsArr.slice(0, getCardCount())));
     }, [windowWidth, productsStock]);
 
-    const handlePreviousClick = (e) => {
+    const handlePreviousClick = () => {
         const firstProductId = cardsToDisplay[0].props.children.props.product.id;
         const firstProductIndex = productsStock.uniqueProductsArr.findIndex(product => product.id === firstProductId);
         if (firstProductIndex === 0) {
@@ -44,7 +43,7 @@ export default function Carousel({ productsStock, location = 'HomePage' }) {
         }
     };
 
-    const handleNextClick = (e) => {
+    const handleNextClick = () => {
         const lastProductId = cardsToDisplay[cardsToDisplay.length - 1].props.children.props.product.id;
         const lastProductIndex = productsStock.uniqueProductsArr.findIndex(product => product.id === lastProductId);
         if (lastProductIndex === productsStock.uniqueProductsArr.length - 1) {

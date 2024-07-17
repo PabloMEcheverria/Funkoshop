@@ -12,6 +12,7 @@ import productsArr from './data/products.js';
 import { uniqueProductsArr } from './data/products.js';
 import { useState } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [loginStatus, setLoginStatus] = useState({
@@ -46,7 +47,8 @@ function App() {
     }, 
     {
       path: "/shop",
-      element: <ShopPage productsStock={productsStock} />
+      element: <ShopPage productsStock={productsStock} />, 
+
     }, 
     {
       path: "/shop/:itemId",
@@ -57,10 +59,26 @@ function App() {
     }
   ]);
   return (
+    //<>
+    //  <Header headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} productsStock={productsStock} />
+    //    <RouterProvider router={router} />
+    //  <Footer footerMenu={loginStatus.footerMenu} />
+    //</>
     <>
-      <Header headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} productsStock={productsStock} />
-        <RouterProvider router={router} />
-      <Footer footerMenu={loginStatus.footerMenu} />
+      <Router>
+        <Header headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} productsStock={productsStock} />
+        <Routes>
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/home" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
+          <Route path="/shop/:itemId" element={<ItemPage  itemsInCart={itemsInCart} 
+                                                          setItemsInCart={setItemsInCart} 
+                                                          productsStock={productsStock}
+                                                          setProductsStock={setProductsStock} />} />
+        </Routes>
+        <Footer footerMenu={loginStatus.footerMenu} />
+      </Router>
     </>
   );
 }
