@@ -70,7 +70,7 @@ function App() {
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
-          <Route path="/home" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/Funkoshop" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
           <Route path="/shop/:itemId" element={<ItemPage  itemsInCart={itemsInCart} 
                                                           setItemsInCart={setItemsInCart} 

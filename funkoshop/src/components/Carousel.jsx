@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card';
@@ -17,9 +16,13 @@ export default function Carousel({ productsStock, location = 'HomePage' }) {
 
     const productToCardDisplay = (productArr) => {
         return productArr.map((product, i, arr) => (
-            <Link key={product.id} to={`/shop/${product.id}`} onClick={() => {window.location.href = `/shop/${product.id}`}}>
-                <Card product={product} className={arr.length > 1 ? 'flex_justify_spaceBetween' : 'flex_justify_center'} />
-            </Link>
+            //<Link key={product.id} to={`/shop/${product.id}`} onClick={() => {window.location.href = `/shop/${product.id}`}}>
+            //    <Card product={product} customClassName={arr.length > 1 ? 'flex_justify_spaceBetween' : 'flex_justify_center'} />
+            //</Link>
+            <Card   key={product.id}
+                    product={product} 
+                    customClassName={arr.length > 1 ? 'flex_justify_spaceBetween' : 'flex_justify_center'}
+                    isInCarousel={true} />
         ));
     };
     

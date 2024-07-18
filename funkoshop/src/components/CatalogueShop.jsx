@@ -1,5 +1,4 @@
 import "../assets/css/CatalogueShop.css";
-import { Link } from "react-router-dom";
 import Card from "./Card";
 
 export default function CatalogueShop({ paginationData }) {
@@ -8,11 +7,13 @@ export default function CatalogueShop({ paginationData }) {
     let linkProductArr;
     if (arrToDisplay !== undefined) {
         linkProductArr = arrToDisplay.map(product => (
-            <Link key={product.id} to={`/shop/${product.id}`} className="product-grid__item">
-                <Card key={product.id} product={product} customClassName="product-grid__card" />
-            </Link>
+            //<Link key={product.id} to={`/shop/${product.id}`} className="product-grid__item">
+            //    <Card key={product.id} product={product} customClassName="product-grid__card" />
+            //</Link>
+            <Card   key={product.id} 
+                    product={product} 
+                    customClassName="product-grid__card" isInCatalogue={true} />
         ));
-        console.log(linkProductArr);
     }
     return (
         <section className="product-grid">
