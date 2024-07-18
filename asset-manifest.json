@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Funkoshop/static/css/main.60f5eb6b.css",
-    "main.js": "/Funkoshop/static/js/main.3aefd35d.js",
+    "main.js": "/Funkoshop/static/js/main.0a9ba53e.js",
     "static/js/787.b6a5a490.chunk.js": "/Funkoshop/static/js/787.b6a5a490.chunk.js",
     "static/media/Naruto_Naruto_Shippuden_box.jpg": "/Funkoshop/static/media/Naruto_Naruto_Shippuden_box.9a8f29006434ef5ae4d4.jpg",
     "static/media/HomePage_banner_gaussian_blur-3px.png": "/Funkoshop/static/media/HomePage_banner_gaussian_blur-3px.7e5f23645483e1b8ee8e.png",
@@ -10,7 +10,7 @@
     "static/media/Naruto_Jiraiya_box.png": "/Funkoshop/static/media/Naruto_Jiraiya_box.4aebcd152cb674bc54e4.png",
     "static/media/Naruto_Sakura_box.png": "/Funkoshop/static/media/Naruto_Sakura_box.f8f9869dacedd5c2c778.png",
     "static/media/StarWars_Ahsoka_box.png": "/Funkoshop/static/media/StarWars_Ahsoka_box.e569e2d9a74ca1b17604.png",
-    "static/media/Naruto_Kakashi_Hatake.png": "/Funkoshop/static/media/Naruto_Kakashi_Hatake.db853c31f6f1faf50089.png",
+    "static/media/Naruto_Kakashi_Hatake.png": "/Funkoshop/static/media/Naruto_Kakashi_Hatake.20635684328265f88f17.png",
     "static/media/StarWars_R2D2_box.png": "/Funkoshop/static/media/StarWars_R2D2_box.e3aa31fd6af295a8787f.png",
     "static/media/HarryPotter_Harry_Potter_box.png": "/Funkoshop/static/media/HarryPotter_Harry_Potter_box.141d4aea17ff1fbdc72e.png",
     "static/media/Pokemon_Mew_box.png": "/Funkoshop/static/media/Pokemon_Mew_box.1a54d5294adcf7114c82.png",
@@ -23,12 +23,12 @@
     "static/media/Pokemon_Mewtwo_box.png": "/Funkoshop/static/media/Pokemon_Mewtwo_box.83bccf2bbca4dd4da755.png",
     "static/media/StarWars_Ahsoka.png": "/Funkoshop/static/media/StarWars_Ahsoka.f7331499f0b290413a31.png",
     "static/media/HarryPotter_Harry_Potter.png": "/Funkoshop/static/media/HarryPotter_Harry_Potter.c13386f2516bc4d8747c.png",
-    "static/media/Pokemon_Pidgeotto.png": "/Funkoshop/static/media/Pokemon_Pidgeotto.d0ad7c77f3dd78d76caf.png",
+    "static/media/Pokemon_Pidgeotto.png": "/Funkoshop/static/media/Pokemon_Pidgeotto.ddb7c5ccb89bfe9c530d.png",
     "static/media/Raleway-VariableFont_wght.ttf": "/Funkoshop/static/media/Raleway-VariableFont_wght.e14d84ccec6be3ff19e3.ttf",
     "static/media/Raleway-Italic-VariableFont_wght.ttf": "/Funkoshop/static/media/Raleway-Italic-VariableFont_wght.41e517c091a20a1c6756.ttf",
     "static/media/Naruto_Jiraiya.png": "/Funkoshop/static/media/Naruto_Jiraiya.a618aa42aab3897b0e3e.png",
     "static/media/HarryPotter_Ron_Weasley.png": "/Funkoshop/static/media/HarryPotter_Ron_Weasley.57e507d8dbd0a549ad15.png",
-    "static/media/Naruto_Sakura.png": "/Funkoshop/static/media/Naruto_Sakura.94c71e719677088e6e55.png",
+    "static/media/Naruto_Sakura.png": "/Funkoshop/static/media/Naruto_Sakura.068581875ef98236a577.png",
     "static/media/Pokemon_Mew.png": "/Funkoshop/static/media/Pokemon_Mew.806558c1b7fb8ecc8b02.png",
     "static/media/Pokemon_Mewtwo.png": "/Funkoshop/static/media/Pokemon_Mewtwo.e458cd45fede2d8fcf0c.png",
     "static/media/StarWars_Baby_Yoda_box.jpeg": "/Funkoshop/static/media/StarWars_Baby_Yoda_box.0b583e49c282fbcb7496.jpeg",
@@ -37,7 +37,7 @@
     "static/media/StarWars_Baby_Yoda.png": "/Funkoshop/static/media/StarWars_Baby_Yoda.d62c887156e0fb190971.png",
     "static/media/Pokemon_Pikachu.jpg": "/Funkoshop/static/media/Pokemon_Pikachu.8fd669e6d0a06365ccbf.jpg",
     "static/media/Pokemon_Vulpix.png": "/Funkoshop/static/media/Pokemon_Vulpix.ad534e5ab8a957537817.png",
-    "static/media/StarWars_Chewbacca.jpg": "/Funkoshop/static/media/StarWars_Chewbacca.d8eef5fea2eba9a76342.jpg",
+    "static/media/StarWars_Chewbacca.jpg": "/Funkoshop/static/media/StarWars_Chewbacca.eecbe692d8776f0a2a82.jpg",
     "static/media/HarryPotter_Luna_Lionmask_box.png": "/Funkoshop/static/media/HarryPotter_Luna_Lionmask_box.1293a07326a6f40eaed1.png",
     "static/media/Pokemon_Pidgeotto_box.png": "/Funkoshop/static/media/Pokemon_Pidgeotto_box.7c4860f4d1cc2c28a4c7.png",
     "static/media/StarWars_Chewbacca_box.jpg": "/Funkoshop/static/media/StarWars_Chewbacca_box.bcad27b894af8953414e.jpg",
@@ -49,11 +49,11 @@
     "static/media/Naruto_Kakashi_Hatake_box.png": "/Funkoshop/static/media/Naruto_Kakashi_Hatake_box.288919404fb15e3922bb.png",
     "index.html": "/Funkoshop/index.html",
     "main.60f5eb6b.css.map": "/Funkoshop/static/css/main.60f5eb6b.css.map",
-    "main.3aefd35d.js.map": "/Funkoshop/static/js/main.3aefd35d.js.map",
+    "main.0a9ba53e.js.map": "/Funkoshop/static/js/main.0a9ba53e.js.map",
     "787.b6a5a490.chunk.js.map": "/Funkoshop/static/js/787.b6a5a490.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.60f5eb6b.css",
-    "static/js/main.3aefd35d.js"
+    "static/js/main.0a9ba53e.js"
   ]
 }
