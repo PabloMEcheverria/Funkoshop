@@ -1,3 +1,7 @@
+.CatalogueCard {
+  text-decoration: none;
+}
+
 .card {
   /*Positioning stuff*/
   position: relative;

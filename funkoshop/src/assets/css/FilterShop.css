@@ -99,6 +99,15 @@ fieldset > div p {
   color: #111111;
 }
 
+.middleDash {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.min, .max {
+  margin-right: 5px;
+}
+
 fieldset:nth-of-type(1) > div label,
 fieldset > div p {
   font-size: 16px;
@@ -129,7 +138,7 @@ fieldset:nth-of-type(2) > div > label {
   display: flex;
   align-items: center;
   height: 24.07px;
-  margin-bottom: 3.54%;
+  margin-bottom: 8.58px;
   cursor: pointer;
 }
 
@@ -218,7 +227,7 @@ fieldset:nth-of-type(2) > div > label > input[type="checkbox"]:checked {
   }
 
   fieldset:nth-of-type(2) > div > label {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 19.6px;
     height: 22px;
   }

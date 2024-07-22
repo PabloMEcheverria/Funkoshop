@@ -29,7 +29,7 @@ export default function Card({ product, customClassName, isInCatalogue = false, 
         //</div>
         <Link   key={product.id} 
                 to={`/shop/${product.id}`} 
-                className={isInCatalogue ? "product-grid__item" : ""} 
+                className={isInCatalogue ? "product-grid__item" : "CatalogueCard"} 
                 onClick={handleOnClick}>
             <div className={`card ${customClassName ? customClassName: ""}`}
                  onMouseEnter={handleOnMouseEnter} 

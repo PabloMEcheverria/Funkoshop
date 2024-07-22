@@ -10,9 +10,21 @@ export default function Carousel({ productsStock, location = 'HomePage' }) {
 
     const getCardCount = () => {
         if (windowWidth < 768) return 1;
-        if (windowWidth >= 768 && windowWidth < 1280) return 2;
+        if (windowWidth >= 768 && windowWidth <= 1279) return 2;
         return 3;
     };
+
+    const getJustifyContent = () => {
+        let justifyContentClass;
+        if (getCardCount() === 3) {
+            justifyContentClass = 'flex_justify_spaceBetween';
+        } else if (getCardCount() === 2) {
+            justifyContentClass = 'flex_justify_spaceAround';
+        } else {
+            justifyContentClass = 'flex_justify_center';
+        }
+        return justifyContentClass
+    }
 
     const productToCardDisplay = (productArr) => {
         return productArr.map((product, i, arr) => (
@@ -34,7 +46,7 @@ export default function Carousel({ productsStock, location = 'HomePage' }) {
     }, [windowWidth, productsStock]);
 
     const handlePreviousClick = () => {
-        const firstProductId = cardsToDisplay[0].props.children.props.product.id;
+        const firstProductId = cardsToDisplay[0].props.product.id;
         const firstProductIndex = productsStock.uniqueProductsArr.findIndex(product => product.id === firstProductId);
         if (firstProductIndex === 0) {
             setDisableButtons({ beforeButton: true, nextButton: false });
@@ -47,7 +59,7 @@ export default function Carousel({ productsStock, location = 'HomePage' }) {
     };
 
     const handleNextClick = () => {
-        const lastProductId = cardsToDisplay[cardsToDisplay.length - 1].props.children.props.product.id;
+        const lastProductId = cardsToDisplay[cardsToDisplay.length - 1].props.product.id;
         const lastProductIndex = productsStock.uniqueProductsArr.findIndex(product => product.id === lastProductId);
         if (lastProductIndex === productsStock.uniqueProductsArr.length - 1) {
             setDisableButtons({ beforeButton: false, nextButton: true });
@@ -60,7 +72,7 @@ export default function Carousel({ productsStock, location = 'HomePage' }) {
     };
 
     return (
-        <div className={location + '-carousel' + (getCardCount() > 1 ? ' flex_justify_spaceBetween' : ' flex_justify_center')}>
+        <div className={location + '-carousel ' + getJustifyContent()}>
             <button className="previousButton" onClick={handlePreviousClick} disabled={disableButtons.beforeButton}>
                 <FontAwesomeIcon icon={faAngleLeft} className="previousButton__icon" />
             </button>

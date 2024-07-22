@@ -30,6 +30,10 @@
   justify-content: center;
 }
 
+.flex_justify_spaceAround {
+  justify-content: space-around;
+}
+
 .flex_justify_spaceBetween {
   justify-content: space-between;
 }
@@ -104,6 +108,11 @@
 */
 
 @media screen and (max-width: 1024px) {
+  .HomePage-carousel {
+    width: calc(100% - 44px);
+    left: 0;
+    margin: 0 22px;
+  }
 }
 
 @media screen and (max-width: 768px) {

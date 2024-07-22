@@ -63,10 +63,10 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
         }
         /*---------------------------------------------*/
         /*----------Filter by min and max price----------*/
-        if (!isNaN(min) && min >= 0 && min <= max) {
+        if (!isNaN(min) && min >= 0 && (min <= max || isNaN(max))) {
             newUniqueProductArr = newUniqueProductArr.filter(product => product.price >= min);
         }
-        if (!isNaN(max) && max >= 0 && min <= max) {
+        if (!isNaN(max) && max >= 0 && (min <= max || isNaN(min))) {
             newUniqueProductArr = newUniqueProductArr.filter(product => product.price <= max);
         }
         /*-----------------------------------------------*/
@@ -135,11 +135,11 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
                 <fieldset>
                     <legend>precio</legend>
                     <div>
-                    <label htmlFor="min">min</label>
-                    <input type="number" name="price" id="min" placeholder="0" onChange={handleInputChange}/>
-                    <p>-</p>
-                    <label htmlFor="max">max</label>
-                    <input type="number" name="price" id="max" placeholder="0" onChange={handleInputChange} />
+                        <label className="min" htmlFor="min">min</label>
+                        <input type="number" name="price" id="min" placeholder="0" onChange={handleInputChange}/>
+                        <p className="middleDash">-</p>
+                        <label className="max" htmlFor="max">max</label>
+                        <input type="number" name="price" id="max" placeholder="0" onChange={handleInputChange} />
                     </div>
                 </fieldset>
 

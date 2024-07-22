@@ -12,7 +12,8 @@ export default function CatalogueShop({ paginationData }) {
             //</Link>
             <Card   key={product.id} 
                     product={product} 
-                    customClassName="product-grid__card" isInCatalogue={true} />
+                    customClassName="product-grid__card" 
+                    isInCatalogue={true} />
         ));
     }
     return (

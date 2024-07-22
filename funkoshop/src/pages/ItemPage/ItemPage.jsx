@@ -78,7 +78,7 @@ export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, s
                         <li className="product-details__payment-method-item" 
                             id={value} 
                             key={value} 
-                            onClick={handleClick}                        >
+                            onClick={handleClick}>
                             {value === 1 ? 
                                 "Efectivo o débito automático" : 
                                 `${value} CUOTAS SIN INTERÉS`}
