@@ -1,0 +1,40 @@
+.h1Cart {
+/*Box model stuff*/
+    padding: 20px;
+/*Typography stuff*/
+    font-size: 46px;
+}
+
+.pCart {
+/*Box model stuff*/
+    padding: 20px;
+/*Typography stuff*/
+    font-size: 26px;
+}
+
+.buttonHome {
+/*Display stuff*/
+    display: inline-block;
+/*Box model stuff*/
+    width: 180px;
+    margin: 10px 0 10px calc(50% - 90px);
+    padding: 10px 5px 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: azure;    
+/*Typography stuff*/
+    font-size: 26px;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+/*Miscellaneous*/
+    box-sizing: border-box;
+
+}
+
+.h1Cart, .pCart {
+/*Display stuff*/
+    display: block;
+/*Typography stuff*/
+    text-align: center;
+}

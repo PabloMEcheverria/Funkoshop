@@ -31,12 +31,12 @@ footer > div > ul > li {
   list-style: none;
 }
 
-footer > div > ul > li > button {
+footer > div > ul > li > button, .navLink {
   text-transform: uppercase;
 }
 
 footer > div > ul > li > button,
-footer > div > p {
+footer > div > p, .navLink {
   color: #ffffff;
   font-family: "Raleway", sans-serif;
   font-size: 20px;

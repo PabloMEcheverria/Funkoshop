@@ -49,7 +49,7 @@ li {
     list-style: none;
 }
 
-li > button {
+li > button, .navLink {
     background-color: #30343F;
     border: none;
     color: #FFFFFF;
@@ -60,6 +60,7 @@ li > button {
     line-height: 23px;  /*-----*/
     padding: 0;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
 .shopArrowDown {

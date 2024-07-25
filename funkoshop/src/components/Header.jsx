@@ -4,6 +4,7 @@ import TitleIcon from "./svgComponents/TitleIcon";
 import CartIcon from "./svgComponents/CartIcon";
 import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
+import { Link } from "react-router-dom";
 
 export default function Header({headerMenu, itemsInCart, productsStock}) {
     let menuList = headerMenu.map(option => {
@@ -11,26 +12,26 @@ export default function Header({headerMenu, itemsInCart, productsStock}) {
         if (typeof option === "object") {
             if (itemsInCart.length === 0) {
                 return  <li key={keyValue}>
-                            <button className="cartIconWrapper">
+                            <Link to={"/cart"} className="cartIconWrapper">
                                 <CartIcon className="cartIcon" />
-                            </button>
+                            </Link>
                         </li>
             } else {
                 return  <li key={keyValue}>
-                        <button className="cartIconWrapper">
+                        <Link to={"/cart"} className="cartIconWrapper">
                             <CartIcon className="cartIcon" />
                             <div className="ellipseIconWrapper">
                                 <Ellipse className="ellipseIcon" />
                                 <p className="ellipseIconNumber">{itemsInCart.length}</p>
                             </div>
-                        </button>
+                        </Link>
                     </li>
             }   
         } else if (option === "shop") {
             return  <li key={keyValue}>
-                        <button>
+                        <Link to={"/shop"} className="navLink">
                             {option}<ShopArrowDown className="shopArrowDown" />
-                        </button>
+                        </Link>
                     </li>
         } else {
             return <li key={keyValue}><button>{option}</button></li>

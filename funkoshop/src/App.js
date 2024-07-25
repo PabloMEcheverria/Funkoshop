@@ -4,6 +4,7 @@ import './assets/css/App.css';
 import HomePage from './pages/HomePage/HomePage';
 import ShopPage from './pages/Shop/ShopPage.jsx';
 import ItemPage from './pages/ItemPage/ItemPage.jsx';
+import CartPage from './pages/CartPage/CartPage.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 import CartIcon from './components/svgComponents/CartIcon';
 import Header from './components/Header';
@@ -72,10 +73,8 @@ function App() {
           <Route path="/" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/Funkoshop" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
-          <Route path="/shop/:itemId" element={<ItemPage  itemsInCart={itemsInCart} 
-                                                          setItemsInCart={setItemsInCart} 
-                                                          productsStock={productsStock}
-                                                          setProductsStock={setProductsStock} />} />
+          <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
         <Footer footerMenu={loginStatus.footerMenu} />
       </Router>
