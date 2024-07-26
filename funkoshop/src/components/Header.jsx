@@ -29,7 +29,7 @@ export default function Header({headerMenu, itemsInCart, productsStock}) {
             }   
         } else if (option === "shop") {
             return  <li key={keyValue}>
-                        <Link to={"/shop"} className="navLink">
+                        <Link to={"/shop"} className="navLink--header">
                             {option}<ShopArrowDown className="shopArrowDown" />
                         </Link>
                     </li>
@@ -42,10 +42,10 @@ export default function Header({headerMenu, itemsInCart, productsStock}) {
         <>
             <header>
                 <div>
-                    <div>
+                    <Link to={"/"} className="logoLink--header">
                         <HeaderLogo className="headerLogo" />
                         <TitleIcon className="headerTitle" fill="#FAFAFF" />
-                    </div>
+                    </Link>
                     <ul>{menuList}</ul>
                 </div>
             </header>

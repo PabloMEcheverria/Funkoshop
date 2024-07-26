@@ -12,8 +12,8 @@ import Footer from './components/Footer';
 import productsArr from './data/products.js';
 import { uniqueProductsArr } from './data/products.js';
 import { useState } from 'react';
-import { createHashRouter, RouterProvider } from 'react-router-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createHashRouter, RouterProvider, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   const [loginStatus, setLoginStatus] = useState({
@@ -42,7 +42,16 @@ function App() {
     uniqueProductsArr: uniqueProductsArr});
   const router = createHashRouter([
     {
+      path: "*", 
+      element: <NotFoundPage />
+    },
+    {
       path: "/", 
+      element: <HomePage productsStock={productsStock} setProductsStock={setProductsStock} />, 
+      errorElement: <NotFoundPage />
+    }, 
+    {
+      path: "/Funkoshop", 
       element: <HomePage productsStock={productsStock} setProductsStock={setProductsStock} />, 
       errorElement: <NotFoundPage />
     }, 
@@ -55,8 +64,12 @@ function App() {
       path: "/shop/:itemId",
       element: <ItemPage  itemsInCart={itemsInCart} 
                           setItemsInCart={setItemsInCart} 
-                          productsStock={productsStock}
+                          productsStock={productsStock} 
                           setProductsStock={setProductsStock} />
+    }, 
+    {
+      path: "/cart",
+      element: <CartPage />
     }
   ]);
   return (

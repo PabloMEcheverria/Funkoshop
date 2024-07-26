@@ -31,12 +31,13 @@ footer > div > ul > li {
   list-style: none;
 }
 
-footer > div > ul > li > button, .navLink {
+footer > div > ul > li > button, .navLink--footer {
   text-transform: uppercase;
+  text-decoration: none;
 }
 
 footer > div > ul > li > button,
-footer > div > p, .navLink {
+footer > div > p, .navLink--footer {
   color: #ffffff;
   font-family: "Raleway", sans-serif;
   font-size: 20px;
@@ -45,7 +46,7 @@ footer > div > p, .navLink {
   line-height: 23px;
 }
 
-.footerLogo {
+.logoLink--footer {
   position: absolute;
   right: 0;
   top: 0;
@@ -62,7 +63,8 @@ footer > div > p {
 
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
   footer > div > ul > li > button,
-  footer > div > p {
+  footer > div > p, 
+  .navLink--footer {
     font-weight: 400;
     font-size: 18px;
   }
@@ -70,7 +72,8 @@ footer > div > p {
 
 @media screen and (max-width: 1024px) {
   footer > div > ul > li > button,
-  footer > div > p {
+  footer > div > p, 
+  .navLink--footer {
     font-weight: 400;
     font-size: 14px;
   }
@@ -78,7 +81,8 @@ footer > div > p {
 
 @media screen and (max-width: 768px) {
   footer > div > ul > li > button,
-  footer > div > p {
+  footer > div > p, 
+  .navLink--footer {
     font-weight: 400;
     font-size: 14px;
   }
@@ -91,7 +95,8 @@ footer > div > p {
 
 @media screen and (max-width: 480px) {
   footer > div > ul > li > button,
-  footer > div > p {
+  footer > div > p, 
+  .navLink--footer {
     font-weight: 400;
     font-size: 14px;
   }
