@@ -40,11 +40,11 @@ import mewtwo from '../assets/img/Pokemon_Mewtwo.png';
 import mewtwoBack from '../assets/img/Pokemon_Mewtwo_box.png';
 
 class Product {
-    constructor(id, sku, nameProduct, category, license, description, price, paymentMethods, discounts, frontImg, backImg, isNew, isSpecialEdition, isFavorite) {
+    constructor(id, sku, nameProduct, collection, license, description, price, paymentMethods, discounts, frontImg, backImg, isNew, isSpecialEdition, isFavorite) {
       this.id = id;
       this.sku = sku;
       this.nameProduct = nameProduct;
-      this.collection = category;
+      this.collection = collection;
       this.license = license;
       this.description = description;
       this.price = price;
