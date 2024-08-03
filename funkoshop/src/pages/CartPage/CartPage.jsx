@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import "./CartPage.css";
 import CartItem from "../../components/CartItem";
 export default function CartPage({ itemsInCart, setItemsInCart }) {
+    function groupSameProduct(itemsInCart) {
+    }
+    groupSameProduct(itemsInCart);
     return (
         <>
             <h1 className="cart__title">Carrito de compras</h1>
@@ -14,6 +17,7 @@ export default function CartPage({ itemsInCart, setItemsInCart }) {
                     </tr>
                 </thead>
                 <tbody className="cart__tbody">
+                    {}
                 </tbody>
             </table>
         </>

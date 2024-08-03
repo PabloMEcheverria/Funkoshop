@@ -87,7 +87,7 @@ function App() {
           <Route path="/Funkoshop" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
           <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
-          <Route path="/cart" element={<CartPage />} />
+          <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} />} />
         </Routes>
         <Footer footerMenu={loginStatus.footerMenu} />
       </Router>
