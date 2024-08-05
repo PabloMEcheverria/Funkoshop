@@ -16,6 +16,9 @@
 .cart__table {
   width: calc(1220 / 1440 * 100%);
   margin: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 0;
 }
 
 .cart__thead {
@@ -23,5 +26,35 @@
   height: 51px;
   background-color: #FAFAFF;
   box-shadow: 0px 0px 10px 0px #00000040;
+  border-radius: 10px;
 }
 
+.cart__row--header {
+  border-radius: 10px;
+  background-color: #FAFAFF;
+}
+
+.cart__header {
+  border-radius: 10px;
+  background-color: #FAFAFF;
+  padding-top: 16px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.36px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.cart__header--details {
+  width: calc(464.915 / 1220 * 100%);
+}
+
+.cart__header--quantity {
+  width: calc(345.24 / 1220 * 100%);
+}
+
+.cart__header--total {
+  width: calc(409.845 / 1220 * 100%);
+}
