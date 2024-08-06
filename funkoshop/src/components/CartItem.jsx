@@ -3,19 +3,21 @@ import ItemShopMinus from "./svgComponents/ItemShopMinus";
 import ItemShopPlus from "./svgComponents/ItemShopPlus";
 import CancelIcon from "./svgComponents/CancelIcon";
 
-export default function CartItem({ name, quantity, itemsInCart, setItemsInCart }) {
+export default function CartItem({ name, quantity, itemsInCart, setItemsInCart, productsStock, setProductsStock }) {
     const item = itemsInCart.find(currentValue => currentValue.nameProduct === name);
     return (
         <>
             <tr className="cart-item">
                 <td className="cart-item__details">
-                    <div className="cart-item__image">
-                        <img src={item.frontImg} alt={item.description} />
-                    </div>
                     <div className="cart-item__info">
-                        <h4 className="cart-item__name">{item.nameProduct}</h4>
-                        <p className="cart-item__collection">{item.collection}</p>
-                        <p className="cart-item__price">${item.price}</p>
+                        <div className="cart-item__image">
+                            <img src={item.frontImg} alt={item.description} />
+                        </div>
+                        <div className="cart-item__description">
+                            <h4 className="cart-item__name">{item.nameProduct}</h4>
+                            <p className="cart-item__collection">{item.collection}</p>
+                            <p className="cart-item__price">${item.price}</p>
+                        </div>
                     </div>
                     <div className="cart-item__controls">
                         <input className="cart-item__quantity" type="number" defaultValue={quantity} />

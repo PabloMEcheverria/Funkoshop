@@ -15,13 +15,16 @@
 
 .cart__table {
   width: calc(1220 / 1440 * 100%);
-  margin: auto;
+  margin-left: calc(110 / 1440 * 100%);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 0;
+  display: inline-block;
+  margin-bottom: 68px;
 }
 
 .cart__thead {
+  display: inline-block;
   width: 100%;
   height: 51px;
   background-color: #FAFAFF;
@@ -30,11 +33,15 @@
 }
 
 .cart__row--header {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
   border-radius: 10px;
   background-color: #FAFAFF;
 }
 
 .cart__header {
+  display: inline-block;
   border-radius: 10px;
   background-color: #FAFAFF;
   padding-top: 16px;
@@ -57,4 +64,9 @@
 
 .cart__header--total {
   width: calc(409.845 / 1220 * 100%);
+}
+
+.cart__tbody {
+  display: inline-block;
+  width: 100%;
 }

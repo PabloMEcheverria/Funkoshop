@@ -10,7 +10,7 @@ import CartIcon from './components/svgComponents/CartIcon';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import productsArr from './data/products.js';
-import { uniqueProductsArr } from './data/products.js';
+import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useState } from 'react';
 import { createHashRouter, RouterProvider, Link } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -277,7 +277,8 @@ function App() {
     }
   ]);
   const [productsStock, setProductsStock] = useState({
-    productsArr: productsArr, 
+    //productsArr: productsArr, 
+    productsArr: productsArr2, 
     uniqueProductsArr: uniqueProductsArr});
   const router = createHashRouter([
     {
@@ -326,7 +327,7 @@ function App() {
           <Route path="/Funkoshop" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
           <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
-          <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} />} />
+          <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
         </Routes>
         <Footer footerMenu={loginStatus.footerMenu} />
       </Router>

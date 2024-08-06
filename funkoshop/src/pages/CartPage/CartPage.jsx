@@ -1,29 +1,26 @@
 import { Link } from "react-router-dom";
 import "./CartPage.css";
 import CartItem from "../../components/CartItem";
-export default function CartPage({ itemsInCart, setItemsInCart }) {
-    function groupSameProduct(itemsInCart) {
-        let cartArr = [];
-        itemsInCart.map(currentValue => {
-            let isFirstOfType = true;
-            cartArr.map(cv => {
-                if(cv.nameProduct === currentValue.nameProduct) {
-                    isFirstOfType = !isFirstOfType;
+import { useEffect, useState } from "react";
+export default function CartPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock }) {
+    const [groupedItems, setGroupedItems] = useState([]);
+    useEffect(() => {
+        function groupSameProduct(itemsInCart) {
+            let cartArr = [];
+            itemsInCart.forEach(currentValue => {
+                let existingProduct = cartArr.find(item => item.nameProduct === currentValue.nameProduct);
+                if (existingProduct) {
+                    existingProduct.quantity += 1;
+                } else {
+                    cartArr.push({ nameProduct: currentValue.nameProduct, quantity: 1 });
                 }
             });
-            if (isFirstOfType) {
-                cartArr.push({nameProduct: currentValue.nameProduct, quantity: 1});
-            } else {
-                let productToChange = cartArr.find(cv => cv.nameProduct === currentValue.nameProduct);
-                let indexToChange = cartArr.findIndex(cv => cv.nameProduct === currentValue.nameProduct);
-                productToChange = {...productToChange, quantity: productToChange.quantity + 1};
-                cartArr.splice(indexToChange, 1, productToChange);
-            };
-        });
-        console.log(cartArr);
-        return cartArr
-    }
-    groupSameProduct(itemsInCart);
+            return cartArr;
+        }
+        setGroupedItems(groupSameProduct(itemsInCart));
+    }, [itemsInCart]);
+    console.log(groupedItems);
+    
     return (
         <>
             <h1 className="cart__title">Carrito de compras</h1>
@@ -36,12 +33,15 @@ export default function CartPage({ itemsInCart, setItemsInCart }) {
                     </tr>
                 </thead>
                 <tbody className="cart__tbody">
-                    {groupSameProduct(itemsInCart).map((item, i) => (
+                    {groupedItems.map((item, i) => (
                         <CartItem   key={i}
                                     name={item.nameProduct} 
                                     quantity={item.quantity} 
                                     itemsInCart={itemsInCart} 
-                                    setItemsInCart={setItemsInCart} />))}
+                                    setItemsInCart={setItemsInCart}
+                                    productsStock={productsStock}
+                                    setProductsStock={setProductsStock} />
+                    ))}
                 </tbody>
             </table>
         </>
