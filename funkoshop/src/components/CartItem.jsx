@@ -1,6 +1,6 @@
 import "../assets/css/CartItem.css";
-import ItemShopMinus from "./svgComponents/ItemShopMinus";
-import ItemShopPlus from "./svgComponents/ItemShopPlus";
+import ItemShopMinus from "./svgComponents/ItemShopMinus.jsx";
+import ItemShopPlus from "./svgComponents/ItemShopPlus.jsx";
 import CancelIcon from "./svgComponents/CancelIcon";
 
 export default function CartItem({ name, quantity, itemsInCart, setItemsInCart, productsStock, setProductsStock }) {
@@ -15,7 +15,7 @@ export default function CartItem({ name, quantity, itemsInCart, setItemsInCart, 
                         </div>
                         <div className="cart-item__description">
                             <h4 className="cart-item__name">{item.nameProduct}</h4>
-                            <p className="cart-item__collection">{item.collection}</p>
+                            <p className="cart-item__license">{item.license}</p>
                             <p className="cart-item__price">${item.price}</p>
                         </div>
                     </div>
