@@ -3,7 +3,6 @@
   background-color: #fafaff;
   box-shadow: 0px 0px 10px 0px #00000040;
   box-sizing: border-box;
-  padding: 38.5px 0;
   border-radius: 25px;
   display: inline-block;
   width: 100%;
@@ -15,16 +14,19 @@
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
 }
 
 .cart-item__info {
-  width: calc(410 / 1220 * 100%);
+  width: calc(464.915 / 1220 * 100%); /* Same as ".cart__header--details". */
   height: 118px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  margin-left: 16px;
+  box-sizing: border-box;
+  padding-left: 16px;
+  margin-top: 38.5px;
 }
 
 .cart-item__image {
@@ -72,21 +74,25 @@
 }
 
 .cart-item__controls {
-  width: 113.48px;
-  height: 40px;
-  margin: 39px 14.68%;
+  display: flex;
+  flex-flow: row nowrap;
+  width: calc(345.24 / 1220 * 100%); /* Same as ".cart__header--quantity". */
+  padding-left: calc(140.264 / 1220 * 100%);
+  box-sizing: border-box;
 }
 
 .cart-item__quantity {
   width: 89.48px;
   height: 40px;
   padding: 0;
+  margin-top: 77.5px;
   font-family: "Inter", sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 24.2px;
   text-align: center;
   border: 0.5px solid #C9C9C9;
+  box-sizing: border-box;
   /* Firefox */
   -moz-appearance: textfield;
 }
@@ -102,20 +108,50 @@
   text-align: center;
 }
 
+.cart-item__buttons {
+  position: relative;
+  top: 0px;
+  margin-top: 79.5px;
+  margin-left: 6px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  width: 18px;
+  height: 36px;
+}
+
 .cart-item__button {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0;
+  width: 18px;
+  height: 16px;
+}
+
+.cart-item__summary {
+  width: calc(365.845 / 1220 * 100%); /* Same as ".cart__header--total". */
 }
 
 .cart-item__total-price {
-  margin-left: 20px;
-  font-weight: bold;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24.2px;
+  text-align: left;
+  color: #333333;
+  padding-left: calc(87.675 / 365.845 * 100%);
+  margin-top: 85.5px;
+  display: inline-block;
 }
 
-.cart-item__remove-button {
+.cart-item__remove-button-wrapper {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 10px;
+  padding: 0;
+  height: 28px;
+  width: 28px;
+  position: relative;
+  margin-top: 83.5px;
 }

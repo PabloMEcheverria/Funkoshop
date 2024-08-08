@@ -1,6 +1,6 @@
 import "../assets/css/CartItem.css";
-import ItemShopMinus from "./svgComponents/ItemShopMinus.jsx";
-import ItemShopPlus from "./svgComponents/ItemShopPlus.jsx";
+import ItemShopMinus from "./svgComponents/ItemShopMinus";
+import ItemShopPlus from "./svgComponents/ItemShopPlus";
 import CancelIcon from "./svgComponents/CancelIcon";
 
 export default function CartItem({ name, quantity, itemsInCart, setItemsInCart, productsStock, setProductsStock }) {
@@ -21,15 +21,23 @@ export default function CartItem({ name, quantity, itemsInCart, setItemsInCart, 
                     </div>
                     <div className="cart-item__controls">
                         <input className="cart-item__quantity" type="number" defaultValue={quantity} />
-                        <button className="cart-item__button">
-                            {<ItemShopPlus />}
-                        </button>
-                        <button className="cart-item__button">
-                            {<ItemShopMinus />}
+                        <div className="cart-item__buttons">
+                            <button className="cart-item__button cart-item__button--plus">
+                                {<ItemShopPlus className="cart-item__icon cart-item__icon--plus" />}
+                            </button>
+                            <button className="cart-item__button cart-item__button--minus">
+                                {<ItemShopMinus className="cart-item__icon cart-item__icon--minus" />}
+                            </button>
+                        </div>
+                    </div>
+                    <div className="cart-item__summary">
+                        <p className="cart-item__total-price">$ lorem,ipsum</p> {/*Sum of price of all products that are the same item.*/}
+                    </div>
+                    <div>
+                        <button className="cart-item__remove-button-wrapper">
+                            <CancelIcon className="cart-item__remove-button" />
                         </button>
                     </div>
-                    <p className="cart-item__total-price">$ lorem,ipsum</p> {/*Sum of price of all products that are the same item.*/}
-                    <CancelIcon className="cart-item__remove-button" />
                 </td>
             </tr>
         </>
