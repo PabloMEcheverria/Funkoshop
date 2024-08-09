@@ -49,21 +49,25 @@
   font-size: 16px;
   font-weight: 700;
   line-height: 19.36px;
-  text-align: center;
+  text-align: left;
   text-transform: uppercase;
   color: #000000;
+  box-sizing: border-box;
 }
 
 .cart__header--details {
   width: calc(464.915 / 1220 * 100%);
+  padding-left: calc(125.5 / 1220 * 100%);
 }
 
 .cart__header--quantity {
   width: calc(345.24 / 1220 * 100%);
+  padding-left: calc(148.415 / 1220 * 100%);
 }
 
 .cart__header--total {
   width: calc(409.845 / 1220 * 100%);
+  padding-left: calc(110.825 / 1220 * 100%);
 }
 
 .cart__tbody {
