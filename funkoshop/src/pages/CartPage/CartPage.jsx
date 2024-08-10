@@ -19,7 +19,6 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         }
         setGroupedItems(groupSameProduct(itemsInCart));
     }, [itemsInCart]);
-    console.log(groupedItems);
     
     return (
         <>
@@ -36,7 +35,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                     {groupedItems.map((item, i) => (
                         <CartItem   key={i}
                                     name={item.nameProduct} 
-                                    quantity={item.quantity} 
+                                    initialQuantity={item.quantity} 
                                     itemsInCart={itemsInCart} 
                                     setItemsInCart={setItemsInCart}
                                     productsStock={productsStock}
