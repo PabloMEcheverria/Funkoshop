@@ -34,6 +34,10 @@ export default function CartItem({ name, initialQuantity, itemsInCart, setItemsI
 
     const handleDecrement = (item, quantity, cart, stock) => {
         console.log(item, quantity, cart, stock);
+        const indexItemInCart = cart.findIndex(currentValue => currentValue.nameProduct === item.nameProduct);
+        let newItemsInCart =[...itemsInCart];
+        newItemsInCart = newItemsInCart.toSpliced(indexItemInCart, 1);
+        console.log(indexItemInCart, newItemsInCart);
     }
 
     return (
