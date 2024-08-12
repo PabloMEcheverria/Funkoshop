@@ -39,7 +39,8 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                                     itemsInCart={itemsInCart} 
                                     setItemsInCart={setItemsInCart}
                                     productsStock={productsStock}
-                                    setProductsStock={setProductsStock} />
+                                    setProductsStock={setProductsStock}
+                                    groupedItems={groupedItems} />
                     ))}
                 </tbody>
             </table>
