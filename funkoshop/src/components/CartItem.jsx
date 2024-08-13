@@ -4,7 +4,7 @@ import ItemShopPlus from "./svgComponents/ItemShopPlus";
 import CancelIcon from "./svgComponents/CancelIcon";
 import { useEffect, useState } from "react";
 
-export default function CartItem({ name, initialQuantity, itemsInCart, setItemsInCart, productsStock, setProductsStock }) {
+export default function CartItem({ name, initialQuantity, itemsInCart, setItemsInCart, productsStock, setProductsStock, groupedItems }) {
     const [quantity, setQuantity] = useState(initialQuantity);
     const [buttonAvailability, setButtonAvailability] = useState({
         isDisabledIncrement: productsStock.productsArr.find(value => value.nameProduct === name) ? false : true,
@@ -41,28 +41,10 @@ export default function CartItem({ name, initialQuantity, itemsInCart, setItemsI
     }
 
     const handleDecrement = (item, quantity, cart, stock) => {
-        const itemInCart = cart.filter(currentValue => currentValue.nameProduct === item.nameProduct);
-        
-        if (itemInCart.length > 0) {
-            let newQuantity = quantity - 1;
-            setQuantity(newQuantity);
-            
-            let indexItemInCart = cart.findIndex(value => value.id === item.id);
-            let newItemsInCart = cart.toSpliced(indexItemInCart, 1);
-    
-            let newProductsStock = structuredClone(stock);
-            newProductsStock.productsArr.push(item);
-    
-            setItemsInCart(newItemsInCart);
-            setProductsStock(newProductsStock);
-    
-            if (newQuantity <= 0) {
-                setButtonAvailability({...buttonAvailability, isDisabledDecrement: true});
-            }
-            if (newProductsStock.productsArr.find(value => value.nameProduct === item.nameProduct)) {
-                setButtonAvailability({...buttonAvailability, isDisabledIncrement: false});
-            }
-        }
+        const updatedCart = cart.toSpliced(cart.findIndex(value => value.nameProduct === item.nameProduct), 1);
+        console.log(cart);
+        console.log(updatedCart);
+        setItemsInCart(updatedCart);
     }
 
     return (
