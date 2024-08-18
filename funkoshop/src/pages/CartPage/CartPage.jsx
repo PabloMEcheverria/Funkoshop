@@ -32,12 +32,57 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
     }, [itemsInCart]);
 
     /**/
-    const handleIncrement = (cart, stock) => {
-        console.log("increment");
+    const handleIncrement = (event, groupedItem, cart, stock) => {
+        const clickedButton = event.currentTarget;
+        const itemInStock = stock.productsArr.find(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
+        const indexItemInStock = stock.productsArr.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
+        let newCart = structuredClone(cart);
+        let newStock = structuredClone(stock);
+        if (indexItemInStock >= 0) {
+            newCart = [...newCart, itemInStock];
+            newStock.productsArr = newStock.productsArr.toSpliced(indexItemInStock, 1);
+            setItemsInCart(newCart);
+            setProductsStock(newStock);
+        }
+        if (newStock.productsArr.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) < 0) {
+            clickedButton.disabled = true;
+        }
+        console.log(groupedItem, cart, newCart, stock, newStock);
     }
 
-    const handleDecrement = (cart, stock) => {
-        console.log("decrement");
+    const handleDecrement = (event, groupedItem, cart, stock) => {
+        const clickedButton = event.currentTarget;
+        const itemInCart = cart.find(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
+        const indexItemInCart = cart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
+        let newCart = structuredClone(cart);
+        let newStock = structuredClone(stock);
+        if (indexItemInCart >= 0) {
+            newCart = newCart.toSpliced(indexItemInCart, 1);
+            newStock.productsArr = [...newStock.productsArr, itemInCart];
+            setItemsInCart(newCart);
+            setProductsStock(newStock);
+        }
+        if (newCart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) !== -1) {
+            clickedButton.disabled = true;
+        }
+        console.log(cart, newCart, stock, newStock, groupedItems);
+    }
+
+    const getAvailability = (groupedItem) => {
+        let isDisabledIncrement;
+        let isDisabledDecrement;
+        let availability = {
+            isDisabledIncrement: true,
+            isDisabledDecrement: true
+        };
+        if (groupedItem !== undefined) {
+            isDisabledIncrement = productsStock.productsArr.find(value => value.nameProduct === groupedItem.nameProduct) ? false : true;
+            isDisabledDecrement = itemsInCart.find(value => value.nameProduct === groupedItem.nameProduct) ? false : true;
+            availability.isDisabledIncrement = isDisabledIncrement;
+            availability.isDisabledDecrement = isDisabledDecrement;
+        }
+        return availability
+        
     }
     /**/
     
@@ -86,11 +131,21 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                                             <div className="cart-item__controls">
                                                 <input className="cart-item__quantity" type="number" value={value.quantity} readOnly />
                                                 <div className="cart-item__buttons">
-                                                    <button className="cart-item__button cart-item__button--plus" disabled={buttonAvailability.isDisabledIncrement} onClick={() => handleIncrement(itemsInCart, productsStock)}>
-                                                        {<ItemShopPlus className="cart-item__icon cart-item__icon--plus" fill={buttonAvailability.isDisabledIncrement ? "#F7C7B9" : "#F24E1E"} />}
+                                                    <button 
+                                                        className="cart-item__button cart-item__button--plus" 
+                                                        disabled={getAvailability(groupedItems[index]).isDisabledIncrement} 
+                                                        onClick={(event) => handleIncrement(event, value, itemsInCart, productsStock)}>
+                                                        {<ItemShopPlus 
+                                                            className="cart-item__icon cart-item__icon--plus" 
+                                                            fill={getAvailability(groupedItems[index]).isDisabledIncrement ? "#F7C7B9" : "#F24E1E"} />}
                                                     </button>
-                                                    <button className="cart-item__button cart-item__button--minus" disabled={buttonAvailability.isDisabledDecrement} onClick={() => handleDecrement(itemsInCart, productsStock)}>
-                                                        {<ItemShopMinus className="cart-item__icon cart-item__icon--minus"  fill={buttonAvailability.isDisabledDecrement ? "#F7C7B9" : "#F24E1E"} />}
+                                                    <button 
+                                                        className="cart-item__button cart-item__button--minus" 
+                                                        disabled={getAvailability(groupedItems[index]).isDisabledDecrement} 
+                                                        onClick={(event) => handleDecrement(event, value, itemsInCart, productsStock)}>
+                                                        {<ItemShopMinus 
+                                                            className="cart-item__icon cart-item__icon--minus" 
+                                                            fill={getAvailability(groupedItems[index]).isDisabledDecrement ? "#F7C7B9" : "#F24E1E"} />}
                                                     </button>
                                                 </div>
                                             </div>
