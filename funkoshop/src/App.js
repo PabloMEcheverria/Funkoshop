@@ -17,6 +17,18 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 
 function App() {
+  const groupProducts = (itemsInCart) => {
+    let cartArr = [];
+    itemsInCart.forEach(currentValue => {
+        let existingProduct = cartArr.find(item => item.nameProduct === currentValue.nameProduct);
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cartArr.push({ nameProduct: currentValue.nameProduct, quantity: 1 });
+        }
+    });
+    return cartArr;
+  }
   const [loginStatus, setLoginStatus] = useState({
     isLogged: false,
     isAdmin: false,
@@ -37,8 +49,7 @@ function App() {
       }
     }
   });
-  //const [itemsInCart, setItemsInCart] = useState([]);
-  const [itemsInCart, setItemsInCart] = useState([
+  const [cart, setCart] = useState([
     {
       "id": 1,
       "sku": "STW001001",
@@ -277,48 +288,15 @@ function App() {
       "currentPaymentMethod": 6
     }
   ]);
+  const [itemsInCart, setItemsInCart] = useState({
+    items: structuredClone(cart), 
+    groupedItems: groupProducts(cart)
+  });
   const [productsStock, setProductsStock] = useState({
     //productsArr: productsArr, 
     productsArr: productsArr2, 
     uniqueProductsArr: uniqueProductsArr});
-  const router = createHashRouter([
-    {
-      path: "*", 
-      element: <NotFoundPage />
-    },
-    {
-      path: "/", 
-      element: <HomePage productsStock={productsStock} setProductsStock={setProductsStock} />, 
-      errorElement: <NotFoundPage />
-    }, 
-    {
-      path: "/Funkoshop", 
-      element: <HomePage productsStock={productsStock} setProductsStock={setProductsStock} />, 
-      errorElement: <NotFoundPage />
-    }, 
-    {
-      path: "/shop",
-      element: <ShopPage productsStock={productsStock} />, 
-
-    }, 
-    {
-      path: "/shop/:itemId",
-      element: <ItemPage  itemsInCart={itemsInCart} 
-                          setItemsInCart={setItemsInCart} 
-                          productsStock={productsStock} 
-                          setProductsStock={setProductsStock} />
-    }, 
-    {
-      path: "/cart",
-      element: <CartPage />
-    }
-  ]);
   return (
-    //<>
-    //  <Header headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} productsStock={productsStock} />
-    //    <RouterProvider router={router} />
-    //  <Footer footerMenu={loginStatus.footerMenu} />
-    //</>
     <>
       <Router>
         <Header headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} productsStock={productsStock} />
@@ -328,7 +306,7 @@ function App() {
           <Route path="/Funkoshop" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
           <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
-          <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} groupProducts={groupProducts} />} />
         </Routes>
         <Footer footerMenu={loginStatus.footerMenu} />
       </Router>

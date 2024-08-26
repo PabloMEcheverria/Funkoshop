@@ -7,28 +7,65 @@ import ItemShopMinus from "../../components/svgComponents/ItemShopMinus";
 import ItemShopPlus from "../../components/svgComponents/ItemShopPlus";
 import CancelIcon from "../../components/svgComponents/CancelIcon";
 
-export default function CartPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock }) {
-    const [groupedItems, setGroupedItems] = useState([]);
-    /**/
+export default function CartPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock, groupProducts }) {
     const [buttonAvailability, setButtonAvailability] = useState({
-        isDisabledIncrement: productsStock.productsArr.find(value => value.nameProduct === groupedItems.nameProduct) ? false : true,
-        isDisabledDecrement: itemsInCart.find(value => value.nameProduct === groupedItems.nameProduct) ? false : true
+        isDisabledIncrement: productsStock.productsArr.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true,
+        isDisabledDecrement: itemsInCart.items.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true
     });
-    /**/
+    const [tableRowsArr, setTableRowsArr] = useState([]);
     useEffect(() => {
-        function groupSameProduct(itemsInCart) {
-            let cartArr = [];
-            itemsInCart.forEach(currentValue => {
-                let existingProduct = cartArr.find(item => item.nameProduct === currentValue.nameProduct);
-                if (existingProduct) {
-                    existingProduct.quantity += 1;
-                } else {
-                    cartArr.push({ nameProduct: currentValue.nameProduct, quantity: 1 });
+        setTableRowsArr(itemsInCart.groupedItems.map((value, index) => {
+            let totalPrice = itemsInCart.items.find(currentValue => currentValue.nameProduct === value.nameProduct).price * value.quantity;
+            totalPrice = Math.round(totalPrice * 100) / 100;
+            let item = itemsInCart.items.find(currentValue => currentValue.nameProduct === value.nameProduct);
+            return (
+                    <tr className="cart-item" key={item.nameProduct + "__" + index} >
+                        <td className="cart-item__details">
+                            <div className="cart-item__info">
+                                <div className="cart-item__image">
+                                    <img src={item.frontImg} alt={item.description} />
+                                </div>
+                                <div className="cart-item__description">
+                                    <h4 className="cart-item__name">{item.nameProduct}</h4>
+                                    <p className="cart-item__license">{item.license}</p>
+                                    <p className="cart-item__price">precio: $ {item.price}</p>
+                                </div>
+                            </div>
+                            <div className="cart-item__controls">
+                                <input className="cart-item__quantity" type="number" value={value.quantity} readOnly />
+                                <div className="cart-item__buttons">
+                                    <button 
+                                        className="cart-item__button cart-item__button--plus" 
+                                        disabled={getAvailability(itemsInCart.groupedItems[index]).isDisabledIncrement} 
+                                        onClick={(event) => handleIncrement(event, value, itemsInCart.items, productsStock)}>
+                                        {<ItemShopPlus 
+                                            className="cart-item__icon cart-item__icon--plus" 
+                                            fill={getAvailability(itemsInCart.groupedItems[index]).isDisabledIncrement ? "#F7C7B9" : "#F24E1E"} />}
+                                    </button>
+                                    <button 
+                                        className="cart-item__button cart-item__button--minus" 
+                                        disabled={getAvailability(itemsInCart.groupedItems[index]).isDisabledDecrement} 
+                                        onClick={(event) => handleDecrement(event, value, itemsInCart.items, productsStock)}>
+                                        {<ItemShopMinus 
+                                            className="cart-item__icon cart-item__icon--minus" 
+                                            fill={getAvailability(itemsInCart.groupedItems[index]).isDisabledDecrement ? "#F7C7B9" : "#F24E1E"} />}
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="cart-item__summary">
+                                <p className="cart-item__total-price">{totalPrice}</p> {/*Sum of price of all products that are the same item.*/}
+                            </div>
+                            <div>
+                                <button className="cart-item__remove-button-wrapper">
+                                    <CancelIcon className="cart-item__remove-button" />
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    )
                 }
-            });
-            return cartArr;
-        }
-        setGroupedItems(groupSameProduct(itemsInCart));
+            )
+        )
     }, [itemsInCart]);
 
     /**/
@@ -38,16 +75,18 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         const indexItemInStock = stock.productsArr.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         let newCart = structuredClone(cart);
         let newStock = structuredClone(stock);
+        let newItemsInCart;
         if (indexItemInStock >= 0) {
             newCart = [...newCart, itemInStock];
             newStock.productsArr = newStock.productsArr.toSpliced(indexItemInStock, 1);
-            setItemsInCart(newCart);
+            newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
+            setItemsInCart(newItemsInCart);
             setProductsStock(newStock);
         }
         if (newStock.productsArr.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) < 0) {
             clickedButton.disabled = true;
         }
-        console.log(groupedItem, cart, newCart, stock, newStock);
+        console.log(itemsInCart, newItemsInCart);
     }
 
     const handleDecrement = (event, groupedItem, cart, stock) => {
@@ -56,16 +95,18 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         const indexItemInCart = cart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         let newCart = structuredClone(cart);
         let newStock = structuredClone(stock);
+        let newItemsInCart;
         if (indexItemInCart >= 0) {
             newCart = newCart.toSpliced(indexItemInCart, 1);
             newStock.productsArr = [...newStock.productsArr, itemInCart];
-            setItemsInCart(newCart);
+            newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
+            setItemsInCart(newItemsInCart);
             setProductsStock(newStock);
         }
         if (newCart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) !== -1) {
             clickedButton.disabled = true;
         }
-        console.log(cart, newCart, stock, newStock, groupedItems);
+        console.log(itemsInCart, newItemsInCart);
     }
 
     const getAvailability = (groupedItem) => {
@@ -77,7 +118,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         };
         if (groupedItem !== undefined) {
             isDisabledIncrement = productsStock.productsArr.find(value => value.nameProduct === groupedItem.nameProduct) ? false : true;
-            isDisabledDecrement = itemsInCart.find(value => value.nameProduct === groupedItem.nameProduct) ? false : true;
+            isDisabledDecrement = itemsInCart.items.find(value => value.nameProduct === groupedItem.nameProduct) ? false : true;
             availability.isDisabledIncrement = isDisabledIncrement;
             availability.isDisabledDecrement = isDisabledDecrement;
         }
@@ -85,7 +126,6 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         
     }
     /**/
-    
     return (
         <>
             <h1 className="cart__title">Carrito de compras</h1>
@@ -98,71 +138,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                     </tr>
                 </thead>
                 <tbody className="cart__tbody">
-                    {   
-                        //groupedItems.map((item, i) => (
-                        //   <CartItem   key={i}
-                        //               name={item.nameProduct} 
-                        //               initialQuantity={item.quantity} 
-                        //               itemsInCart={itemsInCart} 
-                        //               setItemsInCart={setItemsInCart}
-                        //               productsStock={productsStock}
-                        //               setProductsStock={setProductsStock}
-                        //               groupedItems={groupedItems} 
-                        //               setGroupedItems={setGroupedItems    } />
-                        //   ))
-                        
-                        groupedItems.map((value, index) => {
-                            let totalPrice = itemsInCart.find(currentValue => currentValue.nameProduct === value.nameProduct).price * value.quantity;
-                            totalPrice = Math.round(totalPrice * 100) / 100;
-                            let item = itemsInCart.find(currentValue => currentValue.nameProduct === value.nameProduct);
-                            return (
-                                    <tr className="cart-item" key={item.nameProduct + "__" + index} >
-                                        <td className="cart-item__details">
-                                            <div className="cart-item__info">
-                                                <div className="cart-item__image">
-                                                    <img src={item.frontImg} alt={item.description} />
-                                                </div>
-                                                <div className="cart-item__description">
-                                                    <h4 className="cart-item__name">{item.nameProduct}</h4>
-                                                    <p className="cart-item__license">{item.license}</p>
-                                                    <p className="cart-item__price">precio: $ {item.price}</p>
-                                                </div>
-                                            </div>
-                                            <div className="cart-item__controls">
-                                                <input className="cart-item__quantity" type="number" value={value.quantity} readOnly />
-                                                <div className="cart-item__buttons">
-                                                    <button 
-                                                        className="cart-item__button cart-item__button--plus" 
-                                                        disabled={getAvailability(groupedItems[index]).isDisabledIncrement} 
-                                                        onClick={(event) => handleIncrement(event, value, itemsInCart, productsStock)}>
-                                                        {<ItemShopPlus 
-                                                            className="cart-item__icon cart-item__icon--plus" 
-                                                            fill={getAvailability(groupedItems[index]).isDisabledIncrement ? "#F7C7B9" : "#F24E1E"} />}
-                                                    </button>
-                                                    <button 
-                                                        className="cart-item__button cart-item__button--minus" 
-                                                        disabled={getAvailability(groupedItems[index]).isDisabledDecrement} 
-                                                        onClick={(event) => handleDecrement(event, value, itemsInCart, productsStock)}>
-                                                        {<ItemShopMinus 
-                                                            className="cart-item__icon cart-item__icon--minus" 
-                                                            fill={getAvailability(groupedItems[index]).isDisabledDecrement ? "#F7C7B9" : "#F24E1E"} />}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className="cart-item__summary">
-                                                <p className="cart-item__total-price">{totalPrice}</p> {/*Sum of price of all products that are the same item.*/}
-                                            </div>
-                                            <div>
-                                                <button className="cart-item__remove-button-wrapper">
-                                                    <CancelIcon className="cart-item__remove-button" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                        )
-                    }
+                    {tableRowsArr}
                 </tbody>
             </table>
         </>

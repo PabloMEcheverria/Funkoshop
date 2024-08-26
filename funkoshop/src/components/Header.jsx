@@ -10,7 +10,7 @@ export default function Header({headerMenu, itemsInCart, productsStock}) {
     let menuList = headerMenu.map(option => {
         let keyValue = headerMenu.indexOf(option);
         if (typeof option === "object") {
-            if (itemsInCart.length === 0) {
+            if (itemsInCart.items.length === 0) {
                 return  <li key={keyValue}>
                             <Link to={"/cart"} className="cartIconWrapper">
                                 <CartIcon className="cartIcon" />
@@ -22,7 +22,7 @@ export default function Header({headerMenu, itemsInCart, productsStock}) {
                             <CartIcon className="cartIcon" />
                             <div className="ellipseIconWrapper">
                                 <Ellipse className="ellipseIcon" />
-                                <p className="ellipseIconNumber">{itemsInCart.length}</p>
+                                <p className="ellipseIconNumber">{itemsInCart.items.length}</p>
                             </div>
                         </Link>
                     </li>
