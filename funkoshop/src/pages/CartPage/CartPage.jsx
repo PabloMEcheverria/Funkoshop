@@ -93,20 +93,24 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         const clickedButton = event.currentTarget;
         const itemInCart = cart.find(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         const indexItemInCart = cart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
+        console.log(clickedButton, itemInCart, indexItemInCart);
         let newCart = structuredClone(cart);
         let newStock = structuredClone(stock);
         let newItemsInCart;
         if (indexItemInCart >= 0) {
+            console.log(indexItemInCart >= 0, indexItemInCart);
             newCart = newCart.toSpliced(indexItemInCart, 1);
             newStock.productsArr = [...newStock.productsArr, itemInCart];
             newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
             setItemsInCart(newItemsInCart);
             setProductsStock(newStock);
         }
-        if (newCart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) !== -1) {
+        console.log(newCart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) >= 0);
+        if (newCart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) >= 0) {
+            clickedButton.disabled = false;
+        } else {
             clickedButton.disabled = true;
         }
-        console.log(itemsInCart, newItemsInCart);
     }
 
     const getAvailability = (groupedItem) => {
