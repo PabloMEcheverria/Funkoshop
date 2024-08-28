@@ -15,9 +15,16 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
     const [tableRowsArr, setTableRowsArr] = useState([]);
     useEffect(() => {
         setTableRowsArr(itemsInCart.groupedItems.map((value, index) => {
-            let totalPrice = itemsInCart.items.find(currentValue => currentValue.nameProduct === value.nameProduct).price * value.quantity;
-            totalPrice = Math.round(totalPrice * 100) / 100;
-            let item = itemsInCart.items.find(currentValue => currentValue.nameProduct === value.nameProduct);
+            let totalPrice;
+            let item;
+            if (itemsInCart.items.findIndex(currentValue => currentValue.nameProduct === value.nameProduct) >= 0) {
+                totalPrice = itemsInCart.items.find(currentValue => currentValue.nameProduct === value.nameProduct).price * value.quantity;
+                totalPrice = Math.round(totalPrice * 100) / 100;
+                item = itemsInCart.items.find(currentValue => currentValue.nameProduct === value.nameProduct);
+            } else {
+                totalPrice = 0;
+                item = productsStock.productsArr.find(currentValue => currentValue.nameProduct === value.nameProduct);
+            }
             return (
                     <tr className="cart-item" key={item.nameProduct + "__" + index} >
                         <td className="cart-item__details">
@@ -93,19 +100,31 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         const clickedButton = event.currentTarget;
         const itemInCart = cart.find(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         const indexItemInCart = cart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
-        console.log(clickedButton, itemInCart, indexItemInCart);
         let newCart = structuredClone(cart);
         let newStock = structuredClone(stock);
         let newItemsInCart;
+        let isOnCartAfterDecrement;
         if (indexItemInCart >= 0) {
-            console.log(indexItemInCart >= 0, indexItemInCart);
             newCart = newCart.toSpliced(indexItemInCart, 1);
             newStock.productsArr = [...newStock.productsArr, itemInCart];
-            newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
+            if (newCart.findIndex(value => value.nameProduct === groupedItem.nameProduct) >= 0) {
+                isOnCartAfterDecrement = true;
+            } else {
+                isOnCartAfterDecrement = false;
+            }
+            console.log(isOnCartAfterDecrement);
+            if (isOnCartAfterDecrement) {
+                newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
+            } else {
+                let groupedItemIndex = itemsInCart.groupedItems.findIndex(value => value.nameProduct === groupedItem.nameProduct);
+                let newGroupedItems = itemsInCart.groupedItems.toSpliced(groupedItemIndex, 1, {...groupedItem, quantity: groupedItem.quantity - 1});
+                newItemsInCart = {items: newCart, groupedItems: newGroupedItems};
+                console.log(itemsInCart, newItemsInCart);
+            }
+            
             setItemsInCart(newItemsInCart);
             setProductsStock(newStock);
         }
-        console.log(newCart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) >= 0);
         if (newCart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) >= 0) {
             clickedButton.disabled = false;
         } else {
