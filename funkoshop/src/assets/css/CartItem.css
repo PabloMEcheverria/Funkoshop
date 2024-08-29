@@ -93,7 +93,7 @@
   font-weight: 700;
   line-height: 24.2px;
   text-align: center;
-  border: 0.5px solid #C9C9C9;
+  border: 0.5px solid #c9c9c9;
   box-sizing: border-box;
   /* Firefox */
   -moz-appearance: textfield;
@@ -132,7 +132,9 @@
 }
 
 .cart-item__summary {
-  width: calc((409.845 - 44) / 1220 * 100%); /* Same as ".cart__header--total" -44px for ".cart-item__remove-button-wrapper". */
+  width: calc(
+    (409.845 - 44) / 1220 * 100%
+  ); /* Same as ".cart__header--total" -44px for ".cart-item__remove-button-wrapper". */
 }
 
 .cart-item__total-price {
@@ -153,8 +155,7 @@
   cursor: pointer;
   padding: 0;
   height: 28px;
-  min-width: 44px;
-  width: calc(44 / 1220 * 100%);
+  width: 28px;
   margin-top: 83.5px;
   display: flex;
   justify-content: flex-start;

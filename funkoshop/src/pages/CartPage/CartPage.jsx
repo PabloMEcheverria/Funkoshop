@@ -8,10 +8,10 @@ import ItemShopPlus from "../../components/svgComponents/ItemShopPlus";
 import CancelIcon from "../../components/svgComponents/CancelIcon";
 
 export default function CartPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock, groupProducts }) {
-    const [buttonAvailability, setButtonAvailability] = useState({
-        isDisabledIncrement: productsStock.productsArr.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true,
-        isDisabledDecrement: itemsInCart.items.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true
-    });
+    //const [buttonAvailability, setButtonAvailability] = useState({
+    //    isDisabledIncrement: productsStock.productsArr.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true,
+    //    isDisabledDecrement: itemsInCart.items.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true
+    //});
     const [tableRowsArr, setTableRowsArr] = useState([]);
     useEffect(() => {
         setTableRowsArr(itemsInCart.groupedItems.map((value, index) => {
@@ -63,7 +63,8 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                                 <p className="cart-item__total-price">{totalPrice}</p> {/*Sum of price of all products that are the same item.*/}
                             </div>
                             <div>
-                                <button className="cart-item__remove-button-wrapper">
+                                <button className="cart-item__remove-button-wrapper" 
+                                        onClick={() => handleRemove(value)}>
                                     <CancelIcon className="cart-item__remove-button" />
                                 </button>
                             </div>
@@ -85,6 +86,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         let newItemsInCart;
         if (indexItemInStock >= 0) {
             newCart = [...newCart, itemInStock];
+            newCart = newCart.sort((a, b) => a.id - b.id);
             newStock.productsArr = newStock.productsArr.toSpliced(indexItemInStock, 1);
             newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
             setItemsInCart(newItemsInCart);
@@ -106,13 +108,14 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         let isOnCartAfterDecrement;
         if (indexItemInCart >= 0) {
             newCart = newCart.toSpliced(indexItemInCart, 1);
+            console.log(newCart);
             newStock.productsArr = [...newStock.productsArr, itemInCart];
             if (newCart.findIndex(value => value.nameProduct === groupedItem.nameProduct) >= 0) {
                 isOnCartAfterDecrement = true;
             } else {
                 isOnCartAfterDecrement = false;
             }
-            console.log(isOnCartAfterDecrement);
+
             if (isOnCartAfterDecrement) {
                 newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
             } else {
@@ -130,6 +133,13 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         } else {
             clickedButton.disabled = true;
         }
+    }
+
+    const handleRemove = (groupedItem) => {
+        let newItems = itemsInCart.items.filter(value => value.nameProduct !== groupedItem.nameProduct);
+        let newCart = {items: newItems, groupedItems: groupProducts(newItems)};
+        setItemsInCart(newCart);
+        console.log(newCart);
     }
 
     const getAvailability = (groupedItem) => {
