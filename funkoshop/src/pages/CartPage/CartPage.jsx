@@ -106,8 +106,10 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         let newStock = structuredClone(stock);
         let newItemsInCart;
         let isOnCartAfterDecrement;
+        let groupedItemsInZero = itemsInCart.groupedItems.filter(value => value.quantity === 0);
         if (indexItemInCart >= 0) {
             newCart = newCart.toSpliced(indexItemInCart, 1);
+            newCart = newCart.sort((a, b) => a.id - b.id);
             console.log(newCart);
             newStock.productsArr = [...newStock.productsArr, itemInCart];
             if (newCart.findIndex(value => value.nameProduct === groupedItem.nameProduct) >= 0) {
@@ -122,7 +124,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                 let groupedItemIndex = itemsInCart.groupedItems.findIndex(value => value.nameProduct === groupedItem.nameProduct);
                 let newGroupedItems = itemsInCart.groupedItems.toSpliced(groupedItemIndex, 1, {...groupedItem, quantity: groupedItem.quantity - 1});
                 newItemsInCart = {items: newCart, groupedItems: newGroupedItems};
-                console.log(itemsInCart, newItemsInCart);
+                groupedItemsInZero.push({...groupedItem, quantity: groupedItem.quantity - 1}); //send to "cart"" state, and from there to the "itemsInCart".
             }
             
             setItemsInCart(newItemsInCart);

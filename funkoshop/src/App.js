@@ -17,7 +17,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 
 function App() {
-  const groupProducts = (itemsInCart) => {
+  const groupProducts = (itemsInCart, groupedItemsInZero=[]) => {
     let cartArr = [];
     itemsInCart.forEach(currentValue => {
         let existingProduct = cartArr.find(item => item.nameProduct === currentValue.nameProduct);
@@ -27,6 +27,16 @@ function App() {
             cartArr.push({ nameProduct: currentValue.nameProduct, quantity: 1 });
         }
     });
+    if (groupedItemsInZero.length > 0) {
+      groupedItemsInZero.forEach(value => cartArr.push(value));
+    }
+    cartArr = cartArr.sort((a, b) => {
+      let x = a.nameProduct.toLowerCase();
+      let y = b.nameProduct.toLowerCase();
+      if (x < y) {return -1}
+      if (x > y) {return 1}
+      return 0
+    })
     return cartArr;
   }
   const [loginStatus, setLoginStatus] = useState({
