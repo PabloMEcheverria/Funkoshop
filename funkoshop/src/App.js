@@ -17,28 +17,6 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 
 function App() {
-  const groupProducts = (itemsInCart, groupedItemsInZero=[]) => {
-    let cartArr = [];
-    itemsInCart.forEach(currentValue => {
-        let existingProduct = cartArr.find(item => item.nameProduct === currentValue.nameProduct);
-        if (existingProduct) {
-            existingProduct.quantity += 1;
-        } else {
-            cartArr.push({ nameProduct: currentValue.nameProduct, quantity: 1 });
-        }
-    });
-    if (groupedItemsInZero.length > 0) {
-      groupedItemsInZero.forEach(value => cartArr.push(value));
-    }
-    cartArr = cartArr.sort((a, b) => {
-      let x = a.nameProduct.toLowerCase();
-      let y = b.nameProduct.toLowerCase();
-      if (x < y) {return -1}
-      if (x > y) {return 1}
-      return 0
-    })
-    return cartArr;
-  }
   const [loginStatus, setLoginStatus] = useState({
     isLogged: false,
     isAdmin: false,
@@ -59,6 +37,7 @@ function App() {
       }
     }
   });
+
   const [cart, setCart] = useState([
     {
       "id": 1,
@@ -298,14 +277,38 @@ function App() {
       "currentPaymentMethod": 6
     }
   ]);
+
+  const [productsStock, setProductsStock] = useState({
+    //productsArr: productsArr, 
+    productsArr: productsArr2, 
+    uniqueProductsArr: uniqueProductsArr
+  });
+
+  const groupProducts = (itemsInCart) => {
+    let cartArr = [];
+    itemsInCart.forEach(currentValue => {
+        let existingProduct = cartArr.find(item => item.nameProduct === currentValue.nameProduct);
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cartArr.push({ nameProduct: currentValue.nameProduct, quantity: 1 });
+        }
+    });
+    cartArr = cartArr.sort((a, b) => {
+      let x = a.nameProduct.toLowerCase();
+      let y = b.nameProduct.toLowerCase();
+      if (x < y) {return -1}
+      if (x > y) {return 1}
+      return 0
+    })
+    return cartArr;
+  }
+
   const [itemsInCart, setItemsInCart] = useState({
     items: structuredClone(cart), 
     groupedItems: groupProducts(cart)
   });
-  const [productsStock, setProductsStock] = useState({
-    //productsArr: productsArr, 
-    productsArr: productsArr2, 
-    uniqueProductsArr: uniqueProductsArr});
+  
   return (
     <>
       <Router>

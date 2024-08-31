@@ -13,6 +13,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
     //    isDisabledDecrement: itemsInCart.items.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true
     //});
     const [tableRowsArr, setTableRowsArr] = useState([]);
+    
     useEffect(() => {
         setTableRowsArr(itemsInCart.groupedItems.map((value, index) => {
             let totalPrice;
@@ -105,32 +106,30 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         let newCart = structuredClone(cart);
         let newStock = structuredClone(stock);
         let newItemsInCart;
-        let isOnCartAfterDecrement;
-        let groupedItemsInZero = itemsInCart.groupedItems.filter(value => value.quantity === 0);
         if (indexItemInCart >= 0) {
             newCart = newCart.toSpliced(indexItemInCart, 1);
             newCart = newCart.sort((a, b) => a.id - b.id);
-            console.log(newCart);
             newStock.productsArr = [...newStock.productsArr, itemInCart];
-            if (newCart.findIndex(value => value.nameProduct === groupedItem.nameProduct) >= 0) {
-                isOnCartAfterDecrement = true;
-            } else {
-                isOnCartAfterDecrement = false;
-            }
-
-            if (isOnCartAfterDecrement) {
-                newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
-            } else {
-                let groupedItemIndex = itemsInCart.groupedItems.findIndex(value => value.nameProduct === groupedItem.nameProduct);
-                let newGroupedItems = itemsInCart.groupedItems.toSpliced(groupedItemIndex, 1, {...groupedItem, quantity: groupedItem.quantity - 1});
-                newItemsInCart = {items: newCart, groupedItems: newGroupedItems};
-                groupedItemsInZero.push({...groupedItem, quantity: groupedItem.quantity - 1}); //send to "cart"" state, and from there to the "itemsInCart".
-            }
+            newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
+            //if (newCart.findIndex(value => value.nameProduct === groupedItem.nameProduct) >= 0) {
+            //    isOnCartAfterDecrement = true;
+            //} else {
+            //    isOnCartAfterDecrement = false;
+            //}
+            //
+            //if (isOnCartAfterDecrement) {
+            //    newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
+            //} else {
+            //    let groupedItemIndex = itemsInCart.groupedItems.findIndex(value => value.nameProduct === groupedItem.nameProduct);
+            //    let newGroupedItems = itemsInCart.groupedItems.toSpliced(groupedItemIndex, 1, {...groupedItem, quantity: groupedItem.quantity - 1});
+            //    newItemsInCart = {items: newCart, groupedItems: newGroupedItems};
+            //}
             
             setItemsInCart(newItemsInCart);
             setProductsStock(newStock);
         }
-        if (newCart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) >= 0) {
+        console.log(newCart.filter(value => value.nameProduct === groupedItem.nameProduct).length);
+        if (newCart.filter(value => value.nameProduct === groupedItem.nameProduct).length >= 2) {
             clickedButton.disabled = false;
         } else {
             clickedButton.disabled = true;
@@ -157,6 +156,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
             availability.isDisabledIncrement = isDisabledIncrement;
             availability.isDisabledDecrement = isDisabledDecrement;
         }
+        console.log(availability);
         return availability
         
     }
