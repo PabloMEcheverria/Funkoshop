@@ -8,10 +8,6 @@ import ItemShopPlus from "../../components/svgComponents/ItemShopPlus";
 import CancelIcon from "../../components/svgComponents/CancelIcon";
 
 export default function CartPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock, groupProducts }) {
-    //const [buttonAvailability, setButtonAvailability] = useState({
-    //    isDisabledIncrement: productsStock.productsArr.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true,
-    //    isDisabledDecrement: itemsInCart.items.find(value => value.nameProduct === itemsInCart.groupedItems.nameProduct) ? false : true
-    //});
     const [tableRowsArr, setTableRowsArr] = useState([]);
     
     useEffect(() => {
@@ -45,7 +41,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                                     <button 
                                         className="cart-item__button cart-item__button--plus" 
                                         disabled={getAvailability(itemsInCart.groupedItems[index]).isDisabledIncrement} 
-                                        onClick={(event) => handleIncrement(event, value, itemsInCart.items, productsStock)}>
+                                        onClick={() => handleIncrement(value, itemsInCart.items, productsStock)}>
                                         {<ItemShopPlus 
                                             className="cart-item__icon cart-item__icon--plus" 
                                             fill={getAvailability(itemsInCart.groupedItems[index]).isDisabledIncrement ? "#F7C7B9" : "#F24E1E"} />}
@@ -53,7 +49,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                                     <button 
                                         className="cart-item__button cart-item__button--minus" 
                                         disabled={getAvailability(itemsInCart.groupedItems[index]).isDisabledDecrement} 
-                                        onClick={(event) => handleDecrement(event, value, itemsInCart.items, productsStock)}>
+                                        onClick={() => handleDecrement(value, itemsInCart.items, productsStock)}>
                                         {<ItemShopMinus 
                                             className="cart-item__icon cart-item__icon--minus" 
                                             fill={getAvailability(itemsInCart.groupedItems[index]).isDisabledDecrement ? "#F7C7B9" : "#F24E1E"} />}
@@ -61,7 +57,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                                 </div>
                             </div>
                             <div className="cart-item__summary">
-                                <p className="cart-item__total-price">{totalPrice}</p> {/*Sum of price of all products that are the same item.*/}
+                                <p className="cart-item__total-price">{totalPrice}</p>
                             </div>
                             <div>
                                 <button className="cart-item__remove-button-wrapper" 
@@ -77,9 +73,7 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         )
     }, [itemsInCart]);
 
-    /**/
-    const handleIncrement = (event, groupedItem, cart, stock) => {
-        const clickedButton = event.currentTarget;
+    const handleIncrement = (groupedItem, cart, stock) => {
         const itemInStock = stock.productsArr.find(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         const indexItemInStock = stock.productsArr.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         let newCart = structuredClone(cart);
@@ -93,14 +87,9 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
             setItemsInCart(newItemsInCart);
             setProductsStock(newStock);
         }
-        if (newStock.productsArr.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct) < 0) {
-            clickedButton.disabled = true;
-        }
-        console.log(itemsInCart, newItemsInCart);
     }
 
-    const handleDecrement = (event, groupedItem, cart, stock) => {
-        const clickedButton = event.currentTarget;
+    const handleDecrement = (groupedItem, cart, stock) => {
         const itemInCart = cart.find(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         const indexItemInCart = cart.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         let newCart = structuredClone(cart);
@@ -111,28 +100,8 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
             newCart = newCart.sort((a, b) => a.id - b.id);
             newStock.productsArr = [...newStock.productsArr, itemInCart];
             newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
-            //if (newCart.findIndex(value => value.nameProduct === groupedItem.nameProduct) >= 0) {
-            //    isOnCartAfterDecrement = true;
-            //} else {
-            //    isOnCartAfterDecrement = false;
-            //}
-            //
-            //if (isOnCartAfterDecrement) {
-            //    newItemsInCart = {items: newCart, groupedItems: groupProducts(newCart)};
-            //} else {
-            //    let groupedItemIndex = itemsInCart.groupedItems.findIndex(value => value.nameProduct === groupedItem.nameProduct);
-            //    let newGroupedItems = itemsInCart.groupedItems.toSpliced(groupedItemIndex, 1, {...groupedItem, quantity: groupedItem.quantity - 1});
-            //    newItemsInCart = {items: newCart, groupedItems: newGroupedItems};
-            //}
-            
             setItemsInCart(newItemsInCart);
             setProductsStock(newStock);
-        }
-        console.log(newCart.filter(value => value.nameProduct === groupedItem.nameProduct).length);
-        if (newCart.filter(value => value.nameProduct === groupedItem.nameProduct).length >= 2) {
-            clickedButton.disabled = false;
-        } else {
-            clickedButton.disabled = true;
         }
     }
 
@@ -140,7 +109,6 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         let newItems = itemsInCart.items.filter(value => value.nameProduct !== groupedItem.nameProduct);
         let newCart = {items: newItems, groupedItems: groupProducts(newItems)};
         setItemsInCart(newCart);
-        console.log(newCart);
     }
 
     const getAvailability = (groupedItem) => {
@@ -152,15 +120,14 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         };
         if (groupedItem !== undefined) {
             isDisabledIncrement = productsStock.productsArr.find(value => value.nameProduct === groupedItem.nameProduct) ? false : true;
-            isDisabledDecrement = itemsInCart.items.find(value => value.nameProduct === groupedItem.nameProduct) ? false : true;
+            isDisabledDecrement = itemsInCart.items.filter(value => value.nameProduct === groupedItem.nameProduct).length >= 2 ? false : true;
             availability.isDisabledIncrement = isDisabledIncrement;
             availability.isDisabledDecrement = isDisabledDecrement;
         }
-        console.log(availability);
         return availability
         
     }
-    /**/
+    
     return (
         <>
             <h1 className="cart__title">Carrito de compras</h1>
@@ -176,6 +143,28 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                     {tableRowsArr}
                 </tbody>
             </table>
+            <section className="summary">
+                <h2 className="summary__title">resumen</h2>
+                <ul className="summary__list">
+                    <li className="summary__item">
+                        <p className="summary__text">cantidad de elementos</p>
+                        <p className="summary__value">{itemsInCart.items.length}</p>
+                    </li>
+                    <li className="summary__item">
+                        <p className="summary__text">subtotal</p>
+                        <p className="summary__value">{parseFloat(itemsInCart.items.reduce((total, value) => {return total + value.price}, 0).toFixed(2))}</p>
+                    </li>
+                    <li className="summary__item">
+                        <p className="summary__text">envio</p>
+                        <p className="summary__value">$ 0,00</p>
+                    </li>
+                    <li className="summary__item--total">
+                        <p className="summary__text--total">total</p>
+                        <p className="summary__value--total">{parseFloat((itemsInCart.items.reduce((total, value) => {return total + value.price}, 0) + 0).toFixed(2))}</p>{/*The "+ 0" has to be replaced with the shipping price.*/}
+                    </li>
+                </ul>
+                <button className="summary__button">ir a pagar</button>
+            </section>
         </>
     )
 }

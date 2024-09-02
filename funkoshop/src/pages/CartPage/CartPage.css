@@ -74,3 +74,111 @@
   display: inline-block;
   width: 100%;
 }
+
+.summary {
+  width: calc(572 / 1440 * 100%);
+  position: relative;
+  left: calc(758 / 1440 * 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.summary__title {
+  border-bottom: 5px solid #FF3333;
+  padding-bottom: 8px;
+  font-family: "Raleway", sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 54px;
+  text-align: left;
+  color: #111111;
+  text-transform: uppercase;
+  display: inline-block;
+  position: relative;
+  margin-left: auto;
+  margin-bottom: 34px;
+}
+
+.summary__list {
+  width: 100%;
+  padding: 24px;
+  background-color: #FAFAFF;
+  box-shadow: 0px 0px 10px 0px #00000040;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 44.3px;
+}
+
+.summary__item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.summary__text {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.36px;
+  text-align: left;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.summary__value {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.36px;
+  text-align: left;
+  text-transform: uppercase;
+  color: #747474;
+}
+
+.summary__item--total {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  border-top: 2px solid #FF3333;
+  padding-top: 8px;
+}
+
+.summary__text--total {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.2px;
+  text-align: left;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.summary__value--total {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.2px;
+  text-align: left;
+  text-transform: uppercase;
+  color: #747474;
+}
+
+.summary__button {
+  background-color: #FF3333;
+  border: none;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38.73px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  padding: 14.83px 0;
+  margin-bottom: 128px;
+}
