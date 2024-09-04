@@ -12,7 +12,6 @@ import Footer from './components/Footer';
 import productsArr from './data/products.js';
 import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useState } from 'react';
-import { createHashRouter, RouterProvider, Link } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 
