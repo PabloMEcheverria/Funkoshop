@@ -160,3 +160,38 @@
   display: flex;
   justify-content: flex-start;
 }
+
+/*Breakpoints:
+
+@media screen and (min-width: 1025px) and  (max-width: 1280px) {
+    
+}
+
+@media screen and (max-width: 1024px) {
+    
+}
+
+@media screen and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 480px) {
+    
+}
+*/
+
+@media screen and (min-width: 1025px) and  (max-width: 1280px) {
+    
+}
+
+@media screen and (max-width: 1024px) {
+    
+}
+
+@media screen and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 480px) {
+    
+}
