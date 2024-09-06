@@ -180,7 +180,7 @@
 }
 */
 
-@media screen and (min-width: 1025px) and  (max-width: 1280px) {
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
   .cart-item {
     height: calc(195px * 0.88);
     width: 100%;
@@ -190,37 +190,37 @@
   .cart-item__details {
     align-items: center;
   }
-  
+
   .cart-item__info {
     height: calc(118px * 0.88);
     margin-top: 0;
   }
-  
+
   .cart-item__description {
     width: calc(100% - 118.76px);
     padding: calc(14.5px * 0.88) 0.49px calc(14.5px * 0.88) 18px;
   }
-  
+
   .cart-item__name {
     font-size: calc(24px * 0.88);
     font-weight: 700;
     line-height: calc(29.05px * 0.88);
     margin-bottom: calc(6px * 0.88);
   }
-  
+
   .cart-item__license {
     font-size: 13px;
     font-weight: 500;
     line-height: 16px;
-    margin-bottom: calc(18px * 0.88);
+    margin-bottom: calc(12px * 0.88);
   }
-  
+
   .cart-item__price {
     font-size: 13px;
     font-weight: 400;
     line-height: 16px;
   }
-  
+
   .cart-item__controls {
     align-items: center;
   }
@@ -233,27 +233,29 @@
     line-height: 24.2px;
     margin-top: 0;
   }
-  
+
   .cart-item__buttons {
     top: 0px;
     margin-top: 0;
     margin-left: 6px;
-    width: calc(18px* 1.125);
-    height: calc(36px* 1.125);
+    width: calc(18px * 1.125);
+    height: calc(36px * 1.125);
   }
-  
+
   .cart-item__button {
     width: calc(18px * 1.125);
     height: calc(16px * 1.125);
   }
-  
+
   .cart-item__summary {
     display: flex;
     align-items: center;
     height: 30px;
-    width: calc((409.845 - 88) / 1220 * 100%); /* Same as ".cart__header--total" -44px for ".cart-item__remove-button-wrapper". */
+    width: calc(
+      (409.845 - 88) / 1220 * 100%
+    ); /* Same as ".cart__header--total" -44px for ".cart-item__remove-button-wrapper". */
   }
-  
+
   .cart-item__total-price {
     font-size: 18px;
     font-weight: 400;
@@ -261,7 +263,7 @@
     padding-left: calc(87.675 / 365.845 * 100%);
     margin-top: 0;
   }
-  
+
   .cart-item__remove-button-wrapper {
     height: 30px;
     width: 88px;
@@ -277,13 +279,10 @@
 }
 
 @media screen and (max-width: 1024px) {
-    
 }
 
 @media screen and (max-width: 768px) {
-    
 }
 
 @media screen and (max-width: 480px) {
-    
 }
