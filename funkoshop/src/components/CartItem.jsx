@@ -93,12 +93,12 @@ export default function CartItem({ value, index, item, totalPrice, itemsInCart, 
                     </div>
                 </div>
                 <div className="cart-item__summary">
-                    <p className="cart-item__total-price">{totalPrice}</p>
+                    <p className="cart-item__total-price">{"$ " + totalPrice}</p>
                 </div>
                 <div className="cart-item__remove-button-wrapper">
                     <button className="cart-item__remove-button"
                             onClick={() => handleRemove(value)}>
-                        <CancelIcon />
+                        <CancelIcon className="cart-item__remove-icon" />
                     </button>
                 </div>
             </td>

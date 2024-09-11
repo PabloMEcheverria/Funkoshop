@@ -167,6 +167,11 @@
   margin-right: 16px;
 }
 
+.cart-item__remove-icon {
+  height: 50px;
+  width: 50px;
+}
+
 /*Breakpoints:
 
 @media screen and (min-width: 1025px) and  (max-width: 1280px) {
@@ -365,18 +370,22 @@
 
 @media screen and (max-width: 768px) {
   .cart-item {
-    height: calc(195px * 0.71);
+    height: calc(195px * 1);
     width: 100%;
-    margin-top: calc(32px * 0.71);
+    margin-top: calc(32px * 1);
   }
 
   .cart-item__details {
+    flex-flow: row wrap;
     align-items: center;
+    justify-content: space-between;
   }
 
   .cart-item__info {
-    height: calc(118px * 0.71);
+    height: calc(118px * 1);
     margin-top: 0;
+    flex-basis: 85%;
+    order: 1;
   }
 
   .cart-item__description {
@@ -385,28 +394,29 @@
   }
 
   .cart-item__name {
-    font-size: 20px;
-    font-weight: 600;
-    line-height: calc(29.05px * 0.71);
-    margin-bottom: calc(6px * 0.71);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: calc(29.05px * 1);
+    margin-bottom: calc(6px * 1);
   }
 
   .cart-item__license {
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 500;
-    line-height: 15px;
-    margin-bottom: calc(12px * 0.88);
+    line-height: 16.94px;
+    margin-bottom: calc(20px * 1);
   }
 
   .cart-item__price {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
-    line-height: 15px;
+    line-height: 16.94px;
   }
 
   .cart-item__controls {
     align-items: center;
     padding-left: 10.344%;
+    order: 3;
   }
 
   .cart-item__quantity {
@@ -435,6 +445,7 @@
     display: flex;
     align-items: center;
     height: calc(28px + 7px); /* Same as "cart-item__remove-button" height in media queries. */
+    order: 4;
   }
 
   .cart-item__total-price {
@@ -445,10 +456,16 @@
     margin-top: 0;
   }
 
+  .cart-item__remove-button-wrapper {
+    order: 2;
+    flex-basis: 15%;
+    height: 118px;
+  }
+
   .cart-item__remove-button {
-    width: calc(28px + 7px);
-    height: calc(28px + 7px);
-    margin-top: 0;
+    width: calc(28px + 22px);
+    height: calc(28px + 22px);
+    margin-top: 16px;
   }
 }
 
