@@ -1,9 +1,10 @@
 import "../assets/css/CartItem.css";
 import ItemShopMinus from "./svgComponents/ItemShopMinus";
 import ItemShopPlus from "./svgComponents/ItemShopPlus";
-import CancelIcon from "./svgComponents/CancelIcon";    
+import CancelIcon from "./svgComponents/CancelIcon";
 
 export default function CartItem({ value, index, item, totalPrice, itemsInCart, setItemsInCart, productsStock, setProductsStock, groupProducts}) {
+    
     const handleIncrement = (groupedItem, cart, stock) => {
         const itemInStock = stock.productsArr.find(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         const indexItemInStock = stock.productsArr.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
@@ -79,6 +80,7 @@ export default function CartItem({ value, index, item, totalPrice, itemsInCart, 
                             disabled={getAvailability(itemsInCart.groupedItems[index]).isDisabledIncrement} 
                             onClick={() => handleIncrement(value, itemsInCart.items, productsStock)}>
                             {<ItemShopPlus 
+                                width="30px"
                                 className="cart-item__icon cart-item__icon--plus" 
                                 fill={getAvailability(itemsInCart.groupedItems[index]).isDisabledIncrement ? "#F7C7B9" : "#F24E1E"} />}
                         </button>

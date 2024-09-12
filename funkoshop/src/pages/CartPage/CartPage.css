@@ -368,6 +368,7 @@
   
   .cart__thead {
     height: 46px;
+    display: none;
   }
   
   .cart__row--header {
@@ -449,6 +450,7 @@
   
   .cart__thead {
     height: 44px;
+    display: none;
   }
 
   .cart__row--header {

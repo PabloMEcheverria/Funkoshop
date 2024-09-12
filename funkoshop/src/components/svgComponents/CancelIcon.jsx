@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export default function CancelIcon(props) {
-  const { width = 28, height = 28, fill = "#F24E1E", ...otherProps } = props;
+  const { width = "100%", height = "100%", fill = "#F24E1E", ...otherProps } = props;
   return(
     <>
       <svg
