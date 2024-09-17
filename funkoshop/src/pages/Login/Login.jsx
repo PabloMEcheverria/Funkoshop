@@ -1,6 +1,13 @@
 import "./Login.css";
+import appFirebase from "../../credentials";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+const auth = getAuth(appFirebase);  
 
 export default function Login() {
+
+    const [registering, setRegistering] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Ingresando...");
