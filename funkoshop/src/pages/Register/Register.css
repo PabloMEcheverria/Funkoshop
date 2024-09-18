@@ -129,8 +129,20 @@
     line-height: 21.78px;
     text-align: left;
     color: #1F1F1F;
+    cursor: pointer
 }
 
-.signup__terms-link {
+.signup__terms-link, .signup__terms-link:visited {
     color: #1D84B5;
+    text-decoration: none;
+}
+
+.signup__terms-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.signup__terms-link:active {
+    text-decoration: underline;
+    color: red;
 }
