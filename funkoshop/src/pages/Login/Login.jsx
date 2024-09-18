@@ -19,11 +19,11 @@ export default function Login() {
             <section className="login__section">
                 <div className="login__field">
                     <label className="login__label" htmlFor="email">Email:</label>
-                    <input className="login__input login__input--email" type="text" id="email" placeholder="johndoe@correo.com" />
+                    <input className="login__input login__input--email" type="email" id="email" placeholder="johndoe@correo.com" />
                 </div>
                 <div className="login__field">
                     <label className="login__label" htmlFor="password">Contraseña:</label>
-                    <input className="login__input login__input--password" type="password" id="password" placeholder="••••••••" />
+                    <input className="login__input login__input--password" type="password" id="password" placeholder="•••••••••" />
                 </div>
             </section>
             <section className="login__section login__section--actions">

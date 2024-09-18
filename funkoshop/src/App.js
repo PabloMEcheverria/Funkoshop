@@ -1,7 +1,8 @@
 import './assets/css/fonts.css';
 import './assets/css/meyerReset.css';
 import './assets/css/App.css';
-import Login from './pages/Login/Login.jsx'
+import Login from './pages/Login/Login.jsx';
+import Register from './pages/Register/Register.jsx';
 import HomePage from './pages/HomePage/HomePage';
 import ShopPage from './pages/Shop/ShopPage.jsx';
 import ItemPage from './pages/ItemPage/ItemPage.jsx';
@@ -15,9 +16,8 @@ import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import appFirebase from './credentials.js';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
-const auth = getAuth(appFirebase);
+import { auth } from './credentials.js';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 function App() {
@@ -325,7 +325,8 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={user ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} userEmail={user.email} /> : <Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/Funkoshop" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/funkoshop" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
           <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} groupProducts={groupProducts} />} />

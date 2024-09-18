@@ -1,0 +1,136 @@
+.signup {
+    width: calc(1023 / 1440 * 100%);
+    margin: 36px 0 36px calc(208.5 / 1440 * 100%);
+}
+
+.signup__title {
+    font-family: "Raleway", sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 49.31px;
+    letter-spacing: 0.004em;
+    text-align: center;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-left: calc(337.45 / 1023 * 100%);
+    margin-bottom: 36px;
+    color: #1F1F1F;
+}
+
+.signup__description {
+    font-family: "Raleway";
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 37.57px;
+    letter-spacing: 0.039em;
+    text-align: center;
+    color: #1F1F1F;
+}
+
+.signup__form {
+    width: calc(457.2 / 1023 * 100%);
+    margin: 36px 0 36px calc(282.9 / 1023 * 100%);
+    top: 0;
+    left: 0;
+    height: auto;
+}
+
+.signup__section {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-bottom: 36px;
+}
+
+.signup__section:last-child {
+    margin-bottom: 0px;
+}
+
+.signup__label {
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29.05px;
+    letter-spacing: 0.039em;
+    text-align: left;
+}
+
+.signup__input {
+    width: calc(208.99 / 457.2 * 100%);
+    padding: 0;
+    border: none;
+    border-bottom: 2px solid #FF3333;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.36px;
+    letter-spacing: 0.039em;
+    text-align: left;
+    color: #000000;
+}
+
+.signup__input::placeholder {
+    color: #B9B9B9;
+}
+
+.signup__input:focus {
+    border: none;
+    border-bottom: 2px solid #FF3333;
+    outline: none;
+    box-shadow: 0px 0px 10px 0px #FF333355;
+    border-radius: 3px;
+}
+
+.signup__section--submit {
+    width: calc(439.48 / 457.2 * 100%);
+    margin-left: calc(8.86 / 457.2 * 100%);
+}
+
+.signup__button {
+    width: calc(103 /  439.48 * 100%);
+    height: 39.06px;
+    padding: 0;
+    border: none;
+    background-color: #FF3333;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.52px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.signup__terms {
+    display: flex;
+    flex-flow: row nowrap;
+    width: calc(295.25 / 439.48 * 100%);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signup__checkbox {
+    appearance: none;
+    width: 16.27px;
+    height: 16.27px;
+    border: 2px solid #1F1F1F;
+    border-radius: 3px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.signup__checkbox:checked {
+    appearance: checkbox;
+}
+
+.signup__terms-text {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.78px;
+    text-align: left;
+    color: #1F1F1F;
+}
+
+.signup__terms-link {
+    color: #1D84B5;
+}
