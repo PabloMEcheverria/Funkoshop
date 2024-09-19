@@ -326,7 +326,7 @@ function App() {
           <Route path="/" element={user ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} userEmail={user.email} /> : <Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/funkoshop" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/home" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
           <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} groupProducts={groupProducts} />} />
