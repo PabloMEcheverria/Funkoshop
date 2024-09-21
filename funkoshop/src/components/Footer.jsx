@@ -9,8 +9,14 @@ export default function Footer({footerMenu}) {
                 <ul>{footerMenu.map((option, i) => {
                     if (option === "shop") {
                         return (<li key={i}><Link to={"/shop"} className="navLink--footer">{option}</Link></li>)
-                    } else {
-                        return (<li key={i}><button>{option}</button></li>)
+                    } else if (option === "ingresar") {
+                        return (<li key={i}><Link to={"/login"} className="navLink--footer">{option}</Link></li>)
+                    } else if (option === "contacto") {
+                        return (<li key={i}><Link to={"/contact"} className="navLink--footer">{option}</Link></li>)
+                    } else if (option === "salir") {
+                        return (<li key={i}><Link to={"/logout"} className="navLink--footer">{option}</Link></li>)
+                    }else if (option === "registrarse") {
+                        return (<li key={i}><Link to={"/register"} className="navLink--footer">{option}</Link></li>)
                     }
                 })}</ul>
                 <Link to={"/"} className="logoLink--footer">

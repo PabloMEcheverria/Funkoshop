@@ -29,20 +29,36 @@ function App() {
     isLogged: false,
     isAdmin: false,
     get headerMenu() {
-      if (!this.isLogged) {
-        return ["shop", "contacto", "login", <CartIcon />]
-      } else if (this.isLogged && !this.isAdmin) {
-        return ["shop", "contacto", "logout", <CartIcon />]
-      } else {
-        return ["ver tienda", "admin", "salir"]
+      let menuArr = [];
+      if (this.isLogged && !this.isAdmin) {
+        menuArr = ["shop", "contacto", "logout", <CartIcon />];
       }
+
+      if (this.isLogged && this.isAdmin) {
+        menuArr = ["ver tienda", "admin", "salir"];
+      }
+
+      if (!this.isLogged) {
+        menuArr = ["shop", "contacto", "login", <CartIcon />];
+      }
+
+      return menuArr
     }, 
     get footerMenu() {
-      if (this.isAdmin) {
-        return ["shop", "registrarse", "ingresar", "contacto"]
-      } else {
-        return ["shop", "ingresar", "contacto"]
+      let menuArr = [];
+      if (this.isLogged && !this.isAdmin) {
+        menuArr = ["shop", "contacto", "salir"];
       }
+
+      if (this.isLogged && this.isAdmin) {
+        menuArr = ["shop", "registrarse", "ingresar", "contacto"];
+      }
+
+      if (!this.isLogged) {
+        menuArr = ["shop", "ingresar", "contacto"];
+      }
+
+      return menuArr
     }
   });
 
