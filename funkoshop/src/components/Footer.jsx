@@ -7,17 +7,19 @@ export default function Footer({footerMenu}) {
         <footer>
             <div>
                 <ul>{footerMenu.map((option, i) => {
+                    let link;
                     if (option === "shop") {
-                        return (<li key={i}><Link to={"/shop"} className="navLink--footer">{option}</Link></li>)
+                        link = (<li key={i}><Link to={"/shop"} className="navLink--footer">{option}</Link></li>);
                     } else if (option === "ingresar") {
-                        return (<li key={i}><Link to={"/login"} className="navLink--footer">{option}</Link></li>)
+                        link = (<li key={i}><Link to={"/login"} className="navLink--footer">{option}</Link></li>);
                     } else if (option === "contacto") {
-                        return (<li key={i}><Link to={"/contact"} className="navLink--footer">{option}</Link></li>)
+                        link = (<li key={i}><Link to={"/contact"} className="navLink--footer">{option}</Link></li>);
                     } else if (option === "salir") {
-                        return (<li key={i}><Link to={"/logout"} className="navLink--footer">{option}</Link></li>)
+                        link = (<li key={i}><Link to={"/logout"} className="navLink--footer">{option}</Link></li>);
                     }else if (option === "registrarse") {
-                        return (<li key={i}><Link to={"/register"} className="navLink--footer">{option}</Link></li>)
+                        link = (<li key={i}><Link to={"/register"} className="navLink--footer">{option}</Link></li>);
                     }
+                    return link
                 })}</ul>
                 <Link to={"/"} className="logoLink--footer">
                     <FooterLogo className="footerLogo" />

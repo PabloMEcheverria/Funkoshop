@@ -4,10 +4,25 @@ import TitleIcon from "./svgComponents/TitleIcon";
 import CartIcon from "./svgComponents/CartIcon";
 import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
+import { useAuth } from "./auth/AuthProvider.js";
+import { useEffect } from "react";
 
-export default function Header({headerMenu, itemsInCart}) {
-    let menuList = headerMenu.map(option => {
+export default function Header({user, loginStatus, headerMenu, itemsInCart}) {
+    const { currentUser, logout } = useAuth();
+
+    console.log(currentUser, loginStatus);
+
+    const handleLogout = () => {
+        logout();
+        redirect("/home");
+    }
+
+    useEffect(() => {
+        loginStatus.isLogged = currentUser ? true : false;
+    }, [user, currentUser, loginStatus])
+
+    let menuList = loginStatus.headerMenu.map(option => {
         let keyValue = headerMenu.indexOf(option);
         if (typeof option === "object") {
             if (itemsInCart.items.length === 0) {
@@ -41,7 +56,7 @@ export default function Header({headerMenu, itemsInCart}) {
                     </li>
         } else if (option === "logout") {
             return  <li key={keyValue}>
-                        <button onClick={() => alert("handling logout")}>{option}</button>
+                        <button onClick={handleLogout}>{option}</button>
                     </li>
         } else if (option === "salir") {
             return  <li key={keyValue}>
