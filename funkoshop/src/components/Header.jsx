@@ -18,6 +18,75 @@ export default function Header({user, loginStatus, headerMenu, itemsInCart}) {
         redirect("/home");
     }
 
+    const setHeaderMenu = (user, loginStatus, itemsArr) => {
+        console.log(user, itemsArr);
+
+        let menuArr = [];
+
+        if (loginStatus.isAdmin === true) {
+            menuArr = ["ver tienda", "admin", "salir"];
+        }
+        if (user) {
+            menuArr = ["shop", "contacto", "login", "cart"];
+        } else {
+            menuArr = ["shop", "contacto", "logout", "cart"];
+        }
+
+        let menuList = menuArr.map((value, i) => {
+            let elementList;
+            if (value === "ver tienda" || value === "shop") {
+                elementList = <li key={i}>
+                                <Link to={"/shop"}>
+                                    {value}
+                                </Link>
+                              </li>
+            } else if (value === "admin") {
+                elementList = <li key={i}>
+                                <Link to={"/admin"}>
+                                    {value}
+                                </Link>
+                              </li>
+            } else if (value === "salir" || value === "logout") {
+                elementList = <li key={i}>
+                                <button onClick={handleLogout}>{value}</button>
+                              </li>
+            } else if (value === "login") {
+                elementList = <li key={i}>
+                                <Link to={"/login"} className="navLink--header">
+                                    {value}
+                                </Link>
+                              </li>
+            } else if (value === "contacto") {
+                elementList = <li key={i}>
+                                <Link to={"/contact"} className="navLink--header">
+                                    {value}
+                                </Link>
+                              </li>
+            } else if (value === "cart") {
+                if (itemsArr.length === 0) {
+                    elementList = <li key={i}>
+                                    <Link to={"/cart"} className="cartIconWrapper">
+                                        <CartIcon className="cartIcon" />
+                                    </Link>
+                                  </li>
+                } else {
+                    elementList = <li key={i}>
+                                    <Link to={"/cart"} className="cartIconWrapper">
+                                        <CartIcon className="cartIcon" />
+                                        <div className="ellipseIconWrapper">
+                                            <Ellipse className="ellipseIcon" />
+                                            <p className="ellipseIconNumber">{itemsArr.length}</p>
+                                        </div>
+                                    </Link>
+                                  </li>
+                }
+            }
+            return elementList
+        })
+    }
+
+    setHeaderMenu(user, loginStatus, itemsInCart.items);
+
     useEffect(() => {
         loginStatus.isLogged = currentUser ? true : false;
     }, [user, currentUser, loginStatus])
@@ -72,7 +141,7 @@ export default function Header({user, loginStatus, headerMenu, itemsInCart}) {
                     </li>
         }
     })
-
+    
     return (
         <>
             <header>
