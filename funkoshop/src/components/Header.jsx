@@ -4,19 +4,17 @@ import TitleIcon from "./svgComponents/TitleIcon";
 import CartIcon from "./svgComponents/CartIcon";
 import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "./auth/AuthProvider.js";
 import { useEffect, useState } from "react";
 
-export default function Header({user, loginStatus, headerMenu, itemsInCart}) {
+export default function Header({ user, loginStatus, itemsInCart }) {
     const { currentUser, logout } = useAuth();
     const [menu, setMenu] = useState([]);
 
     useEffect(() => {
         setHeaderMenu(user, loginStatus, itemsInCart.items);
     }, [user, loginStatus, itemsInCart]);
-
-    console.log(currentUser, loginStatus);
 
     const handleLogout = () => {
         logout();
@@ -38,13 +36,13 @@ export default function Header({user, loginStatus, headerMenu, itemsInCart}) {
         const unorderedList =   <ul>
                                     {menuArr.map((value, i) => {
                                         if (value === "ver tienda" || value === "shop") {
-                                            return (<li key={i}><Link to={"/shop"}>{value}</Link></li>)
+                                            return (<li key={i}><Link to={"/shop"}className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "admin") {
-                                            return (<li key={i}><Link to={"/admin"}>{value}</Link></li>)
+                                            return (<li key={i}><Link to={"/admin"}className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "salir" || value === "logout") {
-                                            return (<li key={i}><Link to={"/home"} onClick={handleLogout}>{value}</Link></li>)
+                                            return (<li key={i}><Link to={"/home"} onClick={handleLogout}className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "login") {
                                             return (<li key={i}><Link to={"/login"} className="navLink--header">{value}</Link></li>)

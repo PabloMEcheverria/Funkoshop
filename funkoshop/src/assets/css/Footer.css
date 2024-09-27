@@ -19,12 +19,13 @@ footer > div > ul {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  height: 86.5px;
+  gap: 7.5px 0;
+  height: auto;
   justify-content: space-between;
   left: 0;
   position: absolute;
   top: 29.69px;
-  width: 109px;
+  width: auto;
 }
 
 footer > div > ul > li {

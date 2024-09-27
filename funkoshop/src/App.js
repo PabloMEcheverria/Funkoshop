@@ -336,7 +336,7 @@ function App() {
   return (
     <>
         <Router basename="/Funkoshop">
-          <Header user={user} loginStatus={loginStatus} headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} productsStock={productsStock} />
+          <Header user={user} loginStatus={loginStatus} headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} />
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/" element={user ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} userEmail={user.email} /> : <Login />} />
@@ -347,7 +347,7 @@ function App() {
             <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
             <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} groupProducts={groupProducts} />} />
           </Routes>
-          <Footer footerMenu={loginStatus.footerMenu} />
+          <Footer user={user} loginStatus={loginStatus} footerMenu={loginStatus.footerMenu} itemsInCart={itemsInCart} />
         </Router>
     </>
   );
