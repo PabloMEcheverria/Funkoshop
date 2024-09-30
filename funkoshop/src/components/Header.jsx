@@ -2,7 +2,7 @@ import "../assets/css/Header.css";
 import HeaderLogo from "./svgComponents/HeaderLogo";
 import TitleIcon from "./svgComponents/TitleIcon";
 import CartIcon from "./svgComponents/CartIcon";
-import ShopArrowDown from "./svgComponents/ShopArrowDown";
+//import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
 import { Link } from "react-router-dom";
 import { useAuth } from "./auth/AuthProvider.js";
@@ -30,7 +30,7 @@ export default function Header({ user, loginStatus, itemsInCart }) {
         if (user) {
             menuArr = ["shop", "contacto", "logout", "cart"];
         } else {
-            menuArr = ["shop", "contacto", "login", "cart"];
+            menuArr = ["shop", "contacto", "login", "registrarse", "cart"];
         }
 
         const unorderedList =   <ul>
@@ -45,7 +45,11 @@ export default function Header({ user, loginStatus, itemsInCart }) {
                                             return (<li key={i}><Link to={"/home"} onClick={handleLogout}className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "login") {
+                                            console.log("currentUser: ", currentUser);
                                             return (<li key={i}><Link to={"/login"} className="navLink--header">{value}</Link></li>)
+                                        }
+                                        if (value === "registrarse") {
+                                            return (<li key={i}><Link to={"/register"} onClick={() => logout()} className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "contacto") {
                                             return (<li key={i}><Link to={"/contact"} className="navLink--header">{value}</Link></li>)

@@ -32,7 +32,7 @@ export default function Footer({ user, loginStatus, itemsInCart, footerMenu }) {
                                             return (<li key={i}><Link to={"/shop"} className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "registrarse") {
-                                            return (<li key={i}><Link to={"/register"} className="navLink--header">{value}</Link></li>)
+                                            return (<li key={i}><Link to={"/register"} onClick={logout()} className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "salir") {
                                             return (<li key={i}><Link to={"/home"} onClick={handleLogout} className="navLink--header">{value}</Link></li>)

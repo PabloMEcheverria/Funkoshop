@@ -42,7 +42,8 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 406px; /*-----*/
+  width: auto; /*-----*/
+  gap: 49px;
 }
 
 li {
@@ -50,7 +51,7 @@ li {
 }
 
 li > button,
-li > a, 
+li > a,
 .navLink--header {
   background-color: #30343f;
   border: none;
@@ -133,7 +134,7 @@ li > a,
   }
 
   ul {
-    width: 305.62px;
+    gap: calc(49px * 0.6);
   }
 
   li > button,
@@ -158,7 +159,7 @@ li > a,
   }
 
   ul {
-    width: 288.7px;
+    gap: calc(49px * 1024 / 1440);
   }
 
   li > button,
@@ -190,7 +191,7 @@ li > a,
   }
 
   ul {
-    width: 288.7px;
+    gap: calc(49px * 768 / 1440);
   }
 
   li > button,
@@ -225,6 +226,7 @@ li > a,
     flex-direction: column;
     width: 288.7px;
     height: 143px;
+    gap: 7.5px;
   }
 
   li > button,

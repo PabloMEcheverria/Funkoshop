@@ -3,7 +3,8 @@ import appFirebase from "../../credentials";
 import { auth } from "../../credentials";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getFirestore, doc, setDoc} from "firebase/firestore";
 
 export default function Register() {
   
@@ -12,6 +13,22 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const firestore = getFirestore(appFirebase);
+
+  async function onSubmit2(email, password) {
+    const userInfo = await createUserWithEmailAndPassword(auth, email, password).then((user) => {
+      console.log(user);
+      navigate("/home");
+    }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });;
+    console.log(userInfo.user.uid);
+    const docRef = doc(firestore, `users/${userInfo.user.uid}`);
+    setDoc(docRef, {email: email, rol: "user"});
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,7 +36,7 @@ export default function Register() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        navigate("/login");
+        navigate("/home");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -27,7 +44,6 @@ export default function Register() {
         console.log(errorCode, errorMessage);
       });
   }
-
     return (
         <main className="signup">
           <h1 className="signup__title">Crea tu cuenta</h1>
@@ -58,7 +74,7 @@ export default function Register() {
               <div className="signup__terms">
                 <input className="signup__checkbox" type="checkbox" />
                 <p className="signup__terms-text">
-                  Acepto <a href="/terms" className="signup__terms-link">Términos y Condiciones</a>
+                  Acepto <a href="/Funkoshop/terms" className="signup__terms-link">Términos y Condiciones</a>
                 </p>
               </div>
             </section>

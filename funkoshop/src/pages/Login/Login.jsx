@@ -47,7 +47,7 @@ export default function Login() {
                   <input className="login__checkbox" type="checkbox" id="rememberMe" name="rememberMe" value={true} />
                   <label className="login__checkbox-label" htmlFor="rememberMe">Recordarme</label>
                 </div>
-                <a className="login__forgot-password" href="/recoverpass">Olvidé mi contraseña</a>
+                <a className="login__forgot-password" href="/Funkoshop/recoverpass">Olvidé mi contraseña</a>
             </section>
           </form>
         </main>

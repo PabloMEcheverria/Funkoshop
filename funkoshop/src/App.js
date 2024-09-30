@@ -7,6 +7,9 @@ import HomePage from './pages/HomePage/HomePage';
 import ShopPage from './pages/Shop/ShopPage.jsx';
 import ItemPage from './pages/ItemPage/ItemPage.jsx';
 import CartPage from './pages/CartPage/CartPage.jsx';
+import AdminPage from './pages/AdminPage/AdminPage.jsx';
+import CreateItemPage from './pages/CreateItemPage/CreateItemPage.jsx';
+import EditItemPage from './pages/EditItemPage/EditItemPage.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 import CartIcon from './components/svgComponents/CartIcon';
 import Header from './components/Header';
@@ -22,6 +25,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 function App() {
   const [user, setUser] = useState(null);
+  console.log();
 
   onAuthStateChanged(auth, userFirebase => userFirebase ? setUser(userFirebase) : null);
 
@@ -346,6 +350,9 @@ function App() {
             <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
             <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
             <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} groupProducts={groupProducts} />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/create" element={<CreateItemPage />} />
+            <Route path="/edit/:itemId" element={<EditItemPage />} />          
           </Routes>
           <Footer user={user} loginStatus={loginStatus} footerMenu={loginStatus.footerMenu} itemsInCart={itemsInCart} />
         </Router>
