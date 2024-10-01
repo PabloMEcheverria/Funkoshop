@@ -1,10 +1,9 @@
 import "./Register.css";
-import appFirebase from "../../credentials";
-import { auth } from "../../credentials";
+import { auth, firestore } from "../../credentials";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getFirestore, doc, setDoc} from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc} from "firebase/firestore";
 
 export default function Register() {
   
@@ -13,25 +12,29 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const firestore = getFirestore(appFirebase);
-
-  async function onSubmit2(email, password) {
-    const userInfo = await createUserWithEmailAndPassword(auth, email, password).then((user) => {
-      console.log(user);
+  async function onSubmit2(e) {
+    e.preventDefault();
+    console.log("onSubmit2 fue llamada");
+    try {
+      const userInfo = await createUserWithEmailAndPassword(auth, email, password);
+      const userId = userInfo.user.uid;
+      console.log("Usuario creado con UID:", userId);
+      console.log(firestore);
+      const docRef = doc(firestore, `users/${userId}`);
+      console.log(docRef);
+      await setDoc(docRef, { email: email, rol: "user" });
+      console.log(userInfo);
       navigate("/home");
-    }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });;
-    console.log(userInfo.user.uid);
-    const docRef = doc(firestore, `users/${userInfo.user.uid}`);
-    setDoc(docRef, {email: email, rol: "user"});
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    }
   }
+  
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -70,7 +73,7 @@ export default function Register() {
               <input className="signup__input" type="password" id="confirmPassword" name="confirmPassword" placeholder="•••••••••" />
             </section>*/}
             <section className="signup__section signup__section--submit">
-              <button className="signup__button" type="submit" onClick={onSubmit}>Registrar</button>
+              <button className="signup__button" type="submit" onClick={(e) => onSubmit2(e)}>Registrar</button>
               <div className="signup__terms">
                 <input className="signup__checkbox" type="checkbox" />
                 <p className="signup__terms-text">

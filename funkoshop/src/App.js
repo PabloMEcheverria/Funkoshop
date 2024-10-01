@@ -18,7 +18,6 @@ import productsArr from './data/products.js';
 import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import appFirebase from './credentials.js';
 import { auth } from './credentials.js';
 import { onAuthStateChanged } from 'firebase/auth';
 

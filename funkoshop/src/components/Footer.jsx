@@ -4,8 +4,8 @@ import { useAuth } from "./auth/AuthProvider";
 import FooterLogo from "./svgComponents/FooterLogo";
 import { Link } from "react-router-dom";
 
-export default function Footer({ user, loginStatus, itemsInCart, footerMenu }) {
-    const { currentUser, logout } = useAuth();
+export default function Footer({ user, loginStatus, itemsInCart }) {
+    const { logout } = useAuth();
     const [footerList, setFooterList] = useState([]);
 
     useEffect(() => {
