@@ -1,9 +1,11 @@
-import "./Register.css";
-import { auth, firestore } from "../../credentials";
-import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc} from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { appFirebase } from "../../credentials";
+import addDocument from "../../services/AddDocument.js";
+import "./Register.css";
+const auth = getAuth(appFirebase);
 
 export default function Register() {
   
@@ -11,27 +13,9 @@ export default function Register() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [uid, setUid] = useState(null);
 
-  async function onSubmit2(e) {
-    e.preventDefault();
-    console.log("onSubmit2 fue llamada");
-    try {
-      const userInfo = await createUserWithEmailAndPassword(auth, email, password);
-      const userId = userInfo.user.uid;
-      console.log("Usuario creado con UID:", userId);
-      console.log(firestore);
-      const docRef = doc(firestore, `users/${userId}`);
-      console.log(docRef);
-      await setDoc(docRef, { email: email, rol: "user" });
-      console.log(userInfo);
-      navigate("/home");
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    }
-  }
-  
+  const firestore = getFirestore(appFirebase);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +31,20 @@ export default function Register() {
         console.log(errorCode, errorMessage);
       });
   }
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      setUid(userCredential.user.uid);
+      console.log(userCredential.user.uid);
+      addDocument(`users/${userCredential.user.uid}`);
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+  }
+
     return (
         <main className="signup">
           <h1 className="signup__title">Crea tu cuenta</h1>
@@ -73,7 +71,7 @@ export default function Register() {
               <input className="signup__input" type="password" id="confirmPassword" name="confirmPassword" placeholder="•••••••••" />
             </section>*/}
             <section className="signup__section signup__section--submit">
-              <button className="signup__button" type="submit" onClick={(e) => onSubmit2(e)}>Registrar</button>
+              <button className="signup__button" type="submit" onClick={(e) => handleClick(e)}>Registrar</button>
               <div className="signup__terms">
                 <input className="signup__checkbox" type="checkbox" />
                 <p className="signup__terms-text">
