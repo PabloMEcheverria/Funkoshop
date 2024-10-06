@@ -34,15 +34,15 @@ export default function Register() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      setUid(userCredential.user.uid);
-      console.log(userCredential.user.uid);
-      addDocument(`users/${userCredential.user.uid}`);
-    }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    });
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      console.log('User created with UID: ', uid);
+
+      await addDocument(uid);
+    } catch (error) {
+      console.error('Error registering user: ', error);
+    }
   }
 
     return (
