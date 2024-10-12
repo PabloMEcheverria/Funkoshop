@@ -1,48 +1,44 @@
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../credentials";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { appFirebase } from "../../credentials";
-import addDocument from "../../services/AddDocument.js";
 import "./Register.css";
-const auth = getAuth(appFirebase);
+
 
 export default function Register() {
-  
-  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [uid, setUid] = useState(null);
-
-  const firestore = getFirestore(appFirebase);
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/home");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  }
-
+  const [documents, setDocuments] = useState([]);
+  
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const uid = userCredential.user.uid;
-      console.log('User created with UID: ', uid);
-
-      await addDocument(uid);
+      const infoUser = await createUserWithEmailAndPassword(auth, email, password);
+      const userUid = infoUser.user.uid;
+      await addDoc(collection(db, "users"), {
+        uid: userUid,
+        email: email,
+        role: "user"
+      });
+      console.log("Usuario creado con los detalles especificados");
     } catch (error) {
-      console.error('Error registering user: ', error);
+      console.error("Error creando usuario:", error);
+      alert("Error creando usuario: " + error.message);
     }
+
+    //const fetchDocuments = async () => {
+    //  try {
+    //    const querySnapshot = await getDocs(collection(db, "users"));
+    //    console.log(querySnapshot);
+    //    //const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    //    //setDocuments(docs);
+    //  } catch (error) {
+    //    console.error("Error obteniendo documentos: ", error);
+    //  }
+    //};
+
+    //fetchDocuments();
   }
 
     return (
