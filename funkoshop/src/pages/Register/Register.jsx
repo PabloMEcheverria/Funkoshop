@@ -27,18 +27,11 @@ export default function Register() {
       alert("Error creando usuario: " + error.message);
     }
 
-    //const fetchDocuments = async () => {
-    //  try {
-    //    const querySnapshot = await getDocs(collection(db, "users"));
-    //    console.log(querySnapshot);
-    //    //const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    //    //setDocuments(docs);
-    //  } catch (error) {
-    //    console.error("Error obteniendo documentos: ", error);
-    //  }
-    //};
-
-    //fetchDocuments();
+    //const querySnapshot = await getDocs(collection(db, "users"));
+    //querySnapshot.forEach((doc) => {
+    //  console.log(`${doc.id} => ${doc.data()}`);
+    //});
+    //console.log(querySnapshot);
   }
 
     return (
