@@ -1,6 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../credentials";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+
 import { useState } from "react";
 import "./Register.css";
 
@@ -9,29 +7,9 @@ export default function Register() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [documents, setDocuments] = useState([]);
   
   const handleClick = async (e) => {
     e.preventDefault();
-    try {
-      const infoUser = await createUserWithEmailAndPassword(auth, email, password);
-      const userUid = infoUser.user.uid;
-      await addDoc(collection(db, "users"), {
-        uid: userUid,
-        email: email,
-        role: "user"
-      });
-      console.log("Usuario creado con los detalles especificados");
-    } catch (error) {
-      console.error("Error creando usuario:", error);
-      alert("Error creando usuario: " + error.message);
-    }
-
-    //const querySnapshot = await getDocs(collection(db, "users"));
-    //querySnapshot.forEach((doc) => {
-    //  console.log(`${doc.id} => ${doc.data()}`);
-    //});
-    //console.log(querySnapshot);
   }
 
     return (

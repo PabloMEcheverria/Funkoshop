@@ -1,30 +1,13 @@
 import "./Login.css";
-import { auth } from "../../credentials";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-
-    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const onLogin = e => {
         e.preventDefault();
-
-        signInWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-            const user = userCredential;
-            console.log(user);
-            navigate("/home");
-        })
-        .catch(error => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-        })
     }
     
     return (

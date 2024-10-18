@@ -18,15 +18,11 @@ import productsArr from './data/products.js';
 import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import { auth } from './credentials.js';
-import { onAuthStateChanged } from 'firebase/auth';
+import supabase from './config/supabaseClient.js';
 
 
 function App() {
   const [user, setUser] = useState(null);
-  console.log();
-
-  onAuthStateChanged(auth, userFirebase => userFirebase ? setUser(userFirebase) : null);
 
   const [loginStatus, setLoginStatus] = useState({
     isLogged: false,

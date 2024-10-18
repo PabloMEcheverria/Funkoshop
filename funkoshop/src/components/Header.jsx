@@ -5,11 +5,9 @@ import CartIcon from "./svgComponents/CartIcon";
 //import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
 import { Link } from "react-router-dom";
-import { useAuth } from "./auth/AuthProvider.js";
 import { useEffect, useState } from "react";
 
 export default function Header({ user, loginStatus, itemsInCart }) {
-    const { currentUser, logout } = useAuth();
     const [menu, setMenu] = useState([]);
 
     useEffect(() => {
@@ -17,7 +15,6 @@ export default function Header({ user, loginStatus, itemsInCart }) {
     }, [user, loginStatus, itemsInCart]);
 
     const handleLogout = () => {
-        logout();
         setHeaderMenu(null, loginStatus, itemsInCart.items);
     }
 
@@ -45,11 +42,10 @@ export default function Header({ user, loginStatus, itemsInCart }) {
                                             return (<li key={i}><Link to={"/home"} onClick={handleLogout}className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "login") {
-                                            console.log("currentUser: ", currentUser);
                                             return (<li key={i}><Link to={"/login"} className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "registrarse") {
-                                            return (<li key={i}><Link to={"/register"} onClick={() => logout()} className="navLink--header">{value}</Link></li>)
+                                            return (<li key={i}><Link to={"/register"} className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "contacto") {
                                             return (<li key={i}><Link to={"/contact"} className="navLink--header">{value}</Link></li>)

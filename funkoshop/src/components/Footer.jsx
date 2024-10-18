@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import "../assets/css/Footer.css";
-import { useAuth } from "./auth/AuthProvider";
 import FooterLogo from "./svgComponents/FooterLogo";
 import { Link } from "react-router-dom";
 
 export default function Footer({ user, loginStatus, itemsInCart }) {
-    const { logout } = useAuth();
     const [footerList, setFooterList] = useState([]);
 
     useEffect(() => {
@@ -13,7 +11,6 @@ export default function Footer({ user, loginStatus, itemsInCart }) {
     }, [user, loginStatus, itemsInCart]);
 
     const handleLogout = () => {
-        logout();
         setFooterMenu(null, loginStatus, itemsInCart.items);
     }
 
@@ -32,7 +29,7 @@ export default function Footer({ user, loginStatus, itemsInCart }) {
                                             return (<li key={i}><Link to={"/shop"} className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "registrarse") {
-                                            return (<li key={i}><Link to={"/register"} onClick={logout()} className="navLink--header">{value}</Link></li>)
+                                            return (<li key={i}><Link to={"/register"} className="navLink--header">{value}</Link></li>)
                                         }
                                         if (value === "salir") {
                                             return (<li key={i}><Link to={"/home"} onClick={handleLogout} className="navLink--header">{value}</Link></li>)
