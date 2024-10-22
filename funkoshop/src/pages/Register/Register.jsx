@@ -1,15 +1,41 @@
 
 import { useState } from "react";
+import supabase from "../../config/supabaseClient";
 import "./Register.css";
 
 
 export default function Register() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   
   const handleClick = async (e) => {
     e.preventDefault();
+    try {
+      const { data, error } = await supabase.auth.signUp({ email, password});
+      if (error) throw error;
+
+      console.log(data); // Verifica el contenido de 'data'
+
+      const user = data.user; // Accede al usuario a través de 'data.user'
+      console.log(user); // Verifica si 'user' ahora está definido
+
+      const {data: insertData, error: insertError} = await supabase.from("users").insert([
+        { 
+          id: user.id, 
+          email: user.email, 
+          role: "user",
+          name: name,
+          lastname: lastName
+        }
+      ]);
+      if (insertError) throw insertError;
+      alert("Verifica tu correo para confirmar la creación de tu cuenta. 👍");
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
   }
 
     return (
@@ -17,14 +43,14 @@ export default function Register() {
           <h1 className="signup__title">Crea tu cuenta</h1>
           <p className="signup__description">Completa el formulario para ser parte del mundo de los Funkos</p>
           <form className="signup__form">
-            {/*<section className="signup__section">
+            <section className="signup__section">
               <label className="signup__label" htmlFor="name">Nombre:</label>
-              <input className="signup__input" type="text" id="name" name="name" placeholder="John" />
+              <input className="signup__input" type="text" id="name" name="name" placeholder="John" onChange={e => setName(e.target.value)} />
             </section>
             <section className="signup__section">
               <label className="signup__label" htmlFor="lastName">Apellido:</label>
-              <input className="signup__input" type="text" id="lastName" name="lastName" placeholder="Doe" />
-            </section>*/}
+              <input className="signup__input" type="text" id="lastName" name="lastName" placeholder="Doe" onChange={e => setLastName(e.target.value)} />
+            </section>
             <section className="signup__section">
               <label className="signup__label" htmlFor="email">Email:</label>
               <input className="signup__input" type="email" id="email" name="email" placeholder="johndoe@correo.com" onChange={e => setEmail(e.target.value)} />
