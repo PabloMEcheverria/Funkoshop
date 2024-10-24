@@ -1,13 +1,24 @@
 import "./Login.css";
 import { useState } from "react";
+import supabase from "../../config/supabaseClient";
 
 export default function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const onLogin = e => {
+    const onLogin = async e => {
         e.preventDefault();
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+              })
+            if (error) throw error;
+            console.log(data);
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+        }
     }
     
     return (
