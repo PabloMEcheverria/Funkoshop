@@ -1,8 +1,10 @@
 import "./Login.css";
 import { useState } from "react";
 import supabase from "../../config/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ setToken }) {
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +18,8 @@ export default function Login() {
               })
             if (error) throw error;
             console.log(data);
+            setToken(data);
+            navigate("/home");
         } catch (error) {
             alert(`Error: ${error.message}`);
         }

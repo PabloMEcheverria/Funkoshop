@@ -16,9 +16,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import productsArr from './data/products.js';
 import { uniqueProductsArr, productsArr2 } from './data/products.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import supabase from './config/supabaseClient.js';
 
 
 function App() {
@@ -307,6 +306,19 @@ function App() {
     uniqueProductsArr: uniqueProductsArr
   });
 
+  const [token, setToken] = useState(false);
+
+  if (token) {
+    sessionStorage.setItem("token", JSON.stringify(token));
+  }
+
+  useEffect(() => {
+    if(sessionStorage.getItem("token")) {
+      let data = JSON.parse(sessionStorage.getItem("token"));
+      setToken(data);
+    }
+  }, []);
+
   const groupProducts = (itemsInCart) => {
     let cartArr = [];
     itemsInCart.forEach(currentValue => {
@@ -335,11 +347,11 @@ function App() {
   return (
     <>
         <Router basename="/Funkoshop">
-          <Header user={user} loginStatus={loginStatus} headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} />
+          <Header user={user} loginStatus={loginStatus} headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} token={token} />
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
-            <Route path="/" element={user ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} userEmail={user.email} /> : <Login />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={token ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} /> : <Login setToken={setToken} />} />
+            <Route path="/login" element={<Login setToken={setToken} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
             <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
@@ -349,7 +361,7 @@ function App() {
             <Route path="/create" element={<CreateItemPage />} />
             <Route path="/edit/:itemId" element={<EditItemPage />} />          
           </Routes>
-          <Footer user={user} loginStatus={loginStatus} footerMenu={loginStatus.footerMenu} itemsInCart={itemsInCart} />
+          <Footer user={user} loginStatus={loginStatus} footerMenu={loginStatus.footerMenu} itemsInCart={itemsInCart} token={token} />
         </Router>
     </>
   );

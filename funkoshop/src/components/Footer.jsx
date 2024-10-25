@@ -2,22 +2,29 @@ import { useEffect, useState } from "react";
 import "../assets/css/Footer.css";
 import FooterLogo from "./svgComponents/FooterLogo";
 import { Link } from "react-router-dom";
+import supabase from "../config/supabaseClient";
 
-export default function Footer({ user, loginStatus, itemsInCart }) {
+export default function Footer({ user, loginStatus, itemsInCart, token }) {
     const [footerList, setFooterList] = useState([]);
 
     useEffect(() => {
         setFooterMenu(user, loginStatus, itemsInCart.items);
     }, [user, loginStatus, itemsInCart]);
 
-    const handleLogout = () => {
-        setFooterMenu(null, loginStatus, itemsInCart.items);
+    const handleLogout = async () => {
+        //setFooterMenu(null, loginStatus, itemsInCart.items);
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.log("Error cerrando sesión: ", error.message);
+        } else {
+            console.log("Sesión cerrada con éxito.");
+        }
     }
 
     const setFooterMenu = (user, loginStatus, itemsArr) => {
         let menuArr = [];
 
-        if (user) {
+        if (token) {
             menuArr = ["shop", "registrarse", "contacto", "salir"];
         } else {
             menuArr = ["shop", "registrarse", "ingresar", "contacto"];

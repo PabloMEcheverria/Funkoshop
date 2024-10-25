@@ -4,18 +4,29 @@ import TitleIcon from "./svgComponents/TitleIcon";
 import CartIcon from "./svgComponents/CartIcon";
 //import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import supabase from "../config/supabaseClient";
 
-export default function Header({ user, loginStatus, itemsInCart }) {
+export default function Header({ user, loginStatus, itemsInCart, token }) {
+    const navigate = useNavigate();
     const [menu, setMenu] = useState([]);
+    
 
     useEffect(() => {
         setHeaderMenu(user, loginStatus, itemsInCart.items);
     }, [user, loginStatus, itemsInCart]);
 
-    const handleLogout = () => {
-        setHeaderMenu(null, loginStatus, itemsInCart.items);
+    const handleLogout = async () => {
+        //setHeaderMenu(null, loginStatus, itemsInCart.items);
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.log("Error cerrando sesión: ", error.message);
+        } else {
+            console.log("Sesión cerrada con éxito.");
+            sessionStorage.removeItem("token");
+            navigate("/");
+        }
     }
 
     const setHeaderMenu = (user, loginStatus, itemsArr) => {
@@ -24,7 +35,7 @@ export default function Header({ user, loginStatus, itemsInCart }) {
         if (loginStatus.isAdmin === true) {
             menuArr = ["ver tienda", "admin", "salir"];
         }
-        if (user) {
+        if (token) {
             menuArr = ["shop", "contacto", "logout", "cart"];
         } else {
             menuArr = ["shop", "contacto", "login", "registrarse", "cart"];
