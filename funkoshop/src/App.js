@@ -18,6 +18,7 @@ import productsArr from './data/products.js';
 import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import supabase from './config/supabaseClient.js';
 
 
 function App() {
@@ -307,6 +308,7 @@ function App() {
   });
 
   const [token, setToken] = useState(false);
+  const [userData, setUserData] = useState("");
 
   if (token) {
     sessionStorage.setItem("token", JSON.stringify(token));
@@ -316,6 +318,19 @@ function App() {
     if(sessionStorage.getItem("token")) {
       let data = JSON.parse(sessionStorage.getItem("token"));
       setToken(data);
+
+      const fetchData = async () => {
+        if (data.user && data.user.id) {
+          let { data: user, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', data.user.id)
+            .single();
+          if (error) console.error('Error fetching data: ', error);
+          else setUserData(user);
+        }
+      };
+      fetchData();
     }
   }, []);
 
@@ -347,7 +362,7 @@ function App() {
   return (
     <>
         <Router basename="/Funkoshop">
-          <Header user={user} loginStatus={loginStatus} headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} token={token} />
+          <Header user={user} loginStatus={loginStatus} headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} token={token} userData={userData} />
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/" element={token ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} /> : <Login setToken={setToken} />} />
