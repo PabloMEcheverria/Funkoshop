@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import supabase from "../../config/supabaseClient";
 import "./Register.css";
@@ -14,13 +13,13 @@ export default function Register() {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const { data, error } = await supabase.auth.signUp({ email, password});
+      const { data, error } = await supabase.auth.signUp({email, password});
       if (error) throw error;
 
-      console.log(data); // Verifica el contenido de 'data'
+      console.log(data);
 
-      const user = data.user; // Accede al usuario a través de 'data.user'
-      console.log(user); // Verifica si 'user' ahora está definido
+      const user = data.user;
+      console.log(user);
 
       const {data: insertData, error: insertError} = await supabase.from("users").insert([
         { 
