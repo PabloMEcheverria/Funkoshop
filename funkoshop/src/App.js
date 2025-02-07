@@ -19,6 +19,7 @@ import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import supabase from './config/supabaseClient.js';
+import { UserProvider } from './context/UserContext.js';
 
 
 function App() {
@@ -361,8 +362,9 @@ function App() {
 
   return (
     <>
+      <UserProvider>
         <Router basename="/Funkoshop">
-          <Header user={user} loginStatus={loginStatus} headerMenu={loginStatus.headerMenu} itemsInCart={itemsInCart} token={token} userData={userData} />
+          <Header itemsInCart={itemsInCart} token={token} />
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/" element={token ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} /> : <Login setToken={setToken} />} />
@@ -378,6 +380,7 @@ function App() {
           </Routes>
           <Footer user={user} loginStatus={loginStatus} footerMenu={loginStatus.footerMenu} itemsInCart={itemsInCart} token={token} />
         </Router>
+      </UserProvider>
     </>
   );
 }
