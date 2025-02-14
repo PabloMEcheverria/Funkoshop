@@ -21,7 +21,6 @@ function Login({ setToken }) {
       console.log(data);
       setToken(data);
 
-      // Fetch additional user profile data
       const { data: profile, error: profileError } = await supabase
         .from('users')
         .select('*')

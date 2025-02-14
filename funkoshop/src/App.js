@@ -364,7 +364,7 @@ function App() {
     <>
       <UserProvider>
         <Router basename="/Funkoshop">
-          <Header itemsInCart={itemsInCart} token={token} />
+          <Header itemsInCart={itemsInCart} />
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/" element={token ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} /> : <Login setToken={setToken} />} />

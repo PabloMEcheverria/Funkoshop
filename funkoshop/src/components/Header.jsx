@@ -7,12 +7,12 @@ import Ellipse from "./svgComponents/Ellipse";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
-import UserContext from "../context/UserContext"
+import UserContext from "../context/UserContext";
 
 export default function Header({ itemsInCart }) {
     const navigate = useNavigate();
     const [menu, setMenu] = useState([]);
-    const { user, userProfile, setUser, setUserProfile } = useContext(UserContext);
+    const { user, userProfile, setUser } = useContext(UserContext);
 
     useEffect(() => {
         setHeaderMenu(user, userProfile);
@@ -44,7 +44,6 @@ export default function Header({ itemsInCart }) {
           menuArr = ["shop", "contacto", "login", "registrarse", "cart"];
         }
     
-        console.log('Menu Array:', menuArr);
         const unorderedList = (
           <ul>
             {menuArr.map((value, i) => {
