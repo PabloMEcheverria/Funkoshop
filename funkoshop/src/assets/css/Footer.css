@@ -32,6 +32,16 @@ footer > div > ul > li {
   list-style: none;
 }
 
+li:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}
+
+.navLink--footer:hover {
+  color: rgba(255, 51, 51, 1);
+  transition: all 0.5s ease-in-out;
+}
+
 footer > div > ul > li > button, .navLink--footer {
   text-transform: uppercase;
   text-decoration: none;
