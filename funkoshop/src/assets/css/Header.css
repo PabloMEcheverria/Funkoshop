@@ -57,7 +57,7 @@ li:hover {
 
 .navLink--header:hover {
   color: rgba(255, 51, 51, 1);
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 li > button,
