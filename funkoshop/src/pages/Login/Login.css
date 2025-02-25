@@ -3,6 +3,7 @@
   height: 289.13px;
   align-self: center;
   justify-self: center;
+  margin: 36px 0;
 }
 
 .login__title {
@@ -172,134 +173,156 @@
 */
 
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
-
+  .login__title {
+    font-size: 38px;
+    line-height: 44.71px;
+    font-weight: 600;
+  }
+  
+  .login__label {
+    font-size: 22px;
+    line-height: 26.55px;
+    font-weight: 350;
+  }
+  
+  .login__input, .login__input::placeholder {
+    font-size: 15px;
+    line-height: 18.15px;
+    font-weight: 300;
+  }
+  
+  .login__button {
+    font-size: 11px;
+    line-height: 13.26px;
+    font-weight: 500;
+  }
+  
+  .login__checkbox-label {
+    font-size: 17px;
+    line-height: 20.43px;
+    font-weight: 350;
+  }
+  
+  .login__forgot-password {
+    font-size: 13px;
+    line-height: 15.67px;
+    font-weight: 300;
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .login__title {
-    font-size: 41px;
-    font-weight: 700;
-    line-height: 48.31px;
-  }
-
-  .login__label {
-    font-size: 23px;
-    font-weight: 400;
-    line-height: 28.05px;
-  }
-
-  .login__input,
-  .login__input::placeholder {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19.36px;
-  }
-
-  .login__button {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 14.52px;
-  }
-
-  .login__checkbox-label {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 21.78px;
-  }
-  
-  .login__forgot-password,
-  .login__forgot-password:visited {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16.94px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .login {
-    width: 100%;
-    max-width: 515px;
-  }
-
-  .login__title {
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 47.31px;
-  }
-
-  .login__label {
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 27.05px;
-  }
-
-  .login__input,
-  .login__input::placeholder {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19.36px;
-  }
-
-  .login__button {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 14.52px;
-  }
-
-  .login__checkbox-label {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 21.78px;
-  }
-  
-  .login__forgot-password,
-  .login__forgot-password:visited {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16.94px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .login {
-    width: 100%;
-  }
-
-  .login__title {
-    font-size: 38px;
-    font-weight: 600;
-    line-height: 45.31px;
+    font-size: 34px;
+    line-height: 40.19px;
+    font-weight: 550;
   }
 
   .login__label {
     font-size: 20px;
+    line-height: 24.1px;
     font-weight: 300;
-    line-height: 27.05px;
   }
 
-  .login__input,
-  .login__input::placeholder {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 19.36px;
+  .login__input, .login__input::placeholder {
+    font-size: 14px;
+    line-height: 16.94px;
+    font-weight: 250;
   }
 
   .login__button {
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 14.52px;
+    font-size: 10px;
+    line-height: 12.1px;
+    font-weight: 450;
   }
 
   .login__checkbox-label {
     font-size: 16px;
+    line-height: 19.36px;
     font-weight: 300;
-    line-height: 21.78px;
   }
-  
+
   .login__forgot-password,
   .login__forgot-password:visited {
+    font-size: 12px;
+    line-height: 14.52px;
+    font-weight: 250;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .login__title {
+    font-size: 30px;
+    line-height: 35.47px;
+    font-weight: 500;
+  }
+
+  .login__label {
+    font-size: 18px;
+    line-height: 21.78px;
+    font-weight: 250;
+  }
+
+  .login__input, .login__input::placeholder {
+    font-size: 13px;
+    line-height: 15.67px;
+    font-weight: 200;
+  }
+
+  .login__button {
+    font-size: 9px;
+    line-height: 10.89px;
+    font-weight: 400;
+  }
+
+  .login__checkbox-label {
+    font-size: 15px;
+    line-height: 18.15px;
+    font-weight: 250;
+  }
+
+  .login__forgot-password,
+  .login__forgot-password:visited {
+    font-size: 11px;
+    line-height: 13.26px;
+    font-weight: 200;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login__title {
+    font-size: 26px;
+    line-height: 30.85px;
+    font-weight: 450;
+  }
+
+  .login__label {
+    font-size: 16px;
+    line-height: 19.36px;
+    font-weight: 200;
+  }
+
+  .login__input, .login__input::placeholder {
+    font-size: 12px;
+    line-height: 14.52px;
+    font-weight: 150;
+  }
+
+  .login__button {
+    font-size: 8px;
+    line-height: 9.66px;
+    font-weight: 350;
+  }
+
+  .login__checkbox-label {
     font-size: 14px;
-    font-weight: 300;
     line-height: 16.94px;
+    font-weight: 200;
+  }
+
+  .login__forgot-password,
+  .login__forgot-password:visited {
+    font-size: 10px;
+    line-height: 12.1px;
+    font-weight: 150;
   }
 }

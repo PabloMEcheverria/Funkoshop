@@ -1,6 +1,11 @@
 .signup {
     width: calc(1023 / 1440 * 100%);
-    margin: 36px 0 36px calc(208.5 / 1440 * 100%);
+    height: 526.06px;
+    justify-self: center;
+    margin: 36px 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 }
 
 .signup__title {
@@ -8,13 +13,12 @@
     font-size: 42px;
     font-weight: 700;
     line-height: 49.31px;
-    letter-spacing: 0.004em;
-    text-align: center;
-    text-transform: uppercase;
-    display: inline-block;
+    letter-spacing: 0.04em;
     margin-left: calc(337.45 / 1023 * 100%);
-    margin-bottom: 36px;
+    text-transform: uppercase;
     color: #1F1F1F;
+    display: inline-block;
+    width: fit-content;
 }
 
 .signup__description {
@@ -27,12 +31,14 @@
     color: #1F1F1F;
 }
 
+.signup__container {
+    width: 100%;
+}
 .signup__form {
     width: calc(457.2 / 1023 * 100%);
-    margin: 36px 0 36px calc(282.9 / 1023 * 100%);
-    top: 0;
-    left: 0;
-    height: auto;
+    height: 367.6px;
+    position: relative;
+    top: 0%;
 }
 
 .signup__section {
@@ -40,6 +46,10 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     margin-bottom: 36px;
+}
+
+.signup__section:nth-last-child(2) {
+    margin-bottom: 39px;
 }
 
 .signup__section:last-child {
@@ -145,4 +155,152 @@
 .signup__terms-link:active {
     text-decoration: underline;
     color: red;
+}
+
+@media screen and (max-width: 1280px) {
+    .signup__title {
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 42px;
+        letter-spacing: 0.035em;
+    }
+
+    .signup__description {
+        font-size: 28px;
+        font-weight: 500;
+        line-height: 32px;
+        letter-spacing: 0.035em;
+    }
+
+    .signup__label {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 26px;
+        letter-spacing: 0.035em;
+    }
+
+    .signup__input {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: 0.035em;
+    }
+
+    .signup__button {
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 12px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .signup__title {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 38px;
+        letter-spacing: 0.03em;
+    }
+
+    .signup__description {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 28px;
+        letter-spacing: 0.03em;
+    }
+
+    .signup__form {
+        justify-self: center;
+    }
+
+    .signup__label {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0.03em;
+    }
+
+    .signup__input {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.03em;
+    }
+
+    .signup__button {
+        font-size: 9px;
+        font-weight: 400;
+        line-height: 11px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .signup__title {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 34px;
+        letter-spacing: 0.025em;
+    }
+
+    .signup__description {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.025em;
+    }
+
+    .signup__label {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 22px;
+        letter-spacing: 0.025em;
+    }
+
+    .signup__input {
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 14px;
+        letter-spacing: 0.025em;
+    }
+
+    .signup__button {
+        font-size: 8px;
+        font-weight: 400;
+        line-height: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .signup__title {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 30px;
+        letter-spacing: 0.02em;
+    }
+
+    .signup__description {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+    }
+
+    .signup__label {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.02em;
+    }
+
+    .signup__input {
+        font-size: 8px;
+        font-weight: 400;
+        line-height: 12px;
+        letter-spacing: 0.02em;
+    }
+
+    .signup__button {
+        font-size: 7px;
+        font-weight: 400;
+        line-height: 9px;
+    }
 }
