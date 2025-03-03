@@ -78,6 +78,8 @@
   letter-spacing: 0.039em;
   text-align: left;
   color: #000000;
+  height: 23.18px;
+  box-sizing: border-box;
 }
 
 .signup__input::placeholder {
@@ -190,6 +192,8 @@
     font-weight: 400;
     line-height: 18px;
     letter-spacing: 0.035em;
+    height: 22.18px;
+    box-sizing: border-box;
   }
 
   .signup__button {
@@ -244,6 +248,8 @@
     line-height: 16px;
     letter-spacing: 0.03em;
     width: 209px;
+    height: 20.18px;
+    box-sizing: border-box;
   }
 
   .signup__button {
@@ -303,22 +309,28 @@
     font-weight: 400;
     line-height: 14px;
     letter-spacing: 0.025em;
+    height: 18.18px;
+    box-sizing: border-box;
   }
+
+  .signup__section:nth-last-child(2) {
+    margin-bottom: 36px;
+}
 
   .signup__section--submit {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-evenly;
-  }
-
-  .signup__terms {
-    width: fit-content;
+    flex-flow: column nowrap;
   }
 
   .signup__button {
     font-size: 8px;
     font-weight: 400;
     line-height: 10px;
+    margin-bottom: 18px;
+  }
+
+  .signup__terms {
+    width: fit-content;
   }
 
   .signup__terms-text,
@@ -356,6 +368,8 @@
     font-weight: 400;
     line-height: 12px;
     letter-spacing: 0.02em;
+    height: 16.18px;
+    box-sizing: border-box;
   }
 
   .signup__button {

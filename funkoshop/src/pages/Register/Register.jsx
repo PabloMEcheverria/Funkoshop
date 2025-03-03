@@ -4,14 +4,32 @@ import "./Register.css";
 
 
 export default function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   
   const handleClick = async (e) => {
     e.preventDefault();
+    
+    if(name === "" || lastName === "" || email === "" || password === "" || confirmPassword === ""){
+      alert("Por favor, llena todos los campos");
+      return;
+    } else if (name.length < 2 || lastName.length < 2) {
+      alert("Por favor, ingresa un nombre y apellido válidos");
+      return;
+    } else if (!email.includes("@") || !email.includes(".")) {
+      alert("Por favor, ingresa un correo válido");
+      return;
+    } else if (password.length < 8) {
+      alert("La contraseña debe tener al menos 8 caracteres");
+      return;
+    } else if (password !== confirmPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
     try {
       const { data, error } = await supabase.auth.signUp({email, password});
       if (error) throw error;
@@ -45,23 +63,23 @@ export default function Register() {
             <form className="signup__form">
               <section className="signup__section">
                 <label className="signup__label" htmlFor="name">Nombre:</label>
-                <input className="signup__input" type="text" id="name" name="name" placeholder="John" onChange={e => setName(e.target.value)} />
+                <input className="signup__input" type="text" id="name" name="name" placeholder="John" onChange={e => setName(e.target.value.trim())} />
               </section>
               <section className="signup__section">
                 <label className="signup__label" htmlFor="lastName">Apellido:</label>
-                <input className="signup__input" type="text" id="lastName" name="lastName" placeholder="Doe" onChange={e => setLastName(e.target.value)} />
+                <input className="signup__input" type="text" id="lastName" name="lastName" placeholder="Doe" onChange={e => setLastName(e.target.value.trim())} />
               </section>
               <section className="signup__section">
                 <label className="signup__label" htmlFor="email">Email:</label>
-                <input className="signup__input" type="email" id="email" name="email" placeholder="johndoe@correo.com" onChange={e => setEmail(e.target.value)} />
+                <input className="signup__input" type="email" id="email" name="email" placeholder="johndoe@correo.com" onChange={e => setEmail(e.target.value.trim())} />
               </section>
               <section className="signup__section">
                 <label className="signup__label" htmlFor="password">Contraseña:</label>
-                <input className="signup__input" type="password" id="password" name="password" placeholder="•••••••••" onChange={e => setPassword(e.target.value)} />
+                <input className="signup__input" type="password" id="password" name="password" placeholder="•••••••••" onChange={e => setPassword(e.target.value.trim())} />
               </section>
               <section className="signup__section">
                 <label className="signup__label" htmlFor="confirmPassword">Repita Contraseña:</label>
-                <input className="signup__input" type="password" id="confirmPassword" name="confirmPassword" placeholder="•••••••••" />
+                <input className="signup__input" type="password" id="confirmPassword" name="confirmPassword" placeholder="•••••••••" onChange={e => setConfirmPassword(e.target.value.trim())} />
               </section>
               <section className="signup__section signup__section--submit">
                 <button className="signup__button" type="submit" onClick={(e) => handleClick(e)}>Registrar</button>
