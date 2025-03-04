@@ -363,7 +363,7 @@ function App() {
   return (
     <>
       <UserProvider>
-        <Router basename="/Funkoshop">
+        <Router>
           <Header itemsInCart={itemsInCart} />
           <Routes>
             <Route path="*" element={<NotFoundPage />} />

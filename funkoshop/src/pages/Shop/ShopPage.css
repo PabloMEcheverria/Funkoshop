@@ -8,6 +8,8 @@
 .catalogue-wrapper {
   width: calc(1086.96 / 1440 * 100%);
 }
+
+
 /*Breakpoints:
 
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
