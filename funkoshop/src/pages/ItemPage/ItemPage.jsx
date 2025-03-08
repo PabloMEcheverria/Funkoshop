@@ -66,9 +66,9 @@ export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, s
                 <div className="product-details__payment-info">
                     <button className="product-details__payment-link" onClick={toggleVisibility}>Ver métodos de pago</button>
                     <p className="product-details__current-payment-method">
-                        - { product.currentPaymentMethod === 1 ? 
+                        - { product.paymentMethods[product.paymentMethods.length - 1] === 1 ? 
                             "Efectivo o débito automático" : 
-                            `${product.currentPaymentMethod} CUOTAS SIN INTERÉS`}
+                            `${product.paymentMethods[product.paymentMethods.length - 1]} CUOTAS SIN INTERÉS`}
                     </p>
                 </div>
                 <ul className={ visible ? 
