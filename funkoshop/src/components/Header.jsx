@@ -32,7 +32,6 @@ export default function Header({ itemsInCart }) {
     
       const setHeaderMenu = (user, userProfile) => {
         let menuArr = [];
-        console.log('User Profile:', userProfile);
     
         if (user) {
           if (userProfile && userProfile.role === "admin") {
