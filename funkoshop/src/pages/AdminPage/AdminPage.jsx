@@ -81,27 +81,26 @@ export default function AdminPage() {
 
         <table className="admin-page__table">
           <thead className="admin-page__table-header">
-            <tr>
-              <th className="admin-page__table-cell">ID</th>
-              <th className="admin-page__table-cell">Código</th>
-              <th className="admin-page__table-cell">Nombre del Producto</th>
-              <th className="admin-page__table-cell">Categoría</th>
-              <th className="admin-page__table-cell">Acciones</th>
+            <tr className="admin-page__table-header-row">
+              <th className="admin-page__table-header-cell">ID</th>
+              <th className="admin-page__table-header-cell">Código</th>
+              <th className="admin-page__table-header-cell">Nombre del Producto</th>
+              <th className="admin-page__table-header-cell">Categoria</th>
             </tr>
           </thead>
           <tbody className="admin-page__table-body">
             {filteredProducts.map(product => (
               <tr className="admin-page__table-row" key={product.id}>
-                <td className="admin-page__table-cell">{product.id}</td>
-                <td className="admin-page__table-cell">{product.sku}</td>
-                <td className="admin-page__table-cell">{product.name_product}</td>
-                <td className="admin-page__table-cell">{product.license}</td>
+                <td className="admin-page__table-body-cell">{product.id}</td>
+                <td className="admin-page__table-body-cell">{product.sku}</td>
+                <td className="admin-page__table-body-cell">{product.name_product}</td>
+                <td className="admin-page__table-body-cell">{product.license}</td>
                 <td className="admin-page__table-actions">
-                  <button className="admin-page__edit-button" type="button">
-                    <AdminPageEdit />
+                  <button className="admin-page__button admin-page__edit-button" type="button">
+                    <AdminPageEdit width={32} height={33} />
                   </button>
-                  <button className="admin-page__delete-button" type="button">
-                    <AdminPageDelete />
+                  <button className="admin-page__button admin-page__delete-button" type="button">
+                    <AdminPageDelete width={34} height={34} />
                   </button>
                 </td>
               </tr>
