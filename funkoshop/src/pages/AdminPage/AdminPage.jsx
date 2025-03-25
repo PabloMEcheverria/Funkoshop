@@ -7,8 +7,10 @@ import AdminPageAdd from '../../components/svgComponents/AdminPageAdd.jsx';
 import AdminPageDelete from '../../components/svgComponents/AdminPageDelete.jsx';
 import AdminPageEdit from '../../components/svgComponents/AdminPageEdit.jsx';
 import AdminPageSearch from '../../components/svgComponents/AdminPageSearch.jsx';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminPage() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -50,6 +52,27 @@ export default function AdminPage() {
       setFilteredProducts(filteredArray);
     }
   }
+
+  function handleCreate() {
+    navigate('/create');
+  }
+
+  function handleEdit(id) {
+    console.log('Edit product');
+    navigate(`/edit/${id}`);
+  }
+
+  async function handleDelete(id) {
+    const {data, error} = await supabase.from('products').delete().eq('id', id);
+    if (error) {
+      console.log('Error deleting product: ', error.message);
+    } else {
+      console.log('Product deleted: ', data);
+      const newProducts = products.filter(product => product.id !== id);
+      setProducts(newProducts);
+      setFilteredProducts(newProducts);
+    }
+  }
   
   return (
     <main className="admin-page">
@@ -72,7 +95,7 @@ export default function AdminPage() {
             <h1 className="admin-page__title">Listado de productos</h1>
             <div className="admin-page__actions">
               <p className="admin-page__add-label">Agregar</p>
-              <button className="admin-page__add-button" type="button">
+              <button onClick={handleCreate} className="admin-page__add-button" type="button">
                 <AdminPageAdd />
               </button>
             </div>
@@ -96,10 +119,10 @@ export default function AdminPage() {
                 <td className="admin-page__table-body-cell">{product.name_product}</td>
                 <td className="admin-page__table-body-cell">{product.license}</td>
                 <td className="admin-page__table-actions">
-                  <button className="admin-page__button admin-page__edit-button" type="button">
+                  <button onClick={() => handleEdit(product.id)} className="admin-page__button admin-page__edit-button" type="button">
                     <AdminPageEdit width={32} height={33} />
                   </button>
-                  <button className="admin-page__button admin-page__delete-button" type="button">
+                  <button onClick={() => handleDelete(product.id)} className="admin-page__button admin-page__delete-button" type="button">
                     <AdminPageDelete width={34} height={34} />
                   </button>
                 </td>
