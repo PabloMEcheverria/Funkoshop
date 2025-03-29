@@ -323,7 +323,7 @@ function App() {
       const fetchData = async () => {
         if (data.user && data.user.id) {
           let { data: user, error } = await supabase
-            .from('users')
+            .from('user_profiles')
             .select('*')
             .eq('id', data.user.id)
             .single();

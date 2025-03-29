@@ -6,6 +6,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
+  const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export const UserProvider = ({ children }) => {
         setUser(user);
 
         const { data: profile, error: profileError } = await supabase
-          .from('users')
+          .from('user_profiles')
           .select('*')
           .eq('id', user.id)
           .single();
@@ -32,6 +33,19 @@ export const UserProvider = ({ children }) => {
         } else {
           console.log('User profile:', profile);
           setUserProfile(profile);
+        }
+
+        const { data: role, error: roleError } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('id', user.id)
+          .single();
+
+        if (roleError) {
+          console.error('Error fetching role:', roleError);
+        } else {
+          console.log('User role:', role);
+          setUserRole(role.role);
         }
       } else {
         setUser(null);

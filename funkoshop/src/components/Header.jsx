@@ -126,6 +126,9 @@ export default function Header({ itemsInCart }) {
 
               return null;
             })}
+            <Link to={"/home"} onClick={handleLogout} className="navLink--header">
+              <li className="logoutLink">Salir</li>
+            </Link>
           </ul>
         );
     

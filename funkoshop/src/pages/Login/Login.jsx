@@ -22,7 +22,7 @@ function Login({ setToken }) {
       setToken(data);
 
       const { data: profile, error: profileError } = await supabase
-        .from('users')
+        .from('user_profiles')
         .select('*')
         .eq('id', data.user.id)
         .single();
@@ -31,7 +31,7 @@ function Login({ setToken }) {
         console.error('Error fetching profile:', profileError);
       } else {
         console.log('User profile:', profile);
-        setUser(data.user);
+        setUser(profile);
       }
 
       navigate("/home");
