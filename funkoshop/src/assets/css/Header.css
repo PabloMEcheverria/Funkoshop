@@ -37,6 +37,10 @@ header > div {
   height: 30.31px; /*-----*/
 }
 
+.headerNav {
+  height: 31px;
+}
+
 ul {
   align-items: center;
   display: flex;

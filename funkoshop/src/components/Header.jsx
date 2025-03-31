@@ -5,136 +5,88 @@ import CartIcon from "./svgComponents/CartIcon";
 //import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import UserContext from "../context/UserContext";
 
 export default function Header({ itemsInCart }) {
     const navigate = useNavigate();
-    const [menu, setMenu] = useState([]);
-    const { user, userProfile, setUser } = useContext(UserContext);
+    const { setUser, userRole, setUserRole } = useContext(UserContext);
 
-    useEffect(() => {
-        setHeaderMenu(user, userProfile);
-      }, [user, userProfile]);
-    
-      const handleLogout = async () => {
+    const handleLogout = async () => {
+      try {
         const { error } = await supabase.auth.signOut();
-        if (error) {
-            console.log("Error cerrando sesión: ", error.message);
-        } else {
-            console.log("Sesión cerrada con éxito.");
-            sessionStorage.removeItem("token");
-            setUser(null);
-            navigate("/login");
-        }
-      };
+        if (error) throw new Error(error.message);
     
-      const setHeaderMenu = (user, userProfile) => {
-        let menuArr = [];
+        console.log("Sesión cerrada con éxito.");
+        sessionStorage.removeItem("token");
+        setUser(null);
+        setUserRole(null);
+        navigate("/login");
+      } catch (err) {
+        console.error("Error cerrando sesión:", err.message);
+      }
+    };
     
-        if (user) {
-          if (userProfile && userProfile.role === "admin") {
-            menuArr = ["ver tienda", "admin", "salir"];
-          } else if (userProfile && userProfile.role === "user") {
-            menuArr = ["shop", "contacto", "logout", "cart"];
-          }
-        } else {
-          menuArr = ["shop", "contacto", "login", "registrarse", "cart"];
-        }
-    
-        const unorderedList = (
-          <ul>
-            {menuArr.map((value, i) => {
-              if (value === "ver tienda" || value === "shop") {
-                return (
-                  <li key={i}>
-                    <Link to={"/shop"} className="navLink--header">
-                      {value}
-                    </Link>
-                  </li>
-                );
-              } 
-              
-              if (value === "admin") {
-                return (
-                  <li key={i}>
-                    <Link to={"/admin"} className="navLink--header">
-                      {value}
-                    </Link>
-                  </li>
-                );
-              } 
-              
-              if (value === "salir" || value === "logout") {
-                return (
-                  <li key={i}>
-                    <Link to={"/home"} onClick={handleLogout} className="navLink--header">
-                      {value}
-                    </Link>
-                  </li>
-                );
-              } 
-              
-              if (value === "cart") {
-                if (itemsInCart.items.length === 0) {
-                    return (<li key={i}><Link to={"/cart"} className="cartIconWrapper"><CartIcon className="cartIcon" /></Link></li>)
-                } else {
-                    return (
-                        <li key={i}>
-                            <Link to={"/cart"} className="cartIconWrapper">
-                              <CartIcon className="cartIcon" />
-                              <div className="ellipseIconWrapper">
-                                  <Ellipse className="ellipseIcon" />
-                                  <p className="ellipseIconNumber">{itemsInCart.items.length}</p>
-                              </div>
-                            </Link>
-                        </li>
-                    );
-                }
-              }
-              
-              if (value === "login") {
-                return (
-                  <li key={i}>
-                    <Link to={"/login"} className="navLink--header">
-                      {value}
-                    </Link>
-                  </li>
-                );
-              }
 
-              if (value === "registrarse") {
-                return (
-                  <li key={i}>
-                    <Link to={"/register"} className="navLink--header">
-                      {value}
-                    </Link>
-                  </li>
-                );
-              }
-              
-              if (value === "contacto") {
-                return (
-                  <li key={i}>
-                    <Link to={"/contact"} className="navLink--header">
-                      {value}
-                    </Link>
-                  </li>
-                );
-              }
+    const getNavMenu = (userRole) => {
+      if (userRole === "admin") {
+        return adminLoggedInUl;
+      } else if (userRole === "user") {
+        return userLoggedInUl;
+      } else {
+        return loggedOutUl;
+      }
+    };
 
-              return null;
-            })}
-            <Link to={"/home"} onClick={handleLogout} className="navLink--header">
-              <li className="logoutLink">Salir</li>
+    const getCartItem = (itemsArr) => {
+      if (itemsArr.length === 0) {
+        return (
+          <li key="cart">
+            <Link to={"/cart"} className="cartIconWrapper">
+              <CartIcon className="cartIcon" />
             </Link>
-          </ul>
+          </li>
         );
+      } else {
+        return (
+          <li key="cart">
+            <Link to={"/cart"} className="cartIconWrapper">
+              <CartIcon className="cartIcon" />
+              <div className="ellipseIconWrapper">
+                <Ellipse className="ellipseIcon" />
+                <p className="ellipseIconNumber">{itemsArr.length}</p>
+              </div>
+            </Link>
+          </li>
+        );
+      }
+    };
     
-        setMenu(unorderedList);
-      };
+    const loggedOutUl = 
+      <ul>
+        <li><Link to={"/shop"} className="navLink--header">Tienda</Link></li>
+        <li><Link to={"/contact"} className="navLink--header">Contacto</Link></li>
+        <li><Link to={"/login"} className="navLink--header">Iniciar sesión</Link></li>
+        <li><Link to={"/register"} className="navLink--header">Registrarse</Link></li>
+        {getCartItem(itemsInCart.items)}
+      </ul>;
     
+    const adminLoggedInUl =
+      <ul>
+        <li><Link to={"/shop"} className="navLink--header">Ver tienda</Link></li>
+        <li><Link to={"/admin"} className="navLink--header">Admin</Link></li>
+        <li><Link to={"/home"} onClick={handleLogout} className="navLink--header">Salir</Link></li>
+      </ul>;
+    
+    const userLoggedInUl =
+      <ul>
+        <li><Link to={"/shop"} className="navLink--header">Tienda</Link></li>
+        <li><Link to={"/contact"} className="navLink--header">Contacto</Link></li>
+        <li><Link to={"/home"} onClick={handleLogout} className="navLink--header">Logout</Link></li>
+        {getCartItem(itemsInCart.items)}
+      </ul>;
+
       return (
         <>
             <header>
@@ -143,9 +95,11 @@ export default function Header({ itemsInCart }) {
                         <HeaderLogo className="headerLogo" />
                         <TitleIcon className="headerTitle" fill="#FAFAFF" />
                     </Link>
-                    {menu}
+                    <nav className="headerNav">
+                      {getNavMenu(userRole)}
+                    </nav>
                 </div>
             </header>
         </>
-    )
+      )
     }

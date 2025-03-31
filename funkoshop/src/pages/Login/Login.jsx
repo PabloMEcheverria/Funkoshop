@@ -8,7 +8,7 @@ function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { setUser, setUserRole } = useContext(UserContext);
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -33,6 +33,19 @@ function Login({ setToken }) {
         console.log('User profile:', profile);
         setUser(profile);
       }
+
+      const { data: role, error: roleError } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('id', data.user.id)
+      .single();
+
+    if (roleError) {
+      console.error('Error fetching role:', roleError);
+    } else {
+      console.log('User role:', role.role);
+      setUserRole(role.role);
+    }
 
       navigate("/home");
     } catch (error) {
