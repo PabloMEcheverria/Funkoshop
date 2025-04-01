@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import "../assets/css/Footer.css";
 import FooterLogo from "./svgComponents/FooterLogo";
 import { Link } from "react-router-dom";
@@ -8,121 +8,63 @@ import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
     const navigate = useNavigate();
-    const [menu, setMenu] = useState([]);
-    const { user, userProfile, setUser } = useContext(UserContext);
-
-    useEffect(() => {
-        setFooterMenu(user, userProfile);
-    }, [user, userProfile]);
+    const { setUser, userRole, setUserRole } = useContext(UserContext);
 
     const handleLogout = async () => {
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-            console.log("Error cerrando sesión: ", error.message);
-        } else {
-            console.log("Sesión cerrada con éxito.");
-            sessionStorage.removeItem("token");
-            setUser(null);
-            navigate("/login");
+        try {
+          const { error } = await supabase.auth.signOut();
+          if (error) throw new Error(error.message);
+      
+          console.log("Sesión cerrada con éxito.");
+          sessionStorage.removeItem("token");
+          setUser(null);
+          setUserRole(null);
+          navigate("/login");
+        } catch (err) {
+          console.error("Error cerrando sesión:", err.message);
         }
       };
 
-    const setFooterMenu = (user, userProfile) => {
-        let menuArr = [];
-
-        if (user) {
-            if (userProfile && userProfile.role === "admin") {
-                menuArr = ["shop", "admin", "contacto", "salir"];
-            } else if (userProfile && userProfile.role === "user") {
-                menuArr = ["shop", "contacto", "cart", "salir"];
-            }
+    const getNavMenu = (userRole) => {
+        if (userRole === "admin") {
+            return adminLoggedInUl;
+        } else if (userRole === "user") {
+            return userLoggedInUl;
         } else {
-            menuArr = ["shop", "registrarse", "ingresar", "contacto"];
+            return loggedOutUl;
         }
+    };
 
-        const unorderedList = (
-            <ul>
-                {menuArr.map((value, i) => {
-                    if (value === "shop") {
-                        return (
-                            <li key={i}>
-                                <Link to={"/shop"} className="navLink--footer">
-                                    {value}
-                                </Link>
-                            </li>
-                        );
-                    }
-
-                    if (value === "admin") {
-                        return (
-                            <li key={i}>
-                                <Link to={"/admin"} className="navLink--footer">
-                                    {value}
-                                </Link>
-                            </li>
-                        );
-                    }
-
-                    if (value === "contacto") {
-                        return (
-                            <li key={i}>
-                                <Link to={"/contacto"} className="navLink--footer">
-                                    {value}
-                                </Link>
-                            </li>
-                        );
-                    }
-
-                    if (value === "salir") {
-                        return (
-                            <li key={i}>
-                                <Link to={"/home"} onClick={handleLogout} className="navLink--footer">
-                                    {value}
-                                </Link>
-                            </li>
-                        );
-                    }
-
-                    if (value === "cart") {
-                        return (
-                            <li key={i}>
-                                <Link to={"/cart"} className="navLink--footer">
-                                    {value}
-                                </Link>
-                            </li>
-                        );
-                    }
-
-                    if (value === "registrarse") {
-                        return (
-                            <li key={i}>
-                                <Link to={"/registrarse"} className="navLink--footer">
-                                    {value}
-                                </Link>
-                            </li>
-                        );
-                    }
-
-                    if (value === "ingresar") {
-                        return (
-                            <li key={i}>
-                                <Link to={"/ingresar"} className="navLink--footer">
-                                    {value}
-                                </Link>
-                            </li>
-                        );
-                    }
-                })}
-            </ul>
-        );
-
-        setMenu(unorderedList);
-    }
+    const adminLoggedInUl = 
+        <ul className="nav_ul--footer">
+            <li><Link to={"/shop"} className="navLink--footer">shop</Link></li>
+            <li><Link to={"/admin"} className="navLink--footer">admin</Link></li>
+            <li><Link to={"/contact"} className="navLink--footer">contacto</Link></li>
+            <li><Link to={"/home"} onClick={handleLogout} className="navLink--footer">salir</Link></li>
+        </ul>;
+    
+    const userLoggedInUl =
+        <ul className="nav_ul--footer">
+            <li><Link to={"/shop"} className="navLink--footer">shop</Link></li>
+            <li><Link to={"/contact"} className="navLink--footer">contacto</Link></li>
+            <li><Link to={"/cart"} className="navLink--footer">cart</Link></li>
+            <li><Link to={"/home"} onClick={handleLogout} className="navLink--footer">salir</Link></li>
+        </ul>;
+    
+    const loggedOutUl = 
+        <ul className="nav_ul--footer">
+            <li><Link to={"/shop"} className="navLink--footer">shop</Link></li>
+            <li><Link to={"/register"} className="navLink--footer">registrarse</Link></li>
+            <li><Link to={"/login"} className="navLink--footer">ingresar</Link></li>
+            <li><Link to={"/contact"} className="navLink--footer">contacto</Link></li>
+        </ul>;
 
     return  (
         <footer>
-            <div>
-                {menu}
+            <div className="footer--container">
+                <nav className="nav--footer">
+                    {getNavMenu(userRole)}
+                </nav>
                 <Link to={"/"} className="logoLink--footer">
                     <FooterLogo className="footerLogo" />
                 </Link>

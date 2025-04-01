@@ -60,7 +60,7 @@ footer > div > p, .navLink--footer {
 .logoLink--footer {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 39px;
 }
 
 footer > div > p {
@@ -70,6 +70,21 @@ footer > div > p {
   position: absolute;
   text-align: center;
   width: 32%;
+}
+
+.footer--container {
+  height: 235px;
+  width: calc(1220 / 1440 * 100%);
+  position: relative;
+  top: 85px;
+}
+
+.nav--footer, .nav_ul--footer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 10px;
+  width: 134px;
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1280px) {

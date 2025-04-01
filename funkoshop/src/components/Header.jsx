@@ -27,8 +27,7 @@ export default function Header({ itemsInCart }) {
         console.error("Error cerrando sesión:", err.message);
       }
     };
-    
-
+  
     const getNavMenu = (userRole) => {
       if (userRole === "admin") {
         return adminLoggedInUl;
