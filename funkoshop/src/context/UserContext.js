@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useCallback } from 'react';
 import supabase from '../config/supabaseClient';
 
 const UserContext = createContext();
@@ -8,6 +8,9 @@ export const UserProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -53,8 +56,18 @@ export const UserProvider = ({ children }) => {
       }
       setLoading(false);
     };
-
     fetchUser();
+  }, []);
+
+  const fetchProducts = useCallback(async () => {
+    setLoadingProducts(true);
+    const { data, error } = await supabase.from('products').select('*');
+    if (error) {
+      console.error('Error fetching products:', error);
+    } else {
+      setProducts(data);
+    }
+    setLoadingProducts(false);
   }, []);
 
   return (
@@ -66,7 +79,12 @@ export const UserProvider = ({ children }) => {
       setUserProfile, 
       setUserRole, 
       loading, 
-      setLoading }}>
+      setLoading,
+      products,
+      loadingProducts,
+      setProducts,
+      setLoadingProducts, 
+      fetchProducts}}>
       {children}
     </UserContext.Provider>
   );

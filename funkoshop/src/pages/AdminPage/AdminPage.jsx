@@ -3,33 +3,28 @@ import './AdminPage.css';
 import supabase from '../../config/supabaseClient';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AdminPageAdd from '../../components/svgComponents/AdminPageAdd.jsx';
 import AdminPageDelete from '../../components/svgComponents/AdminPageDelete.jsx';
 import AdminPageEdit from '../../components/svgComponents/AdminPageEdit.jsx';
 import AdminPageSearch from '../../components/svgComponents/AdminPageSearch.jsx';
-import { useNavigate } from 'react-router-dom';
+import UserContext from '../../context/UserContext.js';
 
 export default function AdminPage() {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
+  const { products, setProducts, fetchProducts } = useContext(UserContext);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*');
-      
-      if (error) {
-        console.log('Error fetching products: ', error.message);
-      } else {
-        setProducts(data);
-        setFilteredProducts(data);
-        console.log('Products: ', data);
-      }
-    };
+    console.log('Fetching products...');
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
+  
+  useEffect(() => {
+    console.log('Products updated:', products);
+    setFilteredProducts(products);
+  }, [products]);
 
   function normalizeString(str) {
     return str.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -63,16 +58,15 @@ export default function AdminPage() {
   }
 
   async function handleDelete(id) {
-    const {data, error} = await supabase.from('products').delete().eq('id', id);
+    const { data, error } = await supabase.from('products').delete().eq('id', id);
     if (error) {
       console.log('Error deleting product: ', error.message);
     } else {
       console.log('Product deleted: ', data);
-      const newProducts = products.filter(product => product.id !== id);
-      setProducts(newProducts);
-      setFilteredProducts(newProducts);
+      fetchProducts();
+      setFilteredProducts((prev) => prev.filter((product) => product.id !== id));
     }
-  }
+  };
   
   return (
     <main className="admin-page">
