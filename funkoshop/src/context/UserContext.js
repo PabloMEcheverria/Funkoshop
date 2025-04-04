@@ -22,7 +22,6 @@ export const UserProvider = ({ children }) => {
         return;
       }
       if (user) {
-        console.log('Logged in user:', user);
         setUser(user);
 
         const { data: profile, error: profileError } = await supabase
@@ -34,7 +33,6 @@ export const UserProvider = ({ children }) => {
         if (profileError) {
           console.error('Error fetching profile:', profileError);
         } else {
-          console.log('User profile:', profile);
           setUserProfile(profile);
         }
 
@@ -47,7 +45,6 @@ export const UserProvider = ({ children }) => {
         if (roleError) {
           console.error('Error fetching role:', roleError);
         } else {
-          console.log('User role:', role);
           setUserRole(role.role);
         }
       } else {
