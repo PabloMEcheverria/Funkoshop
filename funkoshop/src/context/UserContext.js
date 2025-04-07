@@ -56,15 +56,20 @@ export const UserProvider = ({ children }) => {
     fetchUser();
   }, []);
 
-  const fetchProducts = useCallback(async () => {
-    setLoadingProducts(true);
-    const { data, error } = await supabase.from('products').select('*');
-    if (error) {
-      console.error('Error fetching products:', error);
-    } else {
-      setProducts(data);
-    }
-    setLoadingProducts(false);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoadingProducts(true);
+      const { data, error } = await supabase.from('products').select('*');
+      if (error) {
+        console.error('Error fetching products:', error);
+      } else {
+        console.log('Fetched products:', data);
+        setProducts(data);
+      }
+      setLoadingProducts(false);
+    };
+
+    fetchProducts();
   }, []);
 
   return (
@@ -75,13 +80,14 @@ export const UserProvider = ({ children }) => {
       setUser, 
       setUserProfile, 
       setUserRole, 
+
       loading, 
       setLoading,
+      
       products,
       loadingProducts,
       setProducts,
-      setLoadingProducts, 
-      fetchProducts}}>
+      setLoadingProducts}}>
       {children}
     </UserContext.Provider>
   );

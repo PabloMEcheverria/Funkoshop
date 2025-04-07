@@ -1,0 +1,55 @@
+.form__title {
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    color: rgba(31, 31, 31, 1);
+    text-align: right;
+    text-transform: uppercase;
+    width: fit-content;
+    height: fit-content;
+    margin: 36px 0 39.58px calc(115.55 / 1440 * 100%);
+}
+
+.form {
+    width: calc(827.63 / 1440 * 100%);
+    margin-left: calc(115.55 / 1440 * 100%);
+    position: relative;
+    left: 0;
+}
+
+.form__field-group {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.form__field {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: calc(387.29 / 827.63 * 100%);
+    align-items: center;
+}
+
+.form__label {
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    color: rgba(0, 0, 0, 1);
+    text-align: right;
+    margin-right: 19.25px;
+}
+
+/*.form__select {
+    box-sizing: border-box;
+    height: 44.28px;
+    width: calc(243.03 / 827.63 * 100%);
+    padding: 10.14px 0 10.14px 10.95px;
+    border: 2px solid rgba(48, 52, 63, 1);
+    border-radius: 2px;
+}*/

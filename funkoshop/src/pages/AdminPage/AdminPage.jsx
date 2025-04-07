@@ -13,18 +13,13 @@ import UserContext from '../../context/UserContext.js';
 
 export default function AdminPage() {
   const navigate = useNavigate();
-  const { products, setProducts, fetchProducts } = useContext(UserContext);
+  const { products, setProducts } = useContext(UserContext);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    console.log('Fetching products...');
-    fetchProducts();
-  }, [fetchProducts]);
-  
-  useEffect(() => {
-    console.log('Products updated:', products);
     setFilteredProducts(products);
   }, [products]);
+  
 
   function normalizeString(str) {
     return str.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -44,6 +39,9 @@ export default function AdminPage() {
 
         return normalizedSku.includes(normalizedSearch) || normalizedNameProduct.includes(normalizedSearch) || normalizedLicense.includes(normalizedSearch);
       });
+      if (filteredArray.length === 0) {
+        alert("No se encontraron productos que coincidan con la búsqueda.");
+      }      
       setFilteredProducts(filteredArray);
     }
   }
@@ -58,16 +56,22 @@ export default function AdminPage() {
   }
 
   async function handleDelete(id) {
-    const { data, error } = await supabase.from('products').delete().eq('id', id);
-    if (error) {
-      console.log('Error deleting product: ', error.message);
-    } else {
-      console.log('Product deleted: ', data);
-      fetchProducts();
-      setFilteredProducts((prev) => prev.filter((product) => product.id !== id));
-    }
-  };
+    try {
+      const { error } = await supabase.from('products').delete().eq('id', id);
+      if (error) throw error;
   
+      const newProducts = products.filter(product => product.id !== id);
+      setProducts(newProducts);
+    } catch (error) {
+      console.error('Error deleting product:', error.message);
+      alert('Ocurrió un error al eliminar el producto.');
+    }
+  }
+
+  if (!products || products.length === 0) {
+    return <p>Cargando productos...</p>;
+  }
+
   return (
     <main className="admin-page">
       <section className="admin-page__search">
@@ -96,7 +100,7 @@ export default function AdminPage() {
           </div>
         </header>
 
-        <table className="admin-page__table">
+        <table className="admin-page__table" role="table" aria-label="Listado de productos" >
           <thead className="admin-page__table-header">
             <tr className="admin-page__table-header-row">
               <th className="admin-page__table-header-cell">ID</th>
