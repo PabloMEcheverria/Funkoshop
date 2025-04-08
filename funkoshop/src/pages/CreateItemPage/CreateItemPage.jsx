@@ -26,7 +26,7 @@ export default function CreateItemPage() {
   return (
     <>
       <h1 className="form__title">Crear nuevo ítem</h1>
-      <form className="form" action={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <section className="form__field-group">
           <div className="form__field">
             <label className="form__label" htmlFor="collection">Categoría:</label>
@@ -50,7 +50,7 @@ export default function CreateItemPage() {
                   borderRadius: "6px",
                   transition: "border-color 0.2s ease",
                   ":hover": {
-                    borderColor: "rgba(255, 51, 51, 1)", // Color al hacer hover
+                    borderColor: "rgba(255, 51, 51, 1)",
                   },
                   padding: "0",
                   fontFamily: "Inter, sans-serif",
@@ -58,18 +58,18 @@ export default function CreateItemPage() {
                   fontSize: "20px",
                   lineHeight: "100%",
                   letterSpacing: "0%",
-                  color: "rgba(0, 0, 0, 1)", // Color del texto principal
+                  color: "rgba(0, 0, 0, 1)",
                 }),
                 placeholder: (base) => ({
                   ...base,
-                  color: "rgba(185, 185, 185, 1)", // Color del placeholder
+                  color: "rgba(185, 185, 185, 1)",
                   fontFamily: "Inter, sans-serif",
                   fontWeight: 500,
                   fontSize: "20px",
                 }),
                 singleValue: (base) => ({
                   ...base,
-                  color: "rgba(0, 0, 0, 1)", // Color del valor seleccionado
+                  color: "rgba(0, 0, 0, 1)",
                   fontFamily: "Inter, sans-serif",
                   fontWeight: 500,
                   fontSize: "20px",
@@ -83,7 +83,7 @@ export default function CreateItemPage() {
                   },
                 }),
               }}
-/>
+            />
           </div>
           <div className="form__field">
             <label className="form__label" htmlFor="collection">Categoría:</label>
@@ -110,8 +110,8 @@ export default function CreateItemPage() {
         <label className="form__label" htmlFor="discounts">Descuento:</label>
         <input className="form__input form__input--discounts" type="number" id="discounts" name="discounts" placeholder="0%" />
         <label className="form__label" htmlFor="payment_methods">Cuotas:</label>
-        <select className="form__select" name="payment_methods" id="payment_methods">
-          <option value="" disabled selected>3 Cuotas sin interés</option>
+        <select className="form__select" name="payment_methods" id="payment_methods" defaultValue={""}>
+          <option value="" disabled>3 Cuotas sin interés</option>
           <option value="1">Efectivo o débito automático</option>
           <option value="3">3 Cuotas sin interés</option>
           <option value="6">6 Cuotas sin interés</option>
@@ -120,20 +120,20 @@ export default function CreateItemPage() {
         <label className="form__label" htmlFor="productImages">Imágenes:</label>
         <input className="form__input form__input--file" type="file" id="productImages" name="productImages" accept="image/*" multiple required />
         <label className="form__label" htmlFor="is_new">Es nuevo:</label>
-        <select className="form__select" name="is_new" id="is_new">
-          <option value="" disabled selected>Seleccionar</option>
+        <select className="form__select" name="is_new" id="is_new" defaultValue={""}>
+          <option value="" disabled>Seleccionar</option>
           <option value="true">Sí</option>
           <option value="false">No</option>
         </select>
         <label className="form__label" htmlFor="is_special_edition">Es edición especial:</label>
-        <select className="form__select" name="is_special_edition" id="is_special_edition">
-          <option value="" disabled selected>Seleccionar</option>
+        <select className="form__select" name="is_special_edition" id="is_special_edition" defaultValue={""}>
+          <option value="" disabled>Seleccionar</option>
           <option value="true">Sí</option>
           <option value="false">No</option>
         </select>
         <label className="form__label" htmlFor="is_favorite">Es de la sección Favoritos:</label>
-        <select className="form__select" name="is_favorite" id="is_favorite">
-          <option value="" disabled selected>Seleccionar</option>
+        <select className="form__select" name="is_favorite" id="is_favorite" defaultValue={""}>
+          <option value="" disabled>Seleccionar</option>
           <option value="true">Sí</option>
           <option value="false">No</option>
         </select>
