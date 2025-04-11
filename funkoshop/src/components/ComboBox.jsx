@@ -1,7 +1,7 @@
 import "../assets/css/ComboBox.css";
 import { useState } from "react";
 
-export default function ComboBox({ valueState, setValueState, optionsArray, label, inputId }) {
+export default function ComboBox({ setValueState, optionsArray, inputId }) {
     const [internalValue, setInternalValue] = useState("");
     const [options, setOptions] = useState(optionsArray);
     const [display, setDisplay] = useState(false);
@@ -40,26 +40,33 @@ export default function ComboBox({ valueState, setValueState, optionsArray, labe
     };
 
     return (
-        <div>
-            <label htmlFor={inputId}>{label}</label>
-            <input  type="text" 
-                    name={inputId} 
-                    id={inputId} 
-                    onFocus={handleFocus}
-                    onChange={handleChange} 
-                    onBlur={handleBlur}
-                    placeholder="Seleccionar"
-                    value={internalValue} />
-            <ul className={display ? "display" : "displayNone"}>
-                {options.map((option, index) => {
-                    return <li key={index} onClick={() => {
-                                setInternalValue(option);
-                                setValueState(option);
-                                setOptions([]);
-                        }}>{option}</li>
-                })}
-            </ul>
+        <div className="combo-box">
+          <input
+            className="combo-box__input"
+            type="text"
+            name={inputId}
+            id={inputId}
+            onFocus={handleFocus}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Seleccionar"
+            value={internalValue}
+          />
+          <ul className={`combo-box__list ${display ? "combo-box__list--visible" : "combo-box__list--hidden"}`}>
+            {options.map((option, index) => (
+              <li
+                key={index}
+                className="combo-box__list-item"
+                onClick={() => {
+                  setInternalValue(option);
+                  setValueState(option);
+                  setOptions([]);
+                }}
+              >
+                {option}
+              </li>
+            ))}
+          </ul>
         </div>
-
-    )
+      );
 }

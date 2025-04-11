@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import './CreateItemPage.css';
 import CreatableSelect from 'react-select/creatable';
 import UserContext from '../../context/UserContext';
+import ComboBox from '../../components/ComboBox';
 
 export default function CreateItemPage() {
   const { products } = useContext(UserContext);
   const [categories, setCategories] = useState([]);
   const [licenses, setLicenses] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedLicense, setSelectedLicense] = useState("");
 
   
   useEffect(() => {
@@ -28,73 +31,22 @@ export default function CreateItemPage() {
       <h1 className="form__title">Crear nuevo ítem</h1>
       <form className="form" onSubmit={handleSubmit}>
         <section className="form__field-group">
-          <div className="form__field">
+          <div className="form__field--category">
             <label className="form__label" htmlFor="collection">Categoría:</label>
-            <CreatableSelect
-              id="collection"
-              name="collection"
-              isClearable
-              placeholder="Seleccionar"
-              options={categories.map((category) => ({
-                value: category,
-                label: category,
-              }))}
-              styles={{
-                control: (base, state) => ({
-                  ...base,
-                  boxSizing: "border-box",
-                  height: "44.28px",
-                  border: `2px solid ${
-                    state.isFocused ? "rgba(255, 51, 51, 1)" : "rgba(48, 52, 63, 1)"
-                  }`,
-                  borderRadius: "6px",
-                  transition: "border-color 0.2s ease",
-                  ":hover": {
-                    borderColor: "rgba(255, 51, 51, 1)",
-                  },
-                  padding: "0",
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  lineHeight: "100%",
-                  letterSpacing: "0%",
-                  color: "rgba(0, 0, 0, 1)",
-                }),
-                placeholder: (base) => ({
-                  ...base,
-                  color: "rgba(185, 185, 185, 1)",
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                }),
-                singleValue: (base) => ({
-                  ...base,
-                  color: "rgba(0, 0, 0, 1)",
-                  fontFamily: "Inter, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  lineHeight: "100%",
-                }),
-                dropdownIndicator: (base, state) => ({
-                  ...base,
-                  color: state.isFocused ? "rgba(255, 51, 51, 1)" : "rgba(43, 43, 43, 1)",
-                  ":hover": {
-                    color: "rgba(255, 51, 51, 1)",
-                  },
-                }),
-              }}
+            <ComboBox
+              valueState={selectedCategory}
+              setValueState={setSelectedCategory}
+              optionsArray={categories}
+              inputId="collection"
             />
           </div>
-          <div className="form__field">
-            <label className="form__label" htmlFor="collection">Categoría:</label>
-            <CreatableSelect
-              id="license"
-              name="license"
-              className="form__select"
-              isClearable
-              onChange={handleChange}
-              placeholder="Seleccionar licencia" 
-              options={licenses.map(license => ({ value: license, label: license }))}
+          <div className="form__field--license">
+            <ComboBox
+              valueState={selectedLicense}
+              setValueState={setSelectedLicense}
+              optionsArray={licenses}
+              label="Licencia:"
+              inputId="license"
             />
           </div>
         </section>
@@ -143,5 +95,5 @@ export default function CreateItemPage() {
         </section>
       </form>
     </>
-  )
+  );
 }
