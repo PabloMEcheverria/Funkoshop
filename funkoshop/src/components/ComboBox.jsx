@@ -40,9 +40,9 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
     };
 
     return (
-        <div className="combo-box">
+        <div className={`combo-box combo-box--${inputId}`}>
           <input
-            className="combo-box__input"
+            className={`combo-box__input combo-box__input--${inputId}`}
             type="text"
             name={inputId}
             id={inputId}
@@ -51,12 +51,13 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
             onBlur={handleBlur}
             placeholder="Seleccionar"
             value={internalValue}
+            required={true}
           />
-          <ul className={`combo-box__list ${display ? "combo-box__list--visible" : "combo-box__list--hidden"}`}>
+          <ul className={`combo-box__list combo-box__list--${inputId} ${display ? "combo-box__list--visible" : "combo-box__list--hidden"}`}>
             {options.map((option, index) => (
               <li
                 key={index}
-                className="combo-box__list-item"
+                className={`combo-box__list-item combo-box__list-item--${inputId}`}
                 onClick={() => {
                   setInternalValue(option);
                   setValueState(option);
@@ -66,6 +67,8 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
                 {option}
               </li>
             ))}
+            <li className={`combo-box__list-item combo-box__list-item--${"asd"}`}>lorem</li>
+            <li className={`combo-box__list-item combo-box__list-item--${"asd"}`}>ipsum</li>
           </ul>
         </div>
       );
