@@ -9,7 +9,7 @@
 }
 
 .combo-box--license {
-
+    width: calc(243.03 / 387.09 * 100%);
 }
 
 .combo-box__input {
@@ -23,19 +23,9 @@
     font-weight: 500;
     font-size: 20px;
     line-height: 100%;
-    letter-spacing: 0%;
+    letter-spacing: 0em;
     color: rgba(17, 17, 17, 1);
 }
-
-/*
-.combo-box__input--collection {
-
-}
-
-.combo-box__input--license {
-
-}
-*/
 
 .combo-box__input::placeholder {
     color: rgba(185, 185, 185, 1);
@@ -58,26 +48,14 @@
     cursor: pointer;
     transform: none;
     flex-flow: column nowrap;
-    background-color: blanchedalmond;
-    flex-flow: column nowrap;
 }
-
-/*
-.combo-box__list--collection {
-
-}
-
-.combo-box__list--license {
-
-}
-*/
 
 .combo-box__list--visible {
     display: inline-block;
 }
 
 .combo-box__list--hidden {
-    display: inline-block;
+    display: none;
 }
 
 .combo-box__list-item {
@@ -86,15 +64,6 @@
     transform: none !important;
     transition: none !important;
 }
-
-/*
-.combo-box__list-item--collection {
-
-}
-.combo-box__list-item--license {
-
-}
-*/
 
 .combo-box__list-item:hover {
     background-color: rgb(25, 103, 210);

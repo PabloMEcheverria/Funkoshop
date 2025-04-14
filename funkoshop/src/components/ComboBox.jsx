@@ -67,8 +67,10 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
                 {option}
               </li>
             ))}
-            <li className={`combo-box__list-item combo-box__list-item--${"asd"}`}>lorem</li>
-            <li className={`combo-box__list-item combo-box__list-item--${"asd"}`}>ipsum</li>
+            {
+              //<li className={`combo-box__list-item combo-box__list-item--${"asd"}`}>lorem</li>
+              //<li className={`combo-box__list-item combo-box__list-item--${"asd"}`}>ipsum</li>
+            }
           </ul>
         </div>
       );
