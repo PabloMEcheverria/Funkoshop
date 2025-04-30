@@ -14,6 +14,7 @@
 
 .form {
     width: calc(827.63 / 1440 * 100%);
+    height: fit-content;
     margin-left: calc(115.55 / 1440 * 100%);
     position: relative;
     left: 0;
@@ -142,4 +143,24 @@
     background-color: rgba(255, 255, 255, 1);
     outline: 2px solid rgba(29, 132, 181, 1);
     border: none;
+}
+
+.form__field-group--bottom {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.form__field-group--bottom > .form__field {
+    margin-bottom: 59.11px;
+}
+
+.form__field-group--bottom > .form__field > .form__label {
+    margin-right: 9.4px;
+}
+
+.form__field-group--bottom > .form__field > .form__input {
+    height: 27.36px;
 }

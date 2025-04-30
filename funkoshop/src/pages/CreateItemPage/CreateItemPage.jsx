@@ -23,7 +23,8 @@ export default function CreateItemPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event);
+    console.log("SKU: ", event.target.sku.value);
+    console.log("Stock: ", event.target.stock.value);
   }
 
   return (
@@ -55,60 +56,62 @@ export default function CreateItemPage() {
           <input className="form__input" type="text" id="name_product" name="name_product" placeholder="Kakashi Hatake Shippuden Saga" />
         </div>
         <textarea className="form__textarea" name="description" id="description" placeholder="Descripción del producto"></textarea>
-        <div className="form__field form__field--sku">
-          <label className="form__label" htmlFor="sku">SKU:</label>
-          <input className="form__input" type="text" id="sku" name="sku" />
-        </div>
-        <div className="form__field form__field--price">
-          <label className="form__label" htmlFor="price">Precio:</label>
-          <input className="form__input form__input--price" type="number" id="price" name="price" placeholder="$ 0.000,00" />
-        </div>
-        <div className="form__field form__field--stock">
-          <label className="form__label" htmlFor="stock">Stock:</label>
-          <input className="form__input form__input--stock" type="number" id="stock" name="stock" placeholder="0" />
-        </div>
-        <div className="form__field form__field--discount">
-          <label className="form__label" htmlFor="discounts">Descuento:</label>
-          <input className="form__input form__input--discounts" type="number" id="discounts" name="discounts" placeholder="0%" />
-        </div>
-        <div className="form__field form__field--payment-methods">
-          <label className="form__label" htmlFor="payment_methods">Cuotas:</label>
-          <select className="form__select" name="payment_methods" id="payment_methods" defaultValue="">
-            <option value="" disabled>3 Cuotas sin interés</option>
-            <option value="1">Efectivo o débito automático</option>
-            <option value="3">3 Cuotas sin interés</option>
-            <option value="6">6 Cuotas sin interés</option>
-            <option value="12">12 Cuotas sin interés</option>
-          </select>
-        </div>
-        <div className="form__field form__field--images">
-          <label className="form__label" htmlFor="productImages">Imágenes:</label>
-          <input className="form__input form__input--file" type="file" id="productImages" name="productImages" accept="image/*" multiple required />
-        </div>
-        <div className="form__field form__field--new-item">
-          <label className="form__label" htmlFor="is_new">Es nuevo:</label>
-          <select className="form__select" name="is_new" id="is_new" defaultValue="">
-            <option value="" disabled>Seleccionar</option>
-            <option value="true">Sí</option>
-            <option value="false">No</option>
-          </select>
-        </div>
-        <div className="form__field form__field--special-edition">
-          <label className="form__label" htmlFor="is_special_edition">Es edición especial:</label>
-          <select className="form__select" name="is_special_edition" id="is_special_edition" defaultValue="">
-            <option value="" disabled>Seleccionar</option>
-            <option value="true">Sí</option>
-            <option value="false">No</option>
-          </select>
-        </div>
-        <div className="form__field form__field--favorites">
-          <label className="form__label" htmlFor="is_favorite">Es de la sección Favoritos:</label>
-          <select className="form__select" name="is_favorite" id="is_favorite" defaultValue="">
-            <option value="" disabled>Seleccionar</option>
-            <option value="true">Sí</option>
-            <option value="false">No</option>
-          </select>
-        </div>
+        <section className="form__field-group form__field-group--bottom">
+          <div className="form__field form__field--sku">
+            <label className="form__label" htmlFor="sku">SKU:</label>
+            <input className="form__input" type="text" id="sku" name="sku" />
+          </div>
+          <div className="form__field form__field--price">
+            <label className="form__label" htmlFor="price">Precio:</label>
+            <input className="form__input form__input--price" type="number" id="price" name="price" placeholder="$ 0.000,00" />
+          </div>
+          <div className="form__field form__field--stock">
+            <label className="form__label" htmlFor="stock">Stock:</label>
+            <input className="form__input form__input--stock" type="number" id="stock" name="stock" placeholder="0" />
+          </div>
+          <div className="form__field form__field--discount">
+            <label className="form__label" htmlFor="discounts">Descuento:</label>
+            <input className="form__input form__input--discounts" type="number" id="discounts" name="discounts" placeholder="0%" />
+          </div>
+          <div className="form__field form__field--payment-methods">
+            <label className="form__label" htmlFor="payment_methods">Cuotas:</label>
+            <select className="form__select" name="payment_methods" id="payment_methods" defaultValue="">
+              <option value="" disabled>3 Cuotas sin interés</option>
+              <option value="1">Efectivo o débito automático</option>
+              <option value="3">3 Cuotas sin interés</option>
+              <option value="6">6 Cuotas sin interés</option>
+              <option value="12">12 Cuotas sin interés</option>
+            </select>
+          </div>
+          <div className="form__field form__field--images">
+            <label className="form__label" htmlFor="productImages">Imágenes:</label>
+            <input className="form__input form__input--file" type="file" id="productImages" name="productImages" accept="image/*" multiple required />
+          </div>
+          <div className="form__field form__field--new-item">
+            <label className="form__label" htmlFor="is_new">Es nuevo:</label>
+            <select className="form__select" name="is_new" id="is_new" defaultValue="">
+              <option value="" disabled>Seleccionar</option>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          <div className="form__field form__field--special-edition">
+            <label className="form__label" htmlFor="is_special_edition">Es edición especial:</label>
+            <select className="form__select" name="is_special_edition" id="is_special_edition" defaultValue="">
+              <option value="" disabled>Seleccionar</option>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          <div className="form__field form__field--favorites">
+            <label className="form__label" htmlFor="is_favorite">Es de la sección Favoritos:</label>
+            <select className="form__select" name="is_favorite" id="is_favorite" defaultValue="">
+              <option value="" disabled>Seleccionar</option>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+        </section>
         <section className="form__actions">
           <button className="form__button form__button--submit" type="submit">Agregar producto</button>
           <button className="form__button form__button--reset" type="reset">Limpiar</button>
