@@ -1,31 +1,40 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import './CreateItemPage.css';
-import CreatableSelect from 'react-select/creatable';
 import UserContext from '../../context/UserContext';
 import ComboBox from '../../components/ComboBox';
+import SelectArrowDown from '../../components/svgComponents/SelectArrowDown.jsx';
 
 export default function CreateItemPage() {
   const { products } = useContext(UserContext);
+  const selectRef = useRef(null);
   const [categories, setCategories] = useState([]);
   const [licenses, setLicenses] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedLicense, setSelectedLicense] = useState("");
-
+  const [selectedOption, setSelectedOption] = useState({
+    payment_methods: "rgba(185, 185, 185, 1)",
+    is_new: "rgba(185, 185, 185, 1)",
+    is_special_edition: "rgba(185, 185, 185, 1)",
+    is_favorite: "rgba(185, 185, 185, 1)"
+  });
   
   useEffect(() => {
     setCategories([...new Set(products.map(product => product.collection))]);
     setLicenses([...new Set(products.map(product => product.license))]);
   }, [products]);
 
-  const handleChange = (newValue, actionMeta) => {
-    console.log('Value changed:', newValue, 'Action:', actionMeta.action);
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("SKU: ", event.target.sku.value);
     console.log("Stock: ", event.target.stock.value);
   }
+
+  const handleArrowClick = () => {
+    const event = new KeyboardEvent("keydown", { key: "Enter", bubbles: true });
+    console.log(selectRef.current);
+    selectRef.current.focus();
+    selectRef.current.click();
+  };
 
   return (
     <>
@@ -75,13 +84,30 @@ export default function CreateItemPage() {
           </div>
           <div className="form__field form__field--payment-methods">
             <label className="form__label" htmlFor="payment_methods">Cuotas:</label>
-            <select className="form__select" name="payment_methods" id="payment_methods" defaultValue="">
-              <option value="" disabled>3 Cuotas sin interés</option>
-              <option value="1">Efectivo o débito automático</option>
-              <option value="3">3 Cuotas sin interés</option>
-              <option value="6">6 Cuotas sin interés</option>
-              <option value="12">12 Cuotas sin interés</option>
-            </select>
+            <div className="form__select-wrapper">
+              <select 
+                className="form__select" 
+                name="payment_methods" 
+                id="payment_methods" 
+                defaultValue="" 
+                ref={selectRef}
+                onChange={(e) => {
+                  if (e.target.value === "") {
+                    setSelectedOption({ ...selectedOption, payment_methods: "rgba(185, 185, 185, 1)" });
+                  } else {
+                    setSelectedOption({ ...selectedOption, payment_methods: "rgba(31, 31, 31, 1)" });
+                  }
+                }}
+                style={{ color: selectedOption.payment_methods }}
+              >
+                <option className="form__option--placeholder" value="" disabled>3 Cuotas sin interés</option>
+                <option className="form__option" value="1">Efectivo o débito automático</option>
+                <option className="form__option" value="3">3 Cuotas sin interés</option>
+                <option className="form__option" value="6">6 Cuotas sin interés</option>
+                <option className="form__option" value="12">12 Cuotas sin interés</option>
+              </select>
+              <SelectArrowDown onClick={handleArrowClick} className="form__select-arrow form__select-arrow--payment_methods" />
+            </div>
           </div>
           <div className="form__field form__field--images">
             <label className="form__label" htmlFor="productImages">Imágenes:</label>

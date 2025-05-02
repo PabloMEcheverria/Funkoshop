@@ -1,5 +1,6 @@
 import "../assets/css/ComboBox.css";
 import { useState } from "react";
+import SelectArrowDown from "./svgComponents/SelectArrowDown";
 
 export default function ComboBox({ setValueState, optionsArray, inputId }) {
     const [internalValue, setInternalValue] = useState("");
@@ -39,20 +40,28 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
         }, 150);
     };
 
+    const handleArrowClick = () => {
+      setOptions(optionsArray);
+      setDisplay(prev => !prev);
+    }
+
     return (
         <div className={`combo-box combo-box--${inputId}`}>
-          <input
-            className={`combo-box__input combo-box__input--${inputId}`}
-            type="text"
-            name={inputId}
-            id={inputId}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Seleccionar"
-            value={internalValue}
-            required={true}
-          />
+          <div className="combo-box__input-wrapper">
+            <input
+              className={`combo-box__input combo-box__input--${inputId}`}
+              type="text"
+              name={inputId}
+              id={inputId}
+              onFocus={handleFocus}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Seleccionar"
+              value={internalValue}
+              required={true}
+            />
+            <SelectArrowDown onClick={handleArrowClick} className={`combo-box__arrow combo-box__arrow--${inputId}`} />
+          </div>
           <ul className={`combo-box__list combo-box__list--${inputId} ${display ? "combo-box__list--visible" : "combo-box__list--hidden"}`}>
             {options.map((option, index) => (
               <li
