@@ -1,213 +1,253 @@
 .form__title {
-    font-family: "Raleway", sans-serif;
-    font-weight: 700;
-    font-size: 42px;
-    line-height: 100%;
-    letter-spacing: 0.04em;
-    color: rgba(31, 31, 31, 1);
-    text-align: right;
-    text-transform: uppercase;
-    width: fit-content;
-    height: fit-content;
-    margin: 36px 0 39.58px calc(115.55 / 1440 * 100%);
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  color: rgba(31, 31, 31, 1);
+  text-align: right;
+  text-transform: uppercase;
+  width: fit-content;
+  height: fit-content;
+  margin: 36px 0 39.58px calc(115.55 / 1440 * 100%);
 }
 
 .form {
-    width: calc(827.63 / 1440 * 100%);
-    height: fit-content;
-    margin-left: calc(115.55 / 1440 * 100%);
-    position: relative;
-    left: 0;
-    top: 0;
+  width: calc(827.63 / 1440 * 100%);
+  height: fit-content;
+  margin-left: calc(115.55 / 1440 * 100%);
+  position: relative;
+  left: 0;
+  top: 0;
 }
 
 .form__field-group {
-    width: 100%;
-    height: 44.28px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    margin-bottom: 36px;
+  width: 100%;
+  height: 44.28px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 36px;
 }
 
 .form__field {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .form__field--category {
-    width: calc(387.29 / 827.63 * 100%);
-    height: 100%;
+  width: calc(387.29 / 827.63 * 100%);
+  height: 100%;
 }
 
 .form__field--license {
-    width: calc(387.09 / 827.63 * 100%);
-    height: 100%;
+  width: calc(387.09 / 827.63 * 100%);
+  height: 100%;
 }
 
 .form__label--combobox {
-    font-family: "Inter", sans-serif;
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 100%;
-    letter-spacing: 0.04em;
-    text-align: right;
-    color: rgba(0, 0, 0, 1);
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  text-align: right;
+  color: rgba(0, 0, 0, 1);
 }
 
 .form__combobox-wrapper {
-    width: calc(243.03 / 387.29 * 100%);
-    display: flex;
-    height: 100%;
+  width: calc(243.03 / 387.29 * 100%);
+  display: flex;
+  height: 100%;
 }
 
 .form__select-arrow {
-    position: relative;
-    pointer-events: auto;
-    cursor: pointer;
+  position: absolute;
+  pointer-events: none;
 }
 
 .form__label {
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 100%;
-    letter-spacing: 0.04em;
-    text-align: right;
-    color: rgba(0, 0, 0, 1);
-    text-align: right;
-    display: inline-block;
-    width: fit-content;
-    height: fit-content;
-    margin-bottom: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  text-align: right;
+  color: rgba(0, 0, 0, 1);
+  text-align: right;
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+  margin-bottom: 0;
 }
 
 .form__input {
-    padding: 0;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 2px solid rgba(255, 51, 51, 1);
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid rgba(255, 51, 51, 1);
 }
 
 .form__input::placeholder {
-    color: rgba(185, 185, 185, 1);
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 100%;
-    letter-spacing: 0.04em;
-    text-align: right;
+  color: rgba(185, 185, 185, 1);
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  text-align: right;
 }
 
 .form__field--product-name {
-    margin-bottom: 36px;
-    height: 29px;
-    width: calc(581.06 / 827.63 * 100%);
+  margin-bottom: 36px;
+  height: 29px;
+  width: calc(581.06 / 827.63 * 100%);
 }
 
 .form__field--product-name > .form__input {
-    width: calc(296 / 581.06 * 100%);
-    height: 27.36px;
+  width: calc(296 / 581.06 * 100%);
+  height: 27.36px;
 }
 
 .form__field--product-name > .form__input:hover {
-    background-color: rgba(48, 52, 63, 0.1);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+  background-color: rgba(48, 52, 63, 0.1);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .form__field--product-name > .form__input:focus {
-    background-color: rgba(255, 255, 255, 1);
-    outline: none;
-    border: none;
-    border-bottom: 2px solid rgba(29, 132, 181, 1);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+  background-color: rgba(255, 255, 255, 1);
+  outline: none;
+  border: none;
+  border-bottom: 2px solid rgba(29, 132, 181, 1);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .form__textarea {
-    width: 100%;
-    height: 194.83px;
-    border-radius: 4px;
-    border: 1px solid rgba(31, 31, 31, 1);
-    box-sizing: border-box;
-    padding: 11.44px 0 0 13.59px;
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 100%;
-    letter-spacing: 0.04em;
-    color: rgba(0, 0, 0, 1);
-    margin-bottom: 35.43px;
+  width: 100%;
+  height: 194.83px;
+  border-radius: 4px;
+  border: 1px solid rgba(31, 31, 31, 1);
+  box-sizing: border-box;
+  padding: 11.44px 0 0 13.59px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  color: rgba(0, 0, 0, 1);
+  margin-bottom: 35.43px;
 }
 
 .form__textarea::placeholder {
-    color: rgba(185, 185, 185, 1);
+  color: rgba(185, 185, 185, 1);
 }
 
 .form__textarea:hover {
-    background-color: rgba(48, 52, 63, 0.1);
+  background-color: rgba(48, 52, 63, 0.1);
 }
 
 .form__textarea:focus {
-    background-color: rgba(255, 255, 255, 1);
-    outline: 2px solid rgba(29, 132, 181, 1);
-    border: none;
+  background-color: rgba(255, 255, 255, 1);
+  outline: 2px solid rgba(29, 132, 181, 1);
+  border: none;
 }
 
 .form__field-group--bottom {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .form__field-group--bottom > .form__field {
-    margin-bottom: 59.11px;
+  margin-bottom: 59.11px;
 }
 
 .form__field-group--bottom > .form__field > .form__label {
-    margin-right: 9.4px;
+  margin-right: 9.4px;
 }
 
 .form__field-group--bottom > .form__field > .form__input {
-    height: 27.36px;
+  height: 27.36px;
 }
 
 .form__field--payment-methods {
-    width: calc(450 / 827.63 * 100%);
-    height: 44px;
+  width: calc(450 / 827.63 * 100%);
+  height: 44px;
 }
 
 .form__select-wrapper {
-    width: calc(346 / 450 * 100%);
-    height: 100%;
-    display: flex;
+  width: calc(346 / 450 * 100%);
+  height: 100%;
+  display: flex;
 }
 
 .form__select {
-    appearance: none;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border: 2px solid rgba(48, 52, 63, 1);
-    border-radius: 6px;
-    padding: 10.08px 0 10.08px 15.59px;
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 100%;
-    letter-spacing: 0em;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 2px solid rgba(48, 52, 63, 1);
+  border-radius: 6px;
+  padding: 10.08px 0 10.08px 15.59px;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0em;
 }
 
 .form__option {
-    color: rgba(31, 31, 31, 1);
+  color: rgba(31, 31, 31, 1);
 }
 
 .form__select-arrow--payment_methods {
-    right: calc(9.86px + 16px); /* 9.86px (position) + 16px (element's total width) */
-    top: calc(50% - 10px / 2);  /* 50% (position) - 10px (element's total height) / 2 */
+  right: calc(9.86px);
+  top: calc(
+    50% - 10px / 2
+  ); /* 50% (position) - 10px (element's total height) / 2 */
+}
+
+.form__field--images {
+  width: calc(519.73 / 827.63 * 100%);
+  height: 29px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form__label--file {
+    text-align: right;
+}
+
+.form__input--file {
+  border: none;
+  width: calc(386.76 / 519.73 * 100%);
+  height: 25.29px !important;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+input[type="file" i]::-webkit-file-upload-button {
+    width: calc(125.24 / 386.76 * 100%);
+    height: 25.29px;
+    border-radius: 3px;
+    border: 1px solid rgba(48, 52, 63, 0.7);
+    background-color: rgba(217, 217, 217, 0.63);
+    box-sizing: border-box;
+    padding: 4.64px 12.62px;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    text-align: right;
+    color: rgba(31, 31, 31, 1);
 }

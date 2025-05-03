@@ -30,10 +30,8 @@ export default function CreateItemPage() {
   }
 
   const handleArrowClick = () => {
-    const event = new KeyboardEvent("keydown", { key: "Enter", bubbles: true });
     console.log(selectRef.current);
     selectRef.current.focus();
-    selectRef.current.click();
   };
 
   return (
@@ -110,8 +108,8 @@ export default function CreateItemPage() {
             </div>
           </div>
           <div className="form__field form__field--images">
-            <label className="form__label" htmlFor="productImages">Imágenes:</label>
-            <input className="form__input form__input--file" type="file" id="productImages" name="productImages" accept="image/*" multiple required />
+            <label className="form__label form__label--file" htmlFor="images">Imágenes:</label>
+            <input className="form__input--file" type="file" id="images" />
           </div>
           <div className="form__field form__field--new-item">
             <label className="form__label" htmlFor="is_new">Es nuevo:</label>
