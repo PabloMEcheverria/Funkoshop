@@ -60,13 +60,13 @@ export default function CreateItemPage() {
         </section>
         <div className="form__field form__field--product-name">
           <label className="form__label" htmlFor="name_product" >Nombre del producto:</label>
-          <input className="form__input" type="text" id="name_product" name="name_product" placeholder="Kakashi Hatake Shippuden Saga" />
+          <input className="form__input form__input--product-name" type="text" id="name_product" name="name_product" placeholder="Kakashi Hatake Shippuden Saga" />
         </div>
         <textarea className="form__textarea" name="description" id="description" placeholder="Descripción del producto"></textarea>
         <section className="form__field-group form__field-group--bottom">
           <div className="form__field form__field--sku">
             <label className="form__label" htmlFor="sku">SKU:</label>
-            <input className="form__input" type="text" id="sku" name="sku" />
+            <input className="form__input" type="text" id="sku" name="sku" placeholder="SSK111AB001" />
           </div>
           <div className="form__field form__field--price">
             <label className="form__label" htmlFor="price">Precio:</label>
@@ -108,8 +108,12 @@ export default function CreateItemPage() {
             </div>
           </div>
           <div className="form__field form__field--images">
-            <label className="form__label form__label--file" htmlFor="images">Imágenes:</label>
-            <input className="form__input--file" type="file" id="images" />
+            <p className="form__label form__label--file" >Imágenes:</p>
+            <label className="form__file-custom-wrapper" htmlFor="images">
+                <button className="form__input--button">Elegir archivos</button>
+                <p className="form__input--text">No se ha seleccionado ningún archivo</p>
+                <input className="form__input form__input--file" type="file" id="images" />
+            </label>
           </div>
           <div className="form__field form__field--new-item">
             <label className="form__label" htmlFor="is_new">Es nuevo:</label>
