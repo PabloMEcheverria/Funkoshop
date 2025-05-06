@@ -58,6 +58,14 @@
   color: rgba(0, 0, 0, 1);
 }
 
+.form__label--collection {
+  margin-right: 19.25px;
+}
+
+.form__label--license {
+  margin-right: 37.06px;
+}
+
 .form__combobox-wrapper {
   width: calc(243.03 / 387.29 * 100%);
   display: flex;
@@ -77,7 +85,6 @@
   letter-spacing: 0.04em;
   text-align: right;
   color: rgba(0, 0, 0, 1);
-  text-align: right;
   display: inline-block;
   width: fit-content;
   height: fit-content;
@@ -223,9 +230,12 @@
 
 .form__select-arrow--payment_methods {
   position: relative;
-  right: calc(9.86px + 15.25px); /* 9.86px (position) + 15.25px (element's total width) */
-  top: calc(50% - 10px / 2); /* 50% (position) - 10px (element's total height) / 2 */
-  
+  right: calc(
+    9.86px + 15.25px
+  ); /* 9.86px (position) + 15.25px (element's total width) */
+  top: calc(
+    50% - 10px / 2
+  ); /* 50% (position) - 10px (element's total height) / 2 */
 }
 
 .form__field--images {
@@ -241,7 +251,7 @@
   margin-right: 0 !important;
 }
 
-.form__file-custom-wrapper{
+.form__file-custom-wrapper {
   width: calc(386.76 / 519.73 * 100%);
   min-width: 386.76px;
   height: 25.29px;
@@ -252,7 +262,8 @@
   position: relative;
 }
 
-.form__input--button, .form__input--file::file-selector-button {
+.form__input--button,
+.form__input--file::file-selector-button {
   width: calc(125.24 / 386.76 * 100%);
   height: 25.29px;
   padding: 4.64px;
@@ -289,4 +300,63 @@
   width: 100%;
   opacity: 0;
   position: absolute;
+}
+
+.form__field--new-item, 
+.form__field--special-edition, 
+.form__field--favorites {
+  height: 44px;
+}
+
+.form__field--new-item {
+  width: 40%;
+}
+
+.form__select--new-item {
+  width: 200px;
+}
+
+.form__field--special-edition {
+  width: 55%;
+}
+
+.form__select--special-edition {
+  width: 200px;
+}
+
+.form__field--favorites {
+  margin-bottom: 0 !important;
+}
+
+.form__field--favorites {
+  width: 45%;
+}
+
+.form__select--favorites {
+  width: 200px;
+}
+
+.form__actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  height: 44.33px;
+  gap: 34.14px;
+  margin-bottom: 36px;
+}
+
+.form__button {
+  width: 175px;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 51, 51, 1);
 }

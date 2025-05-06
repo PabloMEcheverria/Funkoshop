@@ -40,7 +40,7 @@ export default function CreateItemPage() {
       <form className="form" onSubmit={handleSubmit}>
         <section className="form__field-group">
           <div className="form__field form__field--category">
-            <label className="form__label--combobox" htmlFor="collection">Categoría:</label>
+            <label className="form__label--collection form__label--combobox" htmlFor="collection">Categoría:</label>
             <ComboBox
               valueState={selectedCategory}
               setValueState={setSelectedCategory}
@@ -49,7 +49,7 @@ export default function CreateItemPage() {
             />
           </div>
           <div className="form__field form__field--license">
-            <label className="form__label--combobox" htmlFor="license">Licencia:</label>
+            <label className="form__label--license form__label--combobox" htmlFor="license">Licencia:</label>
             <ComboBox
               valueState={selectedLicense}
               setValueState={setSelectedLicense}
@@ -116,24 +116,24 @@ export default function CreateItemPage() {
             </label>
           </div>
           <div className="form__field form__field--new-item">
-            <label className="form__label" htmlFor="is_new">Es nuevo:</label>
-            <select className="form__select" name="is_new" id="is_new" defaultValue="">
+            <label className="form__label form__label--new-item" htmlFor="is_new">Es nuevo:</label>
+            <select className="form__select form__select--new-item" name="is_new" id="is_new" defaultValue="">
               <option value="" disabled>Seleccionar</option>
               <option value="true">Sí</option>
               <option value="false">No</option>
             </select>
           </div>
           <div className="form__field form__field--special-edition">
-            <label className="form__label" htmlFor="is_special_edition">Es edición especial:</label>
-            <select className="form__select" name="is_special_edition" id="is_special_edition" defaultValue="">
+            <label className="form__label form__label--special-edition" htmlFor="is_special_edition">Es edición especial:</label>
+            <select className="form__select form__select--special-edition" name="is_special_edition" id="is_special_edition" defaultValue="">
               <option value="" disabled>Seleccionar</option>
               <option value="true">Sí</option>
               <option value="false">No</option>
             </select>
           </div>
           <div className="form__field form__field--favorites">
-            <label className="form__label" htmlFor="is_favorite">Es de la sección Favoritos:</label>
-            <select className="form__select" name="is_favorite" id="is_favorite" defaultValue="">
+            <label className="form__label form__label--favorites" htmlFor="is_favorite">Es favorito:</label>
+            <select className="form__select form__select--favorites" name="is_favorite" id="is_favorite" defaultValue="">
               <option value="" disabled>Seleccionar</option>
               <option value="true">Sí</option>
               <option value="false">No</option>
