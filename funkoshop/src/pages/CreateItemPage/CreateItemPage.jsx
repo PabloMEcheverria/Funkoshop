@@ -17,6 +17,7 @@ export default function CreateItemPage() {
     is_special_edition: "rgba(185, 185, 185, 1)",
     is_favorite: "rgba(185, 185, 185, 1)"
   });
+  const [selectedFiles, setSelectedFiles] = useState(null);
   
   useEffect(() => {
     setCategories([...new Set(products.map(product => product.collection))]);
@@ -33,6 +34,10 @@ export default function CreateItemPage() {
     console.log(selectRef.current);
     selectRef.current.focus();
   };
+
+  const handleFileChange = (event) => {
+    console.log(event.target.files);
+  }; 
 
   return (
     <>
@@ -65,8 +70,8 @@ export default function CreateItemPage() {
         <textarea className="form__textarea" name="description" id="description" placeholder="Descripción del producto"></textarea>
         <section className="form__field-group form__field-group--bottom">
           <div className="form__field form__field--sku">
-            <label className="form__label" htmlFor="sku">SKU:</label>
-            <input className="form__input" type="text" id="sku" name="sku" placeholder="SSK111AB001" />
+            <label className="form__label form__label--sku" htmlFor="sku">SKU:</label>
+            <input className="form__input form__input--sku" type="text" id="sku" name="sku" placeholder="SSK111AB001" />
           </div>
           <div className="form__field form__field--price">
             <label className="form__label" htmlFor="price">Precio:</label>
@@ -76,7 +81,7 @@ export default function CreateItemPage() {
             <label className="form__label" htmlFor="stock">Stock:</label>
             <input className="form__input form__input--stock" type="number" id="stock" name="stock" placeholder="0" />
           </div>
-          <div className="form__field form__field--discount">
+          <div className="form__field form__field--discounts">
             <label className="form__label" htmlFor="discounts">Descuento:</label>
             <input className="form__input form__input--discounts" type="number" id="discounts" name="discounts" placeholder="0%" />
           </div>
@@ -112,7 +117,12 @@ export default function CreateItemPage() {
             <label className="form__file-custom-wrapper" htmlFor="images">
                 <button className="form__input--button">Elegir archivos</button>
                 <p className="form__input--text">No se ha seleccionado ningún archivo</p>
-                <input className="form__input form__input--file" type="file" id="images" />
+                <input 
+                  className="form__input form__input--file" 
+                  type="file" 
+                  id="images" 
+                  onChange={handleFileChange}
+                  multiple />
             </label>
           </div>
           <div className="form__field form__field--new-item">
@@ -122,6 +132,7 @@ export default function CreateItemPage() {
               <option value="true">Sí</option>
               <option value="false">No</option>
             </select>
+            <SelectArrowDown className="form__select-arrow form__select-arrow--new-item" />
           </div>
           <div className="form__field form__field--special-edition">
             <label className="form__label form__label--special-edition" htmlFor="is_special_edition">Es edición especial:</label>
@@ -130,6 +141,7 @@ export default function CreateItemPage() {
               <option value="true">Sí</option>
               <option value="false">No</option>
             </select>
+            <SelectArrowDown className="form__select-arrow form__select-arrow--special-edition" />
           </div>
           <div className="form__field form__field--favorites">
             <label className="form__label form__label--favorites" htmlFor="is_favorite">Es favorito:</label>
@@ -138,6 +150,7 @@ export default function CreateItemPage() {
               <option value="true">Sí</option>
               <option value="false">No</option>
             </select>
+            <SelectArrowDown className="form__select-arrow form__select-arrow--favorites" />
           </div>
         </section>
         <section className="form__actions">
