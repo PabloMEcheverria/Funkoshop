@@ -36,7 +36,14 @@ export default function CreateItemPage() {
   };
 
   const handleFileChange = (event) => {
-    console.log(event.target.files);
+    console.log([...event.target.files]);
+    const files = event.target.files;
+    if (files.length !== 2) {
+      alert("Debes seleccionar exactamente dos archivos.");
+      event.target.value = ""; // Limpia la selección si no cumple la condición
+    } else {
+      setSelectedFiles([...files]);
+    }
   }; 
 
   return (
@@ -114,11 +121,13 @@ export default function CreateItemPage() {
           </div>
           <div className="form__field form__field--images">
             <p className="form__label form__label--file" >Imágenes:</p>
-            <label className="form__file-custom-wrapper" htmlFor="images">
+            <label className={selectedFiles === null ? "form__file-custom-wrapper" : "form__file-custom-wrapper form__file-custom-wrapper--justify-flex-start"} htmlFor="images">
                 <button className="form__input--button">Elegir archivos</button>
-                <p className="form__input--text">No se ha seleccionado ningún archivo</p>
+                <p className="form__input--text">
+                  {selectedFiles === null ? "No se ha seleccionado ningún archivo" : "2 archivos"}
+                </p> 
                 <input 
-                  className="form__input form__input--file" 
+                  className="form__input form__input--file"
                   type="file" 
                   id="images" 
                   onChange={handleFileChange}
