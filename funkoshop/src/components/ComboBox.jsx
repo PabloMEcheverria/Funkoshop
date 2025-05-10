@@ -8,7 +8,7 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
     const [display, setDisplay] = useState(false);
 
     function normalizeString(str) {
-        return str.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return str.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 
     const handleFocus = () => {
@@ -17,12 +17,13 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
     }
 
     const handleChange = (event) => {
-        const filteredOptions = optionsArray.filter(value => {
-            const normalizedValue = normalizeString(value);
-            const normalizedInputValue = normalizeString(event.target.value);
-            return normalizedValue.includes(normalizedInputValue);
-        });
-        setOptions(filteredOptions);
+      setInternalValue(event.target.value);
+      const filteredOptions = optionsArray.filter(value => {
+        const normalizedValue = normalizeString(value);
+        const normalizedInputValue = normalizeString(event.target.value);
+        return normalizedValue.includes(normalizedInputValue);
+      });
+      setOptions(filteredOptions);
     };
 
     const handleBlur = (event) => {
@@ -33,7 +34,7 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
                 setInternalValue(option);
                 setValueState(option);
             } else {
-                setInternalValue(inputValue);
+                setInternalValue(event.target.value);
                 setValueState(event.target.value);
             }
             setDisplay(false);
@@ -76,10 +77,6 @@ export default function ComboBox({ setValueState, optionsArray, inputId }) {
                 {option}
               </li>
             ))}
-            {
-              //<li className={`combo-box__list-item combo-box__list-item--${"asd"}`}>lorem</li>
-              //<li className={`combo-box__list-item combo-box__list-item--${"asd"}`}>ipsum</li>
-            }
           </ul>
         </div>
       );

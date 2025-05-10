@@ -26,8 +26,46 @@ export default function CreateItemPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("SKU: ", event.target.sku.value);
-    console.log("Stock: ", event.target.stock.value);
+    const stock = event.target.stock.value;
+    const isValidStock = /^[0-9]+$/.test(stock);
+    const newItemArr = [];
+    if (isValidStock) {
+      for (let i = 0; i < stock; i++) {
+        const sku = event.target.sku.value;
+        newItemArr.push({
+          sku: event.target.sku.value, 
+          name_product: event.target.name_product.value, 
+          collection: event.target.collection.value, 
+          license: event.target.license.value, 
+          description: event.target.description.value, 
+          price: event.target.price.value, 
+          payment_methods: event.target.payment_methods.value, 
+          discounts: event.target.discounts.value, 
+          front_img: [...event.target.images.files][0], 
+          back_img: [...event.target.images.files][1], 
+          is_new: event.target.is_new.value, 
+          is_special_edition: event.target.is_special_edition.value, 
+          is_favorite: event.target.is_favorite.value
+        });
+      }
+    }
+    const newItem = {
+      sku: event.target.sku.value, 
+      name_product: event.target.name_product.value, 
+      collection: event.target.collection.value, 
+      license: event.target.license.value, 
+      description: event.target.description.value, 
+      price: event.target.price.value, 
+      payment_methods: event.target.payment_methods.value, 
+      discounts: event.target.discounts.value, 
+      front_img: [...event.target.images.files][0], 
+      back_img: [...event.target.images.files][1], 
+      is_new: event.target.is_new.value, 
+      is_special_edition: event.target.is_special_edition.value, 
+      is_favorite: event.target.is_favorite.value, 
+      stock: event.target.stock.value
+    }
+    console.log(newItem);
   }
 
   const handleArrowClick = () => {
@@ -72,25 +110,25 @@ export default function CreateItemPage() {
         </section>
         <div className="form__field form__field--product-name">
           <label className="form__label" htmlFor="name_product" >Nombre del producto:</label>
-          <input className="form__input form__input--product-name" type="text" id="name_product" name="name_product" placeholder="Kakashi Hatake Shippuden Saga" />
+          <input className="form__input form__input--product-name" type="text" id="name_product" name="name_product" placeholder="Kakashi Hatake Shippuden Saga" required />
         </div>
-        <textarea className="form__textarea" name="description" id="description" placeholder="Descripción del producto"></textarea>
+        <textarea className="form__textarea" name="description" id="description" placeholder="Descripción del producto" required ></textarea>
         <section className="form__field-group form__field-group--bottom">
           <div className="form__field form__field--sku">
             <label className="form__label form__label--sku" htmlFor="sku">SKU:</label>
-            <input className="form__input form__input--sku" type="text" id="sku" name="sku" placeholder="SSK111AB001" />
+            <input className="form__input form__input--sku" type="text" id="sku" name="sku" placeholder="SSK111AB001" required />
           </div>
           <div className="form__field form__field--price">
             <label className="form__label" htmlFor="price">Precio:</label>
-            <input className="form__input form__input--price" type="number" id="price" name="price" placeholder="$ 0.000,00" />
+            <input className="form__input form__input--price" type="number" id="price" name="price" placeholder="$ 0.000,00" step=".01" required />
           </div>
           <div className="form__field form__field--stock">
             <label className="form__label" htmlFor="stock">Stock:</label>
-            <input className="form__input form__input--stock" type="number" id="stock" name="stock" placeholder="0" />
+            <input className="form__input form__input--stock" type="number" id="stock" name="stock" placeholder="0" required />
           </div>
           <div className="form__field form__field--discounts">
             <label className="form__label" htmlFor="discounts">Descuento:</label>
-            <input className="form__input form__input--discounts" type="number" id="discounts" name="discounts" placeholder="0%" />
+            <input className="form__input form__input--discounts" type="number" id="discounts" name="discounts" placeholder="0%" required />
           </div>
           <div className="form__field form__field--payment-methods">
             <label className="form__label" htmlFor="payment_methods">Cuotas:</label>
@@ -109,6 +147,7 @@ export default function CreateItemPage() {
                   }
                 }}
                 style={{ color: selectedOption.payment_methods }}
+                required 
               >
                 <option className="form__option--placeholder" value="" disabled>3 Cuotas sin interés</option>
                 <option className="form__option" value="1">Efectivo o débito automático</option>
@@ -131,12 +170,14 @@ export default function CreateItemPage() {
                   type="file" 
                   id="images" 
                   onChange={handleFileChange}
-                  multiple />
+                  multiple
+                  accept="image/*"
+                  required />
             </label>
           </div>
           <div className="form__field form__field--new-item">
             <label className="form__label form__label--new-item" htmlFor="is_new">Es nuevo:</label>
-            <select className="form__select form__select--new-item" name="is_new" id="is_new" defaultValue="">
+            <select className="form__select form__select--new-item" name="is_new" id="is_new" defaultValue="" required >
               <option value="" disabled>Seleccionar</option>
               <option value="true">Sí</option>
               <option value="false">No</option>
@@ -145,7 +186,7 @@ export default function CreateItemPage() {
           </div>
           <div className="form__field form__field--special-edition">
             <label className="form__label form__label--special-edition" htmlFor="is_special_edition">Es edición especial:</label>
-            <select className="form__select form__select--special-edition" name="is_special_edition" id="is_special_edition" defaultValue="">
+            <select className="form__select form__select--special-edition" name="is_special_edition" id="is_special_edition" defaultValue="" required >
               <option value="" disabled>Seleccionar</option>
               <option value="true">Sí</option>
               <option value="false">No</option>
@@ -154,7 +195,7 @@ export default function CreateItemPage() {
           </div>
           <div className="form__field form__field--favorites">
             <label className="form__label form__label--favorites" htmlFor="is_favorite">Es favorito:</label>
-            <select className="form__select form__select--favorites" name="is_favorite" id="is_favorite" defaultValue="">
+            <select className="form__select form__select--favorites" name="is_favorite" id="is_favorite" defaultValue="" required>
               <option value="" disabled>Seleccionar</option>
               <option value="true">Sí</option>
               <option value="false">No</option>
