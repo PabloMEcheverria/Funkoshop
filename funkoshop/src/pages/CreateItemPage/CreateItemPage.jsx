@@ -18,54 +18,43 @@ export default function CreateItemPage() {
     is_favorite: "rgba(185, 185, 185, 1)"
   });
   const [selectedFiles, setSelectedFiles] = useState(null);
+  const [stock, setStock] = useState(0);
+  const [stockInputArray, setStockInputArray] = useState([]);
+  const singleSkuWrapper = useRef(null);
   
   useEffect(() => {
     setCategories([...new Set(products.map(product => product.collection))]);
     setLicenses([...new Set(products.map(product => product.license))]);
   }, [products]);
 
+  const handleChangeStock = (event) => {
+    const firstSkuInput = singleSkuWrapper.current.lastChild;
+    const stockNumber = Number(event.target.value);
+    const stockArr = [];
+    if (stockNumber < 0) {
+      alert("El stock debe ser mayor a 0");
+      event.target.value = "";
+      setStock(0);
+      setStockInputArray([]);
+      return;
+    } else {
+      for (let i = stockNumber; i > 1; i--) {
+        stockArr.unshift(
+          <div className="form__field form__field--sku" id={`sku_${i}`} key={`sku_${i}`}>
+            <label className="form__label form__label--sku" htmlFor={`sku_${i}`}>{`SKU para el item n° ${i}:`}</label>
+            <input className="form__input form__input--sku" type="text" id={`sku_${i}`} name={`sku_${i}`} placeholder="SSK111AB001" defaultValue={firstSkuInput.value === "" ? "" : firstSkuInput.value + ` (${i})`} required />
+          </div>);
+      }
+      setStock(stockNumber);
+      setStockInputArray(stockArr);
+    }
+    console.log(firstSkuInput);
+    console.log(stockArr);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const stock = event.target.stock.value;
-    const isValidStock = /^[0-9]+$/.test(stock);
-    const newItemArr = [];
-    if (isValidStock) {
-      for (let i = 0; i < stock; i++) {
-        const sku = event.target.sku.value;
-        newItemArr.push({
-          sku: event.target.sku.value, 
-          name_product: event.target.name_product.value, 
-          collection: event.target.collection.value, 
-          license: event.target.license.value, 
-          description: event.target.description.value, 
-          price: event.target.price.value, 
-          payment_methods: event.target.payment_methods.value, 
-          discounts: event.target.discounts.value, 
-          front_img: [...event.target.images.files][0], 
-          back_img: [...event.target.images.files][1], 
-          is_new: event.target.is_new.value, 
-          is_special_edition: event.target.is_special_edition.value, 
-          is_favorite: event.target.is_favorite.value
-        });
-      }
-    }
-    const newItem = {
-      sku: event.target.sku.value, 
-      name_product: event.target.name_product.value, 
-      collection: event.target.collection.value, 
-      license: event.target.license.value, 
-      description: event.target.description.value, 
-      price: event.target.price.value, 
-      payment_methods: event.target.payment_methods.value, 
-      discounts: event.target.discounts.value, 
-      front_img: [...event.target.images.files][0], 
-      back_img: [...event.target.images.files][1], 
-      is_new: event.target.is_new.value, 
-      is_special_edition: event.target.is_special_edition.value, 
-      is_favorite: event.target.is_favorite.value, 
-      stock: event.target.stock.value
-    }
-    console.log(newItem);
+    console.log(event.target);
   }
 
   const handleArrowClick = () => {
@@ -78,7 +67,7 @@ export default function CreateItemPage() {
     const files = event.target.files;
     if (files.length !== 2) {
       alert("Debes seleccionar exactamente dos archivos.");
-      event.target.value = ""; // Limpia la selección si no cumple la condición
+      event.target.value = "";
     } else {
       setSelectedFiles([...files]);
     }
@@ -114,18 +103,30 @@ export default function CreateItemPage() {
         </div>
         <textarea className="form__textarea" name="description" id="description" placeholder="Descripción del producto" required ></textarea>
         <section className="form__field-group form__field-group--bottom">
-          <div className="form__field form__field--sku">
-            <label className="form__label form__label--sku" htmlFor="sku">SKU:</label>
+          <div className="form__field form__field--sku" ref={singleSkuWrapper}>
+            <label className="form__label form__label--sku" htmlFor="sku">
+              {stock <= 1 ? "SKU:" : "SKU para el item n° 1:"}
+            </label>
             <input className="form__input form__input--sku" type="text" id="sku" name="sku" placeholder="SSK111AB001" required />
           </div>
+          {stockInputArray.map((input) => input)}
           <div className="form__field form__field--price">
             <label className="form__label" htmlFor="price">Precio:</label>
             <input className="form__input form__input--price" type="number" id="price" name="price" placeholder="$ 0.000,00" step=".01" required />
           </div>
           <div className="form__field form__field--stock">
             <label className="form__label" htmlFor="stock">Stock:</label>
-            <input className="form__input form__input--stock" type="number" id="stock" name="stock" placeholder="0" required />
+            <input 
+              className="form__input form__input--stock" 
+              type="number" 
+              id="stock" 
+              name="stock" 
+              placeholder="0" 
+              onBlur={handleChangeStock}
+              min={1}
+              required />
           </div>
+
           <div className="form__field form__field--discounts">
             <label className="form__label" htmlFor="discounts">Descuento:</label>
             <input className="form__input form__input--discounts" type="number" id="discounts" name="discounts" placeholder="0%" required />
