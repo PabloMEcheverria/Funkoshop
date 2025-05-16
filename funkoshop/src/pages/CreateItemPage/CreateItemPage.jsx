@@ -21,11 +21,18 @@ export default function CreateItemPage() {
   const [stock, setStock] = useState(0);
   const [stockInputArray, setStockInputArray] = useState([]);
   const singleSkuWrapper = useRef(null);
-  
+  const fieldGroupBottom = useRef(null);
+  const [skuArray, setSkuArray] = useState([]);
+
   useEffect(() => {
     setCategories([...new Set(products.map(product => product.collection))]);
     setLicenses([...new Set(products.map(product => product.license))]);
-  }, [products]);
+    if (fieldGroupBottom.current) {
+      let sku = fieldGroupBottom.current.querySelectorAll("[id^='sku_']");
+      sku = sku.length > 0 ? [...sku].map((input) => input.querySelector("input").value) : [];
+      setSkuArray([...sku]);
+    }
+  }, [products, stockInputArray]);
 
   const handleChangeStock = (event) => {
     const firstSkuInput = singleSkuWrapper.current.lastChild;
@@ -42,7 +49,7 @@ export default function CreateItemPage() {
         stockArr.unshift(
           <div className="form__field form__field--sku" id={`sku_${i}`} key={`sku_${i}`}>
             <label className="form__label form__label--sku" htmlFor={`sku_${i}`}>{`SKU para el item n° ${i}:`}</label>
-            <input className="form__input form__input--sku" type="text" id={`sku_${i}`} name={`sku_${i}`} placeholder="SSK111AB001" defaultValue={firstSkuInput.value === "" ? "" : firstSkuInput.value + ` (${i})`} required />
+            <input className="form__input form__input--sku" type="text" name={`sku_${i}`} placeholder="SSK111AB001" defaultValue={firstSkuInput.value === "" ? "" : firstSkuInput.value + ` (${i})`} required />
           </div>);
       }
       setStock(stockNumber);
@@ -54,7 +61,19 @@ export default function CreateItemPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
+    const skuInputs = fieldGroupBottom.current.querySelectorAll("[id^='sku_'] input");
+    const newSkus = [...skuInputs].map(input => input.value.trim());
+    const existingSkus = products.map(product => product.sku);
+    const duplicatedSkus = newSkus.filter(sku => existingSkus.includes(sku));
+    console.log(skuInputs);
+    console.log(newSkus);
+    console.log(existingSkus);
+    console.log(duplicatedSkus);
+    /*if (duplicatedSkus.length > 0) {
+      alert(`Los siguientes SKUs ya existen: ${duplicatedSkus.join(", ")}`);
+      return;
+    }
+    console.log("SKUs válidos:", currentSkus);*/
   }
 
   const handleArrowClick = () => {
@@ -102,8 +121,8 @@ export default function CreateItemPage() {
           <input className="form__input form__input--product-name" type="text" id="name_product" name="name_product" placeholder="Kakashi Hatake Shippuden Saga" required />
         </div>
         <textarea className="form__textarea" name="description" id="description" placeholder="Descripción del producto" required ></textarea>
-        <section className="form__field-group form__field-group--bottom">
-          <div className="form__field form__field--sku" ref={singleSkuWrapper}>
+        <section className="form__field-group form__field-group--bottom" ref={fieldGroupBottom}>
+          <div className="form__field form__field--sku" ref={singleSkuWrapper} id="sku_1">
             <label className="form__label form__label--sku" htmlFor="sku">
               {stock <= 1 ? "SKU:" : "SKU para el item n° 1:"}
             </label>
