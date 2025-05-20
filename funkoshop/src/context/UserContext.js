@@ -21,6 +21,9 @@ export const UserProvider = ({ children }) => {
         setLoading(false);
         return;
       }
+
+      console.log("🔍 Usuario obtenido:", user);
+      
       if (user) {
         setUser(user);
 
@@ -70,6 +73,7 @@ export const UserProvider = ({ children }) => {
     };
 
     fetchProducts();
+
   }, []);
 
   return (

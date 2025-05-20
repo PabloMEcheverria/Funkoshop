@@ -3,6 +3,7 @@ import './CreateItemPage.css';
 import UserContext from '../../context/UserContext';
 import ComboBox from '../../components/ComboBox';
 import SelectArrowDown from '../../components/svgComponents/SelectArrowDown.jsx';
+import supabase from '../../config/supabaseClient.js';
 
 export default function CreateItemPage() {
   const { products } = useContext(UserContext);
@@ -63,17 +64,95 @@ export default function CreateItemPage() {
     event.preventDefault();
     const skuInputs = fieldGroupBottom.current.querySelectorAll("[id^='sku_'] input");
     const newSkus = [...skuInputs].map(input => input.value.trim());
-    const existingSkus = products.map(product => product.sku);
-    const duplicatedSkus = newSkus.filter(sku => existingSkus.includes(sku));
+    const existingSkusValue = products.map(product => product.sku);
+    const existingSkusInputs = [...skuInputs].filter(input => {
+      const skuValue = input.value.trim();
+      return existingSkusValue.includes(skuValue);
+    });
+    const duplicatedSkus = newSkus.filter(sku => existingSkusValue.includes(sku));
+    const ItemsToCreate = [];
     console.log(skuInputs);
     console.log(newSkus);
-    console.log(existingSkus);
+    console.log(existingSkusValue);
+    console.log(existingSkusInputs);
     console.log(duplicatedSkus);
-    /*if (duplicatedSkus.length > 0) {
+    if (duplicatedSkus.length > 0) {
       alert(`Los siguientes SKUs ya existen: ${duplicatedSkus.join(", ")}`);
+      existingSkusInputs.forEach(input => {input.value = ""});
       return;
+    } else {
+      newSkus.forEach(sku => {
+        const formData = new FormData(event.target);
+        const item = {
+          collection: selectedCategory,
+          license: selectedLicense,
+          name_product: formData.get("name_product"),
+          description: formData.get("description"),
+          sku: sku,
+          price: formData.get("price"),
+          discounts: formData.get("discounts"),
+          front_img: selectedFiles[0],
+          back_img: selectedFiles[1],
+          payment_methods: formData.get("payment_methods") === "1" ? [1] : formData.get("payment_methods") === "3" ? [1, 3] : formData.get("payment_methods") === "6" ? [1, 3, 6] : formData.get("payment_methods") === "12" ? [1, 3, 6, 12] : [1],
+          is_new: formData.get("is_new") === "true",
+          is_special_edition: formData.get("is_special_edition") === "true",
+          is_favorite: formData.get("is_favorite") === "true",
+        };
+        ItemsToCreate.push(item);
+      });
+      console.log(ItemsToCreate);
+      const handleUpload = async () => {
+        try {
+          await Promise.all(
+            ItemsToCreate.map(async (item) => {
+              if (!item.front_img || !item.back_img) {
+                throw new Error("Las imágenes son obligatorias para el producto: " + item.sku);
+              }
+            
+              const uploads = await Promise.all([
+                supabase.storage.from("products-images").upload(`product_${item.sku}_front_img`, item.front_img),
+                supabase.storage.from("products-images").upload(`product_${item.sku}_back_img`, item.back_img),
+              ]);
+            
+              
+              if (uploads.some(upload => upload.error)) {
+                throw new Error(`Error al subir imágenes para el producto ${item.sku}`);
+              }
+            
+              const front_imgUrl = uploads[0].data ? supabase.storage.from("products-images").getPublicUrl(uploads[0].data.path).data.publicUrl : null;
+              const back_imgUrl = uploads[1].data ? supabase.storage.from("products-images").getPublicUrl(uploads[1].data.path).data.publicUrl : null;
+            
+              if (!front_imgUrl || !back_imgUrl) {
+                throw new Error(`Error al obtener URL de las imágenes para el producto ${item.sku}`);
+              }
+            
+              await supabase.from("products").insert([{
+                collection: item.collection,
+                license: item.license,
+                name_product: item.name_product,
+                description: item.description,
+                sku: item.sku,
+                price: item.price,
+                discounts: item.discounts,
+                front_img: front_imgUrl,
+                back_img: back_imgUrl,
+                payment_methods: item.payment_methods,
+                is_new: item.is_new,
+                is_special_edition: item.is_special_edition,
+                is_favorite: item.is_favorite
+              }]);
+              console.log(`Producto ${item.sku} creado con éxito.`);
+            })
+          );
+          alert("Todos los productos fueron creados correctamente!");
+        } catch (error) {
+          console.error("Error al procesar los productos:", error);
+          alert("Hubo un problema al crear los productos.");
+        }
+      };
+      handleUpload();
+      event.target.reset();
     }
-    console.log("SKUs válidos:", currentSkus);*/
   }
 
   const handleArrowClick = () => {
@@ -82,8 +161,8 @@ export default function CreateItemPage() {
   };
 
   const handleFileChange = (event) => {
-    console.log([...event.target.files]);
-    const files = event.target.files;
+    const files = [...event.target.files];
+    console.log(files);
     if (files.length !== 2) {
       alert("Debes seleccionar exactamente dos archivos.");
       event.target.value = "";
