@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import supabase from './config/supabaseClient.js';
 import { UserProvider } from './context/UserContext.js';
+import { CartProvider } from './context/CartContext.js';
 
 
 function App() {
@@ -363,23 +364,25 @@ function App() {
   return (
     <>
       <UserProvider>
-        <Router>
-          <Header itemsInCart={itemsInCart} />
-          <Routes>
-            <Route path="*" element={<NotFoundPage />} />
-            <Route path="/" element={token ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} /> : <Login setToken={setToken} />} />
-            <Route path="/login" element={<Login setToken={setToken} />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/home" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
-            <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
-            <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
-            <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} groupProducts={groupProducts} />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/create" element={<CreateItemPage />} />
-            <Route path="/edit/:itemId" element={<EditItemPage />} />          
-          </Routes>
-          <Footer user={user} loginStatus={loginStatus} footerMenu={loginStatus.footerMenu} itemsInCart={itemsInCart} token={token} />
-        </Router>
+        <CartProvider>
+          <Router>
+            <Header itemsInCart={itemsInCart} />
+            <Routes>
+              <Route path="*" element={<NotFoundPage />} />
+              <Route path="/" element={token ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} /> : <Login setToken={setToken} />} />
+              <Route path="/login" element={<Login setToken={setToken} />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/home" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
+              <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
+              <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
+              <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} groupProducts={groupProducts} />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/create" element={<CreateItemPage />} />
+              <Route path="/edit/:itemId" element={<EditItemPage />} />          
+            </Routes>
+            <Footer user={user} loginStatus={loginStatus} footerMenu={loginStatus.footerMenu} itemsInCart={itemsInCart} token={token} />
+          </Router>
+        </CartProvider>
       </UserProvider>
     </>
   );
