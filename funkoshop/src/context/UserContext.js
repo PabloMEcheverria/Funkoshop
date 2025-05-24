@@ -1,12 +1,12 @@
-import React, { useState, useEffect, createContext, useCallback } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import supabase from '../config/supabaseClient';
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [userProfile, setUserProfile] = useState(null);
-  const [userRole, setUserRole] = useState(null);
+  const [userProfile, setUserProfile] = useState({});
+  const [userRole, setUserRole] = useState({});
   const [loading, setLoading] = useState(true);
 
   const [products, setProducts] = useState([]);
@@ -97,4 +97,6 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-export default UserContext;
+export const useUser = () => {
+  return useContext(UserContext);
+}

@@ -9,11 +9,11 @@ import AdminPageAdd from '../../components/svgComponents/AdminPageAdd.jsx';
 import AdminPageDelete from '../../components/svgComponents/AdminPageDelete.jsx';
 import AdminPageEdit from '../../components/svgComponents/AdminPageEdit.jsx';
 import AdminPageSearch from '../../components/svgComponents/AdminPageSearch.jsx';
-import UserContext from '../../context/UserContext.js';
+import { useUser } from '../../context/UserContext.js';
 
 export default function AdminPage() {
   const navigate = useNavigate();
-  const { products, setProducts } = useContext(UserContext);
+  const { products, setProducts } = useUser();
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {

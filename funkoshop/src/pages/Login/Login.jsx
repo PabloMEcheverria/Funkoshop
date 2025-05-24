@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
-import UserContext from '../../context/UserContext';
+import { useUser } from '../../context/UserContext';
 import './Login.css';
 
 function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUser, setUserRole } = useContext(UserContext);
+  const { setUser, setUserRole } = useContext(useUser);
 
   const onLogin = async (e) => {
     e.preventDefault();

@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import './CreateItemPage.css';
-import UserContext from '../../context/UserContext';
+import { useUser } from '../../context/UserContext';
 import ComboBox from '../../components/ComboBox';
 import SelectArrowDown from '../../components/svgComponents/SelectArrowDown.jsx';
 import supabase from '../../config/supabaseClient.js';
 
 export default function CreateItemPage() {
-  const { products } = useContext(UserContext);
+  const { products } = useUser();
   const selectRef = useRef(null);
   const [categories, setCategories] = useState([]);
   const [licenses, setLicenses] = useState([]);

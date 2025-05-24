@@ -3,12 +3,12 @@ import "../assets/css/Footer.css";
 import FooterLogo from "./svgComponents/FooterLogo";
 import { Link } from "react-router-dom";
 import supabase from "../config/supabaseClient";
-import UserContext from "../context/UserContext";
+import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
     const navigate = useNavigate();
-    const { setUser, userRole, setUserRole } = useContext(UserContext);
+    const { setUser, userRole, setUserRole } = useUser();
 
     const handleLogout = async () => {
         try {

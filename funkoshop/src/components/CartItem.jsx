@@ -2,9 +2,18 @@ import "../assets/css/CartItem.css";
 import ItemShopMinus from "./svgComponents/ItemShopMinus";
 import ItemShopPlus from "./svgComponents/ItemShopPlus";
 import CancelIcon from "./svgComponents/CancelIcon";
+import { useEffect } from "react";
+import { useCart } from "../context/CartContext";
 
 export default function CartItem({ value, index, item, totalPrice, itemsInCart, setItemsInCart, productsStock, setProductsStock, groupProducts}) {
-    
+    const { cart, addItem, removeItem, clearCart } = useCart();
+    useEffect(() => {
+        if (cart.length === 0) {
+        console.log("El carrito está vacío, espera la carga de datos...");
+        } else {
+            console.log("cart actualizado:", cart);
+        }
+    }, [cart]);
     const handleIncrement = (groupedItem, cart, stock) => {
         const itemInStock = stock.productsArr.find(currentValue => currentValue.nameProduct === groupedItem.nameProduct);
         const indexItemInStock = stock.productsArr.findIndex(currentValue => currentValue.nameProduct === groupedItem.nameProduct);

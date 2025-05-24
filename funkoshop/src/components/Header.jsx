@@ -5,13 +5,14 @@ import CartIcon from "./svgComponents/CartIcon";
 //import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import supabase from "../config/supabaseClient";
-import UserContext from "../context/UserContext";
+import { useUser } from "../context/UserContext";
+import { use } from "react";
 
 export default function Header({ itemsInCart }) {
     const navigate = useNavigate();
-    const { setUser, userRole, setUserRole } = useContext(UserContext);
+    const { setUser, userRole, setUserRole } = useUser();
 
     const handleLogout = async () => {
       try {
