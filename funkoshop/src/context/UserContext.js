@@ -60,7 +60,9 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    fetchProducts();
+  }, []);
+  const fetchProducts = async () => {
       setLoadingProducts(true);
       const { data, error } = await supabase.from('products').select('*');
       if (error) {
@@ -71,10 +73,6 @@ export const UserProvider = ({ children }) => {
       }
       setLoadingProducts(false);
     };
-
-    fetchProducts();
-
-  }, []);
 
   return (
     <UserContext.Provider value={{ 
@@ -91,7 +89,8 @@ export const UserProvider = ({ children }) => {
       products,
       loadingProducts,
       setProducts,
-      setLoadingProducts}}>
+      setLoadingProducts, 
+      fetchProducts}}>
       {children}
     </UserContext.Provider>
   );

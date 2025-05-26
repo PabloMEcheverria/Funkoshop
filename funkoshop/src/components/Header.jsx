@@ -5,14 +5,14 @@ import CartIcon from "./svgComponents/CartIcon";
 //import ShopArrowDown from "./svgComponents/ShopArrowDown";
 import Ellipse from "./svgComponents/Ellipse";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useCart } from "../context/CartContext";
 import supabase from "../config/supabaseClient";
 import { useUser } from "../context/UserContext";
-import { use } from "react";
 
-export default function Header({ itemsInCart }) {
+export default function Header() {
     const navigate = useNavigate();
     const { setUser, userRole, setUserRole } = useUser();
+    const { cart } = useCart();
 
     const handleLogout = async () => {
       try {
@@ -39,8 +39,8 @@ export default function Header({ itemsInCart }) {
       }
     };
 
-    const getCartItem = (itemsArr) => {
-      if (itemsArr.length === 0) {
+    const getCartItem = () => {
+      if (cart.length === 0) {
         return (
           <li key="cart">
             <Link to={"/cart"} className="cartIconWrapper">
@@ -55,7 +55,7 @@ export default function Header({ itemsInCart }) {
               <CartIcon className="cartIcon" />
               <div className="ellipseIconWrapper">
                 <Ellipse className="ellipseIcon" />
-                <p className="ellipseIconNumber">{itemsArr.length}</p>
+                <p className="ellipseIconNumber">{cart.length}</p>
               </div>
             </Link>
           </li>
@@ -69,7 +69,7 @@ export default function Header({ itemsInCart }) {
         <li><Link to={"/contact"} className="navLink--header">Contacto</Link></li>
         <li><Link to={"/login"} className="navLink--header">Iniciar sesión</Link></li>
         <li><Link to={"/register"} className="navLink--header">Registrarse</Link></li>
-        {getCartItem(itemsInCart.items)}
+        {getCartItem()}
       </ul>;
     
     const adminLoggedInUl =
@@ -84,7 +84,7 @@ export default function Header({ itemsInCart }) {
         <li><Link to={"/shop"} className="navLink--header">Tienda</Link></li>
         <li><Link to={"/contact"} className="navLink--header">Contacto</Link></li>
         <li><Link to={"/home"} onClick={handleLogout} className="navLink--header">Logout</Link></li>
-        {getCartItem(itemsInCart.items)}
+        {getCartItem()}
       </ul>;
 
       return (

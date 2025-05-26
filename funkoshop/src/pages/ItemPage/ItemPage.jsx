@@ -15,13 +15,14 @@ export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, s
     const [visible, setVisible] = useState(false);
     
     const { cart, addItem, removeItem, clearCart } = useCart();
-    const { products, setProducts } = useUser();
+    const { user, products, setProducts } = useUser();
     const [product, setProduct] = useState({payment_methods: []});
     const [currentPaymentMethod, setCurrentPaymentMethod] = useState(1);
     const [quantityToBuy, setQuantityToBuy] = useState(0);
     useEffect(() => {
-        if (products.length > 0) {
-            let currentProduct = products.filter(product => parseInt(itemId) === product.id)[0];
+        const availableProducts = products.filter(item => item.is_available === true);
+        if (availableProducts.length > 0) {
+            let currentProduct = availableProducts.filter(item => item.id  === parseInt(itemId))[0];
             if (!currentProduct) {
                 currentProduct = products[0];
             }
@@ -44,8 +45,17 @@ export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, s
         } else {
             const sameTypeProduct = products.filter(item => item.name_product === product.name_product);
             const productsToAdd = sameTypeProduct.slice(0, quantityToBuy);
-            const productsReadyToAdd = productsToAdd.map(item => ({...item, current_payment_method: currentPaymentMethod}));
+            const productsReadyToAdd = productsToAdd.map(({id, ...rest}) => (
+                {...rest, 
+                    product_id: id,
+                    current_payment_method: currentPaymentMethod, 
+                    user_id: user.id
+                }
+            ));
             console.log("Ready to add to cart:", productsReadyToAdd);
+            productsReadyToAdd.forEach(product => {
+                addItem(product);
+            });
         }
     }
    return (
@@ -66,9 +76,7 @@ export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, s
                         <button 
                             className={`product-details__button product-details__button--increment`}
                             onClick={increment}
-                            disabled={quantityToBuy === products.filter(item => {
-                                return item.name_product === product.name_product
-                            }).length}
+                            disabled={quantityToBuy === products.filter(item => item.name_product === product.name_product).length}
                             >{<ItemShopPlus />}</button>
                         <button 
                             className="product-details__button product-details__button--decrement"

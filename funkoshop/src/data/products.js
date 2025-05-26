@@ -21,7 +21,7 @@ import snapePatronusBack from '../assets/img/HarryPotter_Snape_Patronus_box.png'
 import kakashiHatake from '../assets/img/Naruto_Kakashi_Hatake.png';
 import kakashiHatakeBack from '../assets/img/Naruto_Kakashi_Hatake_box.png';
 import narutoShippuden from '../assets/img/Naruto_Naruto_Shippuden.jpg';
-import narutoShippudenBack from '../assets/img/Naruto_Naruto_Shippuden_box.jpg';
+import narutoShippudenBack from '../assets/img/Naruto_Naruto_Shippuden_box.png';
 import sakura from '../assets/img/Naruto_Sakura.png';
 import sakuraBack from '../assets/img/Naruto_Sakura_box.png';
 import sasukeUchihaFirstSusano from '../assets/img/Naruto_Sasuke_Uchiha_First_Susano.png';

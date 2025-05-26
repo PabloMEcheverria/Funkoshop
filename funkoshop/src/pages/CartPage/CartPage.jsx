@@ -1,44 +1,34 @@
-import { Link } from "react-router-dom";
 import "./CartPage.css";
 import CartItem from "../../components/CartItem";
 import { useEffect, useState } from "react";
+import { useCart } from "../../context/CartContext.js";
+import { useUser } from "../../context/UserContext.js";
 
 export default function CartPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock, groupProducts }) {
     const [tableRowsArr, setTableRowsArr] = useState([]);
+    const { cart } = useCart();
+    const { products } = useUser();
     
     useEffect(() => {
-        setTableRowsArr(itemsInCart.groupedItems.map((value, index) => {
-            let totalPrice;
-            let item;
-            if (itemsInCart.items.findIndex(currentValue => currentValue.nameProduct === value.nameProduct) >= 0) {
-                totalPrice = itemsInCart.items.find(currentValue => currentValue.nameProduct === value.nameProduct).price * value.quantity;
-                totalPrice = Math.round(totalPrice * 100) / 100;
-                item = itemsInCart.items.find(currentValue => currentValue.nameProduct === value.nameProduct);
-            } else {
-                totalPrice = 0;
-                item = productsStock.productsArr.find(currentValue => currentValue.nameProduct === value.nameProduct);
-            }
-            return (
-                    <CartItem   
-                            key={item.nameProduct + "__" + index}
-                            value={value} 
-                            index={index} 
-                            item={item} 
-                            totalPrice={totalPrice} 
-                            itemsInCart={itemsInCart} 
-                            setItemsInCart={setItemsInCart}
-                            productsStock={productsStock} 
-                            setProductsStock={setProductsStock} 
-                            groupProducts={groupProducts}
-                        />
-                    )
-                }
-            )
-        )
-    }, [itemsInCart]);
-
-
+        console.log(cart);
+        createRowArr();
+    }, [cart]);
     
+    const createRowArr = () => {
+        let totalPrice = 0;
+        if (cart.length > 0) {
+            cart.forEach(item => {
+                let sameTypeProduct = products.filter(product => product.name_product === item.name_product);
+                if (sameTypeProduct.length > 0) {
+                    sameTypeProduct.forEach(product => {
+                        totalPrice += product.price;
+                    });
+                }
+            }
+        );
+        console.log("Total price:", totalPrice);
+    }
+
     return (
         <>
             <h1 className="cart__title">Carrito de compras</h1>
@@ -77,5 +67,5 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                 <button className="summary__button">ir a pagar</button>
             </section>
         </>
-    )
+    )}
 }

@@ -8,7 +8,7 @@ function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUser, setUserRole } = useContext(useUser);
+  const { setUser, setUserRole } = useUser();
 
   const onLogin = async (e) => {
     e.preventDefault();
