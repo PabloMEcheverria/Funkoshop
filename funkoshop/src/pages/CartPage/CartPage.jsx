@@ -10,24 +10,37 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
     const { products } = useUser();
     
     useEffect(() => {
-        console.log(cart);
         createRowArr();
     }, [cart]);
     
     const createRowArr = () => {
-        let totalPrice = 0;
-        if (cart.length > 0) {
-            cart.forEach(item => {
-                let sameTypeProduct = products.filter(product => product.name_product === item.name_product);
-                if (sameTypeProduct.length > 0) {
-                    sameTypeProduct.forEach(product => {
-                        totalPrice += product.price;
-                    });
+        console.log(cart);
+        console.log(products);
+        let productsInCart = [];
+        let uniqueItemsArr = [];
+        for (let i = 0; i < cart.length; i++) {
+            productsInCart.push(products.filter(product => product.id === cart[i].product_id));
+        }
+        productsInCart = productsInCart.flat();
+        productsInCart = productsInCart.map(product => product = product.name_product);
+        console.log(productsInCart);
+        for (let i = 0; i < productsInCart.length; i++) {
+            if (i === 0) {
+                uniqueItemsArr.push(productsInCart[i]);
+            } else {
+                if (!uniqueItemsArr.includes(productsInCart[i])) {
+                    uniqueItemsArr.push(productsInCart[i]);
                 }
             }
-        );
-        console.log("Total price:", totalPrice);
-    }
+        }
+        uniqueItemsArr = uniqueItemsArr.map(item => {
+            return {
+                name_product: item,
+                stock: productsInCart.filter(product => product === item).length
+            }
+        });
+        console.log(uniqueItemsArr);
+    };
 
     return (
         <>
@@ -61,11 +74,11 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                     </li>
                     <li className="summary__item--total">
                         <p className="summary__text--total">total</p>
-                        <p className="summary__value--total">{parseFloat((itemsInCart.items.reduce((total, value) => {return total + value.price}, 0) + 0).toFixed(2))}</p>{/*The "+ 0" has to be replaced with the shipping price.*/}
+                        <p className="summary__value--total">{parseFloat((itemsInCart.items.reduce((total, value) => {return total + value.price}, 0) + 0).toFixed(2))}</p>
                     </li>
                 </ul>
                 <button className="summary__button">ir a pagar</button>
             </section>
         </>
-    )}
+    )
 }
