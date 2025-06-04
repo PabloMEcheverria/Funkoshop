@@ -2,10 +2,12 @@ import "../assets/css/CartItem.css";
 import ItemShopMinus from "./svgComponents/ItemShopMinus";
 import ItemShopPlus from "./svgComponents/ItemShopPlus";
 import CancelIcon from "./svgComponents/CancelIcon";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function CartItem({ name_product, stock }) {
+    const inputRef = useRef(null);
+    const inputQuantity = inputRef.current ? inputRef.current.value : 0;
     const { cart, addItem, removeItem, clearCart } = useCart();
     const item = cart.find(item => item.name_product === name_product);
     useEffect(() => {
@@ -37,7 +39,7 @@ export default function CartItem({ name_product, stock }) {
                     </div>
                 </div>
                 <div className="cart-item__controls">
-                    <input className="cart-item__quantity" type="number" value={/*value.quantity*/0} readOnly />
+                    <input ref={inputRef} className="cart-item__quantity" type="number" value={/*value.quantity*/0} readOnly />
                     <div className="cart-item__buttons">
                         <button 
                             className="cart-item__button cart-item__button--plus" 

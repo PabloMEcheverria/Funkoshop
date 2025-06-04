@@ -54,15 +54,43 @@ export const CartProvider = ({ children }) => {
         } else {
             setCart(prevCart => prevCart.filter(item => item.id !== id));
         }
+        const { error: updateError } = await supabase
+            .from("products")
+            .update({is_available: true})
+            .eq("id", id);
+        if (updateError) {
+            console.error("Error updating product availability:", updateError);
+        } else {
+            console.log("Product marked as available in products table: ", id);
+        }
+        fetchProducts();
     }
 
     const clearCart = async () => {
-        const { error} = await supabase.from("cart_items").delete();
-        if (error) {
-            console.error("Error clearing cart:", error);
+        if (cart.length === 0) {
+            console.log("El carrito ya está vacío.");
+            return;
         } else {
-            setCart([]);
+            const { error } = await supabase.from("cart_items").delete();
+            if (error) {
+                console.error("Error clearing cart:", error);
+            } else {
+                cart.forEach(async item => {
+                    const { error: updateError } = await supabase
+                        .from("products")
+                        .update({is_available: true})
+                        .eq("id", item.product_id);
+                    if (updateError) {
+                        console.error("Error updating product availability:", updateError);
+                    } else {
+                        console.log("Product marked as available in products table: ", item.product_id);
+                    }
+                });
+                setCart([]);
+                console.log("Carrito vacío.");
+            }
         }
+        
     }
 
     return (
