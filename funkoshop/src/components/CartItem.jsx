@@ -4,6 +4,7 @@ import ItemShopPlus from "./svgComponents/ItemShopPlus";
 import CancelIcon from "./svgComponents/CancelIcon";
 import { useEffect, useRef } from "react";
 import { useCart } from "../context/CartContext";
+import supabase from "../config/supabaseClient";
 
 export default function CartItem({ product, product_quantity }) {
     const inputRef = useRef(null);
@@ -15,7 +16,18 @@ export default function CartItem({ product, product_quantity }) {
             console.log("cart actualizado:", cart);
         }
     }, [cart]);
-    const handleIncrement = () => {};
+    const handleIncrement = async (product) => {
+        const { data, error } = await supabase
+            .from("products")
+            .select("*")
+            .eq("name_product", product.name_product)
+            .eq("is_available", true);
+        if (error) {
+            console.error("Error fetching product availability:", error);
+            return;
+        }
+        console.log("Productos disponibles:", data);
+    };
 
     const handleDecrement = () => {};
 
