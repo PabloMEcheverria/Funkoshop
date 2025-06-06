@@ -35,8 +35,8 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
         }
         uniqueItemsArr = uniqueItemsArr.map(item => {
             return {
-                name_product: item,
-                stock: productsInCart.filter(product => product === item).length
+                product: products.filter(product => product.name_product === item)[0], 
+                product_quantity: productsInCart.filter(product => product === item).length
             }
         });
         console.log(uniqueItemsArr);

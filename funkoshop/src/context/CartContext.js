@@ -21,31 +21,51 @@ export const CartProvider = ({ children }) => {
     }
 
     const addItem = async (product) => {
-        const { data, error } = await supabase.from("cart_items").insert([
-            {
-                user_id: product.user_id,
-                product_id: product.product_id,
-                current_payment_method: product.current_payment_method
-            }
-        ]);
-        if (error) {
-            console.error("Error adding item to cart:", error);
-        } else {
-            if (data && data.length > 0) {
-                setCart(prevCart => [...prevCart, data[0]]);
-            }
-            const { error: updateError } = await supabase
-                .from("products")
-                .update({is_available: false})
-                .eq("id", product.product_id);
-            if (updateError) {
-                console.error("Error updating product availability:", updateError);
-            } else {
-                console.log("Product marked as unavailable in products table: ", product);
-            }
-            fetchProducts();
-        }
-    };
+    const { data, error } = await supabase
+        .from("products")
+        .select("id, is_available")
+        .eq("id", product.product_id)
+        .single();
+    if (error || !data) {
+        console.error("Error fetching product or product not found:", error);
+        return;
+    }
+    if (!data.is_available) {
+        console.error("El producto no está disponible en stock:", product.name_product);
+        return;
+    }
+
+    const { data: cartData, error: cartError } = await supabase
+        .from("cart_items")
+        .insert([{
+            user_id: product.user_id,
+            product_id: product.product_id,
+            current_payment_method: product.current_payment_method
+        }])
+        .select();
+
+    if (cartError) {
+        console.error("Error adding item to cart:", cartError);
+        return;
+    }
+
+    if (cartData?.length > 0) {
+        setCart(prevCart => [...prevCart, cartData[0]]);
+    }
+    console.log("Producto agregado al carrito:", product.product_id);
+
+    const { error: updateError } = await supabase
+        .from("products")
+        .update({ is_available: false })
+        .eq("id", product.product_id);
+
+    if (updateError) {
+        console.error("Error updating product availability:", updateError);
+    } else {
+        console.log("Producto marcado como no disponible:", product.product_id);
+    }
+    fetchProducts();
+};
 
     const removeItem = async (id) => {
         const { error } = await supabase.from("cart_items").delete().eq("id", id);

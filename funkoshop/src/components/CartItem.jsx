@@ -5,23 +5,21 @@ import CancelIcon from "./svgComponents/CancelIcon";
 import { useEffect, useRef } from "react";
 import { useCart } from "../context/CartContext";
 
-export default function CartItem({ name_product, stock }) {
+export default function CartItem({ product, product_quantity }) {
     const inputRef = useRef(null);
-    const inputQuantity = inputRef.current ? inputRef.current.value : 0;
     const { cart, addItem, removeItem, clearCart } = useCart();
-    const item = cart.find(item => item.name_product === name_product);
     useEffect(() => {
         if (cart.length === 0) {
-        console.log("El carrito está vacío, espera la carga de datos...");
+            console.log("El carrito está vacío, espera la carga de datos...");
         } else {
             console.log("cart actualizado:", cart);
         }
     }, [cart]);
-    const handleIncrement = () => {}
+    const handleIncrement = () => {};
 
-    const handleDecrement = () => {}
+    const handleDecrement = () => {};
 
-    const handleRemove = () => {}
+    const handleRemove = () => {};
 
     const getAvailability = () => {};
 
@@ -30,16 +28,16 @@ export default function CartItem({ name_product, stock }) {
             <td className="cart-item__details">
                 <div className="cart-item__info">
                     <div className="cart-item__image">
-                        <img src={item.front_img} alt={item.description} />
+                        <img src={product.front_img} alt={product.description} />
                     </div>
                     <div className="cart-item__description">
-                        <h4 className="cart-item__name">{item.name_product}</h4>
-                        <p className="cart-item__license">{item.license}</p>
-                        <p className="cart-item__price">precio: $ {item.price}</p>
+                        <h4 className="cart-item__name">{product.name_product}</h4>
+                        <p className="cart-item__license">{product.license}</p>
+                        <p className="cart-item__price">precio: $ {product.price}</p>
                     </div>
                 </div>
                 <div className="cart-item__controls">
-                    <input ref={inputRef} className="cart-item__quantity" type="number" value={/*value.quantity*/0} readOnly />
+                    <input ref={inputRef} className="cart-item__quantity" type="number" value={product_quantity} readOnly />
                     <div className="cart-item__buttons">
                         <button 
                             className="cart-item__button cart-item__button--plus" 
