@@ -2,21 +2,26 @@ import "../assets/css/CartItem.css";
 import ItemShopMinus from "./svgComponents/ItemShopMinus";
 import ItemShopPlus from "./svgComponents/ItemShopPlus";
 import CancelIcon from "./svgComponents/CancelIcon";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "../context/CartContext";
 import supabase from "../config/supabaseClient";
 
-export default function CartItem({ product, product_quantity }) {
+export default function CartItem({ group }) {
+    const { product, product_quantity, totalPrice, userId } = group;
     const inputRef = useRef(null);
     const { cart, addItem, removeItem, clearCart } = useCart();
+    const [quantity, setQuantity] = useState(product_quantity);
+
     useEffect(() => {
         if (cart.length === 0) {
-            console.log("El carrito está vacío, espera la carga de datos...");
+            console.log("The cart is empty, please wait for data to load...");
         } else {
-            console.log("cart actualizado:", cart);
+            console.log("Cart updated:", cart);
         }
     }, [cart]);
-    const handleIncrement = async (product) => {
+
+    const handleIncrement = async (product, userId) => {
+        let currentPaymentMethod = cart.filter(item => item.product_id === product.id)[0].current_payment_method;
         const { data, error } = await supabase
             .from("products")
             .select("*")
@@ -26,7 +31,15 @@ export default function CartItem({ product, product_quantity }) {
             console.error("Error fetching product availability:", error);
             return;
         }
-        console.log("Productos disponibles:", data);
+        console.log("Available products:", data);
+
+        if (data.length > 0) {
+            addItem(data[0], userId, currentPaymentMethod);
+            setQuantity(prevQuantity => prevQuantity + 1);
+            console.log("Products added to cart:", data[0]);
+        } else {
+            console.error("There are no more products available to add to the cart.");
+        }
     };
 
     const handleDecrement = () => {};
@@ -49,12 +62,12 @@ export default function CartItem({ product, product_quantity }) {
                     </div>
                 </div>
                 <div className="cart-item__controls">
-                    <input ref={inputRef} className="cart-item__quantity" type="number" value={product_quantity} readOnly />
+                    <input ref={inputRef} className="cart-item__quantity" type="number" value={quantity} readOnly />
                     <div className="cart-item__buttons">
                         <button 
                             className="cart-item__button cart-item__button--plus" 
                             disabled={getAvailability()} 
-                            onClick={() => handleIncrement()}>
+                            onClick={() => handleIncrement(product, userId)}>
                             {<ItemShopPlus 
                                 width="30px"
                                 className="cart-item__icon cart-item__icon--plus" 
@@ -71,7 +84,7 @@ export default function CartItem({ product, product_quantity }) {
                     </div>
                 </div>
                 <div className="cart-item__summary">
-                    <p className="cart-item__total-price">{"$ " + /*totalPrice*/ 0}</p>
+                    <p className="cart-item__total-price">{"$ " + totalPrice}</p>
                 </div>
                 <div className="cart-item__remove-button-wrapper">
                     <button className="cart-item__remove-button"

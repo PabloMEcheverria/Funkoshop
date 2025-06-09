@@ -8,16 +8,60 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
     const [tableRowsArr, setTableRowsArr] = useState([]);
     const { cart } = useCart();
     const { products } = useUser();
+    const { user } = useUser();
     
     useEffect(() => {
         createRowArr();
     }, [cart]);
     
     const createRowArr = () => {
-        console.log(cart);
+        console.log("Cart: ", cart);
         console.log(products);
         let productsInCart = [];
+        let groupedProductsInCart = [];
+        let newTableRowsArr = [];
+        products.forEach(product => {
+            cart.forEach(cartItem => {
+                if (product.id === cartItem.product_id) {
+                    productsInCart.push(product);
+                }
+            })
+        });
+        console.log(productsInCart);
+        productsInCart.forEach(product => {
+            if (groupedProductsInCart.length === 0) {
+                groupedProductsInCart.push([product.name_product, product]);
+            } else {
+                let rightGroupIndex = groupedProductsInCart.findIndex(groupArray => groupArray[0] === product.name_product);
+                if (rightGroupIndex === -1) {
+                    groupedProductsInCart.push([product.name_product, product]);
+                } else {
+                    groupedProductsInCart[rightGroupIndex].push(product);
+                }
+            }
+        });
+        console.log(groupedProductsInCart);
+        groupedProductsInCart.forEach((group, i, array) => {
+            array[i] = {
+                groupName: group[0], 
+                product: group[1], 
+                product_quantity: group.length - 1, 
+                totalPrice: (group[1].price * (group.length - 1)).toFixed(2), 
+                userId: user.id
+            };
+        });
+        newTableRowsArr = groupedProductsInCart.map((group, index) => {
+            return (
+                <CartItem 
+                    key={index} 
+                    group={group}
+                />
+            );
+        });
+        setTableRowsArr(newTableRowsArr);
+        /*let productsInCart = [];
         let uniqueItemsArr = [];
+        let newTableRowsArr = [];
         for (let i = 0; i < cart.length; i++) {
             productsInCart.push(products.filter(product => product.id === cart[i].product_id));
         }
@@ -40,6 +84,16 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
             }
         });
         console.log(uniqueItemsArr);
+        newTableRowsArr = uniqueItemsArr.map((item, index) => {
+            return (
+                <CartItem 
+                    key={index} 
+                    product={item.product}
+                    product_quantity={item.product_quantity}
+                />
+            );
+        });
+        setTableRowsArr(newTableRowsArr);*/
     };
 
     return (
