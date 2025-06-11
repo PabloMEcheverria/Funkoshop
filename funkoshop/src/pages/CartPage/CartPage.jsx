@@ -12,22 +12,18 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
     
     useEffect(() => {
         createRowArr();
-    }, [cart]);
-    
-    const createRowArr = () => {
-        console.log("Cart: ", cart);
-        console.log(products);
+    }, [cart, products, user]);
+
+    const mergeCartProducts = (productsArr, cartArr) => {
         let productsInCart = [];
         let groupedProductsInCart = [];
-        let newTableRowsArr = [];
-        products.forEach(product => {
-            cart.forEach(cartItem => {
+        productsArr.forEach(product => {
+            cartArr.forEach(cartItem => {
                 if (product.id === cartItem.product_id) {
                     productsInCart.push(product);
                 }
             })
         });
-        console.log(productsInCart);
         productsInCart.forEach(product => {
             if (groupedProductsInCart.length === 0) {
                 groupedProductsInCart.push([product.name_product, product]);
@@ -40,17 +36,22 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
                 }
             }
         });
-        console.log(groupedProductsInCart);
         groupedProductsInCart.forEach((group, i, array) => {
             array[i] = {
                 groupName: group[0], 
                 product: group[1], 
                 product_quantity: group.length - 1, 
                 totalPrice: (group[1].price * (group.length - 1)).toFixed(2), 
-                userId: user.id
+                userId: user?.id
             };
         });
-        newTableRowsArr = groupedProductsInCart.map((group, index) => {
+        return groupedProductsInCart;
+    };
+
+    const createRowArr = () => {
+        let groupedProductsInCart = mergeCartProducts(products, cart);
+        console.log("Grouped products in cart:", groupedProductsInCart);
+        let newTableRowsArr = groupedProductsInCart.map((group, index) => {
             return (
                 <CartItem 
                     key={index} 
@@ -59,41 +60,6 @@ export default function CartPage({ itemsInCart, setItemsInCart, productsStock, s
             );
         });
         setTableRowsArr(newTableRowsArr);
-        /*let productsInCart = [];
-        let uniqueItemsArr = [];
-        let newTableRowsArr = [];
-        for (let i = 0; i < cart.length; i++) {
-            productsInCart.push(products.filter(product => product.id === cart[i].product_id));
-        }
-        productsInCart = productsInCart.flat();
-        productsInCart = productsInCart.map(product => product = product.name_product);
-        console.log(productsInCart);
-        for (let i = 0; i < productsInCart.length; i++) {
-            if (i === 0) {
-                uniqueItemsArr.push(productsInCart[i]);
-            } else {
-                if (!uniqueItemsArr.includes(productsInCart[i])) {
-                    uniqueItemsArr.push(productsInCart[i]);
-                }
-            }
-        }
-        uniqueItemsArr = uniqueItemsArr.map(item => {
-            return {
-                product: products.filter(product => product.name_product === item)[0], 
-                product_quantity: productsInCart.filter(product => product === item).length
-            }
-        });
-        console.log(uniqueItemsArr);
-        newTableRowsArr = uniqueItemsArr.map((item, index) => {
-            return (
-                <CartItem 
-                    key={index} 
-                    product={item.product}
-                    product_quantity={item.product_quantity}
-                />
-            );
-        });
-        setTableRowsArr(newTableRowsArr);*/
     };
 
     return (

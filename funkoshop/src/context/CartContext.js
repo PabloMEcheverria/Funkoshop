@@ -7,6 +7,7 @@
     export const CartProvider = ({ children }) => {
         const { fetchProducts } = useUser();
         const [cart, setCart] = useState([]);
+        const { user } = useUser();
         useEffect(() => {
             fetchCart();
         }, []);
@@ -20,7 +21,7 @@
             }
         }
 
-        const addItem = async (product, userId, currentPaymentMethod) => {
+        const addItem = async (product, currentPaymentMethod) => {
             const { data, error } = await supabase
                 .from("products")
                 .select("id, is_available")
@@ -37,7 +38,7 @@
             const { data: cartData, error: cartError } = await supabase
                 .from("cart_items")
                 .insert([{
-                    user_id: userId,
+                    user_id: user.id,
                     product_id: product.id,
                     current_payment_method: currentPaymentMethod
                 }])

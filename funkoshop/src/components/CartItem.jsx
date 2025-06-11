@@ -34,7 +34,7 @@ export default function CartItem({ group }) {
         console.log("Available products:", data);
 
         if (data.length > 0) {
-            addItem(data[0], userId, currentPaymentMethod);
+            addItem(data[0], currentPaymentMethod);
             setQuantity(prevQuantity => prevQuantity + 1);
             console.log("Products added to cart:", data[0]);
         } else {

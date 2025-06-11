@@ -21,8 +21,6 @@ export const UserProvider = ({ children }) => {
         setLoading(false);
         return;
       }
-
-      console.log("🔍 Usuario obtenido:", user);
       
       if (user) {
         setUser(user);
@@ -68,7 +66,6 @@ export const UserProvider = ({ children }) => {
       if (error) {
         console.error('Error fetching products:', error);
       } else {
-        console.log('Products:', data);
         setProducts(data);
       }
       setLoadingProducts(false);
