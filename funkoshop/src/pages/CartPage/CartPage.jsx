@@ -4,54 +4,17 @@ import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext.js";
 import { useUser } from "../../context/UserContext.js";
 
-export default function CartPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock, groupProducts }) {
+export default function CartPage({ itemsInCart }) {
     const [tableRowsArr, setTableRowsArr] = useState([]);
-    const { cart } = useCart();
-    const { products } = useUser();
-    const { user } = useUser();
+    const { cart, groupsInCart } = useCart();
+    const { user, products } = useUser();
     
     useEffect(() => {
         createRowArr();
     }, [cart, products, user]);
 
-    const mergeCartProducts = (productsArr, cartArr) => {
-        let productsInCart = [];
-        let groupedProductsInCart = [];
-        productsArr.forEach(product => {
-            cartArr.forEach(cartItem => {
-                if (product.id === cartItem.product_id) {
-                    productsInCart.push(product);
-                }
-            })
-        });
-        productsInCart.forEach(product => {
-            if (groupedProductsInCart.length === 0) {
-                groupedProductsInCart.push([product.name_product, product]);
-            } else {
-                let rightGroupIndex = groupedProductsInCart.findIndex(groupArray => groupArray[0] === product.name_product);
-                if (rightGroupIndex === -1) {
-                    groupedProductsInCart.push([product.name_product, product]);
-                } else {
-                    groupedProductsInCart[rightGroupIndex].push(product);
-                }
-            }
-        });
-        groupedProductsInCart.forEach((group, i, array) => {
-            array[i] = {
-                groupName: group[0], 
-                product: group[1], 
-                product_quantity: group.length - 1, 
-                totalPrice: (group[1].price * (group.length - 1)).toFixed(2), 
-                userId: user?.id
-            };
-        });
-        return groupedProductsInCart;
-    };
-
     const createRowArr = () => {
-        let groupedProductsInCart = mergeCartProducts(products, cart);
-        console.log("Grouped products in cart:", groupedProductsInCart);
-        let newTableRowsArr = groupedProductsInCart.map((group, index) => {
+        let newTableRowsArr = groupsInCart.map((group, index) => {
             return (
                 <CartItem 
                     key={index} 

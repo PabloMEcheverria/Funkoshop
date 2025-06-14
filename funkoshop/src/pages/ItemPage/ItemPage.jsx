@@ -7,7 +7,7 @@ import { useCart } from "../../context/CartContext.js";
 import { useUser } from "../../context/UserContext.js";
 import Carousel from "../../components/Carousel.jsx";
 
-export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, setProductsStock }) {
+export default function ItemPage({ productsStock, setProductsStock }) {
     const params = useParams();
     const itemId = params.itemId;
     let prod = productsStock.productsArr.filter(product => parseInt(itemId) === product.id)[0];
@@ -31,20 +31,33 @@ export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, s
         }
     }, [products]);
 
-    const handleClick =(e) => setCurrentPaymentMethod(parseInt(e.target.id));
+    const handleClick = (e) => setCurrentPaymentMethod(parseInt(e.target.id));
     const toggleVisibility = () => setVisible(!visible);
     const increment = () => setQuantityToBuy(quantityToBuy + 1);
     const decrement = () => quantityToBuy > 0 ? setQuantityToBuy(quantityToBuy - 1) : 0;
     const addToCart = () => {
-        if (quantityToBuy < 1) {
-            alert("Agregue al menos una unidad del producto a su carrito.")
+        const availableProductsArr = products.filter(item => item.name_product === product.name_product && item.is_available === true);
+        if (availableProductsArr.length === 0) {
+            alert("No hay productos disponibles para agregar al carrito.");
             return;
-        } else if (quantityToBuy > products.filter(item => item.name_product === product.name_product).length) {
+        }
+        if (availableProductsArr.length < quantityToBuy) {
+            alert("No hay suficientes unidades disponibles para agregar al carrito.");
+            return;
+        }
+        if (quantityToBuy === 0) {
+            alert("Por favor, agregue al menos una unidad del producto a su carrito.");
+            return;
+        }
+        if (quantityToBuy < 0) {
+            alert("La cantidad a comprar no puede ser negativa.");
+            return;
+        }
+        if (quantityToBuy > availableProductsArr.length) {
             alert("No hay tantas unidades disponibles. Intente agregar menos unidades de ese producto a su carrito.");
             return;
         } else {
-            const sameTypeProduct = products.filter(item => item.name_product === product.name_product);
-            const productsToAdd = sameTypeProduct.slice(0, quantityToBuy);
+            const productsToAdd = availableProductsArr.slice(0, quantityToBuy);
             const productsReadyToAdd = productsToAdd.map(({id, ...rest}) => (
                 {...rest, 
                     product_id: id,
@@ -54,7 +67,7 @@ export default function ItemPage({ itemsInCart, setItemsInCart, productsStock, s
             ));
             console.log("Ready to add to cart:", productsReadyToAdd);
             productsReadyToAdd.forEach(product => {
-                addItem(product);
+                addItem(product, product.payment_methods[0]);
             });
         }
     }

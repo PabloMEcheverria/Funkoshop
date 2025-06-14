@@ -12,13 +12,7 @@ export default function CartItem({ group }) {
     const { cart, addItem, removeItem, clearCart } = useCart();
     const [quantity, setQuantity] = useState(product_quantity);
 
-    useEffect(() => {
-        if (cart.length === 0) {
-            console.log("The cart is empty, please wait for data to load...");
-        } else {
-            console.log("Cart updated:", cart);
-        }
-    }, [cart]);
+    useEffect(() => {}, [cart]);
 
     const handleIncrement = async (product, userId) => {
         let currentPaymentMethod = cart.filter(item => item.product_id === product.id)[0].current_payment_method;
