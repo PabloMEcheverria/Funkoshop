@@ -32,7 +32,6 @@
                     }
                 })
             });
-            console.log("Productos en el carrito:", productsInCart);
             productsInCart.forEach(product => {
                 if (groupedProductsInCart.length === 0) {
                     groupedProductsInCart.push([product.name_product, product]);
@@ -51,10 +50,9 @@
                     product: group[1], 
                     product_quantity: group.length - 1, 
                     totalPrice: (group[1].price * (group.length - 1)).toFixed(2), 
-                    userId: user?.product_id
+                    userId: user?.id
                 };
             });
-            console.log(groupedProductsInCart);
             setGroupsInCart(groupedProductsInCart);
             return groupedProductsInCart;
         };
@@ -63,7 +61,7 @@
             const { data, error } = await supabase
                 .from("products")
                 .select("id, is_available")
-                .eq("id", product.product_id)
+                .eq("id", product.id)
                 .single();
             if (error || !data) {
                 console.error("Error fetching product or product not found:", error);
@@ -77,7 +75,7 @@
                 .from("cart_items")
                 .insert([{
                     user_id: user.id,
-                    product_id: product.product_id,
+                    product_id: product.id,
                     current_payment_method: currentPaymentMethod
                 }])
                 .select();
@@ -90,22 +88,23 @@
             if (cartData?.length > 0) {
                 setCart(prevCart => [...prevCart, cartData[0]]);
             }
-            console.log("Producto agregado al carrito:", product.product_id);
+            console.log("Producto agregado al carrito:", product.id);
 
             const { error: updateError } = await supabase
                 .from("products")
                 .update({ is_available: false })
-                .eq("id", product.product_id);
+                .eq("id", product.id);
 
             if (updateError) {
                 console.error("Error updating product availability:", updateError);
             } else {
-                console.log("Producto marcado como no disponible:", product.product_id);
+                console.log("Producto marcado como no disponible:", product.id);
             }
             fetchProducts();
         };
 
-        const removeItem = async (id) => {
+        const removeItem = async (cartItem) => {
+            const { id, product_id } = cartItem;
             const { error } = await supabase.from("cart_items").delete().eq("id", id);
             if (error) {
                 console.error("Error removing item from cart:", error);
@@ -115,7 +114,7 @@
             const { error: updateError } = await supabase
                 .from("products")
                 .update({is_available: true})
-                .eq("id", id);
+                .eq("id", product_id);
             if (updateError) {
                 console.error("Error updating product availability:", updateError);
             } else {

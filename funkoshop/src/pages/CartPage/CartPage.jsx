@@ -14,7 +14,6 @@ export default function CartPage({ itemsInCart }) {
     useEffect(() => {
         createRowArr();
         getSubtotal();
-        console.log(cart, products);
     }, [cart, products, user]);
 
     const createRowArr = () => {
@@ -26,6 +25,13 @@ export default function CartPage({ itemsInCart }) {
                 />
             );
         });
+        if (newTableRowsArr.length === 0) {
+            newTableRowsArr.sort((a, b) => {
+                const aProduct = a.props.group.product.name_product;
+                const bProduct = b.props.group.product.name_product;
+                return  aProduct.localeCompare(bProduct);
+            });
+        }
         setTableRowsArr(newTableRowsArr);
     };
 

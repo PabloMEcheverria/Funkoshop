@@ -4,41 +4,62 @@ import ItemShopPlus from "./svgComponents/ItemShopPlus";
 import CancelIcon from "./svgComponents/CancelIcon";
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 import supabase from "../config/supabaseClient";
 
 export default function CartItem({ group }) {
     const { product, product_quantity, totalPrice, userId } = group;
-    const inputRef = useRef(null);
     const { cart, addItem, removeItem, clearCart } = useCart();
+    const { products } = useUser();
+    const inputRef = useRef(null);
     const [quantity, setQuantity] = useState(product_quantity);
 
     useEffect(() => {}, [cart]);
 
-    const handleIncrement = async (product, userId) => {
-        let currentPaymentMethod = cart.filter(item => item.product_id === product.id)[0].current_payment_method;
-        const { data, error } = await supabase
-            .from("products")
-            .select("*")
-            .eq("name_product", product.name_product)
-            .eq("is_available", true);
-        if (error) {
-            console.error("Error fetching product availability:", error);
-            return;
-        }
-        console.log("Available products:", data);
-
-        if (data.length > 0) {
-            addItem(data[0], currentPaymentMethod);
-            setQuantity(prevQuantity => prevQuantity + 1);
-            console.log("Products added to cart:", data[0]);
-        } else {
-            console.error("There are no more products available to add to the cart.");
+    const handleIncrement = async () => {
+        console.log("Cart: ", cart);
+        console.log("Products: ", products);
+        console.log("Group: ", group);
+        const availableProducts = products.filter(product => product.name_product === group.groupName && product.is_available);
+        availableProducts.sort((a, b) => a.id - b.id);
+        console.log("Available Products: ", availableProducts);
+        const productsInCart = [];
+        cart.forEach(item => {
+            products.forEach(product => {
+                if (item.product_id === product.id && product.name_product === group.groupName) {
+                    productsInCart.push(item);
+                }
+            });
+        });
+        productsInCart.sort((a, b) => b.current_payment_method - a.current_payment_method);
+        const currentPaymentMethod = productsInCart.length > 0 ? productsInCart[0].current_payment_method : 1;
+        console.log("Current Payment Method: ", currentPaymentMethod);
+        const productToAdd = availableProducts.length > 0 ? availableProducts[0] : null;
+        console.log("Product to Add: ", productToAdd);
+        if (productToAdd) {
+            addItem(productToAdd, currentPaymentMethod);
+            setQuantity(product_quantity + 1);
         }
     };
 
-    const handleDecrement = () => {};
+    const handleDecrement = () => {
+        const matchingCartItems = [...cart].reverse().filter(item => {
+                const matchingProduct = products.find(product => {
+                    return product.id === item.product_id && product.name_product === group.groupName
+                });
+                return matchingProduct !== undefined;
+            });
+        const productToRemove = matchingCartItems[0];
+        if (productToRemove) {
+            removeItem(productToRemove);
+            setQuantity(prev => Math.max(prev - 1, 0));
+            console.log("Product removed from cart:", productToRemove);
+        } else {
+            console.warn("No se encontró item de carrito para remover.");
+        }
+    };
 
-    const handleRemove = () => {};
+    const handleRemoveGroup = () => {};
 
     const getAvailability = () => {};
 
@@ -61,7 +82,7 @@ export default function CartItem({ group }) {
                         <button 
                             className="cart-item__button cart-item__button--plus" 
                             disabled={getAvailability()} 
-                            onClick={() => handleIncrement(product, userId)}>
+                            onClick={() => handleIncrement()}>
                             {<ItemShopPlus 
                                 width="30px"
                                 className="cart-item__icon cart-item__icon--plus" 
@@ -82,7 +103,7 @@ export default function CartItem({ group }) {
                 </div>
                 <div className="cart-item__remove-button-wrapper">
                     <button className="cart-item__remove-button"
-                            onClick={() => handleRemove()}>
+                            onClick={() => handleRemoveGroup()}>
                         <CancelIcon className="cart-item__remove-icon" />
                     </button>
                 </div>
