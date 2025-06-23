@@ -5,10 +5,9 @@ import CancelIcon from "./svgComponents/CancelIcon";
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useUser } from "../context/UserContext";
-import supabase from "../config/supabaseClient";
 
 export default function CartItem({ group }) {
-    const { product, product_quantity, totalPrice, userId } = group;
+    const { product, productGroup, product_quantity, totalPrice, paymentMethods } = group;
     const { cart, addItem, removeItem, clearCart } = useCart();
     const { products } = useUser();
     const inputRef = useRef(null);
@@ -17,43 +16,35 @@ export default function CartItem({ group }) {
     useEffect(() => {}, [cart]);
 
     const handleIncrement = async () => {
-        console.log("Cart: ", cart);
-        console.log("Products: ", products);
-        console.log("Group: ", group);
         const availableProducts = products.filter(product => product.name_product === group.groupName && product.is_available);
         availableProducts.sort((a, b) => a.id - b.id);
-        console.log("Available Products: ", availableProducts);
-        const productsInCart = [];
-        cart.forEach(item => {
-            products.forEach(product => {
-                if (item.product_id === product.id && product.name_product === group.groupName) {
-                    productsInCart.push(item);
-                }
-            });
-        });
-        productsInCart.sort((a, b) => b.current_payment_method - a.current_payment_method);
-        const currentPaymentMethod = productsInCart.length > 0 ? productsInCart[0].current_payment_method : 1;
-        console.log("Current Payment Method: ", currentPaymentMethod);
-        const productToAdd = availableProducts.length > 0 ? availableProducts[0] : null;
-        console.log("Product to Add: ", productToAdd);
-        if (productToAdd) {
-            addItem(productToAdd, currentPaymentMethod);
-            setQuantity(product_quantity + 1);
+        if (availableProducts.length === 0) {
+            console.log("No hay productos disponibles para agregar al carrito.");
+            return;
+        } else {
+            const productToAdd = availableProducts[0];
+            addItem(productToAdd, paymentMethods[paymentMethods.length - 1].method);
+            setQuantity(prev => prev + 1);
+            console.log("Producto agregado al carrito:", productToAdd);
         }
     };
 
     const handleDecrement = () => {
-        const matchingCartItems = [...cart].reverse().filter(item => {
-                const matchingProduct = products.find(product => {
-                    return product.id === item.product_id && product.name_product === group.groupName
-                });
-                return matchingProduct !== undefined;
+        console.log(group);
+        const itemsInCart = [];
+        cart.forEach(item => {
+            productGroup.forEach(product => {
+                if (item.product_id === product.id) {
+                    itemsInCart.push(item);
+                }
             });
-        const productToRemove = matchingCartItems[0];
+        });
+        itemsInCart.sort((a, b) => b.product_id - a.product_id);
+        const productToRemove = itemsInCart[0];
         if (productToRemove) {
             removeItem(productToRemove);
             setQuantity(prev => Math.max(prev - 1, 0));
-            console.log("Product removed from cart:", productToRemove);
+            console.log("Producto removido del carrito:", productToRemove);
         } else {
             console.warn("No se encontró item de carrito para remover.");
         }

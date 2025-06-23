@@ -45,14 +45,43 @@
                 }
             });
             groupedProductsInCart.forEach((group, i, array) => {
+                const productGroup = group.slice(1).sort((a, b) => a.id - b.id);
+                const paymentMethods = [];
+                productGroup.forEach(product => {
+                    cartArr.forEach(cartItem => {
+                        if (product.id === cartItem.product_id) {
+                            paymentMethods.push(cartItem.current_payment_method);
+                        }
+                    });
+                });
+                paymentMethods.sort((a, b) => a - b);
+                let uniquePaymentMethods = new Set(paymentMethods);
+                uniquePaymentMethods = Array.from(uniquePaymentMethods);
+                uniquePaymentMethods = uniquePaymentMethods.map(method => {
+                    method = {method: method, quantity: 0};
+                    return method;
+                })
+                uniquePaymentMethods.forEach(method => {
+                    paymentMethods.forEach(num => {
+                        if (num === method.method) {
+                            method.quantity++;
+                        }
+                    });
+                });
+                uniquePaymentMethods.sort((a, b) => a.method - b.method);
                 array[i] = {
                     groupName: group[0], 
                     product: group[1], 
+                    productGroup: productGroup,
                     product_quantity: group.length - 1, 
                     totalPrice: (group[1].price * (group.length - 1)).toFixed(2), 
+                    paymentMethods: uniquePaymentMethods,
                     userId: user?.id
                 };
             });
+            if (groupedProductsInCart.length > 0) {
+                groupedProductsInCart.sort((a, b) => a.groupName.localeCompare(b.groupName));
+            }
             setGroupsInCart(groupedProductsInCart);
             return groupedProductsInCart;
         };
