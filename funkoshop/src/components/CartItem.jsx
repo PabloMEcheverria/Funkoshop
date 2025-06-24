@@ -12,8 +12,12 @@ export default function CartItem({ group }) {
     const { products } = useUser();
     const inputRef = useRef(null);
     const [quantity, setQuantity] = useState(product_quantity);
+    const [totalPriceGroup, setTotalPriceGroup] = useState(totalPrice);
 
-    useEffect(() => {}, [cart]);
+    useEffect(() => {
+        setQuantity(product_quantity);
+        setTotalPriceGroup(totalPrice); 
+    }, [cart, product_quantity, totalPrice]);
 
     const handleIncrement = async () => {
         const availableProducts = products.filter(product => product.name_product === group.groupName && product.is_available);
@@ -50,7 +54,16 @@ export default function CartItem({ group }) {
         }
     };
 
-    const handleRemoveGroup = () => {};
+    const handleRemoveGroup = () => {
+        const productsToDelete = JSON.parse(JSON.stringify(productGroup));
+        const cartToDelete = cart.filter(item => productsToDelete.some(product => product.id === item.product_id));
+        cartToDelete.forEach(item => {
+            removeItem(item);
+        });
+        console.log("Grupo de productos removido del carrito:", productsToDelete);
+        console.log("Carrito actualizado:", cart);
+        setQuantity(0);
+    };
 
     const getAvailability = () => {};
 
@@ -90,7 +103,7 @@ export default function CartItem({ group }) {
                     </div>
                 </div>
                 <div className="cart-item__summary">
-                    <p className="cart-item__total-price">{"$ " + totalPrice}</p>
+                    <p className="cart-item__total-price">{"$ " + totalPriceGroup}</p>
                 </div>
                 <div className="cart-item__remove-button-wrapper">
                     <button className="cart-item__remove-button"
