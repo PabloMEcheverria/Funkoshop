@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import "../assets/css/Footer.css";
 import FooterLogo from "./svgComponents/FooterLogo";
 import { Link } from "react-router-dom";

@@ -14,56 +14,32 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 import CartIcon from './components/svgComponents/CartIcon';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import productsArr from './data/products.js';
 import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import supabase from './config/supabaseClient.js';
-import { UserProvider } from './context/UserContext.js';
-import { CartProvider } from './context/CartContext.js';
-
+import { useUser } from './context/UserContext.js';
+import RootRedirect from './routes/RootRedirect.jsx';
+import ProtectedRoute from './routes/ProtectedRoute.jsx';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const { user, userProfile, userRole, loading } = useUser();
+  //const { cart, setCart } = CartProvider();
 
-  const [loginStatus, setLoginStatus] = useState({
-    isLogged: false,
-    isAdmin: false,
-    get headerMenu() {
-      let menuArr = [];
-      if (this.isLogged && !this.isAdmin) {
-        menuArr = ["shop", "contacto", "logout", <CartIcon />];
-      }
+  useEffect(() => {
+    console.log("User:", user);
+    console.log("User Profile:", userProfile);
+    console.log("User Role:", userRole);
+    console.log("Loading:", loading);
+  }, [user, userProfile, userRole, loading]);
+  
 
-      if (this.isLogged && this.isAdmin) {
-        menuArr = ["ver tienda", "admin", "salir"];
-      }
 
-      if (!this.isLogged) {
-        menuArr = ["shop", "contacto", "login", <CartIcon />];
-      }
 
-      return menuArr
-    }, 
-    get footerMenu() {
-      let menuArr = [];
-      if (this.isLogged && !this.isAdmin) {
-        menuArr = ["shop", "contacto", "salir"];
-      }
 
-      if (this.isLogged && this.isAdmin) {
-        menuArr = ["shop", "registrarse", "ingresar", "contacto"];
-      }
 
-      if (!this.isLogged) {
-        menuArr = ["shop", "ingresar", "contacto"];
-      }
 
-      return menuArr
-    }
-  });
-
-  const [cart, setCart] = useState([
+ const [cart, setCart] = useState([
     {
       "id": 1,
       "sku": "STW001001",
@@ -301,14 +277,13 @@ function App() {
       "isFavorite": false,
       "currentPaymentMethod": 6
     }
-  ]);
+  ]); 
 
   const [productsStock, setProductsStock] = useState({
     //productsArr: productsArr, 
     productsArr: productsArr2, 
     uniqueProductsArr: uniqueProductsArr
   });
-
   const [token, setToken] = useState(false);
   const [userData, setUserData] = useState("");
 
@@ -322,7 +297,7 @@ function App() {
       setToken(data);
 
       const fetchData = async () => {
-        if (data.user && data.user.id) {
+        if (data.user2 && data.user.id) {
           let { data: user, error } = await supabase
             .from('user_profiles')
             .select('*')
@@ -334,7 +309,11 @@ function App() {
       };
       fetchData();
     }
-  }, []);
+
+    console.log("Token: ", token);
+    console.log("User Data: ", userData);
+    console.log("User: ", user);
+  }, [token, userData, user]);
 
   const groupProducts = (itemsInCart) => {
     let cartArr = [];
@@ -363,27 +342,31 @@ function App() {
 
   return (
     <>
-      <UserProvider>
-        <CartProvider>
-          <Router>
-            <Header itemsInCart={itemsInCart} />
-            <Routes>
-              <Route path="*" element={<NotFoundPage />} />
-              <Route path="/" element={token ? <HomePage productsStock={productsStock} setProductsStock={setProductsStock} /> : <Login setToken={setToken} />} />
-              <Route path="/login" element={<Login setToken={setToken} />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/home" element={<HomePage productsStock={productsStock} setProductsStock={setProductsStock} />} />
-              <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
-              <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
-              <Route path="/cart" element={<CartPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} groupProducts={groupProducts} />} />
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/create" element={<CreateItemPage />} />
-              <Route path="/edit/:itemId" element={<EditItemPage />} />          
-            </Routes>
-            <Footer user={user} loginStatus={loginStatus} footerMenu={loginStatus.footerMenu} itemsInCart={itemsInCart} token={token} />
-          </Router>
-        </CartProvider>
-      </UserProvider>
+      <Router>
+        <Header itemsInCart={itemsInCart} />
+        <Routes>
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<RootRedirect />} />
+          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/home" element={
+            <ProtectedRoute>
+              <HomePage productsStock={productsStock} itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin" element={
+            <ProtectedRoute allowedRoles={["admin"]} redirectTo='not-found'>
+              <AdminPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
+          <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/create" element={<CreateItemPage />} />
+          <Route path="/edit/:itemId" element={<EditItemPage />} />          
+        </Routes>
+        <Footer />
+      </Router>
     </>
   );
 }

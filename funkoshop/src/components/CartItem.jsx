@@ -8,7 +8,7 @@ import { useUser } from "../context/UserContext";
 
 export default function CartItem({ group }) {
     const { product, productGroup, product_quantity, totalPrice, paymentMethods } = group;
-    const { cart, addItem, removeItem, clearCart } = useCart();
+    const { cart, addItem, removeItem} = useCart();
     const { products } = useUser();
     const inputRef = useRef(null);
     const [quantity, setQuantity] = useState(product_quantity);

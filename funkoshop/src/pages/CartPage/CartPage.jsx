@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext.js";
 import { useUser } from "../../context/UserContext.js";
 
-export default function CartPage({ itemsInCart }) {
+export default function CartPage() {
     const { cart, groupsInCart } = useCart();
     const { user, products } = useUser();
     const [tableRowsArr, setTableRowsArr] = useState([]);
@@ -14,6 +14,7 @@ export default function CartPage({ itemsInCart }) {
     useEffect(() => {
         createRowArr();
         getSubtotal();
+        console.log("User:", user);
     }, [cart, products, user]);
 
     const createRowArr = () => {

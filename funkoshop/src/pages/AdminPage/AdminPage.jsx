@@ -3,7 +3,6 @@ import './AdminPage.css';
 import supabase from '../../config/supabaseClient';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminPageAdd from '../../components/svgComponents/AdminPageAdd.jsx';
 import AdminPageDelete from '../../components/svgComponents/AdminPageDelete.jsx';

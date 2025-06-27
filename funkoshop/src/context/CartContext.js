@@ -142,35 +142,8 @@
                 fetchProducts();
             }
 
-            const clearCart = async () => {
-                if (cart.length === 0) {
-                    console.log("El carrito ya está vacío.");
-                    return;
-                } else {
-                    const { error } = await supabase.from("cart_items").delete();
-                    if (error) {
-                        console.error("Error clearing cart:", error);
-                    } else {
-                        cart.forEach(async item => {
-                            const { error: updateError } = await supabase
-                                .from("products")
-                                .update({is_available: true})
-                                .eq("id", item.product_id);
-                            if (updateError) {
-                                console.error("Error updating product availability:", updateError);
-                            } else {
-                                console.log("Product marked as available in products table: ", item.product_id);
-                            }
-                        });
-                        setCart([]);
-                        console.log("Carrito vacío.");
-                    }
-                }
-                
-            }
-
             return (
-                <CartContext.Provider value={{ cart, groupsInCart, addItem, removeItem, clearCart }}>
+                <CartContext.Provider value={{ cart, groupsInCart, addItem, removeItem }}>
                     {children}
                 </CartContext.Provider>
             )
