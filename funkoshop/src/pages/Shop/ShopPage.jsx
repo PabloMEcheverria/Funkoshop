@@ -4,9 +4,12 @@ import FilterShop from "../../components/FilterShop.jsx";
 import CatalogueShop from "../../components/CatalogueShop.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import PaginationButton from "../../components/PaginationButton.jsx";
+import { useUser } from "../../context/UserContext.js";
 
-export default function ShopPage({ productsStock }) {
-    const [displayProductArr, setDisplayProductArr] = useState(productsStock.productsArr);
+export default function ShopPage() {
+    const { products } = useUser();
+    const [displayProductArr, setDisplayProductArr] = useState(products);
+    console.log(products);
     const [filterData, setFilterData] = useState(
         {   
             nameOrCategory:"",
@@ -141,20 +144,20 @@ export default function ShopPage({ productsStock }) {
     }
     return (
         <>
-        <main className="shop">
-            <div className="flex-wrapper">
-                <FilterShop 
-                    filterData={filterData} 
-                    setFilterData={setFilterData} 
-                    setDisplayProductArr={setDisplayProductArr} 
-                    paginationData={paginationData} 
-                    setPaginationData={setPaginationData} />
-                <div className="catalogue-wrapper">
-                    <CatalogueShop paginationData={paginationData} />
-                    <Pagination paginationData={paginationData} />
+            <main className="shop">
+                <div className="flex-wrapper">
+                    <FilterShop 
+                        filterData={filterData} 
+                        setFilterData={setFilterData} 
+                        setDisplayProductArr={setDisplayProductArr} 
+                        paginationData={paginationData} 
+                        setPaginationData={setPaginationData} />
+                    <div className="catalogue-wrapper">
+                        <CatalogueShop paginationData={paginationData} />
+                        <Pagination paginationData={paginationData} />
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
         </>
     )
 }

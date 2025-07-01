@@ -27,10 +27,6 @@ function App() {
   //const { cart, setCart } = CartProvider();
 
   useEffect(() => {
-    console.log("User:", user);
-    console.log("User Profile:", userProfile);
-    console.log("User Role:", userRole);
-    console.log("Loading:", loading);
   }, [user, userProfile, userRole, loading]);
   
 
@@ -309,10 +305,6 @@ function App() {
       };
       fetchData();
     }
-
-    console.log("Token: ", token);
-    console.log("User Data: ", userData);
-    console.log("User: ", user);
   }, [token, userData, user]);
 
   const groupProducts = (itemsInCart) => {
@@ -351,7 +343,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={
             <ProtectedRoute>
-              <HomePage productsStock={productsStock} itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} />
+              <HomePage />
             </ProtectedRoute>
           } />
           <Route path="/admin" element={
