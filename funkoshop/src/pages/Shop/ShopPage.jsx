@@ -8,8 +8,7 @@ import { useUser } from "../../context/UserContext.js";
 
 export default function ShopPage() {
     const { products } = useUser();
-    const [displayProductArr, setDisplayProductArr] = useState(products);
-    console.log(products);
+    const [displayProductArr, setDisplayProductArr] = useState([]);
     const [filterData, setFilterData] = useState(
         {   
             nameOrCategory:"",
@@ -69,8 +68,13 @@ export default function ShopPage() {
     );
     
     useEffect(() => {
+        setDisplayProductArr(products);
+    }, [products]);
+
+    useEffect(() => {
         setPaginationData(pagination(displayProductArr));
-    }, [displayProductArr, setPaginationData]);
+    }, [displayProductArr]);
+
 
 
     function setSegmentedProductArr(productArr) {
@@ -137,9 +141,17 @@ export default function ShopPage() {
     
     function pagination(productArr) {
         let newPaginationData = {...paginationData};
-        newPaginationData.segmentedProductArr = setSegmentedProductArr(productArr);
-        let newPaginationList = setPaginationList(newPaginationData.segmentedProductArr);
+
+        const sortedArr = [...productArr].sort((a, b) => {
+            const nameA = a.name_product?.toLowerCase() || "";
+            const nameB = b.name_product?.toLowerCase() || "";
+            return nameA.localeCompare(nameB);
+        });
+
+        newPaginationData.segmentedProductArr = setSegmentedProductArr(sortedArr);
+        const newPaginationList = setPaginationList(newPaginationData.segmentedProductArr, newPaginationData);
         newPaginationData.paginationList = <ul className="pagination__list">{newPaginationList}</ul>;
+        
         return newPaginationData
     }
     return (

@@ -1,7 +1,9 @@
 import "../assets/css/FilterShop.css";
-import { uniqueProductsArr } from "../data/products";
+import { useUser } from "../context/UserContext.js";
+
 
 export default function FilterShop({ filterData, setFilterData, setDisplayProductArr, paginationData, setPaginationData }) {
+    const { products } = useUser();
     function handleInputChange(e) {
         const { name, value, id } = e.target;
         let newFilterData;
@@ -46,15 +48,15 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
              filterByFavorites} = filterDataObj;
         let min = Number(price.min);
         let max = Number(price.max);
-        let newUniqueProductArr;
+        let newUniqueProductArr = [...products];
         /*----------Filter by name or category----------*/
-        if (filterDataObj.nameOrCategory.lenght !== 0) {
+        if (filterDataObj.nameOrCategory.length !== 0) {
             let nameOrCategory = filterDataObj.nameOrCategory.trim();
             nameOrCategory = nameOrCategory.toLowerCase();
-            newUniqueProductArr = uniqueProductsArr.filter( product => {
-                let nameProduct = product.nameProduct.toLowerCase();
+            newUniqueProductArr = products.filter( product => {
+                let name_product = product.name_product.toLowerCase();
                 let license = product.license.toLowerCase();
-                if (nameProduct.includes(nameOrCategory) || license.includes(nameOrCategory)) {
+                if (name_product.includes(nameOrCategory) || license.includes(nameOrCategory)) {
                     return true
                 } else {
                     return false
@@ -72,7 +74,7 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
         /*-----------------------------------------------*/
         /*----------Filter by new----------*/
         if (filterByNew) {
-            newUniqueProductArr = newUniqueProductArr.filter(product => product.isNew);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.is_new);
         }
         /*---------------------------------*/
         /*----------Filter by offer----------*/
@@ -82,21 +84,17 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
         /*-----------------------------------*/
         /*----------Filter by special edition----------*/
         if (filterBySpecialEdition) {
-            newUniqueProductArr = newUniqueProductArr.filter(product => product.isSpecialEdition);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.is_special_edition);
         }
         /*---------------------------------------------*/
         /*----------Filter by favorites----------*/
         if (filterByFavorites) {
-            newUniqueProductArr = newUniqueProductArr.filter(product => product.isFavorite);
+            newUniqueProductArr = newUniqueProductArr.filter(product => product.is_favorite);
         }
         /*---------------------------------------*/
         /*----------Sort----------*/
         if (sortBy === "alphabet") {
-            newUniqueProductArr.sort((a, b) => {
-                let nameA = a.nameProduct.toUpperCase();
-                let nameB = b.nameProduct.toUpperCase();
-                return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
-            })
+            newUniqueProductArr.sort((a, b) => a.name_product.localeCompare(b.name_product, "es", { sensitivity: "base" }));
         } else if (sortBy === "largestFirst") {
             newUniqueProductArr.sort((a, b) => b.price - a.price);
         } else if (sortBy === "smallestFirst") {
