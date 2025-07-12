@@ -69,6 +69,7 @@ export default function ShopPage() {
     
     useEffect(() => {
         setDisplayProductArr(products);
+        console.log("Products loaded:", products);
     }, [products]);
 
     useEffect(() => {

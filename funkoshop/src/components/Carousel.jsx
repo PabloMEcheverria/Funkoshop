@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card';
@@ -6,9 +6,21 @@ import '../assets/css/Carousel.css';
 import useWindowWidth from '../hooks/useWindowWidth';
 import { useUser } from '../context/UserContext';
 
-export default function Carousel({ uniqueProductsArr, location = 'HomePage' }) {
+export default function Carousel({ location = 'HomePage' }) {
   const { products } = useUser();
+  const uniqueProducts = useMemo(() => {
+    const uniqueArray = [];
+    products.forEach((product) => {
+      if (!uniqueArray.some((item) => item.name_product === product.name_product)) {
+        uniqueArray.push(product);
+      }
+    });
+    uniqueArray.sort((a, b) => a.name_product.localeCompare(b.name_product));
+    console.log("Unique products:", uniqueArray);
+    return uniqueArray;
+  }, [products]);
   const windowWidth = useWindowWidth();
+
 
   const getCardCount = () => {
     if (windowWidth < 768) return 1;
@@ -39,18 +51,18 @@ export default function Carousel({ uniqueProductsArr, location = 'HomePage' }) {
   const [disableButtons, setDisableButtons] = useState({ beforeButton: true, nextButton: false });
 
   useEffect(() => {
-    const slicedProducts = uniqueProductsArr.slice(startIndex, startIndex + getCardCount());
+    const slicedProducts = uniqueProducts.slice(startIndex, startIndex + getCardCount());
     setCardsToDisplay(productToCardDisplay(slicedProducts));
-  }, [startIndex, windowWidth, uniqueProductsArr]);
+  }, [startIndex, windowWidth, uniqueProducts]);
 
   useEffect(() => {
-    const total = uniqueProductsArr.length;
+    const total = products.length;
     const count = getCardCount();
     setDisableButtons({
       beforeButton: startIndex === 0,
       nextButton: startIndex + count >= total
     });
-  }, [startIndex, windowWidth, uniqueProductsArr]);
+  }, [startIndex, windowWidth, products]);
 
   const handlePreviousClick = () => {
     setStartIndex((prev) => Math.max(prev - 1, 0));
@@ -58,7 +70,7 @@ export default function Carousel({ uniqueProductsArr, location = 'HomePage' }) {
 
   const handleNextClick = () => {
     const count = getCardCount();
-    const maxStartIndex = Math.max(0, uniqueProductsArr.length - count);
+    const maxStartIndex = Math.max(0, products.length - count);
     setStartIndex((prev) => Math.min(prev + 1, maxStartIndex));
   };
 
