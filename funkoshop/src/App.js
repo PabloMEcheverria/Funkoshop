@@ -352,7 +352,7 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
-          <Route path="/shop/:itemId" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
+          <Route path="/shop/:id" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/create" element={<CreateItemPage />} />
           <Route path="/edit/:itemId" element={<EditItemPage />} />          

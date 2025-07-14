@@ -2,6 +2,7 @@ import "../assets/css/CatalogueShop.css";
 import Card from "./Card";
 
 export default function CatalogueShop({ paginationData }) {
+    console.log("CatalogueShop rendered with paginationData:", paginationData);
     let { positionInPagination, segmentedProductArr } = paginationData;
     let arrToDisplay = segmentedProductArr[positionInPagination - 1];
     let linkProductArr;

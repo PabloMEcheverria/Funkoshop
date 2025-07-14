@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "./ShopPage.css";
 import FilterShop from "../../components/FilterShop.jsx";
 import CatalogueShop from "../../components/CatalogueShop.jsx";
@@ -66,17 +66,25 @@ export default function ShopPage() {
             }
         }
     );
-    
-    useEffect(() => {
-        setDisplayProductArr(products);
-        console.log("Products loaded:", products);
+    const filteredUniqueProducts = useMemo(() => {
+      return Array.from(
+        new Set(
+          products
+            .filter(p => p.name_product && p.is_available === true)
+            .map(p => p.name_product)
+        )
+      ).map(name =>
+        products.find(p => p.name_product === name && p.is_available === true)
+      );
     }, [products]);
+
+    useEffect(() => {
+      setDisplayProductArr(filteredUniqueProducts);
+    }, [filteredUniqueProducts]);
 
     useEffect(() => {
         setPaginationData(pagination(displayProductArr));
     }, [displayProductArr]);
-
-
 
     function setSegmentedProductArr(productArr) {
         let newProductArr = [];

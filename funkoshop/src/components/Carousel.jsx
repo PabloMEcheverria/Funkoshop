@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card';
@@ -7,20 +7,9 @@ import useWindowWidth from '../hooks/useWindowWidth';
 import { useUser } from '../context/UserContext';
 
 export default function Carousel({ location = 'HomePage' }) {
+  const [startIndex, setStartIndex] = useState(0);
   const { products } = useUser();
-  const uniqueProducts = useMemo(() => {
-    const uniqueArray = [];
-    products.forEach((product) => {
-      if (!uniqueArray.some((item) => item.name_product === product.name_product)) {
-        uniqueArray.push(product);
-      }
-    });
-    uniqueArray.sort((a, b) => a.name_product.localeCompare(b.name_product));
-    console.log("Unique products:", uniqueArray);
-    return uniqueArray;
-  }, [products]);
   const windowWidth = useWindowWidth();
-
 
   const getCardCount = () => {
     if (windowWidth < 768) return 1;
@@ -28,10 +17,26 @@ export default function Carousel({ location = 'HomePage' }) {
     return 3;
   };
 
+  const cardCount = getCardCount();
+
+  const uniqueProducts = useMemo(() => {
+    const unique = Array.from(new Set(products.map(p => p.name_product)))
+      .map(name => products.find(p => p.name_product === name));
+    return unique;
+  }, [products]);
+
+  const slicedProducts = useMemo(() => {
+    return uniqueProducts.slice(startIndex, startIndex + cardCount);
+  }, [startIndex, cardCount, uniqueProducts]);
+
+  const disableButtons = useMemo(() => ({
+    beforeButton: startIndex === 0,
+    nextButton: startIndex + cardCount >= uniqueProducts.length
+  }), [startIndex, cardCount, uniqueProducts.length]);
+
   const getJustifyContent = () => {
-    const count = getCardCount();
-    if (count === 3) return 'flex_justify_spaceBetween';
-    if (count === 2) return 'flex_justify_spaceAround';
+    if (cardCount === 3) return 'flex_justify_spaceBetween';
+    if (cardCount === 2) return 'flex_justify_spaceAround';
     return 'flex_justify_center';
   };
 
@@ -46,32 +51,13 @@ export default function Carousel({ location = 'HomePage' }) {
     ));
   };
 
-  const [startIndex, setStartIndex] = useState(0);
-  const [cardsToDisplay, setCardsToDisplay] = useState([]);
-  const [disableButtons, setDisableButtons] = useState({ beforeButton: true, nextButton: false });
-
-  useEffect(() => {
-    const slicedProducts = uniqueProducts.slice(startIndex, startIndex + getCardCount());
-    setCardsToDisplay(productToCardDisplay(slicedProducts));
-  }, [startIndex, windowWidth, uniqueProducts]);
-
-  useEffect(() => {
-    const total = products.length;
-    const count = getCardCount();
-    setDisableButtons({
-      beforeButton: startIndex === 0,
-      nextButton: startIndex + count >= total
-    });
-  }, [startIndex, windowWidth, products]);
-
   const handlePreviousClick = () => {
-    setStartIndex((prev) => Math.max(prev - 1, 0));
+    setStartIndex(prev => Math.max(prev - 1, 0));
   };
 
   const handleNextClick = () => {
-    const count = getCardCount();
-    const maxStartIndex = Math.max(0, products.length - count);
-    setStartIndex((prev) => Math.min(prev + 1, maxStartIndex));
+    const maxStartIndex = Math.max(0, uniqueProducts.length - cardCount);
+    setStartIndex(prev => Math.min(prev + 1, maxStartIndex));
   };
 
   return (
@@ -82,7 +68,7 @@ export default function Carousel({ location = 'HomePage' }) {
       <button className="nextButton" onClick={handleNextClick} disabled={disableButtons.nextButton}>
         <FontAwesomeIcon icon={faAngleRight} className="nextButton__icon" />
       </button>
-      {cardsToDisplay}
+      {productToCardDisplay(slicedProducts)}
     </div>
   );
 }

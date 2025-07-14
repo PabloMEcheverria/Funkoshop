@@ -7,27 +7,21 @@ import { useCart } from "../../context/CartContext.js";
 import { useUser } from "../../context/UserContext.js";
 import Carousel from "../../components/Carousel.jsx";
 
-export default function ItemPage({ productsStock, setProductsStock }) {
-    const params = useParams();
-    const itemId = params.itemId;
-    let prod = productsStock.productsArr.filter(product => parseInt(itemId) === product.id)[0];
-    const [product1, setProduct1] = useState(prod);
+export default function ItemPage() {
+    const { id } = useParams();
+    const { user, products } = useUser();
+    const { addItem } = useCart();
+    const [product, setProduct] = useState({});
     const [visible, setVisible] = useState(false);
-    
-    const { cart, addItem, removeItem, clearCart } = useCart();
-    const { user, products, setProducts } = useUser();
-    const [product, setProduct] = useState({payment_methods: []});
     const [currentPaymentMethod, setCurrentPaymentMethod] = useState(1);
     const [quantityToBuy, setQuantityToBuy] = useState(0);
+
     useEffect(() => {
-        const availableProducts = products.filter(item => item.is_available === true);
-        if (availableProducts.length > 0) {
-            let currentProduct = availableProducts.filter(item => item.id  === parseInt(itemId))[0];
-            if (!currentProduct) {
-                currentProduct = products[0];
-            }
-            setProduct(currentProduct);
-            console.log("Producto actual:", currentProduct);
+        const foundProduct = products.find(item => item.id === parseInt(id));
+        console.log("Product found:", foundProduct);
+        if (foundProduct) {
+            setProduct(foundProduct);
+            setCurrentPaymentMethod(foundProduct.payment_methods[0]);
         }
     }, [products]);
 
@@ -36,7 +30,7 @@ export default function ItemPage({ productsStock, setProductsStock }) {
     const increment = () => setQuantityToBuy(quantityToBuy + 1);
     const decrement = () => quantityToBuy > 0 ? setQuantityToBuy(quantityToBuy - 1) : 0;
     const addToCart = () => {
-        const availableProductsArr = products.filter(item => item.name_product === product.name_product && item.is_available === true);
+        const availableProductsArr = products.filter(item =>item.name_product === product.name_product && item.is_available === true);
         if (availableProductsArr.length === 0) {
             alert("No hay productos disponibles para agregar al carrito.");
             return;
@@ -74,12 +68,12 @@ export default function ItemPage({ productsStock, setProductsStock }) {
    return (
     <>
         <section className="product-details">
-            <img className="product-details__image" src={product.front_img} alt={`Imagen de funko pop de ${product1.nameProduct}`} />
+            <img className="product-details__image" src={product.front_img} alt={`Imagen de funko pop de ${product.name_product}`} />
             <div className="product-details__info">
-                <p className="product-details__license">{product1.license}</p>
-                <h3 className="product-details__name">{product1.nameProduct}</h3>
-                <p className="product-details__description">{product1.description}</p>
-                <p className="product-details__price">{"$ " + product1.price}</p>
+                <p className="product-details__license">{product.license}</p>
+                <h3 className="product-details__name">{product.name_product}</h3>
+                <p className="product-details__description">{product.description}</p>
+                <p className="product-details__price">{"$ " + product.price}</p>
                 <div className="product-details__input-wrapper">
                     <input  className="product-details__input" 
                             type="number" 
@@ -110,21 +104,24 @@ export default function ItemPage({ productsStock, setProductsStock }) {
                 <ul className={ visible ? 
                                 "product-details__payment-methods": 
                                 "product-details__payment-methods hidden"}>
-                    {product.payment_methods.map((method, index) => (
+                    {Array.isArray(product.payment_methods) &&
+                      product.payment_methods.map((method, index) => (
                         <li 
-                            id={method}
-                            onClick={handleClick}
-                            key={index} 
-                            className="product-details__payment-method-item">
-                                {method === 1 ? "Efectivo o débito automático" : `${method} CUOTAS SIN INTERÉS`}
+                          id={method}
+                          onClick={handleClick}
+                          key={index}
+                          className="product-details__payment-method-item"
+                        >
+                          {method === 1 ? "Efectivo o débito automático" : `${method} CUOTAS SIN INTERÉS`}
                         </li>
-                    ))}
+                      ))
+                    }
                 </ul>
             </div>
         </section>
         <section className="ItemPage-news">
             <h2 className="ItemPage-news__title">productos relacionados</h2>
-            <Carousel location="ItemPage" productsStock={productsStock} setProductsStock={setProductsStock} />
+            <Carousel location="ItemPage" />
         </section>
     </>
    )
