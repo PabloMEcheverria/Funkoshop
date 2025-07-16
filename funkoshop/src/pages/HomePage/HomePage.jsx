@@ -10,7 +10,6 @@ export default function HomePage() {
         index === self.findIndex((p) => p.name_product === product.name_product)
     );
     uniqueProductsArr.sort((a, b) => a.id - b.id);
-    console.log("Unique Products Array:", uniqueProductsArr);
     const licenseShowcase = [];
     products.forEach(product => {
         if (licenseShowcase.length === 0) {

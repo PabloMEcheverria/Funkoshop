@@ -11,275 +11,22 @@ import AdminPage from './pages/AdminPage/AdminPage.jsx';
 import CreateItemPage from './pages/CreateItemPage/CreateItemPage.jsx';
 import EditItemPage from './pages/EditItemPage/EditItemPage.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
-import CartIcon from './components/svgComponents/CartIcon';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { uniqueProductsArr, productsArr2 } from './data/products.js';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import supabase from './config/supabaseClient.js';
 import { useUser } from './context/UserContext.js';
 import RootRedirect from './routes/RootRedirect.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import GuestOnlyRoute from './routes/GuestOnlyRoute.jsx';
 
 function App() {
   const { user, userProfile, userRole, loading } = useUser();
-  //const { cart, setCart } = CartProvider();
 
   useEffect(() => {
   }, [user, userProfile, userRole, loading]);
   
-
-
-
-
-
-
- const [cart, setCart] = useState([
-    {
-      "id": 1,
-      "sku": "STW001001",
-      "nameProduct": "Baby Yoda Blueball",
-      "collection": "Figuras",
-      "license": "Star Wars",
-      "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
-      "price": 49.99,
-      "paymentMethods": [
-          1,
-          3,
-          6,
-          12
-      ],
-      "discounts": 0,
-      "frontImg": "/Funkoshop/static/media/StarWars_Baby_Yoda.d62c887156e0fb190971.png",
-      "backImg": "/Funkoshop/static/media/StarWars_Baby_Yoda_box.0b583e49c282fbcb7496.jpeg",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": true,
-      "currentPaymentMethod": 12
-    }, 
-    {
-      "id": 2,
-      "sku": "STW001002",
-      "nameProduct": "Baby Yoda Blueball",
-      "collection": "Figuras",
-      "license": "Star Wars",
-      "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
-      "price": 49.99,
-      "paymentMethods": [
-          1,
-          3,
-          6,
-          12
-      ],
-      "discounts": 0,
-      "frontImg": "/Funkoshop/static/media/StarWars_Baby_Yoda.d62c887156e0fb190971.png",
-      "backImg": "/Funkoshop/static/media/StarWars_Baby_Yoda_box.0b583e49c282fbcb7496.jpeg",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": true,
-      "currentPaymentMethod": 12
-    }, 
-    {
-      "id": 3,
-      "sku": "STW001003",
-      "nameProduct": "Baby Yoda Blueball",
-      "collection": "Figuras",
-      "license": "Star Wars",
-      "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
-      "price": 49.99,
-      "paymentMethods": [
-          1,
-          3,
-          6,
-          12
-      ],
-      "discounts": 0,
-      "frontImg": "/Funkoshop/static/media/StarWars_Baby_Yoda.d62c887156e0fb190971.png",
-      "backImg": "/Funkoshop/static/media/StarWars_Baby_Yoda_box.0b583e49c282fbcb7496.jpeg",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": true,
-      "currentPaymentMethod": 12
-    },
-    {
-      "id": 26,
-      "sku": "NAR001001",
-      "nameProduct": "Naruto",
-      "collection": "Figuras",
-      "license": "Naruto Shippuden",
-      "description": "Figura Funko coleccionable de Naruto de la saga Naruto Shippuden.",
-      "price": 49.99,
-      "paymentMethods": [
-          1,
-          3,
-          6,
-          12
-      ],
-      "discounts": 0,
-      "frontImg": "/Funkoshop/static/media/Naruto_Naruto_Shippuden.76f9d122478f62f0dc42.jpg",
-      "backImg": "/Funkoshop/static/media/Naruto_Naruto_Shippuden_box.9a8f29006434ef5ae4d4.jpg",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": true,
-      "currentPaymentMethod": 12
-    },
-    {
-      "id": 27,
-      "sku": "NAR001002",
-      "nameProduct": "Naruto",
-      "collection": "Figuras",
-      "license": "Naruto Shippuden",
-      "description": "Figura Funko coleccionable de Naruto de la saga Naruto Shippuden.",
-      "price": 49.99,
-      "paymentMethods": [
-          1,
-          3,
-          6,
-          12
-      ],
-      "discounts": 0,
-      "frontImg": "/Funkoshop/static/media/Naruto_Naruto_Shippuden.76f9d122478f62f0dc42.jpg",
-      "backImg": "/Funkoshop/static/media/Naruto_Naruto_Shippuden_box.9a8f29006434ef5ae4d4.jpg",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": true,
-      "currentPaymentMethod": 12
-    },
-    {
-      "id": 51,
-      "sku": "HPT001001",
-      "nameProduct": "Harry Potter",
-      "collection": "Figuras",
-      "license": "Harry Potter",
-      "description": "Figura Funko coleccionable de Harry Potter de la saga Harry Potter portando una varita.",
-      "price": 49.99,
-      "paymentMethods": [
-          1,
-          3,
-          6,
-          12
-      ],
-      "discounts": 0,
-      "frontImg": "/Funkoshop/static/media/HarryPotter_Harry_Potter.c13386f2516bc4d8747c.png",
-      "backImg": "/Funkoshop/static/media/HarryPotter_Harry_Potter_box.141d4aea17ff1fbdc72e.png",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": true,
-      "currentPaymentMethod": 12
-    },
-    {
-      "id": 81,
-      "sku": "PKM002001",
-      "nameProduct": "Mew",
-      "collection": "Figuras",
-      "license": "Pokemon",
-      "description": "Figura Funko coleccionable de Mew de la saga Pokemon.",
-      "price": 39.99,
-      "paymentMethods": [
-          1,
-          3,
-          6
-      ],
-      "discounts": 5,
-      "frontImg": "/Funkoshop/static/media/Pokemon_Mew.806558c1b7fb8ecc8b02.png",
-      "backImg": "/Funkoshop/static/media/Pokemon_Mew_box.1a54d5294adcf7114c82.png",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": false,
-      "currentPaymentMethod": 6
-    },
-    {
-      "id": 82,
-      "sku": "PKM002002",
-      "nameProduct": "Mew",
-      "collection": "Figuras",
-      "license": "Pokemon",
-      "description": "Figura Funko coleccionable de Mew de la saga Pokemon.",
-      "price": 39.99,
-      "paymentMethods": [
-          1,
-          3,
-          6
-      ],
-      "discounts": 5,
-      "frontImg": "/Funkoshop/static/media/Pokemon_Mew.806558c1b7fb8ecc8b02.png",
-      "backImg": "/Funkoshop/static/media/Pokemon_Mew_box.1a54d5294adcf7114c82.png",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": false,
-      "currentPaymentMethod": 6
-    }, 
-    {
-      "id": 83,
-      "sku": "PKM002003",
-      "nameProduct": "Mew",
-      "collection": "Figuras",
-      "license": "Pokemon",
-      "description": "Figura Funko coleccionable de Mew de la saga Pokemon.",
-      "price": 39.99,
-      "paymentMethods": [
-          1,
-          3,
-          6
-      ],
-      "discounts": 5,
-      "frontImg": "/Funkoshop/static/media/Pokemon_Mew.806558c1b7fb8ecc8b02.png",
-      "backImg": "/Funkoshop/static/media/Pokemon_Mew_box.1a54d5294adcf7114c82.png",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": false,
-      "currentPaymentMethod": 6
-    }, 
-    {
-      "id": 84,
-      "sku": "PKM002004",
-      "nameProduct": "Mew",
-      "collection": "Figuras",
-      "license": "Pokemon",
-      "description": "Figura Funko coleccionable de Mew de la saga Pokemon.",
-      "price": 39.99,
-      "paymentMethods": [
-          1,
-          3,
-          6
-      ],
-      "discounts": 5,
-      "frontImg": "/Funkoshop/static/media/Pokemon_Mew.806558c1b7fb8ecc8b02.png",
-      "backImg": "/Funkoshop/static/media/Pokemon_Mew_box.1a54d5294adcf7114c82.png",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": false,
-      "currentPaymentMethod": 6
-    }, 
-    {
-      "id": 85,
-      "sku": "PKM002005",
-      "nameProduct": "Mew",
-      "collection": "Figuras",
-      "license": "Pokemon",
-      "description": "Figura Funko coleccionable de Mew de la saga Pokemon.",
-      "price": 39.99,
-      "paymentMethods": [
-          1,
-          3,
-          6
-      ],
-      "discounts": 5,
-      "frontImg": "/Funkoshop/static/media/Pokemon_Mew.806558c1b7fb8ecc8b02.png",
-      "backImg": "/Funkoshop/static/media/Pokemon_Mew_box.1a54d5294adcf7114c82.png",
-      "isNew": true,
-      "isSpecialEdition": true,
-      "isFavorite": false,
-      "currentPaymentMethod": 6
-    }
-  ]); 
-
-  const [productsStock, setProductsStock] = useState({
-    //productsArr: productsArr, 
-    productsArr: productsArr2, 
-    uniqueProductsArr: uniqueProductsArr
-  });
   const [token, setToken] = useState(false);
   const [userData, setUserData] = useState("");
 
@@ -327,20 +74,23 @@ function App() {
     return cartArr;
   }
 
-  const [itemsInCart, setItemsInCart] = useState({
-    items: structuredClone(cart), 
-    groupedItems: groupProducts(cart)
-  });
-
   return (
     <>
       <Router>
-        <Header itemsInCart={itemsInCart} />
+        <Header />
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={<RootRedirect />} />
-          <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={
+            <GuestOnlyRoute>
+              <Login setToken={setToken} />
+            </GuestOnlyRoute>
+          } />
+          <Route path="/register" element={
+            <GuestOnlyRoute>
+              <Register />
+            </GuestOnlyRoute>
+          } />
           <Route path="/home" element={
             <ProtectedRoute>
               <HomePage />
@@ -351,11 +101,23 @@ function App() {
               <AdminPage />
             </ProtectedRoute>
           } />
-          <Route path="/shop" element={<ShopPage productsStock={productsStock} />} />
-          <Route path="/shop/:id" element={<ItemPage itemsInCart={itemsInCart} setItemsInCart={setItemsInCart} productsStock={productsStock} setProductsStock={setProductsStock} />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/create" element={<CreateItemPage />} />
-          <Route path="/edit/:itemId" element={<EditItemPage />} />          
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/shop/:id" element={<ItemPage />} />
+          <Route path="/cart" element={
+            <ProtectedRoute allowedRoles={["user"]} redirectTo="/not-found">
+              <CartPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/create" element={
+            <ProtectedRoute allowedRoles={["admin"]} redirectTo="/not-found">
+              <CreateItemPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/edit/:itemId" element={
+            <ProtectedRoute allowedRoles={["admin"]} redirectTo="/not-found">
+              <EditItemPage />
+            </ProtectedRoute>
+          } />          
         </Routes>
         <Footer />
       </Router>
