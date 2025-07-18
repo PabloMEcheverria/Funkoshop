@@ -231,6 +231,11 @@ li > a,
 
   .logoLink--header {
     flex-direction: column;
+    height: fit-content;
+  }
+
+  .headerNav {
+    height: auto;
   }
 
   .headerTitle {
