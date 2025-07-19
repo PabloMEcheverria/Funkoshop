@@ -20,39 +20,18 @@ import { useUser } from './context/UserContext.js';
 import RootRedirect from './routes/RootRedirect.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import GuestOnlyRoute from './routes/GuestOnlyRoute.jsx';
+import useSessionToken from './hooks/UseSessionToken.js';
 
 function App() {
   const { user, userProfile, userRole, loading } = useUser();
+  const { token, setToken, userData, error } = useSessionToken();
 
   useEffect(() => {
-  }, [user, userProfile, userRole, loading]);
-  
-  const [token, setToken] = useState(false);
-  const [userData, setUserData] = useState("");
-
-  if (token) {
-    sessionStorage.setItem("token", JSON.stringify(token));
+  if (error) {
+    // Mostramos el error en consola, toast, modal, etc.
+    console.error("Error en sesión:", error);
   }
-
-  useEffect(() => {
-    if(sessionStorage.getItem("token")) {
-      let data = JSON.parse(sessionStorage.getItem("token"));
-      setToken(data);
-
-      const fetchData = async () => {
-        if (data.user2 && data.user.id) {
-          let { data: user, error } = await supabase
-            .from('user_profiles')
-            .select('*')
-            .eq('id', data.user.id)
-            .single();
-          if (error) console.error('Error fetching data: ', error);
-          else setUserData(user);
-        }
-      };
-      fetchData();
-    }
-  }, [token, userData, user]);
+}, [error]);
 
   const groupProducts = (itemsInCart) => {
     let cartArr = [];

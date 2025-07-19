@@ -35,6 +35,16 @@ export default function CreateItemPage() {
     }
   }, [products, stockInputArray]);
 
+  const checkIfImageExists = async (fileName) => {
+    const { data, error } = await supabase.storage.from("products-images").list("", {search: fileName});
+
+    if (error) {
+      console.error("Error al listar archivos:", error.message);
+      return false;
+    }
+    return data.some(file => file.name === fileName);
+  };
+
   const handleChangeStock = (event) => {
     const firstSkuInput = singleSkuWrapper.current.lastChild;
     const stockNumber = Number(event.target.value);
@@ -56,12 +66,11 @@ export default function CreateItemPage() {
       setStock(stockNumber);
       setStockInputArray(stockArr);
     }
-    console.log(firstSkuInput);
-    console.log(stockArr);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    
     const skuInputs = fieldGroupBottom.current.querySelectorAll("[id^='sku_'] input");
     const newSkus = [...skuInputs].map(input => input.value.trim());
     const existingSkusValue = products.map(product => product.sku);
@@ -71,11 +80,6 @@ export default function CreateItemPage() {
     });
     const duplicatedSkus = newSkus.filter(sku => existingSkusValue.includes(sku));
     const ItemsToCreate = [];
-    console.log(skuInputs);
-    console.log(newSkus);
-    console.log(existingSkusValue);
-    console.log(existingSkusInputs);
-    console.log(duplicatedSkus);
     if (duplicatedSkus.length > 0) {
       alert(`Los siguientes SKUs ya existen: ${duplicatedSkus.join(", ")}`);
       existingSkusInputs.forEach(input => {input.value = ""});
@@ -100,32 +104,65 @@ export default function CreateItemPage() {
         };
         ItemsToCreate.push(item);
       });
-      console.log(ItemsToCreate);
+
       const handleUpload = async () => {
         try {
           await Promise.all(
             ItemsToCreate.map(async (item) => {
-              if (!item.front_img || !item.back_img) {
-                throw new Error("Las imágenes son obligatorias para el producto: " + item.sku);
+              const getImageUrl = async (faceImage) => {
+                let fileName;
+                if (faceImage === "front") {
+                  fileName = `product_${item.name_product}_front_img.png`;
+                } else if (faceImage === "back") {
+                  fileName = `product_${item.name_product}_back_img.png`;
+                }
+
+                const { data, error } = await supabase
+                .storage
+                .from("products-images")
+                .list("", { search: fileName });
+
+                if (error) {
+                  console.error("Error al listar archivos:", error.message);
+                  return null;
+                } else {
+                  const exists = data.some(file => file.name === fileName);
+                  if (exists) {
+                    const { data: fileData, error: fileError } = await supabase
+                      .storage
+                      .from("products-images")
+                      .getPublicUrl(fileName);
+                    if (fileError) {
+                      console.error("Error al obtener URL de la imagen:", fileError.message);
+                      return null;
+                    } else {
+                      return fileData.publicUrl;
+                    }
+                  } else {
+                    let renamedFile;
+                    if (faceImage === "front") {
+                      renamedFile = new File([item.front_img], fileName, { type: item.front_img.type });
+                    } else if (faceImage === "back") {
+                      renamedFile = new File([item.back_img], fileName, { type: item.back_img.type });
+                    }
+                    
+                    const { data: uploadData, error: uploadError } = await supabase
+                      .storage
+                      .from("products-images")
+                      .upload(fileName, renamedFile);
+                    if (uploadError) {
+                      console.error("Error al subir la imagen:", uploadError.message);
+                      return null;
+                    } else {
+                      return supabase.storage.from("products-images").getPublicUrl(uploadData.path).data.publicUrl;
+                    }
+                  }
+                }
               }
-            
-              const uploads = await Promise.all([
-                supabase.storage.from("products-images").upload(`product_${item.sku}_front_img`, item.front_img),
-                supabase.storage.from("products-images").upload(`product_${item.sku}_back_img`, item.back_img),
-              ]);
-            
-              
-              if (uploads.some(upload => upload.error)) {
-                throw new Error(`Error al subir imágenes para el producto ${item.sku}`);
-              }
-            
-              const front_imgUrl = uploads[0].data ? supabase.storage.from("products-images").getPublicUrl(uploads[0].data.path).data.publicUrl : null;
-              const back_imgUrl = uploads[1].data ? supabase.storage.from("products-images").getPublicUrl(uploads[1].data.path).data.publicUrl : null;
-            
-              if (!front_imgUrl || !back_imgUrl) {
-                throw new Error(`Error al obtener URL de las imágenes para el producto ${item.sku}`);
-              }
-            
+
+              const frontImageUrl = await getImageUrl("front");
+              const backImageUrl = await getImageUrl("back");
+
               await supabase.from("products").insert([{
                 collection: item.collection,
                 license: item.license,
@@ -134,8 +171,8 @@ export default function CreateItemPage() {
                 sku: item.sku,
                 price: item.price,
                 discounts: item.discounts,
-                front_img: front_imgUrl,
-                back_img: back_imgUrl,
+                front_img: frontImageUrl,
+                back_img: backImageUrl,
                 payment_methods: item.payment_methods,
                 is_new: item.is_new,
                 is_special_edition: item.is_special_edition,
@@ -150,6 +187,7 @@ export default function CreateItemPage() {
           alert("Hubo un problema al crear los productos.");
         }
       };
+
       handleUpload();
       event.target.reset();
     }

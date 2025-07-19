@@ -19,7 +19,10 @@ function Login({ setToken }) {
       });
       if (error) throw error;
       console.log(data);
-      setToken(data);
+      setToken({
+        user: data.user,
+        user2: true
+      });
 
       const { data: profile, error: profileError } = await supabase
         .from('user_profiles')
