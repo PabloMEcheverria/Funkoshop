@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './CreateItemPage.css';
 import { useUser } from '../../context/UserContext';
 import ComboBox from '../../components/ComboBox';
@@ -35,16 +35,6 @@ export default function CreateItemPage() {
     }
   }, [products, stockInputArray]);
 
-  const checkIfImageExists = async (fileName) => {
-    const { data, error } = await supabase.storage.from("products-images").list("", {search: fileName});
-
-    if (error) {
-      console.error("Error al listar archivos:", error.message);
-      return false;
-    }
-    return data.some(file => file.name === fileName);
-  };
-
   const handleChangeStock = (event) => {
     const firstSkuInput = singleSkuWrapper.current.lastChild;
     const stockNumber = Number(event.target.value);
@@ -68,130 +58,119 @@ export default function CreateItemPage() {
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    const skuInputs = fieldGroupBottom.current.querySelectorAll("[id^='sku_'] input");
-    const newSkus = [...skuInputs].map(input => input.value.trim());
-    const existingSkusValue = products.map(product => product.sku);
-    const existingSkusInputs = [...skuInputs].filter(input => {
-      const skuValue = input.value.trim();
-      return existingSkusValue.includes(skuValue);
-    });
-    const duplicatedSkus = newSkus.filter(sku => existingSkusValue.includes(sku));
-    const ItemsToCreate = [];
+  
+    const formData = new FormData(event.target);
+    const name = formData.get("name_product");
+  
+    // → 1. Validar SKUs únicos
+    const newProductsSku = Array.from(fieldGroupBottom.current.querySelectorAll("[id^='sku_'] input"))
+      .map(input => input.value.trim());
+  
+    const existingSkus = products.map(product => product.sku);
+    const duplicatedSkus = newProductsSku.filter(sku => existingSkus.includes(sku));
+  
     if (duplicatedSkus.length > 0) {
       alert(`Los siguientes SKUs ya existen: ${duplicatedSkus.join(", ")}`);
-      existingSkusInputs.forEach(input => {input.value = ""});
       return;
-    } else {
-      newSkus.forEach(sku => {
-        const formData = new FormData(event.target);
-        const item = {
-          collection: selectedCategory,
-          license: selectedLicense,
-          name_product: formData.get("name_product"),
-          description: formData.get("description"),
-          sku: sku,
-          price: formData.get("price"),
-          discounts: formData.get("discounts"),
-          front_img: selectedFiles[0],
-          back_img: selectedFiles[1],
-          payment_methods: formData.get("payment_methods") === "1" ? [1] : formData.get("payment_methods") === "3" ? [1, 3] : formData.get("payment_methods") === "6" ? [1, 3, 6] : formData.get("payment_methods") === "12" ? [1, 3, 6, 12] : [1],
-          is_new: formData.get("is_new") === "true",
-          is_special_edition: formData.get("is_special_edition") === "true",
-          is_favorite: formData.get("is_favorite") === "true",
-        };
-        ItemsToCreate.push(item);
-      });
-
-      const handleUpload = async () => {
-        try {
-          await Promise.all(
-            ItemsToCreate.map(async (item) => {
-              const getImageUrl = async (faceImage) => {
-                let fileName;
-                if (faceImage === "front") {
-                  fileName = `product_${item.name_product}_front_img.png`;
-                } else if (faceImage === "back") {
-                  fileName = `product_${item.name_product}_back_img.png`;
-                }
-
-                const { data, error } = await supabase
-                .storage
-                .from("products-images")
-                .list("", { search: fileName });
-
-                if (error) {
-                  console.error("Error al listar archivos:", error.message);
-                  return null;
-                } else {
-                  const exists = data.some(file => file.name === fileName);
-                  if (exists) {
-                    const { data: fileData, error: fileError } = await supabase
-                      .storage
-                      .from("products-images")
-                      .getPublicUrl(fileName);
-                    if (fileError) {
-                      console.error("Error al obtener URL de la imagen:", fileError.message);
-                      return null;
-                    } else {
-                      return fileData.publicUrl;
-                    }
-                  } else {
-                    let renamedFile;
-                    if (faceImage === "front") {
-                      renamedFile = new File([item.front_img], fileName, { type: item.front_img.type });
-                    } else if (faceImage === "back") {
-                      renamedFile = new File([item.back_img], fileName, { type: item.back_img.type });
-                    }
-                    
-                    const { data: uploadData, error: uploadError } = await supabase
-                      .storage
-                      .from("products-images")
-                      .upload(fileName, renamedFile);
-                    if (uploadError) {
-                      console.error("Error al subir la imagen:", uploadError.message);
-                      return null;
-                    } else {
-                      return supabase.storage.from("products-images").getPublicUrl(uploadData.path).data.publicUrl;
-                    }
-                  }
-                }
-              }
-
-              const frontImageUrl = await getImageUrl("front");
-              const backImageUrl = await getImageUrl("back");
-
-              await supabase.from("products").insert([{
-                collection: item.collection,
-                license: item.license,
-                name_product: item.name_product,
-                description: item.description,
-                sku: item.sku,
-                price: item.price,
-                discounts: item.discounts,
-                front_img: frontImageUrl,
-                back_img: backImageUrl,
-                payment_methods: item.payment_methods,
-                is_new: item.is_new,
-                is_special_edition: item.is_special_edition,
-                is_favorite: item.is_favorite
-              }]);
-              console.log(`Producto ${item.sku} creado con éxito.`);
-            })
-          );
-          alert("Todos los productos fueron creados correctamente!");
-        } catch (error) {
-          console.error("Error al procesar los productos:", error);
-          alert("Hubo un problema al crear los productos.");
-        }
-      };
-
-      handleUpload();
-      event.target.reset();
     }
-  }
+  
+    // → 2. Crear los objetos base
+    const newProducts = newProductsSku.map(sku => ({
+      collection: selectedCategory,
+      license: selectedLicense,
+      name_product: name,
+      description: formData.get("description"),
+      sku,
+      price: formData.get("price"),
+      discounts: formData.get("discounts"),
+      front_img: selectedFiles[0],
+      back_img: selectedFiles[1],
+      payment_methods: formData.get("payment_methods") === "1" ? [1] :
+                       formData.get("payment_methods") === "3" ? [1, 3] :
+                       formData.get("payment_methods") === "6" ? [1, 3, 6] :
+                       [1, 3, 6, 12],
+      is_new: formData.get("is_new") === "true",
+      is_special_edition: formData.get("is_special_edition") === "true",
+      is_favorite: formData.get("is_favorite") === "true"
+    }));
+  
+    // → 3. Subir imágenes solo si no existen
+    const uploadTwoImagesOnceAndAssignUrls = async (
+      productArray,
+      frontImg,
+      backImg,
+      frontImgName,
+      backImgName
+    ) => {
+      const bucket = "products-images";
+    
+      const uploadIfNeeded = async (file, fileName) => {
+        const { data: fileList } = await supabase.storage
+          .from(bucket)
+          .list("", { search: fileName });
+      
+        const exists = fileList?.some(f => f.name === fileName);
+      
+        if (!exists) {
+          const { data, error } = await supabase.storage
+            .from(bucket)
+            .upload(fileName, file, { upsert: false });
+        
+          if (error) {
+            console.error(`Error al subir ${fileName}:`, error.message);
+            return null;
+          }
+        
+          return supabase.storage.from(bucket).getPublicUrl(data.path).data.publicUrl;
+        }
+      
+        return supabase.storage.from(bucket).getPublicUrl(fileName).data.publicUrl;
+      };
+    
+      const frontUrl = await uploadIfNeeded(frontImg, frontImgName);
+      const backUrl = await uploadIfNeeded(backImg, backImgName);
+    
+      if (!frontUrl || !backUrl) {
+        alert("Error al subir las imágenes.");
+        return [];
+      }
+    
+      return productArray.map(product => ({
+        ...product,
+        front_img: frontUrl,
+        back_img: backUrl
+      }));
+    };
+  
+    const frontImageName = `${name}_front_img.png`;
+    const backImageName = `${name}_back_img.png`;
+  
+    const productsWithUrls = await uploadTwoImagesOnceAndAssignUrls(
+      newProducts,
+      selectedFiles[0],
+      selectedFiles[1],
+      frontImageName,
+      backImageName
+    );
+  
+    if (!productsWithUrls.length) return;
+  
+    // → 4. Insertar en la base de datos
+    for (let product of productsWithUrls) {
+      const { data, error } = await supabase
+        .from("products")
+        .insert([product]);
+    
+      if (error) {
+        console.error("Error al insertar producto:", error.message);
+        alert(`Error al crear el producto ${product.sku}`);
+      } else {
+        alert(`Producto ${product.sku} creado con éxito`);
+      }
+    }
+  };
 
   const handleArrowClick = () => {
     console.log(selectRef.current);
@@ -200,7 +179,6 @@ export default function CreateItemPage() {
 
   const handleFileChange = (event) => {
     const files = [...event.target.files];
-    console.log(files);
     if (files.length !== 2) {
       alert("Debes seleccionar exactamente dos archivos.");
       event.target.value = "";
