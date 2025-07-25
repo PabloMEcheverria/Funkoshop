@@ -64,7 +64,6 @@ export default function CreateItemPage() {
     const formData = new FormData(event.target);
     const name = formData.get("name_product");
   
-    // → 1. Validar SKUs únicos
     const newProductsSku = Array.from(fieldGroupBottom.current.querySelectorAll("[id^='sku_'] input"))
       .map(input => input.value.trim());
   
@@ -76,7 +75,6 @@ export default function CreateItemPage() {
       return;
     }
   
-    // → 2. Crear los objetos base
     const newProducts = newProductsSku.map(sku => ({
       collection: selectedCategory,
       license: selectedLicense,
@@ -96,7 +94,6 @@ export default function CreateItemPage() {
       is_favorite: formData.get("is_favorite") === "true"
     }));
   
-    // → 3. Subir imágenes solo si no existen
     const uploadTwoImagesOnceAndAssignUrls = async (
       productArray,
       frontImg,
@@ -157,7 +154,6 @@ export default function CreateItemPage() {
   
     if (!productsWithUrls.length) return;
   
-    // → 4. Insertar en la base de datos
     for (let product of productsWithUrls) {
       const { data, error } = await supabase
         .from("products")
