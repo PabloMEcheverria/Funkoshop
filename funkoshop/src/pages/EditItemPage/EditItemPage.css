@@ -1,0 +1,197 @@
+.edit-form {
+    width: 100%;
+    box-sizing: border-box;
+}
+.edit-form__title {
+    margin: 35.7px 0 39.43px calc(109.14 / 1440 * 100%);
+    display: inline-block;
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 42px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    text-align: right;
+    text-transform: uppercase;
+    color: rgba(31, 31, 31, 1);
+}
+
+.edit-form__body {
+    margin: 0 0 0 calc(110 / 1440 * 100%);
+    width: calc(1012.06 / 1440 * 100%);
+    height: auto;
+    position: initial;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.edit-form__group {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(820.48 / 1012.6 * 100%);
+    margin-bottom: 36px;
+}
+
+.edit-form__field {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-form__field--category, 
+.edit-form__field--license {
+    width: calc(387.29 / 820.48 * 100%);
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-form__field--license {
+    width: calc(387.09 / 820.48 * 100%);
+}
+
+.edit-form__label {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    text-align: right;
+}
+
+.edit-form__label--category, 
+.edit-form__label--license {
+    font-weight: 300;
+    margin-right: 19.25px;
+}
+
+.edit-form__field--name {
+    width: calc(581.06 / 1012.6 * 100%);
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 36px;
+}
+
+.edit-form__label--name_product {
+    margin-right: 18.06px;
+}
+
+.edit-form__input {
+    width: calc(296 / 581.06 * 100%);
+    border-style: none none solid none;
+    border-width: 2px;
+    border-color: rgba(255, 51, 51, 1);
+    outline: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    text-align: left;
+    padding: 0;
+}
+
+.edit-form__input:focus {
+    border-bottom: 2px solid rgba(29, 132, 181, 1);
+}
+
+.edit-form__textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 194.83px;
+    border: 1px solid rgba(31, 31, 31, 1);
+    border-radius: 4px;
+    resize: none;
+    margin-bottom: 19.28px;
+}
+
+.edit-form__textarea:focus {
+    border: 1px solid rgba(29, 132, 181, 1);
+    padding: 11.44px 0 0 9.96px;
+}
+
+.edit-form__group--bottom {
+    flex-flow: wrap;
+    row-gap: 51.58px;
+    width: calc(680.81 / 1012.6 * 100%);
+}
+
+.edit-form__field--sku {
+    width: calc(198.16 / 680.81 * 100%);
+}
+
+.edit-form__field--price {
+    width: calc(227.96 / 680.81 * 100%);
+}
+
+.edit-form__field--stock {
+    width: calc(138.35 / 680.81 * 100%);
+}
+
+.edit-form__field--discounts {
+    width: calc(201.52 / 680.81 * 100%);
+}
+
+.edit-form__field--payment-methods {
+    width: calc(455.54 / 680.81 * 100%);
+}
+
+.edit-form__field--is-new, 
+.edit-form__field--is-special-edition, 
+.edit-form__field--is-favorite {
+    width: fit-content;
+}
+
+.edit-form__field--images {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content:flex-start;
+    align-items: flex-start;
+    width: calc(519.73 / 680.81 * 100%);
+    row-gap: 28px;
+}
+
+.edit-form__field--images--images-wrapper {
+    width: 100%;
+}
+
+.edit-form__preview-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: calc(324.22 / 519.73 * 100%);
+    min-width: 324.22px;
+}
+
+.edit-form__preview {
+    width: 150px;
+    height: 173px;
+}
+
+.preview-figure, 
+.preview-figure__img {
+    width: 150px;
+    height: 150px;
+}
+
+.preview-figure__img {
+    border-bottom: 1px solid rgba(255, 51, 51, 1);
+    object-fit: cover;
+    box-sizing: border-box;
+}
+
+.preview-figure__caption {
+    width: 100%;
+
+}
