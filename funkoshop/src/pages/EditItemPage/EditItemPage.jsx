@@ -21,6 +21,8 @@ export default function EditItemPage() {
   });
   const [selectedFiles, setSelectedFiles] = useState(null);
   const [productToEdit, setProductToEdit] = useState(null);
+  const [productsToEditArray, setProductsToEditArray] = useState(null);
+  const [editedProduct, setEditedProduct] = useState({});
   const singleSkuWrapper = useRef(null);
   const selectRef = useRef(null);
   const params = useParams();
@@ -29,6 +31,7 @@ export default function EditItemPage() {
     setCategories([...new Set(products.map(product => product.collection))]);
     setLicenses([...new Set(products.map(product => product.license))]);
     setProductToEdit(products.find(product => String(product.id) === params.itemId));
+    setProductsToEditArray(products.filter(product => product.name_product === productToEdit?.name_product));
     console.log(products.find(product => String(product.id) === params.itemId));
   }, [products, params]);
 
@@ -112,7 +115,7 @@ export default function EditItemPage() {
             id="name_product"
             name="name_product"
             placeholder="Kakashi Hatake Shippuden Saga"
-            defaultValue={productToEdit ? productToEdit.name_product : "Kakashi Hatake Shippuden Saga"}
+            defaultValue={productToEdit ? productToEdit.name_product : ""}
             required
           />
         </div>
@@ -120,8 +123,8 @@ export default function EditItemPage() {
           className="edit-form__textarea"
           name="description"
           id="description"
-          placeholder="Descripción del producto"
-          defaultValue={productToEdit ? productToEdit.description : "Descripción del producto..."}
+          placeholder="Descripción del producto..."
+          defaultValue={productToEdit ? productToEdit.description : ""}
           required
         >
         </textarea>
@@ -147,7 +150,8 @@ export default function EditItemPage() {
               type="number"
               name="price"
               id="price"
-              placeholder="0"
+              placeholder={productToEdit ? "$ " +  productToEdit.price : "$ 0"}
+              defaultValue={productToEdit ? productToEdit.price : ""}
               required
             />
           </div>
@@ -159,7 +163,8 @@ export default function EditItemPage() {
               name="stock"
               id="stock"
               placeholder="0"
-              onChange={handleChangeStock}
+              defaultValue={productsToEditArray ? productsToEditArray.length : 1}
+              onBlur={handleChangeStock}
               required
             />
           </div>
@@ -171,6 +176,7 @@ export default function EditItemPage() {
               name="discounts"
               id="discounts"
               placeholder="0%"
+              defaultValue={productToEdit ? productToEdit.discounts : ""}
               required
             />
           </div>
@@ -178,7 +184,7 @@ export default function EditItemPage() {
             <label className="edit-form__label" htmlFor="payment-methods">Cuotas:</label>
             <div className="edit-form__select-wrapper">
               <select
-                className="edit-form__select"
+                className="edit-form__select edit-form__select--payment-methods"
                 name="payment-methods"
                 id="payment-methods"
                 defaultValue={"0"}
@@ -193,46 +199,53 @@ export default function EditItemPage() {
                 style={{ color: selectedOption.payment_methods }}
                 required
               >
-                <option value="" disabled>3 Cuotas sin interés</option>
-                <option value="1">Efectivo o débito automático</option>
-                <option value="3">3 Cuotas sin interés</option>
-                <option value="6">6 Cuotas sin interés</option>
-                <option value="12">12 Cuotas sin interés</option>
+                <option className="form__option--placeholder" value="" disabled>3 Cuotas sin interés</option>
+                <option className="form__option" value="1">Efectivo o débito automático</option>
+                <option className="form__option" value="3">3 Cuotas sin interés</option>
+                <option className="form__option" value="6">6 Cuotas sin interés</option>
+                <option className="form__option" value="12">12 Cuotas sin interés</option>
               </select>
               <SelectArrowDown className="edit-form__select-arrow edit-form__select-arrow--payment-methods" onClick={handleArrowClick} />
             </div>
           </div>
           <div className="edit-form__field edit-form__field--is-new">
-            <label className="edit-form__label" htmlFor="is_new">Es nuevo:</label>
-            <select className="edit-form__select" name="is_new" id="is_new" defaultValue={""} required>
-              <option value="" disabled>Seleccionar</option>
-              <option value="true">Sí</option>
-              <option value="false">No</option>
-            </select>
-            <SelectArrowDown />
+            <label className="edit-form__label edit-form__label--is-new" htmlFor="is_new">Es nuevo:</label>
+            <div className="edit-form__select-wrapper">
+              <select className="edit-form__select edit-form__select--is-new" name="is_new" id="is_new" defaultValue={""} required>
+                <option value="" disabled>Seleccionar</option>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+              </select>
+              <SelectArrowDown className="edit-form__select-arrow edit-form__select-arrow--is_new" />
+            </div>
           </div>
           <div className="edit-form__field edit-form__field--is-special-edition">
-            <label className="edit-form__label" htmlFor="is_special_edition">Edición especial:</label>
-            <select className="edit-form__select" name="is_special_edition" id="is_special_edition" defaultValue="">
-              <option value="" disabled>Seleccionar</option>
-              <option value="true">Sí</option>
-              <option value="false">No</option>
-            </select>
-            <SelectArrowDown />
+            <label className="edit-form__label edit-form__label--is-special-edition" htmlFor="is_special_edition">Edición especial:</label>
+            <div className="edit-form__select-wrapper">
+              <select className="edit-form__select edit-form__select--is-special-edition" name="is_special_edition" id="is_special_edition" defaultValue="">
+                <option value="" disabled>Seleccionar</option>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+              </select>
+              <SelectArrowDown className="edit-form__select-arrow edit-form__select-arrow--is_special_edition" />
+            </div>
           </div>
           <div className="edit-form__field edit-form__field--is-favorite">
-            <label className="edit-form__label" htmlFor="is_favorite">Es favorito:</label>
-            <select className="edit-form__select" name="is_favorite" id="is_favorite" defaultValue="">
-              <option value="" disabled>Seleccionar</option>
-              <option value="true">Sí</option>
-              <option value="false">No</option>
-            </select>
-            <SelectArrowDown />
+            <label className="edit-form__label edit-form__label--is-favorite" htmlFor="is_favorite">Es favorito:</label>
+            <div className="edit-form__select-wrapper">
+              <select className="edit-form__select edit-form__select--is-favorite" name="is_favorite" id="is_favorite" defaultValue="">
+                <option value="" disabled>Seleccionar</option>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+              </select>
+              <SelectArrowDown className="edit-form__select-arrow edit-form__select-arrow--is_favorite" />
+            </div>
           </div>
           <div className="edit-form__field edit-form__field--images">
             <div className="edit-form__field--images--images-wrapper">
               <p className="edit-form__label">Imágenes:</p>
               <label className="edit-form__file-label" htmlFor="images">
+                <button className="edit-form__file-button">Elegir archivos</button>
                 <p className="edit-form__file-status">
                   {selectedFiles === null ? "No se ha seleccionado ningún archivo" : "2 archivos"}
                 </p>

@@ -83,10 +83,6 @@
     margin-bottom: 36px;
 }
 
-.edit-form__label--name_product {
-    margin-right: 18.06px;
-}
-
 .edit-form__input {
     width: calc(296 / 581.06 * 100%);
     border-style: none none solid none;
@@ -114,6 +110,13 @@
     border-radius: 4px;
     resize: none;
     margin-bottom: 19.28px;
+    padding: 11.44px 0 0 9.96px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    color: rgba(31, 31, 31, 1);
 }
 
 .edit-form__textarea:focus {
@@ -131,26 +134,119 @@
     width: calc(198.16 / 680.81 * 100%);
 }
 
+.edit-form__input--sku {
+    width: calc(130.63 / 198.16 * 100%);
+    text-align: left;
+    padding: 0;
+}
+
 .edit-form__field--price {
     width: calc(227.96 / 680.81 * 100%);
+}
+
+.edit-form__input--price {
+    width: calc(130 / 227.96 * 100%);
+    text-align: left;
+    padding-left: 5px;
+    box-sizing: border-box;
 }
 
 .edit-form__field--stock {
     width: calc(138.35 / 680.81 * 100%);
 }
 
+.edit-form__input--stock {
+    width: calc(55 / 138.35 * 100%);
+    text-align: center;
+}
+
 .edit-form__field--discounts {
     width: calc(201.52 / 680.81 * 100%);
 }
 
+.edit-form__input--discounts {
+    width: calc(55 / 201.52 * 100%);
+    text-align: center;
+}
+
 .edit-form__field--payment-methods {
     width: calc(455.54 / 680.81 * 100%);
+    height: 44px;
+}
+
+.edit-form__select-wrapper {
+    width: calc(346 / 455.54 * 100%);
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+}
+
+.edit-form__select--payment-methods, 
+.edit-form__select {
+    height: 100%;
+    width: 100%;
+    padding: 10.08px 0 9.92px 15.59px;
+    border: 2px solid rgba(48, 52, 63, 1);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0em;
+    appearance: none;
+}
+
+.edit-form__select-arrow {
+    position: absolute;
+    pointer-events: none;
+}
+
+.form__option {
+    color: rgba(31, 31, 31, 1);
+}
+
+.edit-form__select-arrow--payment-methods, 
+.edit-form__select-arrow--is_new , 
+.edit-form__select-arrow--is_special_edition , 
+.edit-form__select-arrow--is_favorite  {
+    right: 14px;
+    top: calc(50% - 10px / 2);
 }
 
 .edit-form__field--is-new, 
 .edit-form__field--is-special-edition, 
 .edit-form__field--is-favorite {
     width: fit-content;
+    height: 44px;
+    min-width: 100px;
+    column-gap: 9.4px;
+}
+
+.edit-form__label--is-new {
+    min-width: 118px;
+}
+
+.edit-form__label--is-special-edition {
+    min-width: 206px;
+}
+
+.edit-form__label--is-favorite {
+    min-width: 138px;
+}
+
+.edit-form__select--is-new, 
+.edit-form__select--is-special-edition, 
+.edit-form__select--is-favorite {
+    min-width: 178px;
+}
+
+.edit-form__field--images--images-wrapper {
+    width: calc(519.73 / 680.81 * 100%);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .edit-form__field--images {
@@ -164,6 +260,56 @@
 
 .edit-form__field--images--images-wrapper {
     width: 100%;
+}
+
+.edit-form__file-label {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 4.52px;
+    position: relative;
+    height: 25.29px;
+    min-width: 386.76px;
+    width: calc(386.76 / 519.73 * 100%);
+}
+
+.edit-form__file-button {
+    width: calc(125.24 / 386.76 * 100%);
+    height: 100%;
+    padding: 4.64px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid rgba(48, 52, 63, 0.7);
+    background-color: rgba(217, 217, 217, 0.63);
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    text-align: center;
+    color: rgba(31, 31, 31, 1);
+    cursor: pointer;
+}
+
+.edit-form__file-status {
+    height: 16px;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    text-align: right;
+    color: rgba(31, 31, 31, 1);
+}
+
+.edit-form__input--file {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
 }
 
 .edit-form__preview-wrapper {
@@ -193,5 +339,19 @@
 
 .preview-figure__caption {
     width: 100%;
+}
 
+.edit-form__button {
+    width: 175px;
+    height: 44.33px;
+    padding: 13.67px 22.5px;
+    background-color: rgba(255, 51, 51, 1);
+    border: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0em;
+    color: rgba(255, 255, 255, 1);
+    margin-bottom: 36px;
 }
