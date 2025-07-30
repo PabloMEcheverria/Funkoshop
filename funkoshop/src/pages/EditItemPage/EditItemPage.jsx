@@ -4,6 +4,8 @@ import './EditItemPage.css';
 import ComboBox from '../../components/ComboBox';
 import { useUser } from '../../context/UserContext.js';
 import SelectArrowDown from '../../components/svgComponents/SelectArrowDown.jsx';
+import { replaceImagesByUrls } from "../../lib/supabase/replaceImagesByUrls.js";
+import { updateProductsInProducts } from '../../lib/db/updateProductsInProducts.js';
 
 export default function EditItemPage() {
   const { products } = useUser();
@@ -11,7 +13,7 @@ export default function EditItemPage() {
   const [licenses, setLicenses] = useState([]);
   const [stock, setStock] = useState(0);
   const [stockInputArray, setStockInputArray] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCollection, setSelectedCollection] = useState('');
   const [selectedLicense, setSelectedLicense] = useState('');
   const [selectedOption, setSelectedOption] = useState({
     payment_methods: "rgba(185, 185, 185, 1)",
@@ -21,7 +23,7 @@ export default function EditItemPage() {
   });
   const [selectedFiles, setSelectedFiles] = useState(null);
   const [productToEdit, setProductToEdit] = useState(null);
-  const [productsToEditArray, setProductsToEditArray] = useState(null);
+  const [productsToEditArray, setProductsToEditArray] = useState([]);
   const [editedProduct, setEditedProduct] = useState({});
   const singleSkuWrapper = useRef(null);
   const selectRef = useRef(null);
@@ -30,9 +32,6 @@ export default function EditItemPage() {
   useEffect(() => {
     setCategories([...new Set(products.map(product => product.collection))]);
     setLicenses([...new Set(products.map(product => product.license))]);
-    setProductToEdit(products.find(product => String(product.id) === params.itemId));
-    setProductsToEditArray(products.filter(product => product.name_product === productToEdit?.name_product));
-    console.log(products.find(product => String(product.id) === params.itemId));
   }, [products, params]);
 
   const handleChangeStock = (event) => {
@@ -56,7 +55,7 @@ export default function EditItemPage() {
               type="text" 
               name={`sku_${i}`}
               placeholder="SSK111AB001"
-              defaultValue={firstSkuInput.value === "" ? "" : firstSkuInput + ` (${i})`} 
+              defaultValue={firstSkuInput.value === "" ? "" : firstSkuInput.value + ` (${i})`} 
               required />
           </div>
         )
@@ -80,22 +79,79 @@ export default function EditItemPage() {
     }
   }
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    console.log(event.target);
+  const onSubmit = async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData.entries());
+
+  const skuObj = Object.keys(data)
+    .filter(key => key.slice(0, 3) === "sku")
+    .reduce((obj, key) => {
+      obj[key] = data[key];
+      return obj;
+    }, {});
+
+  const productsToUpdateArray = Object.values(skuObj)
+    .map(sku => products.find(product => product.sku === sku))
+    .filter(Boolean);
+
+  if (!selectedFiles || selectedFiles.length !== 2) {
+    alert("Debes seleccionar 2 imágenes para actualizar.");
+    return;
   }
+
+  const currentImageUrls = [
+    productsToUpdateArray?.[0]?.front_img ?? '',
+    productsToUpdateArray?.[0]?.back_img ?? ''
+  ];
+
+  let newImageUrls = [];
+  try {
+    newImageUrls = await replaceImagesByUrls(currentImageUrls, selectedFiles);
+  } catch (error) {
+    console.error("Error al reemplazar imágenes:", error);
+    alert("Hubo un error al subir las nuevas imágenes.");
+    return;
+  }
+
+  const productsUpdatedArray = productsToUpdateArray.map(product => ({
+    ...product,
+    collection: data.collection,
+    license: data.license,
+    name_product: data.name_product,
+    description: data.description,
+    price: parseInt(data.price),
+    discounts: parseInt(data.discounts),
+    payment_methods: [parseInt(data.payment_methods)],
+    is_new: data.is_new === "true",
+    is_special_edition: data.is_special_edition === "true",
+    is_favorite: data.is_favorite === "true",
+    front_img: newImageUrls[0],
+    back_img: newImageUrls[1]
+  }));
+
+  try {
+    await updateProductsInProducts(productsUpdatedArray);
+    alert("Productos actualizados con éxito.");
+  } catch (err) {
+    console.error("Error al actualizar productos en la base de datos", err);
+    alert("No se pudieron actualizar los productos.");
+  }
+};
+
 
   return (
     <main className="edit-form">
       <h1 className="edit-form__title">Editar ítem</h1>
       <form className="edit-form__body" onSubmit={onSubmit}>
         <section className="edit-form__group">
-          <div className="edit-form__field edit-form__field--category">
-            <label className="edit-form__label edit-form__label--category" htmlFor="category">Categoría:</label>
+          <div className="edit-form__field edit-form__field--collection">
+            <label className="edit-form__label edit-form__label--collection" htmlFor="collection">Categoría:</label>
             <ComboBox
-              setValueState={setSelectedCategory}
+              setValueState={setSelectedCollection}
               optionsArray={categories}
-              inputId="category"
+              inputId="collection"
             />
           </div>
           <div className="edit-form__field edit-form__field--license">
@@ -180,13 +236,13 @@ export default function EditItemPage() {
               required
             />
           </div>
-          <div className="edit-form__field edit-form__field--payment-methods">
-            <label className="edit-form__label" htmlFor="payment-methods">Cuotas:</label>
+          <div className="edit-form__field edit-form__field--payment_methods">
+            <label className="edit-form__label" htmlFor="payment_methods">Cuotas:</label>
             <div className="edit-form__select-wrapper">
               <select
-                className="edit-form__select edit-form__select--payment-methods"
-                name="payment-methods"
-                id="payment-methods"
+                className="edit-form__select edit-form__select--payment_methods"
+                name="payment_methods"
+                id="payment_methods"
                 defaultValue={"0"}
                 ref={selectRef}
                 onChange={(e) => {
@@ -205,7 +261,7 @@ export default function EditItemPage() {
                 <option className="form__option" value="6">6 Cuotas sin interés</option>
                 <option className="form__option" value="12">12 Cuotas sin interés</option>
               </select>
-              <SelectArrowDown className="edit-form__select-arrow edit-form__select-arrow--payment-methods" onClick={handleArrowClick} />
+              <SelectArrowDown className="edit-form__select-arrow edit-form__select-arrow--payment_methods" onClick={handleArrowClick} />
             </div>
           </div>
           <div className="edit-form__field edit-form__field--is-new">
