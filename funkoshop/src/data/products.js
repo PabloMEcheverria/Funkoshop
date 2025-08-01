@@ -71,11 +71,11 @@ const productsArr = [
   new Product( 9, "STW002004", "Chewbacca", "Figuras", "Star Wars", "Figura Funko coleccionable de Chewbacca de la saga Star Wars sosteniendo una ballesta." , 39.99, [1, 3, 6], 5, chewbacca, chewbaccaBack, true, true, false), 
   new Product(10, "STW002005", "Chewbacca", "Figuras", "Star Wars", "Figura Funko coleccionable de Chewbacca de la saga Star Wars sosteniendo una ballesta." , 39.99, [1, 3, 6], 5, chewbacca, chewbaccaBack, true, true, false), 
 
-  new Product(11, "STW003001", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars" , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
-  new Product(12, "STW003002", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars" , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
-  new Product(13, "STW003003", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars" , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
-  new Product(14, "STW003004", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars" , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
-  new Product(15, "STW003005", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars" , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
+  new Product(11, "STW003001", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars." , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
+  new Product(12, "STW003002", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars." , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
+  new Product(13, "STW003003", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars." , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
+  new Product(14, "STW003004", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars." , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
+  new Product(15, "STW003005", "R2D2", "Figuras", "Star Wars", "Figura Funko coleccionable de R2D2 de la saga Star Wars." , 39.99, [1, 3, 6], 5, r2d2, r2d2Back, true, true, false), 
 
   new Product(16, "STW004001", "Ahsoka", "Figuras", "Star Wars", "Figura Funko coleccionable de Ahsoka de la saga Star Wars sosteniendo dos sables de luz." , 29.99, [1], 10, ahsoka, ahsokaBack, true, false, false), 
   new Product(17, "STW004002", "Ahsoka", "Figuras", "Star Wars", "Figura Funko coleccionable de Ahsoka de la saga Star Wars sosteniendo dos sables de luz." , 29.99, [1], 10, ahsoka, ahsokaBack, true, false, false), 

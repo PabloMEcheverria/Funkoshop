@@ -208,7 +208,7 @@ export default function CreateItemPage() {
           </div>
         </section>
         <div className="form__field form__field--product-name">
-          <label className="form__label" htmlFor="name_product" >Nombre del producto:</label>
+          <label className="form__label form__label--name_product" htmlFor="name_product" >Nombre del producto:</label>
           <input className="form__input form__input--product-name" type="text" id="name_product" name="name_product" placeholder="Kakashi Hatake Shippuden Saga" required />
         </div>
         <textarea className="form__textarea" name="description" id="description" placeholder="Descripción del producto" required ></textarea>

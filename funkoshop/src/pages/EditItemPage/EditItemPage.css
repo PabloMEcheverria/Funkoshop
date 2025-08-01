@@ -176,9 +176,13 @@
     text-align: center;
 }
 
-.edit-form__field--payment-methods {
+.edit-form__field--payment_methods {
     width: calc(455.54 / 680.81 * 100%);
     height: 44px;
+}
+
+.edit-form__label--payment_methods {
+    margin-right: 16.54px;
 }
 
 .edit-form__select-wrapper {
@@ -188,7 +192,7 @@
     position: relative;
 }
 
-.edit-form__select--payment-methods, 
+.edit-form__select--payment_methods, 
 .edit-form__select {
     height: 100%;
     width: 100%;
@@ -213,7 +217,7 @@
     color: rgba(31, 31, 31, 1);
 }
 
-.edit-form__select-arrow--payment-methods, 
+.edit-form__select-arrow--payment_methods, 
 .edit-form__select-arrow--is_new , 
 .edit-form__select-arrow--is_special_edition , 
 .edit-form__select-arrow--is_favorite  {
@@ -361,4 +365,197 @@
     letter-spacing: 0em;
     color: rgba(255, 255, 255, 1);
     margin-bottom: 36px;
+}
+
+
+
+/*BreakPoints (provisorios): */
+@media (max-width: 1279px) and (min-width: 1025px) {
+  .edit-form__body {
+    margin-left: 6%;
+    width: 88%;
+  }
+
+  .edit-form__group {
+    width: 100%;
+  }
+
+  .edit-form__field--name {
+    width: 100%;
+  }
+
+  .edit-form__group--bottom {
+    width: 90%;
+  }
+
+  .edit-form__field--images,
+  .edit-form__field--images--images-wrapper {
+    width: 100%;
+  }
+
+  .edit-form__preview-wrapper {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+}
+
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .edit-form__title {
+    margin-left: 5%;
+    font-size: 36px;
+  }
+
+  .edit-form__body {
+    margin-left: 5%;
+    width: 90%;
+  }
+
+  .edit-form__group,
+  .edit-form__group--bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 24px;
+  }
+
+  .edit-form__field {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .edit-form__input,
+  .edit-form__input--sku,
+  .edit-form__input--price,
+  .edit-form__input--stock,
+  .edit-form__input--discounts {
+    width: 100%;
+  }
+
+  .edit-form__field--images--images-wrapper,
+  .edit-form__field--images {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-form__preview-wrapper {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+
+@media (max-width: 768px) and (min-width: 481px) {
+  .edit-form__title {
+    font-size: 28px;
+    margin-left: 4%;
+  }
+
+  .edit-form__body {
+    margin-left: 4%;
+    width: 92%;
+  }
+
+  .edit-form__group,
+  .edit-form__group--bottom {
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+  }
+
+  .edit-form__field {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-form__input,
+  .edit-form__select,
+  .edit-form__textarea {
+    width: 100%;
+  }
+
+  .edit-form__field--images--images-wrapper,
+  .edit-form__field--images {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-form__file-label {
+    width: 100%;
+  }
+
+  .edit-form__preview-wrapper {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .edit-form__button {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .edit-form__title {
+    font-size: 24px;
+    margin-left: 4%;
+  }
+
+  .edit-form__body {
+    margin-left: 4%;
+    width: 92%;
+  }
+
+  .edit-form__label {
+    font-size: 18px;
+  }
+
+  .edit-form__input,
+  .edit-form__select,
+  .edit-form__textarea {
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .edit-form__group,
+  .edit-form__group--bottom {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .edit-form__field {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-form__file-label,
+  .edit-form__preview-wrapper {
+    width: 100%;
+  }
+
+  .edit-form__preview {
+    width: 130px;
+    height: 150px;
+  }
+
+  .preview-figure, 
+  .preview-figure__img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .edit-form__button {
+    width: 100%;
+    font-size: 16px;
+  }
 }

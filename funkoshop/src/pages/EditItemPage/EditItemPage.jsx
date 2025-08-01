@@ -32,6 +32,7 @@ export default function EditItemPage() {
   useEffect(() => {
     setCategories([...new Set(products.map(product => product.collection))]);
     setLicenses([...new Set(products.map(product => product.license))]);
+    setProductToEdit(products.filter(product => product.id === parseFloat(params.itemId))[0]);
   }, [products, params]);
 
   const handleChangeStock = (event) => {
@@ -80,65 +81,69 @@ export default function EditItemPage() {
   }
 
   const onSubmit = async (event) => {
-  event.preventDefault();
+    console.log(productToEdit);
+    event.preventDefault();
 
-  const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
 
-  const skuObj = Object.keys(data)
-    .filter(key => key.slice(0, 3) === "sku")
-    .reduce((obj, key) => {
-      obj[key] = data[key];
-      return obj;
-    }, {});
+    const skuObj = Object.keys(data)
+      .filter(key => key.slice(0, 3) === "sku")
+      .reduce((obj, key) => {
+        obj[key] = data[key];
+        return obj;
+      }, {});
 
-  const productsToUpdateArray = Object.values(skuObj)
-    .map(sku => products.find(product => product.sku === sku))
-    .filter(Boolean);
+    const productsToUpdateArray = Object.values(skuObj)
+      .map(sku => products.find(product => product.sku === sku))
+      .filter(Boolean);
 
-  if (!selectedFiles || selectedFiles.length !== 2) {
-    alert("Debes seleccionar 2 imágenes para actualizar.");
-    return;
-  }
+    if (!selectedFiles || selectedFiles.length !== 2) {
+      alert("Debes seleccionar 2 imágenes para actualizar.");
+      return;
+    }
 
-  const currentImageUrls = [
-    productsToUpdateArray?.[0]?.front_img ?? '',
-    productsToUpdateArray?.[0]?.back_img ?? ''
-  ];
+    const currentImageUrls = [
+      productsToUpdateArray?.[0]?.front_img ?? '',
+      productsToUpdateArray?.[0]?.back_img ?? ''
+    ];
 
-  let newImageUrls = [];
-  try {
-    newImageUrls = await replaceImagesByUrls(currentImageUrls, selectedFiles);
-  } catch (error) {
-    console.error("Error al reemplazar imágenes:", error);
-    alert("Hubo un error al subir las nuevas imágenes.");
-    return;
-  }
+    let newImageUrls = [];
+    try {
+      newImageUrls = await replaceImagesByUrls(currentImageUrls, selectedFiles);
+    } catch (error) {
+      console.error("Error al reemplazar imágenes:", error);
+      alert("Hubo un error al subir las nuevas imágenes.");
+      return;
+    }
 
-  const productsUpdatedArray = productsToUpdateArray.map(product => ({
-    ...product,
-    collection: data.collection,
-    license: data.license,
-    name_product: data.name_product,
-    description: data.description,
-    price: parseInt(data.price),
-    discounts: parseInt(data.discounts),
-    payment_methods: [parseInt(data.payment_methods)],
-    is_new: data.is_new === "true",
-    is_special_edition: data.is_special_edition === "true",
-    is_favorite: data.is_favorite === "true",
-    front_img: newImageUrls[0],
-    back_img: newImageUrls[1]
-  }));
+    const productsUpdatedArray = productsToUpdateArray.map(product => ({
+      ...product,
+      collection: data.collection,
+      license: data.license,
+      name_product: data.name_product,
+      description: data.description,
+      price: parseInt(data.price),
+      discounts: parseFloat(data.discounts),
+      payment_methods:  data.payment_methods === "1" ? [1] : 
+                        data.payment_methods === "3" ? [1, 3] :
+                        data.payment_methods === "6" ? [1, 3, 6] :
+                        [1, 3, 6, 12],
+      is_new: data.is_new === "true",
+      is_special_edition: data.is_special_edition === "true",
+      is_favorite: data.is_favorite === "true",
+      front_img: newImageUrls[0],
+      back_img: newImageUrls[1]
+    }));
 
-  try {
-    await updateProductsInProducts(productsUpdatedArray);
-    alert("Productos actualizados con éxito.");
-  } catch (err) {
-    console.error("Error al actualizar productos en la base de datos", err);
-    alert("No se pudieron actualizar los productos.");
-  }
-};
+    try {
+      await updateProductsInProducts(productsUpdatedArray);
+      alert("Productos actualizados con éxito.");
+    } catch (err) {
+      console.error("Error al actualizar productos en la base de datos", err);
+      alert("No se pudieron actualizar los productos.");
+    }
+  };
 
 
   return (
@@ -208,6 +213,8 @@ export default function EditItemPage() {
               id="price"
               placeholder={productToEdit ? "$ " +  productToEdit.price : "$ 0"}
               defaultValue={productToEdit ? productToEdit.price : ""}
+              step="0.01"
+              min="0"
               required
             />
           </div>
@@ -237,7 +244,7 @@ export default function EditItemPage() {
             />
           </div>
           <div className="edit-form__field edit-form__field--payment_methods">
-            <label className="edit-form__label" htmlFor="payment_methods">Cuotas:</label>
+            <label className="edit-form__label edit-form__label--payment_methods" htmlFor="payment_methods">Cuotas:</label>
             <div className="edit-form__select-wrapper">
               <select
                 className="edit-form__select edit-form__select--payment_methods"
