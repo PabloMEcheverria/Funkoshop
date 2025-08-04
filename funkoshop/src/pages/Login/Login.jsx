@@ -8,7 +8,8 @@ function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUser, setUserRole } = useUser();
+  const { setUser, setUserRole, fetchProducts } = useUser();
+
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ function Login({ setToken }) {
         password
       });
       if (error) throw error;
-      console.log(data);
+
       setToken({
         user: data.user,
         user2: true
@@ -33,23 +34,26 @@ function Login({ setToken }) {
       if (profileError) {
         console.error('Error fetching profile:', profileError);
       } else {
-        console.log('User profile:', profile);
         setUser(profile);
       }
 
       const { data: role, error: roleError } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('id', data.user.id)
-      .single();
+        .from('user_roles')
+        .select('role')
+        .eq('id', data.user.id)
+        .single();
 
-    if (roleError) {
-      console.error('Error fetching role:', roleError);
-    } else {
-      console.log('User role:', role.role);
-      setUserRole(role.role);
-    }
+      if (roleError) {
+        console.error('Error fetching role:', roleError);
+      } else {
+        setUserRole(role.role);
+      }
 
+      try {
+        await fetchProducts();
+      } catch (fetchError) {
+        console.error('Error actualizando productos post-login:', fetchError);
+      }
       navigate("/home");
     } catch (error) {
       alert(`Error: ${error.message}`);
