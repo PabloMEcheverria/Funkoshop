@@ -2,10 +2,16 @@ import './HomePage.css';
 import LicensePresentation from '../../components/LicensePresentation.jsx';
 import Carousel from '../../components/Carousel.jsx';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useUser } from '../../context/UserContext.js'; 
 
 export default function HomePage() {
-    const { products } = useUser();
+    const { products, fetchProducts } = useUser();
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
     const uniqueProductsArr = products.filter((product, index, self) => 
         index === self.findIndex((p) => p.name_product === product.name_product)
     );

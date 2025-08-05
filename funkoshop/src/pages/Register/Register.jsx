@@ -9,7 +9,6 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   
   const handleClick = async (e) => {
     e.preventDefault();
@@ -31,7 +30,13 @@ export default function Register() {
       return;
     }
     try {
-      const { data, error } = await supabase.auth.signUp({email, password});
+      const { data, error } = await supabase.auth.signUp({
+        email, 
+        password, 
+        options: { 
+          emailRedirectTo: "https://stupendous-platypus-fb2693.netlify.app/home"  //http://localhost:3000/home
+        }
+      });
       if (error) throw error;
 
       console.log(data);
