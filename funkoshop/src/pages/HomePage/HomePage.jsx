@@ -6,10 +6,11 @@ import { useEffect } from 'react';
 import { useUser } from '../../context/UserContext.js'; 
 
 export default function HomePage() {
-    const { products, fetchProducts } = useUser();
+    const { products, fetchProducts, user } = useUser();
 
     useEffect(() => {
         fetchProducts();
+        console.log(user);
     }, []);
 
     const uniqueProductsArr = products.filter((product, index, self) => 

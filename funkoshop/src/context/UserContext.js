@@ -17,7 +17,7 @@ export const UserProvider = ({ children }) => {
       setLoading(true);
       const { data: { user }, error } = await supabase.auth.getUser();
       if (error) {
-        console.error('Error fetching user:', error);
+        console.log('Error fetching user:', error);
         setLoading(false);
         return;
       }
@@ -28,8 +28,7 @@ export const UserProvider = ({ children }) => {
         const { data: profile, error: profileError } = await supabase
           .from('user_profiles')
           .select('*')
-          .eq('id', user.id)
-          .single();
+          .eq('id', user.id);
 
         if (profileError) {
           console.error('Error fetching profile:', profileError);
@@ -40,8 +39,7 @@ export const UserProvider = ({ children }) => {
         const { data: role, error: roleError } = await supabase
           .from('user_roles')
           .select('role')
-          .eq('id', user.id)
-          .single();
+          .eq('id', user.id);
 
         if (roleError) {
           console.error('Error fetching role:', roleError);
