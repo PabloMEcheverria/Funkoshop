@@ -44,7 +44,7 @@ export const UserProvider = ({ children }) => {
         if (roleError) {
           console.error('Error fetching role:', roleError);
         } else {
-          setUserRole(role.role);
+          setUserRole(role?.[0]?.role || null);
         }
       } else {
         setUser(null);

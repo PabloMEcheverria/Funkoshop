@@ -8,11 +8,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import supabase from "../config/supabaseClient";
 import { useUser } from "../context/UserContext";
+import { useEffect, useState } from "react";
 
 export default function Header() {
     const navigate = useNavigate();
-    const { setUser, userRole, setUserRole } = useUser();
+    const { user, setUser, userRole, setUserRole } = useUser();
     const { cart } = useCart();
+    const [navMenu, setNavMenu] = useState(null);
+
+    useEffect(() => {
+      setNavMenu(getNavMenu(userRole));
+      console.log("User role in header:", userRole);
+      console.log("User in header:", user);
+    }, [userRole, cart]);
 
     const handleLogout = async () => {
       try {
@@ -87,6 +95,17 @@ export default function Header() {
         {getCartItem()}
       </ul>;
 
+    const navUl = 
+      <ul>
+        <li><Link to={"/shop"} className="navLink--header">{user !== null && userRole === "admin" ? "Ver tienda" : "Tienda"}</Link></li>
+        {(user === null || (user !== null && userRole === "user")) && (<li><Link to={"/contact"} className="navLink--header">Contacto</Link></li>)}
+        {user === null && (<li><Link to={"/login"} className="navLink--header">Iniciar sesión</Link></li>)}
+        {user === null && (<li><Link to={"/register"} className="navLink--header">Registrarse</Link></li>)}
+        {user !== null && userRole === "admin" && (<li><Link to={"/admin"} className="navLink--header">Admin</Link></li>)}
+        {user !== null && (<li><Link to={"/home"} onClick={handleLogout} className="navLink--header">{userRole === "admin" ? "Salir" : "Logout"}</Link></li>)}
+        {user !== null && userRole === "user" && getCartItem()}
+      </ul>
+
       return (
         <>
             <header>
@@ -96,7 +115,7 @@ export default function Header() {
                         <TitleIcon className="headerTitle" fill="#FAFAFF" />
                     </Link>
                     <nav className="headerNav">
-                      {getNavMenu(userRole)}
+                      {navUl}
                     </nav>
                 </div>
             </header>
