@@ -13,11 +13,9 @@ import EditItemPage from './pages/EditItemPage/EditItemPage.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import supabase from './config/supabaseClient.js';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useUser } from './context/UserContext.js';
-import RootRedirect from './routes/RootRedirect.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import GuestOnlyRoute from './routes/GuestOnlyRoute.jsx';
 import useSessionToken from './hooks/UseSessionToken.js';
@@ -27,11 +25,10 @@ function App() {
   const { token, setToken, userData, error } = useSessionToken();
 
   useEffect(() => {
-  if (error) {
-    // Mostramos el error en consola, toast, modal, etc.
-    console.error("Error en sesión:", error);
-  }
-}, [error]);
+    if (error) {
+      console.error("Error en sesión:", error);
+    }
+  }, [error]);
 
   const groupProducts = (itemsInCart) => {
     let cartArr = [];
@@ -59,7 +56,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/" element={<RootRedirect />} />
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/shop/:id" element={<ItemPage />} />
           <Route path="/login" element={
             <GuestOnlyRoute>
               <Login setToken={setToken} />
@@ -70,18 +70,11 @@ function App() {
               <Register />
             </GuestOnlyRoute>
           } />
-          <Route path="/home" element={
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          } />
           <Route path="/admin" element={
             <ProtectedRoute allowedRoles={["admin"]} redirectTo='not-found'>
               <AdminPage />
             </ProtectedRoute>
           } />
-          <Route path="/shop" element={<ShopPage />} />
-          <Route path="/shop/:id" element={<ItemPage />} />
           <Route path="/cart" element={
             <ProtectedRoute allowedRoles={["user"]} redirectTo="/not-found">
               <CartPage />

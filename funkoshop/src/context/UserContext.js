@@ -64,7 +64,6 @@ export const UserProvider = ({ children }) => {
       if (error) {
         console.error('Error fetching products:', error);
       } else {
-        console.log(data);
         setProducts(data);
       }
       setLoadingProducts(false);

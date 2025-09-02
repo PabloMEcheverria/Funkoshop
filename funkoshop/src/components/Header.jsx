@@ -8,19 +8,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import supabase from "../config/supabaseClient";
 import { useUser } from "../context/UserContext";
-import { useEffect, useState } from "react";
 
 export default function Header() {
     const navigate = useNavigate();
     const { user, setUser, userRole, setUserRole } = useUser();
     const { cart } = useCart();
-    const [navMenu, setNavMenu] = useState(null);
-
-    useEffect(() => {
-      setNavMenu(getNavMenu(userRole));
-      console.log("User role in header:", userRole);
-      console.log("User in header:", user);
-    }, [userRole, cart]);
 
     const handleLogout = async () => {
       try {
@@ -34,16 +26,6 @@ export default function Header() {
         navigate("/login");
       } catch (err) {
         console.error("Error cerrando sesión:", err.message);
-      }
-    };
-  
-    const getNavMenu = (userRole) => {
-      if (userRole === "admin") {
-        return adminLoggedInUl;
-      } else if (userRole === "user") {
-        return userLoggedInUl;
-      } else {
-        return loggedOutUl;
       }
     };
 
@@ -70,30 +52,6 @@ export default function Header() {
         );
       }
     };
-    
-    const loggedOutUl = 
-      <ul>
-        <li><Link to={"/shop"} className="navLink--header">Tienda</Link></li>
-        <li><Link to={"/contact"} className="navLink--header">Contacto</Link></li>
-        <li><Link to={"/login"} className="navLink--header">Iniciar sesión</Link></li>
-        <li><Link to={"/register"} className="navLink--header">Registrarse</Link></li>
-        {getCartItem()}
-      </ul>;
-    
-    const adminLoggedInUl =
-      <ul>
-        <li><Link to={"/shop"} className="navLink--header">Ver tienda</Link></li>
-        <li><Link to={"/admin"} className="navLink--header">Admin</Link></li>
-        <li><Link to={"/home"} onClick={handleLogout} className="navLink--header">Salir</Link></li>
-      </ul>;
-    
-    const userLoggedInUl =
-      <ul>
-        <li><Link to={"/shop"} className="navLink--header">Tienda</Link></li>
-        <li><Link to={"/contact"} className="navLink--header">Contacto</Link></li>
-        <li><Link to={"/home"} onClick={handleLogout} className="navLink--header">Logout</Link></li>
-        {getCartItem()}
-      </ul>;
 
     const navUl = 
       <ul>
