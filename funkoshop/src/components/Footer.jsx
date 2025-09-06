@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
     const navigate = useNavigate();
-    const { setUser, userRole, setUserRole } = useUser();
+    const { user, setUser, userRole, setUserRole } = useUser();
 
     const handleLogout = async () => {
         try {
@@ -24,45 +24,22 @@ export default function Footer() {
         }
       };
 
-    const getNavMenu = (userRole) => {
-        if (userRole === "admin") {
-            return adminLoggedInUl;
-        } else if (userRole === "user") {
-            return userLoggedInUl;
-        } else {
-            return loggedOutUl;
-        }
-    };
-
-    const adminLoggedInUl = 
+    const navUl = 
         <ul className="nav_ul--footer">
             <li><Link to={"/shop"} className="navLink--footer">shop</Link></li>
-            <li><Link to={"/admin"} className="navLink--footer">admin</Link></li>
+            {user !== null && userRole === "admin" && (<li><Link to={"/admin"} className="navLink--footer">admin</Link></li>)}
+            {user === null && (<li><Link to={"/register"} className="navLink--footer">registrarse</Link></li>)}
+            {user === null && (<li><Link to={"/login"} className="navLink--footer">ingresar</Link></li>)}
             <li><Link to={"/contact"} className="navLink--footer">contacto</Link></li>
-            <li><Link to={"/home"} onClick={handleLogout} className="navLink--footer">salir</Link></li>
-        </ul>;
-    
-    const userLoggedInUl =
-        <ul className="nav_ul--footer">
-            <li><Link to={"/shop"} className="navLink--footer">shop</Link></li>
-            <li><Link to={"/contact"} className="navLink--footer">contacto</Link></li>
-            <li><Link to={"/cart"} className="navLink--footer">cart</Link></li>
-            <li><Link to={"/home"} onClick={handleLogout} className="navLink--footer">salir</Link></li>
-        </ul>;
-    
-    const loggedOutUl = 
-        <ul className="nav_ul--footer">
-            <li><Link to={"/shop"} className="navLink--footer">shop</Link></li>
-            <li><Link to={"/register"} className="navLink--footer">registrarse</Link></li>
-            <li><Link to={"/login"} className="navLink--footer">ingresar</Link></li>
-            <li><Link to={"/contact"} className="navLink--footer">contacto</Link></li>
-        </ul>;
+            {user !== null && userRole === "user" && (<li><Link to={"/cart"} className="navLink--footer">cart</Link></li>)}
+            {user !== null && (<li><Link to={"/home"} onClick={handleLogout} className="navLink--footer">salir</Link></li>)}
+        </ul>
 
     return  (
         <footer>
             <div className="footer--container">
                 <nav className="nav--footer">
-                    {getNavMenu(userRole)}
+                    {navUl}
                 </nav>
                 <Link to={"/"} className="logoLink--footer">
                     <FooterLogo className="footerLogo" />
