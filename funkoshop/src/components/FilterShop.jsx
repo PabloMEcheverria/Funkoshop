@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import "../assets/css/FilterShop.css";
 import { useUser } from "../context/UserContext.js";
 
 
 export default function FilterShop({ filterData, setFilterData, setDisplayProductArr, paginationData, setPaginationData }) {
+    useEffect(() => {
+        console.log(filterData.nameOrCategory);
+        filterEngine(filterData);
+    }, [filterData]);
     const { products } = useUser();
     function handleInputChange(e) {
         const { name, value, id } = e.target;
@@ -105,12 +110,13 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
         let newPaginationData = {...paginationData, positionInPagination: 1};
         setPaginationData(newPaginationData);
     }
-
+    
     return (
         <aside>
             <form>
                 <label>buscar
-                    <input type="text" placeholder="Item o categoría" name="nameOrCategory" onChange={handleInputChange}/>
+                    <input type="text" placeholder="Item o categoría" name="nameOrCategory" onChange={handleInputChange}
+                    value={typeof filterData.nameOrCategory === "string" ? filterData.nameOrCategory : ""}/>
                 </label>
 
                 <label>ordenar por

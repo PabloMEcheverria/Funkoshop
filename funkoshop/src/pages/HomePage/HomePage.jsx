@@ -4,7 +4,7 @@ import Carousel from '../../components/Carousel.jsx';
 import { Link } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.js'; 
 
-export default function HomePage() {
+export default function HomePage({ filterData, setFilterData }) {
     const { products } = useUser();
 
     const uniqueProductsArr = products.filter((product, index, self) => 
@@ -23,8 +23,8 @@ export default function HomePage() {
     licenseShowcase.sort((a, b) => a.id - b.id);
     const presentationArr = [];
     licenseShowcase.forEach(product => {
-        if (product.license === "Star Wars") {
-            presentationArr.push({...product, title: <>Star Wars & <br />The Mandalorian</>, license_description: "Disfruta de una saga que sigue agregando personajes a su colección."});
+        if (product.license === "Star Wars & The Mandalorian") {
+            presentationArr.push({...product, title: "Star Wars & The Mandalorian", license_description: "Disfruta de una saga que sigue agregando personajes a su colección."});
         }
         if (product.license === "Pokemon") {
             presentationArr.push({...product, title: "Pokemon", license_description: "Atrapa todos los que puedas y disfruta de una colección llena de amigos."});
@@ -53,6 +53,8 @@ export default function HomePage() {
                     license_description={license.license_description}
                     img={license.front_img}
                     index={i + 1}
+                    filterData={filterData}
+                    setFilterData={setFilterData}
                 />)
             }
             <section className='news'>

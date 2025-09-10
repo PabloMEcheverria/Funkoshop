@@ -6,20 +6,9 @@ import Pagination from "../../components/Pagination.jsx";
 import PaginationButton from "../../components/PaginationButton.jsx";
 import { useUser } from "../../context/UserContext.js";
 
-export default function ShopPage() {
+export default function ShopPage({ filterData, setFilterData }) {
     const { products } = useUser();
     const [displayProductArr, setDisplayProductArr] = useState([]);
-    const [filterData, setFilterData] = useState(
-        {   
-            nameOrCategory:"",
-            sortBy: "",
-            price: {min: undefined, max: undefined},
-            filterByNew: false,
-            filterByOffer: false,
-            filterBySpecialEdition: false,
-            filterByFavorites: false
-        }
-    );
     const [paginationData, setPaginationData] = useState(
         {
             paginationList: <ul className="pagination__list"></ul>,

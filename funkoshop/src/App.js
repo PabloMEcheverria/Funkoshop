@@ -13,7 +13,7 @@ import EditItemPage from './pages/EditItemPage/EditItemPage.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useUser } from './context/UserContext.js';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
@@ -23,6 +23,18 @@ import useSessionToken from './hooks/UseSessionToken.js';
 function App() {
   const { user, userProfile, userRole, loading } = useUser();
   const { token, setToken, userData, error } = useSessionToken();
+
+  const [filterData, setFilterData] = useState(
+          {   
+              nameOrCategory:"",
+              sortBy: "",
+              price: {min: undefined, max: undefined},
+              filterByNew: false,
+              filterByOffer: false,
+              filterBySpecialEdition: false,
+              filterByFavorites: false
+          }
+      );
 
   useEffect(() => {
     if (error) {
@@ -57,8 +69,8 @@ function App() {
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/home" element={<HomePage filterData={filterData} setFilterData={setFilterData} />} />
+          <Route path="/shop" element={<ShopPage filterData={filterData} setFilterData={setFilterData} />} />
           <Route path="/shop/:id" element={<ItemPage />} />
           <Route path="/login" element={
             <GuestOnlyRoute>
