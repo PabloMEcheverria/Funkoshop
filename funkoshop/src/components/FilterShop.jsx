@@ -5,9 +5,11 @@ import { useUser } from "../context/UserContext.js";
 
 export default function FilterShop({ filterData, setFilterData, setDisplayProductArr, paginationData, setPaginationData }) {
     useEffect(() => {
-        console.log(filterData.nameOrCategory);
-        filterEngine(filterData);
-    }, [filterData]);
+        if (filterData.nameOrCategory) {
+            filterEngine(filterData);
+        }
+    }, [filterData.nameOrCategory]);
+
     const { products } = useUser();
     function handleInputChange(e) {
         const { name, value, id } = e.target;
@@ -44,24 +46,25 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
     }
 
     function filterEngine(filterDataObj) {
-        let {//nameOrCategory, 
-             sortBy, 
-             price,
-             filterByNew, 
-             filterByOffer, 
-             filterBySpecialEdition, 
-             filterByFavorites} = filterDataObj;
+        let {
+                nameOrCategory, 
+                sortBy, 
+                price,
+                filterByNew, 
+                filterByOffer, 
+                filterBySpecialEdition, 
+                filterByFavorites
+            } = filterDataObj;
         let min = Number(price.min);
         let max = Number(price.max);
         let newUniqueProductArr = [...products];
         /*----------Filter by name or category----------*/
-        if (filterDataObj.nameOrCategory.length !== 0) {
-            let nameOrCategory = filterDataObj.nameOrCategory.trim();
-            nameOrCategory = nameOrCategory.toLowerCase();
+        if (nameOrCategory.length !== 0) {
+            let newNameOrCategory = nameOrCategory.trim().toLowerCase();
             newUniqueProductArr = products.filter( product => {
                 let name_product = product.name_product.toLowerCase();
                 let license = product.license.toLowerCase();
-                if (name_product.includes(nameOrCategory) || license.includes(nameOrCategory)) {
+                if (name_product.includes(newNameOrCategory) || license.includes(newNameOrCategory)) {
                     return true
                 } else {
                     return false

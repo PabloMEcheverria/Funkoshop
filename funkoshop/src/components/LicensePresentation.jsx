@@ -27,7 +27,6 @@ export default function LicensePresentation({ title, license_description, img, i
                         <p className='product__description'>{license_description}</p>
                     </div>
                     <Link to="/shop" className='product__button' onClick={() => {
-                        console.log({ ...filterData, nameOrCategory: title });
                         setFilterData({ ...filterData, nameOrCategory: title });
                     }} >ver colección</Link>
                 </section>

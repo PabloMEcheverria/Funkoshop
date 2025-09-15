@@ -67,9 +67,22 @@ export default function ShopPage({ filterData, setFilterData }) {
       );
     }, [products]);
 
+    function nameOrCategoryFilter (productArr, filterData) {
+        let newProductArr = [];
+        if(productArr.length > 0 && filterData.nameOrCategory.length > 0) {
+            newProductArr = productArr.filter(product => {
+                let name_product = product.name_product.trim().toLowerCase();
+                let license = product.license.trim().toLowerCase();
+                let nameOrCategory = filterData.nameOrCategory.trim().toLowerCase();
+                return name_product === nameOrCategory || license === nameOrCategory;
+            });
+        }
+        setDisplayProductArr(newProductArr);
+    }
+
     useEffect(() => {
-      setDisplayProductArr(filteredUniqueProducts);
-    }, [filteredUniqueProducts]);
+      nameOrCategoryFilter(filteredUniqueProducts, filterData);
+    }, [filteredUniqueProducts, filterData]);
 
     useEffect(() => {
         setPaginationData(pagination(displayProductArr));
