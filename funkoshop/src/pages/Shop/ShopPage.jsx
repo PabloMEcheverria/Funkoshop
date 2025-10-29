@@ -55,6 +55,7 @@ export default function ShopPage({ filterData, setFilterData }) {
             }
         }
     );
+
     const filteredUniqueProducts = useMemo(() => {
       return Array.from(
         new Set(
@@ -85,6 +86,7 @@ export default function ShopPage({ filterData, setFilterData }) {
     }, [filteredUniqueProducts, filterData]);
 
     useEffect(() => {
+        setDisplayProductArr(filteredUniqueProducts);
         setPaginationData(pagination(displayProductArr));
     }, [displayProductArr]);
 
@@ -162,7 +164,6 @@ export default function ShopPage({ filterData, setFilterData }) {
         newPaginationData.segmentedProductArr = setSegmentedProductArr(sortedArr);
         const newPaginationList = setPaginationList(newPaginationData.segmentedProductArr, newPaginationData);
         newPaginationData.paginationList = <ul className="pagination__list">{newPaginationList}</ul>;
-        
         return newPaginationData
     }
     return (

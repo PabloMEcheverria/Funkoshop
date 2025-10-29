@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+
 import "../assets/css/CatalogueShop.css";
 import Card from "./Card";
 
