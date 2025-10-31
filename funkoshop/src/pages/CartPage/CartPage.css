@@ -11,6 +11,7 @@
   margin-top: 128px;
   margin-left: calc(110 / 1440 * 100%);
   margin-bottom: 60.15px;
+  width: fit-content;
 }
 
 .cart__table {
@@ -400,6 +401,7 @@
   
   .summary__item {
     margin-bottom: 16px;
+    column-gap: 36px;
   }
   
   .summary__text {
@@ -465,16 +467,26 @@
     font-weight: 500;
     line-height: 13px;
   }
+
+  .summary {
+    width: 70%;
+    left: 15%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
   
   .summary__title {
     padding-bottom: 3px;
     font-size: 32px;
     font-weight: 500;
     line-height: 44px;
-    margin-bottom: 24px;
+    margin:0 0 24px 0;
+
   }
   
   .summary__list {
+    height: fit-content;
     padding: 16px;
     margin-bottom: 36px;
     width: 100%;
@@ -482,6 +494,7 @@
   
   .summary__item {
     margin-bottom: 10px;
+    column-gap: 16px;
   }
   
   .summary__text {

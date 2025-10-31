@@ -88,7 +88,7 @@ export default function CartItem({ group }) {
                             disabled={getAvailability()} 
                             onClick={() => handleIncrement()}>
                             {<ItemShopPlus 
-                                width="30px"
+                                width="18"
                                 className="cart-item__icon cart-item__icon--plus" 
                                 fill={getAvailability() ? "#F7C7B9" : "#F24E1E"} />}
                         </button>
