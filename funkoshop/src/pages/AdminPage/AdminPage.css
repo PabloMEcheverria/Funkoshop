@@ -1,192 +1,261 @@
 .admin-page {
-    width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    padding: 36px 0 0 calc(110 / 1440 * 100%);
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 36px 0 0 calc(110 / 1440 * 100%);
 }
 
 .admin-page__search {
-    position: relative;
-    height: 44.28px;
-    width: calc(590.88 / 1440 * 100%);
-    display: flex;
-    flex-flow: row nowrap;
+  position: relative;
+  height: 44.28px;
+  width: calc(590.88 / 1440 * 100%);
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .admin-page__form {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    top: 0;
-    left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .admin-page__input {
-    width: calc(529.76 / 590.88 * 100%);
-    height: 100%;
-    border-radius: 6px;
-    border: 2px solid rgba(48, 52, 63, 1);
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 100%;
-    letter-spacing: 0%;
-    padding: 10.14px 0 10.14px 23.87px;
-    box-sizing: border-box;
+  width: calc(529.76 / 590.88 * 100%);
+  height: 100%;
+  border-radius: 6px;
+  border: 2px solid rgba(48, 52, 63, 1);
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding: 10.14px 0 10.14px 23.87px;
+  box-sizing: border-box;
 }
 
 .admin-page__input::placeholder {
-    color: rgba(185, 185, 185, 1);
+  color: rgba(185, 185, 185, 1);
 }
 
 .admin-page__button {
-    height: 42px;
-    width: 42px;
-    background-color: #fff;
-    border: none;
+  height: 42px;
+  width: 42px;
+  background-color: #fff;
+  border: none;
 }
 
 .admin-page__products {
-    width: calc(1126 / 1440 * 100%);
-    margin-top: 36px;
+  width: calc(1126 / 1440 * 100%);
+  margin: 36px 0;
 }
 
 .admin-page__header {
-    height: 52px;
-    background-color: #fff;
-    margin-bottom: 32.5px;
+  height: 52px;
+  background-color: #fff;
+  margin-bottom: 32.5px;
 }
 
 .admin-page__header-content {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
 }
 
 .admin-page__title {
-    font-family: "Raleway", sans-serif;
-    font-weight: 700;
-    font-size: 42px;
-    line-height: 100%;
-    letter-spacing: 0.04em;
-    text-align: right;
-    text-transform: uppercase;
-    height: 49px;
-    margin-top: 1.5px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  text-align: right;
+  text-transform: uppercase;
+  height: 49px;
+  margin-top: 1.5px;
 }
 
 .admin-page__actions {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    width: calc(198 / 1126 * 100%);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(198 / 1126 * 100%);
 }
 
 .admin-page__add-label {
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 100%;
-    letter-spacing: 0.04em;
-    text-align: right;
-    text-transform: uppercase;
-    color: rgba(31, 31, 31, 1);
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  text-align: right;
+  text-transform: uppercase;
+  color: rgba(31, 31, 31, 1);
 }
 
 .admin-page__add-button {
-    height: 39px;
-    width: 39px;
-    padding: 6.5px;
-    box-sizing: content-box;
-    background-color: #fff;
-    border: none;
+  height: 39px;
+  width: 39px;
+  padding: 6.5px;
+  box-sizing: content-box;
+  background-color: #fff;
+  border: none;
 }
 
 .admin-page__table {
-    width: calc(1093.77 / 1126 * 100%);
-    position: relative;
-    left: calc(27.23 / 1126 * 100%);
-    display: flex;
-    flex-flow: column nowrap;
+  width: calc(1093.77 / 1126 * 100%);
+  position: relative;
+  left: calc(27.23 / 1126 * 100%);
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .admin-page__table-header {
-    width: calc(1093.77 / 1089.760 * 100%);
-    height: 29px;
-    margin-bottom: 22.95px;
+  width: calc(1093.77 / 1089.76 * 100%);
+  height: 29px;
+  margin-bottom: 22.95px;
 }
 
 .admin-page__table-header-row {
-    height: 29px;
-    width: 100%;
-    display: grid;
-    grid-template-columns:  calc((26 + 48.04) / 1089 * 100%) 
-                            calc((90 + 111.23) / 1089 * 100%)
-                            calc((266 + 147.5) / 1089 * 100%)
-                            calc((124 + 274) / 1089 * 100%);
+  height: 29px;
+  width: 100%;
+  display: grid;
+  grid-template-columns:
+    calc((26 + 48.04) / 1089 * 100%)
+    calc((90 + 117.23) / 1089 * 100%)
+    calc((266 + 147.5) / 1089 * 100%)
+    calc((124 + 274) / 1089 * 100%);
 }
 
 .admin-page__table-header-cell {
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: normal;
-    letter-spacing: 0.04em;
-    text-align: left;
-    color: rgba(31, 31, 31, 1);
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: normal;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: rgba(31, 31, 31, 1);
 }
 
 .admin-page__table-row {
-    display: grid;
-    grid-template-columns:  calc((26 + 48.04) / 1089 * 100%) 
-                            calc((90 + 111.23) / 1089 * 100%)
-                            calc((266 + 147.5) / 1089 * 100%)
-                            calc((124 + 274 - 108) / 1089 * 100%)
-                            calc(108 / 1089 * 100%);
-    height: 61px;
+  display: grid;
+  grid-template-columns:
+    calc((26 + 48.04) / 1086.27 * 100%)
+    calc((90 + 111.23) / 1086.27 * 100%)
+    calc((266 + 147.5) / 1086.27 * 100%)
+    calc((124 + 274 - 108) / 1086.27 * 100%)
+    calc(108 / 1086.27 * 100%);
+  height: auto;
+  min-height: 61px;
+  width: calc(1086.27 / (1093.77 - 6.5) * 100%);
+  margin-left: 6.5px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.admin-page__table-row:last-child {
+  margin-bottom: 0;
 }
 
 .admin-page__table-body-cell {
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 254%;
-    letter-spacing: 0.04em;
-    text-align: left;
-    color: rgba(31, 31, 31, 1);
+  height: fit-content;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 254%;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: rgba(31, 31, 31, 1);
 }
 
 .admin-page__table-body-cell:nth-child(4) {
-    text-transform: uppercase;
+  text-transform: uppercase;
+  line-height: 127%;
 }
 
 .admin-page__table-actions {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .admin-page__button {
-    border: none;
-    background-color: #fff;
+  border: none;
+  background-color: #fff;
 }
 
 .admin-page__edit-button {
-    width: 32px;
-    height: 33px;
+  width: 32px;
+  height: 33px;
 }
 
 .admin-page__delete-button {
-    width: 34px;
-    height: 34px;
-    cursor: pointer;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
+
+/*Breakpoints:
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+    
+}
+
+@media screen and (max-width: 1024px) {
+    
+}
+
+@media screen and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 480px) {
+    
+}
+*/
+@media screen and (max-width: 1280px) {
+  .admin-page__table-header {
+    display: none;
+  }
+
+  .admin-page__table-row {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+  }
+
+  .admin-page__table-row > :nth-child(-n + 4) {
+    flex: 1 0 calc((1086.27 - 108) / 1086.27 * 100%);
+  }
+
+  .admin-page__table-row > :nth-child(1) {
+    order: -2;
+  }
+
+  .admin-page__table-row > :nth-child(5) {
+    flex: 1 0 calc(108 / 1086.27 * 100%);
+    order: -1;
+    margin-left: auto;
+    justify-content: space-evenly;
+  }
+
+  .admin-page__table-row > td:before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+  }
+
+  .admin-page__table-row > td {
+    display: flex;
+  }
 }

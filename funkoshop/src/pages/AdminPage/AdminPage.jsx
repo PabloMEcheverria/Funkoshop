@@ -118,16 +118,17 @@ export default function AdminPage() {
               <th className="admin-page__table-header-cell">Código</th>
               <th className="admin-page__table-header-cell">Nombre del Producto</th>
               <th className="admin-page__table-header-cell">Categoría</th>
-              <th className="admin-page__table-header-cell">Acciones</th>
             </tr>
           </thead>
           <tbody className="admin-page__table-body">
             {Array.isArray(filteredProducts) && filteredProducts.map(product => (
               <tr className="admin-page__table-row" key={product.id}>
-                <td className="admin-page__table-body-cell">{product.id}</td>
-                <td className="admin-page__table-body-cell">{product.sku}</td>
-                <td className="admin-page__table-body-cell">{product.name_product}</td>
-                <td className="admin-page__table-body-cell">{product.license}</td>
+                <div className="admin-page__table-row__content">
+                  <td data-label="ID" className="admin-page__table-body-cell">{product.id}</td>
+                  <td data-label="Código" className="admin-page__table-body-cell">{product.sku}</td>
+                  <td data-label="Nombre del Producto" className="admin-page__table-body-cell">{product.name_product}</td>
+                  <td data-label="Categoría" className="admin-page__table-body-cell">{product.license}</td>
+                </div>
                 <td className="admin-page__table-actions">
                   <button
                     onClick={() => handleEdit(product.id)}
