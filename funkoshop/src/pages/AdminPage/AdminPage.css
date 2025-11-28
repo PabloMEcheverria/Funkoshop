@@ -1,14 +1,15 @@
 .admin-page {
-  width: 100%;
+  width: calc(1126 / 1440 * 100%);
   display: flex;
   flex-flow: column nowrap;
-  padding: 36px 0 0 calc(110 / 1440 * 100%);
+  margin: 36px 0 0 calc(110 / 1440 * 100%);
+  box-sizing: border-box;
 }
 
 .admin-page__search {
   position: relative;
   height: 44.28px;
-  width: calc(590.88 / 1440 * 100%);
+  width: calc(590.88 / 1126 * 100%);
   display: flex;
   flex-flow: row nowrap;
 }
@@ -51,7 +52,7 @@
 }
 
 .admin-page__products {
-  width: calc(1126 / 1440 * 100%);
+  width: 100%;
   margin: 36px 0;
 }
 
@@ -59,6 +60,7 @@
   height: 52px;
   background-color: #fff;
   margin-bottom: 32.5px;
+  padding: 0;
 }
 
 .admin-page__header-content {
@@ -76,7 +78,7 @@
   font-size: 42px;
   line-height: 100%;
   letter-spacing: 0.04em;
-  text-align: right;
+  text-align: center;
   text-transform: uppercase;
   height: 49px;
   margin-top: 1.5px;
@@ -87,6 +89,7 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  min-width: 198px;
   width: calc(198 / 1126 * 100%);
 }
 
@@ -292,5 +295,92 @@
   .admin-page__table-actions {
     margin-top: 20px;
     width: 108px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .admin-page__header {
+    height: fit-content;
+  }
+
+  .admin-page__header-content {
+    flex-flow: column nowrap;
+    row-gap: 16px;
+  }
+
+  .admin-page__actions {
+    align-self: flex-end;
+    justify-self: flex-end;
+  }
+
+  .admin-page__table-row {
+    flex-direction: column-reverse;
+  }
+
+  .admin-page__table-actions {
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin: 16px 0 24px;
+  }
+
+  .admin-page__table-row__content {
+    width: 100%;
+  }
+
+  /*font size modifications*/
+
+  .admin-page__input {
+    font-size: 18px;
+  }
+
+  .admin-page__title {
+    font-size: 34px;
+  }
+
+  .admin-page__add-label, 
+  .admin-page__table-body-cell, 
+  .admin-page__table-row__content > td:before {
+    font-size: 22px;
+  }
+}
+@media screen and (max-width: 768px) {
+
+  /*font size modifications*/
+
+  .admin-page__input {
+    font-size: 16px;
+  }
+
+  .admin-page__title {
+    font-size: 30px;
+  }
+
+  .admin-page__add-label, 
+  .admin-page__table-body-cell, 
+  .admin-page__table-row__content > td:before {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .admin-page__table-body-cell {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /*font size modifications*/
+  
+  .admin-page__input {
+    font-size: 15px;
+  }
+
+  .admin-page__title {
+    font-size: 26px;
+  }
+
+  .admin-page__add-label, 
+  .admin-page__table-body-cell, 
+  .admin-page__table-row__content > td:before {
+    font-size: 18px;
   }
 }

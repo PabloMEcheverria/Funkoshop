@@ -86,6 +86,7 @@ export default function AdminPage() {
       <section className="admin-page__search">
         <form className="admin-page__form" onSubmit={handleSearch}>
           <input
+            name="admin-page__input"
             className="admin-page__input"
             type="text"
             placeholder="código, nombre o categoría"
