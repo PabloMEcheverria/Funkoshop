@@ -92,3 +92,17 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
+@media screen and (max-width: 1024px) {
+    .combo-box__input {
+        font-size: 18px;
+    }
+
+    .combo-box__input::placeholder {
+        font-size: 18px;
+    }
+
+    .combo-box__list-item {
+        font-size: 18px;
+    }
+}
