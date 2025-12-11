@@ -502,3 +502,85 @@
     font-size: 15px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .form {
+    width: calc(1208.9 / 1440 * 100%);
+    margin: 0 calc(115.55 / 1440 * 100%);
+  }
+
+  .form__field--product-name, 
+  .form__field--payment-methods, 
+  .form__field--images, 
+  .form__field--special-edition {
+    flex-direction: column;
+    row-gap: 16px;
+    height: fit-content;
+    width: 100%;
+    min-width: 100%;
+    align-items: flex-start;
+  }
+
+  .form__select-arrow--payment_methods {
+    position: relative;
+    top: calc((42.15px / 2) - 5px);
+    right: 33px;
+  }
+
+  .form__select-arrow--special-edition {
+    position: absolute;
+    bottom: calc((42.15px / 2) - 5px);
+    left: calc(200px - 10px - 17px);
+  }
+
+  .form__actions {
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /*Font sizes*/
+  .form__title {
+    font-size: 36px;
+  }
+
+  .form__label--combobox {
+    font-size: 20px;
+  }
+
+  .form__label {
+    font-size: 20px;
+  }
+
+  .form__input {
+    font-size: 15px;
+  }
+
+  .form__input::placeholder {
+    font-size: 15px;
+  }
+
+  .form__textarea {
+    font-size: 15px;
+  }
+
+  .form__textarea::placeholder {
+    font-size: 15px;
+  }
+
+  .form__select {
+    font-size: 16px;
+  }
+
+  .form__option--placeholder {
+    font-size: 16px;
+  }
+
+  .form__option {
+    font-size: 16px;
+  }
+
+  .form__button {
+    font-size: 14px;
+  }   
+}
