@@ -301,6 +301,7 @@
   text-align: center;
   color: rgba(31, 31, 31, 1);
   cursor: pointer;
+  height: fit-content;
 }
 
 .form__input--text {
@@ -368,6 +369,7 @@
 .form__select-arrow--special-edition, 
 .form__select-arrow--favorites {
   right: 14.04px;
+  top: calc(50% - 10px / 2);
 }
 
 .form__actions {
@@ -445,6 +447,7 @@
   .form__field--category, 
   .form__field--license {
     min-width: 387.29px;
+    align-items: baseline;
   }
 
   .form__field-group--bottom {
@@ -514,11 +517,19 @@
   .form__field--images, 
   .form__field--special-edition {
     flex-direction: column;
-    row-gap: 16px;
+    row-gap: 12px;
     height: fit-content;
     width: 100%;
     min-width: 100%;
     align-items: flex-start;
+  }
+
+  .form__select-wrapper {
+    width: 346px;
+  }
+
+  .form__file-custom-wrapper {
+    justify-content: flex-start;
   }
 
   .form__select-arrow--payment_methods {
@@ -529,7 +540,7 @@
 
   .form__select-arrow--special-edition {
     position: absolute;
-    bottom: calc((42.15px / 2) - 5px);
+    top: calc(12px + 22px + 17.74px);
     left: calc(200px - 10px - 17px);
   }
 
@@ -539,6 +550,69 @@
 }
 
 @media screen and (max-width: 480px) {
+
+  .form__field--category, 
+  .form__field--license {
+    flex-direction: column;
+    row-gap: 12px;
+    height: fit-content;
+    width: 243.03px;
+    min-width: 243.03px;
+    align-items: flex-start;
+  }
+
+  .form__field--payment-methods {
+    width: 346px;
+    min-width: 346px;
+  }
+
+  .form__select-wrapper > .form__select {
+    width: 100%;
+  }
+
+  .form__select-arrow--payment_methods {
+    position: absolute;
+    top: calc(20px + 12px + 16px);
+    right: 18.63px;
+  }
+
+  .form__file-custom-wrapper {
+    flex-direction: column;
+    row-gap: 6px;
+    height: fit-content;
+    width: 100%;
+    min-width: 100%;
+    align-items: flex-start;
+  }
+
+  .form__field--new-item {
+    flex-direction: column;
+    row-gap: 12px;
+    height: fit-content;
+    align-items: flex-start;
+  }
+
+  .form__select-arrow--new-item, 
+  .form__select-arrow--favorites {
+    top: calc(20px + 12px + 16px);
+  }
+
+  .form__select-arrow--special-edition {
+    top: calc(20px + 12px + 16px);
+    right: 0px;
+  }
+
+  .form__label--special-edition {
+    text-align: left;
+  }
+
+  .form__field--favorites {
+    flex-direction: column;
+    row-gap: 12px;
+    height: fit-content;
+    align-items: flex-start;
+  }
+
   /*Font sizes*/
   .form__title {
     font-size: 36px;
