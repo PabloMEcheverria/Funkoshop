@@ -88,7 +88,7 @@
   font-size: 24px;
   line-height: 100%;
   letter-spacing: 0.04em;
-  text-align: center;
+  text-align: left;
   color: rgba(0, 0, 0, 1);
   display: inline-block;
   width: fit-content;
@@ -255,7 +255,9 @@
 
 .form__select-arrow--payment_methods {
   right: 16.8px;
-  top: calc(50% - 10px / 2); /* 50% (position) - 10px (element's total height) / 2 */
+  top: calc(
+    50% - 10px / 2
+  ); /* 50% (position) - 10px (element's total height) / 2 */
 }
 
 .form__field--images {
@@ -282,7 +284,7 @@
 
 .form__file-custom-wrapper--justify-flex-start {
   justify-content: flex-start;
-} 
+}
 
 .form__input--button,
 .form__input--file::file-selector-button {
@@ -325,14 +327,14 @@
   opacity: 0;
 }
 
-.form__field--new-item, 
+.form__field--new-item,
 .form__field--special-edition,
 .form__field--favorites {
   height: 44px;
 }
 
-.form__select--new-item, 
-.form__select--special-edition, 
+.form__select--new-item,
+.form__select--special-edition,
 .form__select--favorites {
   width: 200px;
 }
@@ -365,8 +367,8 @@
   min-width: 137.87px;
 }
 
-.form__select-arrow--new-item, 
-.form__select-arrow--special-edition, 
+.form__select-arrow--new-item,
+.form__select-arrow--special-edition,
 .form__select-arrow--favorites {
   right: 14.04px;
   top: calc(50% - 10px / 2);
@@ -416,7 +418,6 @@
 }
 */
 
-
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
   .form {
     width: calc(827.63 / 1280 * 100%);
@@ -426,7 +427,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-  
   .form__title {
     width: 100%;
     text-align: center;
@@ -444,7 +444,7 @@
     height: fit-content;
   }
 
-  .form__field--category, 
+  .form__field--category,
   .form__field--license {
     min-width: 387.29px;
     align-items: baseline;
@@ -454,8 +454,8 @@
     row-gap: 0;
   }
 
-  .form__field--price, 
-  .form__field--stock, 
+  .form__field--price,
+  .form__field--stock,
   .form__field--discounts {
     width: fit-content;
   }
@@ -512,9 +512,9 @@
     margin: 0 calc(115.55 / 1440 * 100%);
   }
 
-  .form__field--product-name, 
-  .form__field--payment-methods, 
-  .form__field--images, 
+  .form__field--product-name,
+  .form__field--payment-methods,
+  .form__field--images,
   .form__field--special-edition {
     flex-direction: column;
     row-gap: 12px;
@@ -550,8 +550,7 @@
 }
 
 @media screen and (max-width: 480px) {
-
-  .form__field--category, 
+  .form__field--category,
   .form__field--license {
     flex-direction: column;
     row-gap: 12px;
@@ -592,7 +591,7 @@
     align-items: flex-start;
   }
 
-  .form__select-arrow--new-item, 
+  .form__select-arrow--new-item,
   .form__select-arrow--favorites {
     top: calc(20px + 12px + 16px);
   }
@@ -656,5 +655,5 @@
 
   .form__button {
     font-size: 14px;
-  }   
+  }
 }
