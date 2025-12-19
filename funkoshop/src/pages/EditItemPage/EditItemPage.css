@@ -282,7 +282,7 @@
 }
 
 .edit-form__file-button {
-  width: calc(125.24 / 386.76 * 100%);
+  width: 125.24px;
   height: 100%;
   padding: 4.64px;
   box-sizing: border-box;
@@ -464,6 +464,7 @@
   .edit-form__textarea, 
   .edit-form__textarea::placeholder {
     font-size: 22px;
+    text-align: left;
   }
 
   .edit-form__input, 
@@ -496,6 +497,65 @@
   .edit-form__body {
     width: calc(1280 / 1440 * 100%);
     margin: 0 calc((1440 - 1280) / 2 / 1440 * 100%);
+  }
+
+  .edit-form__field--name, 
+  .edit-form__field--sku, 
+  .edit-form__field--sku-multiple {
+    flex-direction: column;
+    align-items: start;
+    row-gap: 12px;
+  }
+
+  .edit-form__input--name {
+    min-width: 296px;
+  }
+
+  .edit-form__field--price {
+    column-gap: 13.96px;
+    min-width: 227.96px;
+  }
+
+  .edit-form__field--stock {
+    column-gap: 6.35px;
+    min-width: 138.35px;
+  }
+
+  .edit-form__field--discounts {
+    column-gap: 8.52px;
+    min-width: 201.52px;
+  }
+
+  .edit-form__field--payment_methods {
+    flex-direction: column;
+    align-items: start;
+    row-gap: 12px;
+    height: fit-content;
+  }
+
+  .edit-form__label--payment_methods {
+    margin: 0;
+  }
+
+  .edit-form__field--payment_methods > 
+  .edit-form__select-wrapper {
+    min-width: 346px;
+  }
+
+  .edit-form__field--images--images-wrapper {
+    flex-direction: column;
+    text-align: left;
+    row-gap: 12px;
+    align-items: flex-start;
+  }
+
+  .edit-form__file-label {
+    width: fit-content;
+    row-gap: 12px;
+  }
+
+  .edit-form__preview-wrapper {
+    align-self: center;
   }
 
   .edit-form__button--submit {
