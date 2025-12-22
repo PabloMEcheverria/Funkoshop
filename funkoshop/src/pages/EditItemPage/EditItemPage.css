@@ -564,6 +564,21 @@
 }
 
 @media screen and (max-width: 480px) {
+  .edit-form__group > .edit-form__field {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 12px;
+  }
+
+  .edit-form__field--name {
+    width: calc(296 / 480 * 100%);
+  }
+
+  .edit-form__input--name {
+    width: 100%;
+    min-width: 0px;
+  }
+
   /*Font sizes*/
   .edit-form__title {
     font-size: 36px;
