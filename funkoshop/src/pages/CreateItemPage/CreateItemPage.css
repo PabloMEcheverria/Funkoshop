@@ -550,6 +550,12 @@
 }
 
 @media screen and (max-width: 480px) {
+  .form__title {
+    margin: 36px calc(115.55 / 1440 * 100%) 39.58px;
+    width: fit-content;
+    box-sizing: border-box;
+  }
+
   .form__field--category,
   .form__field--license {
     flex-direction: column;
@@ -561,8 +567,12 @@
   }
 
   .form__field--payment-methods {
-    width: 346px;
-    min-width: 346px;
+    width: 100%;
+  }
+
+  .form__select-wrapper {
+    width: 100%;
+    min-width: 0;
   }
 
   .form__select-wrapper > .form__select {
@@ -582,6 +592,11 @@
     width: 100%;
     min-width: 100%;
     align-items: flex-start;
+  }
+
+  .form__input--button, 
+  .form__input--file {
+    width: 125.24px;
   }
 
   .form__field--new-item {
@@ -610,6 +625,17 @@
     row-gap: 12px;
     height: fit-content;
     align-items: flex-start;
+  }
+
+  .form__actions {
+    flex-wrap: wrap;
+    height: fit-content;
+    justify-content: center;
+    row-gap: 12px;
+  }
+
+  .form__button {
+    height: 44.33px;
   }
 
   /*Font sizes*/

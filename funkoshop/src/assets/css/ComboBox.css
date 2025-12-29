@@ -110,6 +110,10 @@
 }
 
 @media screen and (max-width: 480px) {
+  .combo-box {
+    width: 100%;
+  }
+
   .combo-box__input {
     font-size: 16px;
   }

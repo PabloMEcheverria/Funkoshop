@@ -568,6 +568,7 @@
     flex-direction: column;
     align-items: flex-start;
     row-gap: 12px;
+    width: fit-content;
   }
 
   .edit-form__field--name {
@@ -577,6 +578,45 @@
   .edit-form__input--name {
     width: 100%;
     min-width: 0px;
+  }
+
+  .edit-form__field--payment_methods {
+    width: fit-content;
+  }
+
+  .edit-form__field--payment_methods > .edit-form__select-wrapper {
+    width: calc(1280 / 1440 * 346px);
+    min-width: 0px;
+  }
+
+  .edit-form__field--is-new, 
+  .edit-form__field--is-special-edition, 
+  .edit-form__field--is-favorite {
+    height: fit-content;
+  }
+
+  .edit-form__field--is-new > .edit-form__select-wrapper, 
+  .edit-form__field--is-special-edition > .edit-form__select-wrapper, 
+  .edit-form__field--is-favorite > .edit-form__select-wrapper {
+    width: 100%;
+    min-width: 0px;
+  }
+
+  .edit-form__group--bottom > .edit-form__field--images {
+    width: 100%;
+  }
+
+  .edit-form__file-label {
+    width: fit-content;
+    min-width: 0px;
+    height: fit-content;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 3px;
+  }
+
+  .edit-form__input--file {
+    width: 125.24px;
   }
 
   /*Font sizes*/
