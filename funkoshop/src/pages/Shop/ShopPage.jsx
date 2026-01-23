@@ -8,174 +8,95 @@ import { useUser } from "../../context/UserContext.js";
 
 export default function ShopPage({ filterData, setFilterData }) {
     const { products } = useUser();
-    const [displayProductArr, setDisplayProductArr] = useState([]);
+    const segmentedDisplayProductsArr = arr => {
+        if (!Array.isArray(arr)) {
+            return [];
+        }
+
+        const segmentedArr = [];
+        for (let i = 0; i < arr.length; i += 9) {
+            segmentedArr.push(arr.slice(i, i + 9));
+        }
+
+        return segmentedArr;
+    };
+    function uniqueByNameProduct(arr) {
+      if (!Array.isArray(arr)) return [];
+
+      const seen = new Set();
+      return arr.filter(item => {
+        if (!item || typeof item.name_product !== "string") return false;
+        const name = item.name_product.toLowerCase().trim();
+        if (seen.has(name)) {
+          return false;
+        }
+        seen.add(name);
+        return true
+  });
+}
+
     const [paginationData, setPaginationData] = useState(
         {
             paginationList: <ul className="pagination__list"></ul>,
             positionInPagination: 1, 
-            segmentedProductArr: [], 
+            segmentedProductArr: segmentedDisplayProductsArr(uniqueByNameProduct(products)),
             moveTo: function moveTo(e) {
-                if (!isNaN(parseInt(e.target.id))) {
-                    setPaginationData(prevPaginationData => {
-                        let newPaginationData = {
-                            ...prevPaginationData, 
-                            positionInPagination: parseInt(e.target.id)
-                        }
-                        newPaginationData = {
-                            ...newPaginationData, 
-                            paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
-                        }
-                        return newPaginationData
-                    })
-                } else if (e.target.id === "prev") {
-                    setPaginationData(prevPaginationData => {
-                        let newPaginationData = {
-                            ...prevPaginationData, 
-                            positionInPagination: prevPaginationData.positionInPagination - 1
-                        }
-                        newPaginationData = {
-                            ...newPaginationData, 
-                            paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
-                        }
-                        return newPaginationData
-                    })
-                } else if (e.target.id === "next") {
-                    setPaginationData(prevPaginationData => {
-                        let newPaginationData = {
-                            ...prevPaginationData, 
-                            positionInPagination: prevPaginationData.positionInPagination + 1
-                        }
-                        newPaginationData = {
-                            ...newPaginationData, 
-                            paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
-                        }
-                        return newPaginationData
-                    })
-                }
+              if (!isNaN(parseInt(e.target.id))) {
+                  setPaginationData(prevPaginationData => {
+                      let newPaginationData = {
+                          ...prevPaginationData, 
+                          positionInPagination: parseInt(e.target.id)
+                      }
+                      newPaginationData = {
+                          ...newPaginationData, 
+                          paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                      }
+                      return newPaginationData
+                  })
+              } else if (e.target.id === "prev") {
+                  setPaginationData(prevPaginationData => {
+                      let newPaginationData = {
+                          ...prevPaginationData, 
+                          positionInPagination: prevPaginationData.positionInPagination - 1
+                      }
+                      newPaginationData = {
+                          ...newPaginationData, 
+                          paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                      }
+                      return newPaginationData
+                  })
+              } else if (e.target.id === "next") {
+                  setPaginationData(prevPaginationData => {
+                      let newPaginationData = {
+                          ...prevPaginationData, 
+                          positionInPagination: prevPaginationData.positionInPagination + 1
+                      }
+                      newPaginationData = {
+                          ...newPaginationData, 
+                          paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
+                      }
+                      return newPaginationData
+                  })
+              }
             }
         }
     );
 
-    const filteredUniqueProducts = useMemo(() => {
-      return Array.from(
-        new Set(
-          products
-            .filter(p => p.name_product && p.is_available === true)
-            .map(p => p.name_product)
-        )
-      ).map(name =>
-        products.find(p => p.name_product === name && p.is_available === true)
-      );
+    useEffect(() => {
+        setPaginationData({ ...paginationData, segmentedProductArr: segmentedDisplayProductsArr(uniqueByNameProduct(products))});
     }, [products]);
 
-    function nameOrCategoryFilter (productArr, filterData) {
-        let newProductArr = [];
-        if(productArr.length > 0 && filterData.nameOrCategory.length > 0) {
-            newProductArr = productArr.filter(product => {
-                let name_product = product.name_product.trim().toLowerCase();
-                let license = product.license.trim().toLowerCase();
-                let nameOrCategory = filterData.nameOrCategory.trim().toLowerCase();
-                return name_product === nameOrCategory || license === nameOrCategory;
-            });
-        }
-        setDisplayProductArr(newProductArr);
-    }
-
-    useEffect(() => {
-      nameOrCategoryFilter(filteredUniqueProducts, filterData);
-    }, [filteredUniqueProducts, filterData]);
-
-    useEffect(() => {
-        setDisplayProductArr(filteredUniqueProducts);
-        setPaginationData(pagination(displayProductArr));
-    }, [displayProductArr]);
-
-    function setSegmentedProductArr(productArr) {
-        let newProductArr = [];
-        if (productArr.length > 9) {
-            for (let i = 0; i < productArr.length; i += 9) {
-                if (productArr.length - i > 9) {
-                    newProductArr.push(productArr.slice(i, i + 9));
-                } else {
-                    newProductArr.push(productArr.slice(i));
-                }
-            }
-        } else {
-            newProductArr.push(productArr);
-        }
-        return newProductArr
-    }
-    function setPaginationList(segmentedProductArr, paginationDataObj = paginationData) {
-        let liPaginationArr = segmentedProductArr.map((product, i, arr) => {
-            let pos = paginationDataObj.positionInPagination;
-            if (arr.length <= 7) {
-                return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
-            } else {
-                if(pos <= 2) {
-                    if (i + 1 <= 3 || i + 1 === arr.length) {
-                        return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
-                    } else if (i + 1 === 4) {
-                        return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
-                    }
-                } else if (pos === 3) {
-                    if (i + 1 <= 4 || i + 1 === arr.length) {
-                        return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
-                    } else if (i + 1 === 5) {
-                        return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
-                    }
-                } else if (pos >= 4 && pos <= arr.length - 3) {
-                    if (i + 1 === 1 || 
-                        (i + 1 >= pos - 1 && i + 1 <= pos + 1) ||  
-                        i + 1 === arr.length ) {
-                            return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
-                        } else if (i + 1 === 2 || i + 1 === pos + 2) {
-                            return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
-                        }
-                } else if (pos === arr.length - 2) {
-                    if (i + 1 === 1 || i + 1 >= pos - 1) {
-                        return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
-                    } else if (i + 1 === 2) {
-                       return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
-                    }
-                } else if (pos >= arr.length - 1) {
-                    if (i + 1 === 1 || i + 1 >= arr.length - 2) {
-                        return (<PaginationButton paginationData={paginationDataObj} index={i + 1} key={i + 1} />)
-                    } else if (i + 1 === 2) {
-                        return (<PaginationButton paginationData={paginationDataObj} isEllipsis={true} key={"ellipsis_" + (i + 1)} />)
-                    }
-                }
-            }
-        })
-        liPaginationArr = liPaginationArr.filter(value => value !== undefined && true);
-        liPaginationArr.unshift(<PaginationButton paginationData={paginationDataObj} isPrev={true} key={"prev"} />);
-        liPaginationArr.push(<PaginationButton paginationData={paginationDataObj} isNext={true} key={"next"} />);
-        return liPaginationArr
-    }
-    
-    function pagination(productArr) {
-        let newPaginationData = {...paginationData};
-
-        const sortedArr = [...productArr].sort((a, b) => {
-            const nameA = a.name_product?.toLowerCase() || "";
-            const nameB = b.name_product?.toLowerCase() || "";
-            return nameA.localeCompare(nameB);
-        });
-
-        newPaginationData.segmentedProductArr = setSegmentedProductArr(sortedArr);
-        const newPaginationList = setPaginationList(newPaginationData.segmentedProductArr, newPaginationData);
-        newPaginationData.paginationList = <ul className="pagination__list">{newPaginationList}</ul>;
-        return newPaginationData
-    }
     return (
         <>
             <main className="shop">
                 <div className="flex-wrapper">
                     <FilterShop 
                         filterData={filterData} 
-                        setFilterData={setFilterData} 
-                        setDisplayProductArr={setDisplayProductArr} 
+                        setFilterData={setFilterData}
                         paginationData={paginationData} 
-                        setPaginationData={setPaginationData} />
+                        setPaginationData={setPaginationData}
+                        segmentedDisplayProductsArr={segmentedDisplayProductsArr}
+                        uniqueByNameProduct={uniqueByNameProduct} />
                     <div className="catalogue-wrapper">
                         <CatalogueShop paginationData={paginationData} />
                         <Pagination paginationData={paginationData} />

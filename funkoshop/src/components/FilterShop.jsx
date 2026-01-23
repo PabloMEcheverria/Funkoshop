@@ -3,19 +3,23 @@ import "../assets/css/FilterShop.css";
 import { useUser } from "../context/UserContext.js";
 
 
-export default function FilterShop({ filterData, setFilterData, setDisplayProductArr, paginationData, setPaginationData }) {
-    useEffect(() => {
-        if (filterData.nameOrCategory) {
-            filterEngine(filterData);
-        }
-    }, [filterData.nameOrCategory]);
-
+export default function FilterShop({ filterData, setFilterData, paginationData, setPaginationData, segmentedDisplayProductsArr, uniqueByNameProduct }) {
+  
     const { products } = useUser();
-    function handleInputChange(e) {
+    useEffect(() => {
+        const filteredProducts = filterEngine(filterData, products);
+        const uniqueProductsArr = uniqueByNameProduct(filteredProducts);
+        const segmentedDisplayProducts = segmentedDisplayProductsArr(uniqueProductsArr);
+
+        setPaginationData({ ...paginationData, segmentedProductArr: segmentedDisplayProducts });
+    }, [filterData]);
+
+    const handleInputChange = e => {
         const { name, value, id } = e.target;
         let newFilterData;
+
         if (name === "nameOrCategory" || name === "sortBy") {
-            newFilterData = {...filterData, [name]: value};
+            newFilterData = { ...filterData, [name]: value };
         }
 
         if (name === "price") {
@@ -41,12 +45,11 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
         if (name === "filterByFavorites") {
             newFilterData = {...filterData, [name]: !filterData.filterByFavorites};
         }
-        setFilterData(newFilterData);
-        filterEngine(newFilterData);
-    }
 
-    function filterEngine(filterDataObj) {
-        let {
+        setFilterData(newFilterData);
+    };
+    const filterEngine = (filterDataObj, arr) => {
+        const {
                 nameOrCategory, 
                 sortBy, 
                 price,
@@ -54,10 +57,11 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
                 filterByOffer, 
                 filterBySpecialEdition, 
                 filterByFavorites
-            } = filterDataObj;
-        let min = Number(price.min);
-        let max = Number(price.max);
-        let newUniqueProductArr = [...products];
+        } = filterDataObj;
+        const min = filterData.price.min === "" ? null : Number(filterData.price.min);
+        const max = filterData.price.max === "" ? null : Number(filterData.price.max);
+
+        let newUniqueProductArr = [...arr];
         /*----------Filter by name or category----------*/
         if (nameOrCategory.length !== 0) {
             let newNameOrCategory = nameOrCategory.trim().toLowerCase();
@@ -73,13 +77,16 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
         }
         /*---------------------------------------------*/
         /*----------Filter by min and max price----------*/
-        if (!isNaN(min) && min >= 0 && (min <= max || isNaN(max))) {
+        if (!isNaN(min) && !isNaN(max) && max < min) {
+             return [];
+        }
+        if (min !== null && !isNaN(min) && min >= 0) {
             newUniqueProductArr = newUniqueProductArr.filter(product => product.price >= min);
         }
-        if (!isNaN(max) && max >= 0 && (min <= max || isNaN(min))) {
+        if (max !== null && !isNaN(max) && max >= 0) {
             newUniqueProductArr = newUniqueProductArr.filter(product => product.price <= max);
         }
-        /*-----------------------------------------------*/
+        /*---------------------------------------------*/
         /*----------Filter by new----------*/
         if (filterByNew) {
             newUniqueProductArr = newUniqueProductArr.filter(product => product.is_new);
@@ -109,11 +116,9 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
             newUniqueProductArr.sort((a, b) => a.price - b.price);
         }
         /*------------------------*/
-        setDisplayProductArr(newUniqueProductArr);
-        let newPaginationData = {...paginationData, positionInPagination: 1};
-        setPaginationData(newPaginationData);
+        return newUniqueProductArr
     }
-    
+
     return (
         <aside>
             <form>
@@ -143,10 +148,10 @@ export default function FilterShop({ filterData, setFilterData, setDisplayProduc
                     <legend>precio</legend>
                     <div>
                         <label className="min" htmlFor="min">min</label>
-                        <input type="number" name="price" id="min" placeholder="0" onChange={handleInputChange}/>
+                        <input type="number" name="price" id="min" placeholder="0" min={0} onChange={handleInputChange}/>
                         <p className="middleDash">-</p>
                         <label className="max" htmlFor="max">max</label>
-                        <input type="number" name="price" id="max" placeholder="0" onChange={handleInputChange} />
+                        <input type="number" name="price" id="max" placeholder="0" min={0} onChange={handleInputChange} />
                     </div>
                 </fieldset>
 
