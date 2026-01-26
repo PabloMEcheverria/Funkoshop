@@ -3,7 +3,6 @@ import "./ShopPage.css";
 import FilterShop from "../../components/FilterShop.jsx";
 import CatalogueShop from "../../components/CatalogueShop.jsx";
 import Pagination from "../../components/Pagination.jsx";
-import PaginationButton from "../../components/PaginationButton.jsx";
 import { useUser } from "../../context/UserContext.js";
 
 export default function ShopPage({ filterData, setFilterData }) {
@@ -39,46 +38,7 @@ export default function ShopPage({ filterData, setFilterData }) {
         {
             paginationList: <ul className="pagination__list"></ul>,
             positionInPagination: 1, 
-            segmentedProductArr: segmentedDisplayProductsArr(uniqueByNameProduct(products)),
-            moveTo: function moveTo(e) {
-              if (!isNaN(parseInt(e.target.id))) {
-                  setPaginationData(prevPaginationData => {
-                      let newPaginationData = {
-                          ...prevPaginationData, 
-                          positionInPagination: parseInt(e.target.id)
-                      }
-                      newPaginationData = {
-                          ...newPaginationData, 
-                          paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
-                      }
-                      return newPaginationData
-                  })
-              } else if (e.target.id === "prev") {
-                  setPaginationData(prevPaginationData => {
-                      let newPaginationData = {
-                          ...prevPaginationData, 
-                          positionInPagination: prevPaginationData.positionInPagination - 1
-                      }
-                      newPaginationData = {
-                          ...newPaginationData, 
-                          paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
-                      }
-                      return newPaginationData
-                  })
-              } else if (e.target.id === "next") {
-                  setPaginationData(prevPaginationData => {
-                      let newPaginationData = {
-                          ...prevPaginationData, 
-                          positionInPagination: prevPaginationData.positionInPagination + 1
-                      }
-                      newPaginationData = {
-                          ...newPaginationData, 
-                          paginationList: <ul className="pagination__list">{setPaginationList(newPaginationData.segmentedProductArr, newPaginationData)}</ul>
-                      }
-                      return newPaginationData
-                  })
-              }
-            }
+            segmentedProductArr: segmentedDisplayProductsArr(uniqueByNameProduct(products))
         }
     );
 
@@ -99,7 +59,9 @@ export default function ShopPage({ filterData, setFilterData }) {
                         uniqueByNameProduct={uniqueByNameProduct} />
                     <div className="catalogue-wrapper">
                         <CatalogueShop paginationData={paginationData} />
-                        <Pagination paginationData={paginationData} />
+                        <Pagination 
+                            paginationData={paginationData}
+                            setPaginationData={setPaginationData} />
                     </div>
                 </div>
             </main>

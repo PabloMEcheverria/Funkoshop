@@ -7,6 +7,8 @@
 
 .catalogue-wrapper {
   width: calc(1086.96 / 1440 * 100%);
+  display: flex;
+  flex-direction: column;
 }
 
 
