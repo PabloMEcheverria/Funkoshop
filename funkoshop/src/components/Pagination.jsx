@@ -50,7 +50,7 @@ export default function Pagination({ paginationData, setPaginationData }) {
             newPaginationButtonArr = 
                 [
                     newPaginationButtonArr.slice(0, 1), 
-                    ellipsisButton, newPaginationButtonArr.slice(-2)
+                    ellipsisButton, newPaginationButtonArr.slice(-3)
                 ];
             setPaginationButtonArr(newPaginationButtonArr);
         } else if (newPaginationButtonArr.length > 6 && positionInPagination > 3 && positionInPagination < newPaginationButtonArr.length - 2) { //["1", "...", "previous", "current", "next", "...", "n"]
@@ -77,7 +77,7 @@ export default function Pagination({ paginationData, setPaginationData }) {
                 [
                     newPaginationButtonArr.slice(0, 1), 
                     ellipsisButton_1, 
-                    newPaginationButtonArr.slice(positionInPagination -1, positionInPagination + 1), 
+                    newPaginationButtonArr.slice(positionInPagination -2, positionInPagination + 1), 
                     ellipsisButton_2, 
                     newPaginationButtonArr.slice(-1)
                 ];

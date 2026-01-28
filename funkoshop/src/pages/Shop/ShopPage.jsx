@@ -20,30 +20,32 @@ export default function ShopPage({ filterData, setFilterData }) {
         return segmentedArr;
     };
     function uniqueByNameProduct(arr) {
-      if (!Array.isArray(arr)) return [];
-
-      const seen = new Set();
-      return arr.filter(item => {
-        if (!item || typeof item.name_product !== "string") return false;
-        const name = item.name_product.toLowerCase().trim();
-        if (seen.has(name)) {
-          return false;
-        }
-        seen.add(name);
-        return true
-  });
-}
+        if (!Array.isArray(arr)) return [];
+        
+        const seen = new Set();
+        return arr.filter(item => {
+          if (!item || typeof item.name_product !== "string") return false;
+          const name = item.name_product.toLowerCase().trim();
+          if (seen.has(name)) {
+            return false;
+          }
+          seen.add(name);
+          return true
+        });
+    }
 
     const [paginationData, setPaginationData] = useState(
         {
             paginationList: <ul className="pagination__list"></ul>,
             positionInPagination: 1, 
             segmentedProductArr: segmentedDisplayProductsArr(uniqueByNameProduct(products))
+            //segmentedProductArr: segmentedDisplayProductsArr(products)
         }
     );
 
     useEffect(() => {
         setPaginationData({ ...paginationData, segmentedProductArr: segmentedDisplayProductsArr(uniqueByNameProduct(products))});
+        //setPaginationData({ ...paginationData, segmentedProductArr: segmentedDisplayProductsArr(products)});
     }, [products]);
 
     return (
