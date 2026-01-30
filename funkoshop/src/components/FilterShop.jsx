@@ -7,11 +7,11 @@ export default function FilterShop({ filterData, setFilterData, paginationData, 
   
     const { products } = useUser();
     useEffect(() => {
+        console.log(filterData);
         const filteredProducts = filterEngine(filterData, products);
         const uniqueProductsArr = uniqueByNameProduct(filteredProducts);
-        //const uniqueProductsArr = filteredProducts;
         const segmentedDisplayProducts = segmentedDisplayProductsArr(uniqueProductsArr);
-
+        console.log({ ...paginationData, segmentedProductArr: segmentedDisplayProducts });
         setPaginationData({ ...paginationData, segmentedProductArr: segmentedDisplayProducts });
     }, [filterData]);
 

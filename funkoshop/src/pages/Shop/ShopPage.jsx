@@ -39,13 +39,11 @@ export default function ShopPage({ filterData, setFilterData }) {
             paginationList: <ul className="pagination__list"></ul>,
             positionInPagination: 1, 
             segmentedProductArr: segmentedDisplayProductsArr(uniqueByNameProduct(products))
-            //segmentedProductArr: segmentedDisplayProductsArr(products)
         }
     );
 
     useEffect(() => {
         setPaginationData({ ...paginationData, segmentedProductArr: segmentedDisplayProductsArr(uniqueByNameProduct(products))});
-        //setPaginationData({ ...paginationData, segmentedProductArr: segmentedDisplayProductsArr(products)});
     }, [products]);
 
     return (

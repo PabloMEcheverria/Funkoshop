@@ -52,6 +52,17 @@
   border: none;
 }
 
+.admin-page__button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.admin-page__button:active {
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+
 .admin-page__products {
   width: 100%;
   margin: 36px 0;
@@ -112,6 +123,17 @@
   box-sizing: content-box;
   background-color: #fff;
   border: none;
+}
+
+.admin-page__add-button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.admin-page__add-button:active {
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
 }
 
 .admin-page__table {

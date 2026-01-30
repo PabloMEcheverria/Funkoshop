@@ -86,7 +86,13 @@
   color: #b9b9b9;
 }
 
+.signup__input:hover {
+  background-color: #fff4f4;
+  border-radius: 3px;
+}
+
 .signup__input:focus {
+  background-color: #ffffff;
   border: none;
   border-bottom: 2px solid #ff3333;
   outline: none;
@@ -111,6 +117,17 @@
   line-height: 14.52px;
   text-align: center;
   color: #ffffff;
+  cursor: pointer
+}
+
+.signup__button:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.signup__button:active {
+  transform: scale(0.95);
+  transition: transform 0.2s ease-in-out;
 }
 
 .signup__terms {
